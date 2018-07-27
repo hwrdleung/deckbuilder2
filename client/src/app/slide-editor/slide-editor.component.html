@@ -1,3 +1,106 @@
-<p>
-  slide-editor works!
-</p>
+<div id="slide-editor-toolbar" class="accent04 flex-row-evenly">
+  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+    <fa name="plus-square" size="3x"></fa>
+    <p>Create a new slide</p>
+  </a>
+
+  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+    <fa name="play" size="3x"></fa>
+    <p>Preview</p>
+  </a>
+
+  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+    <fa name="step-backward" size="3x"></fa>
+    <!-- <p>Previous slide slide</p> -->
+  </a>
+
+  <div>
+    <h1>1/1</h1>
+  </div>
+
+  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+    <fa name="step-forward" size="3x"></fa>
+    <!-- <p>Next slide</p> -->
+  </a>
+
+  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+    <fa name="trash" size="3x"></fa>
+    <p>Delete this slide</p>
+  </a>
+</div>
+
+<div id="slide-editor-container" class="accent04">
+  <div id="slide-render-container" class="flex-col-evenly accent01">
+
+    <div class="slide-render">
+      <!-- Render slide objects here -->
+    </div>
+
+  </div>
+
+  <div id="slide-control-panel" class="accent04">
+    <div id="slide-settings" class="accent02 flex-row-evenly">
+      <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+        <fa name="palette" size="2x"></fa>
+        Set background color</a>
+
+      <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+        <fa name="palette" size="2x"></fa>Set Default background color</a>
+
+      <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+        <fa name="image" size="2x"></fa>Set background image</a>
+    </div>
+
+
+    <div class="slide-control-row flex-row-between">
+      <div class="flex-row-evenly">
+        
+        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+            <h5>ObjectName</h5>
+          <fa name="edit"></fa>
+        </a>
+      </div>
+
+      <div class="flex-row-evenly">
+        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+            <h5>Text substring here...</h5>
+          <fa name="edit"></fa>
+        </a>
+      </div>
+
+      <div class="flex-row-evenly">
+        <h5>X:</h5>
+        <input type="number" value="0">
+        <h5>Y:</h5>
+        <input type="number" value="0">
+
+        <h5>H:</h5>
+        <input type="number" value="0">
+
+        <h5>W:</h5>
+        <input type="number" value="0">
+
+        <h5>R:</h5>
+        <input type="number" value="0">
+      </div>
+
+      <div class="flex-row-evenly">
+        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+          <fa name="arrow-up"></fa>
+        </a>
+        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+          <fa name="arrow-down"></fa>
+        </a>
+        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+            <fa name="eye"></fa>
+          </a>
+      </div>
+
+      <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+        <fa name="trash"></fa>Delete</a>
+    </div>
+
+    
+
+  </div>
+</div>

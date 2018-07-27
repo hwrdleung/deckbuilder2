@@ -1,0 +1,40 @@
+#slide-editor-container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 60% 40%;
+    grid-template-columns: 1fr;
+}
+
+#slide-render-container {
+    height: 100%;
+    width: 100%;
+}
+
+#slide-control-panel {
+    height: 100%;
+    width: 100%;
+}
+
+.slide-render {
+    background: #FFF;
+    width: 768px;
+    height: 432px;
+}
+
+.slide-control-row {
+    width: 100%;
+    height: 30px;
+    border-bottom: 3px rgb(81, 133, 81) solid;
+    
+}
+
+#slide-settings {
+    height: 50px;
+    width: 100%;
+}
+
+input[type="number"]{
+    width: 30px;
+    margin: 0 3px;
+}

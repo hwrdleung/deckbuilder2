@@ -1,0 +1,19 @@
+#text-sandbox {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 100px 1fr;
+}
+
+textarea {
+    height: 100%;
+    width: 100%;
+    resize: none;
+    outline: none;
+    user-select: none;
+}
+
+#text-preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -80,14 +80,22 @@ h1, h2, h3, h4, h5, h6p {
     color: #3A4E48;
 }
 
+.object-icon {
+    padding: 5px;
+    border-radius: 5px;
+    background: none;
+    border: 3px silver dotted
+}
+
 /* Large toolbar buttons */
 
 .lg-btn {
     font-size: 0.7rem;
     text-align: center;
     margin: 0;
-    height: 100%;
-    width: 100px;
+    padding: 0 20px;
+    height: 100px;
+    min-width: 100px;
 }
 
 .lg-btn:hover {
@@ -97,3 +105,44 @@ h1, h2, h3, h4, h5, h6p {
 .lg-btn p {
     margin: 0 10px;
 }
+
+/* Medium toolbar buttons */
+
+.md-btn {
+    font-size: 0.7rem;
+    text-align: center;
+    margin: 0;
+    padding: 0 20px;
+    height: 75px;
+}
+
+.md-btn:hover {
+    background: rgb(82, 82, 82);
+}
+
+.md-btn p {
+    margin: 0 10px;
+    max-width: 75px;
+}
+
+.dotted-border{
+    border: 3px gray dotted
+}
+
+/* Small toolbar buttons */
+.sm-btn {
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 0;
+    padding: 0 5px;
+    height: 30px;
+}
+
+.sm-btn fa {
+    margin: 0 5px;
+}
+
+.sm-btn:hover {
+    background: rgb(82, 82, 82);
+}
+

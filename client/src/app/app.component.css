@@ -25,9 +25,13 @@
     overflow: hidden;
     display: grid;
     grid-template-rows: 75px 1fr;
+    grid-template-columns: 1fr;
 }
 
 #slide-editor {
     grid-area: editor;
     overflow: hidden;
+    display: grid;
+    grid-template-rows: 75px 1fr;
+    grid-template-columns: 1fr;
 }

@@ -1,34 +1,36 @@
 <!-- Sandbox toolbar -->
 <div class="accent03 flex-row-evenly">
-  <a (click)="this.data.test()" class="flex-row-evenly lg-btn">
-    <fa name="vector-square" size="4x"></fa>
-    Create a new text object
+  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+    <fa name="font" size="3x" class="accent03 object-icon"></fa>
+    <p>Create a new text object</p>
   </a>
 
-  <a (click)="this.data.test()" class="flex-row-evenly lg-btn">
-        <fa name="vector-square" size="4x"></fa>
-      Create a new image object
-    </a>
+  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+    <fa name="image" size="3x" class="accent03 object-icon"></fa>
+    <p>Create a new image object</p>
+  </a>
 
-    <a (click)="this.data.test()" class="flex-row-evenly lg-btn">
-        <fa name="vector-square" size="4x"></fa>
-        Create a new shape object
-      </a>
+  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+    <fa name="shapes" size="3x" class="accent03 object-icon"></fa>
+    <p>Create a new shape object</p>
+  </a>
 </div>
 
 <!-- Text sandbox -->
 <div id="text-sandbox">
   <div id="text-preview-container">
-    <p id="text-preview">The quick brown fox jumps over the lazy dog.</p>
+    <div class="dotted-border">
+      <p id="text-preview">The quick brown fox jumps over the lazy dog.</p>
+    </div>
   </div>
 
   <div class="flex-row-evenly">
     <textarea>
       User text input here
     </textarea>
-    <a (click)="this.data.test()" class="lg-btn flex-col-evenly">
-      <fa name="share" size="4x"></fa>
-      Add text object to slide
+    <a (click)="this.data.test()" class="lg-btn flex-col-evenly accent03">
+      <fa name="share" size="3x"></fa>
+      <p>Add text object to slide</p>
     </a>
   </div>
 
