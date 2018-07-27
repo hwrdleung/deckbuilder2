@@ -24,4 +24,24 @@ export class Slide {
         this.slideWidth = 768;
         this.slideObjects = [];
     }
+
+    getSlideProperty(propertyName){
+        return this[propertyName];
+    }
+
+    setSlideProperty(propertyName, propertyValue){
+        this[propertyName] = propertyValue;
+    }
+
+    addSlideObject(slideObject: SlideObject){
+        this.slideObjects.push(slideObject);
+    }
+
+    deleteSlideObjectById(id){
+        for(let i=0; i<this.slideObjects.length; i++){
+            if(this.slideObjects[i].getSlideObjectProperty('id') === id){
+                this.slideObjects.splice(i, 1);
+            }
+        }
+    }
 }

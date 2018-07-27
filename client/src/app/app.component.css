@@ -24,14 +24,14 @@
     grid-area: sandbox;
     overflow: hidden;
     display: grid;
-    grid-template-rows: 75px 1fr;
-    grid-template-columns: 1fr;
+    grid-template-rows: 75px 100%;
+    grid-template-columns: 100%;
 }
 
 #slide-editor {
     grid-area: editor;
     overflow: hidden;
     display: grid;
-    grid-template-rows: 75px 1fr;
-    grid-template-columns: 1fr;
+    grid-template-rows: 75px 100%;
+    grid-template-columns: 100%;
 }

@@ -6,6 +6,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { StylerComponent } from './styler/styler.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
 import { SlideEditorComponent } from './slide-editor/slide-editor.component';
+import { DataService } from './data.service';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
@@ -21,7 +22,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
     BrowserModule,
     AngularFontAwesomeModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

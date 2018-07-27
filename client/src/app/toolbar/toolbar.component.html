@@ -1,23 +1,40 @@
 <div class="flex-row-evenly">
-  <a (click)="this.dataService.test()" class="flex-col-evenly lg-btn">
-    <fa name="image" size="4x"></fa>
-    <p>Create a new image style</p>
-  </a>
 
-  <a (click)="this.dataService.test()" class="flex-col-evenly lg-btn">
+  <a (click)="this.data.createTextStyle(); this.data.setMode('text')" class="flex-col-evenly lg-btn">
     <fa name="font" size="4x"></fa>
     <p>Create a new text style</p>
   </a>
 
-  <a (click)="this.dataService.test()" class="flex-col-evenly lg-btn">
-      <fa name="shapes" size="4x"></fa>
-      <p>Create a new shape style</p>
-    </a>
+  <a (click)="this.data.createImageStyle(); this.data.setMode('image')" class="flex-col-evenly lg-btn">
+    <fa name="image" size="4x"></fa>
+    <p>Create a new image style</p>
+  </a>
+
+  <a (click)="this.data.createShapeStyle(); this.data.setMode('shape')" class="flex-col-evenly lg-btn">
+    <fa name="shapes" size="4x"></fa>
+    <p>Create a new shape style</p>
+  </a>
 </div>
 
-<div id="style-selector" class="orangeAccent02">
-  <a (click)="this.data.test()" class="orangeAccent01 style-btn">Test</a>
+<div id="style-selector" class="greenAccent02">
+
+  <!-- Text styles -->
+  <div *ngIf="this.data.viewTextElements">
+    <a (click)="this.data.test(); this.data.setMode('text')" class="greenAccent01 style-btn">Text Style</a>
+  </div>
+
+  <!-- Image styles -->
+  <div *ngIf="this.data.viewImageElements">
+    <a (click)="this.data.test(); this.data.setMode('image')" class="greenAccent01 style-btn">Image Style</a>
+  </div>
+
+  <!-- Shape styles -->
+  <div *ngIf="this.data.viewShapeElements">
+    <a (click)="this.data.test(); this.data.setMode('shape')" class="greenAccent01 style-btn">Shape Style</a>
+  </div>
 </div>
+
+
 
 <div class="flex-row-evenly">
   <a (click)="this.data.test()" class="flex-col-evenly lg-btn">
@@ -26,8 +43,8 @@
   </a>
 
   <a (click)="this.data.test()" class="flex-col-evenly lg-btn">
-      <fa name="file-pdf" size="4x"></fa>
-      <p>Export to PDF</p>
+    <fa name="file-pdf" size="4x"></fa>
+    <p>Export to PDF</p>
   </a>
 
   <a (click)="this.data.test()" class="flex-col-evenly lg-btn">

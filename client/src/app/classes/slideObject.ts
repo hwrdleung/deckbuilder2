@@ -91,4 +91,12 @@ export class SlideObject{
 
         return css;
     }
+
+    getSlideObjectProperty(propertyName){
+        return this[propertyName];
+    }
+
+    setSlideObjectProperty(propertyName, propertyValue){
+        this[propertyName] = propertyValue;
+    }
 }

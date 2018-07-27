@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
 })
 export class SandboxComponent implements OnInit {
 
-  constructor(data:DataService) { }
+  constructor(private data:DataService) { }
 
   ngOnInit() {
   }

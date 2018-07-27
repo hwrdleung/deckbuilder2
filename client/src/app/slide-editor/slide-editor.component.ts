@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
 })
 export class SlideEditorComponent implements OnInit {
 
-  constructor(data: DataService) { }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
   }

@@ -8,6 +8,12 @@
 .style-card-row {
     width: 85%;
     height: auto;
+    margin: 0 auto;
+}
+
+.style-cards-container {
+    width: 100%;
+    height: 100%;
 }
 
 .style-card-btn {

@@ -1,8 +1,267 @@
-<!-- TEXT STYLE CARD -->
-<div class="style-card orangeAccent01 flex-col-start">
+<!-- SHAPE STYLE CARD -->
+<div class="style-cards-container" *ngIf="this.data.viewShapeElements">
+  <div class="style-card greenAccent01" *ngFor="let shapeStyle of this.data.shapeStyles">
+    <div class="flex-row-between style-card-row">
+      <h3>{{shapeStyle.name}}
+        <fa name="edit"></fa>
+      </h3>
+      <a (click)="this.data.test()">
+        <fa name="trash"></fa>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE STYLE CARD -->
+<div class="style-cards-container" *ngIf="this.data.viewImageElements">
+<div class="style-card greenAccent01" *ngFor="let imageStyle of this.data.imageStyles">
+  <div class="flex-row-between style-card-row">
+    <h3>{{imageStyle.name}}
+      <fa name="edit"></fa>
+    </h3>
+    <a (click)="this.data.test()">
+      <fa name="trash"></fa>
+    </a>
+  </div>
 
   <div class="flex-row-between style-card-row">
-    <h3>StyleName
+    <h5>Opacity: </h5>
+    <input type="number" value="1">
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Grayscale: </h5>
+    <input type="number" value="1">
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Blur: </h5>
+    <input type="number" value="1">
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Brightness: </h5>
+    <input type="number" value="1">
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Contrast: </h5>
+    <input type="number" value="1">
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Invert: </h5>
+    <input type="number" value="1">
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Saturate: </h5>
+    <input type="number" value="1">
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Sepia: </h5>
+    <input type="number" value="1">
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Hue rotate: </h5>
+    <input type="number" value="1">
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_outer</i>
+    </a>
+
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_left</i>
+    </a>
+
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_top</i>
+    </a>
+
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_right</i>
+    </a>
+
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_bottom</i>
+    </a>
+  </div>
+
+  <!-- Full border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Border: </h4>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Top border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Top Border: </h4>
+  </div>
+
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Right border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Right Border: </h4>
+  </div>
+
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Bottom border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Bottom Border: </h4>
+  </div>
+
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Left border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Left Border: </h4>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Full border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Border Radius: </h4>
+  </div>
+
+  <!--Border radius settings -->
+  <div class="flex-row-between style-card-row">
+    <h5>Full border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Top left border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Top right border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Bottom left border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Bottom right border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+</div>
+</div>
+
+<!-- TEXT STYLE CARD -->
+<div class="style-cards-container" *ngIf="this.data.viewTextElements">
+<div class="style-card greenAccent01" *ngFor="let textStyle of this.data.textStyles">
+  <div class="flex-row-between style-card-row">
+    <h3>{{textStyle.name}}
       <fa name="edit"></fa>
     </h3>
     <a (click)="this.data.test()">

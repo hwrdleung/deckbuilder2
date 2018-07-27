@@ -1,23 +1,23 @@
 <!-- Sandbox toolbar -->
 <div class="grayAccent02 flex-row-evenly">
-  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+  <a (click)="this.data.setMode('text')" class="flex-row-evenly md-btn">
     <fa name="font" size="3x" class="accent03 object-icon"></fa>
     <p>Create a new text object</p>
   </a>
 
-  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+  <a (click)="this.data.setMode('image')" class="flex-row-evenly md-btn">
     <fa name="image" size="3x" class="accent03 object-icon"></fa>
     <p>Create a new image object</p>
   </a>
 
-  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+  <a (click)="this.data.setMode('shape')" class="flex-row-evenly md-btn">
     <fa name="shapes" size="3x" class="accent03 object-icon"></fa>
     <p>Create a new shape object</p>
   </a>
 </div>
 
 <!-- Text sandbox -->
-<div id="text-sandbox" class="grayAccent03">
+<div id="text-sandbox" class="grayAccent03" *ngIf="this.data.viewTextElements">
   <div id="text-preview-container">
     <div class="dotted-border">
       <p id="text-preview">The quick brown fox jumps over the lazy dog.</p>
@@ -28,7 +28,7 @@
     <textarea>
       User text input here
     </textarea>
-    <a (click)="this.data.test()" class="lg-btn flex-col-evenly grayAccent02">
+    <a (click)="this.data.addObjectToSlide('text')" class="lg-btn flex-col-evenly grayAccent02">
       <fa name="share" size="3x"></fa>
       <p>Add text object to slide</p>
     </a>
@@ -38,3 +38,17 @@
     Workspace
   </textarea>
 </div>
+
+<!-- Image sandbox -->
+<div id="image-sandbox" class="grayAccent03" *ngIf="this.data.viewImageElements">
+
+  <h1>Image sandbox</h1>
+
+</div>
+
+<!-- Shape sandbox -->
+<div id="shape-sandbox" class="grayAccent03" *ngIf="this.data.viewShapeElements">
+
+    <h1>Shape sandbox</h1>
+  
+  </div>

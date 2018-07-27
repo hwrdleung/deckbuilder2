@@ -2,8 +2,8 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-rows: 60% 40%;
-    grid-template-columns: 1fr;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 100%;
 }
 
 #slide-render-container {
@@ -18,11 +18,11 @@
 
 .slide-render {
     background: #FFF;
+    margin: 0 auto;
 }
 
 .slide-control-row {
     width: 100%;
-    height: 30px;
     border-bottom: 3px rgb(81, 133, 81) solid;
     
 }

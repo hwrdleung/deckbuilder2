@@ -10,6 +10,9 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 /* Alignment Classes */
+.wrap {
+    flex-wrap: wrap;
+}
 
 .flex-row-start {
     display: flex;
@@ -89,12 +92,12 @@ h1, h2, h3, h4, h5, h6, p {
 
 /*-----*/
 
-.orangeAccent01{
+.greenAccent01{
     background: #60695C;
     color: #D6F9DD;
 }
 
-.orangeAccent02{
+.greenAccent02{
     background: rgb(63, 78, 66);
     color: rgb(255, 209, 82)
 }
@@ -172,7 +175,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 /* Small toolbar buttons */
 .sm-btn {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     text-align: center;
     margin: 0;
     padding: 0 5px;
