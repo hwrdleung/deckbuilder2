@@ -10,6 +10,8 @@ textarea {
     resize: none;
     outline: none;
     user-select: none;
+    padding: 0;
+    margin: 0;
 }
 
 #text-preview-container {

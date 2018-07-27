@@ -72,4 +72,13 @@ export class DataService {
     this.format = project.getProjectProperty('format');
   }
 
+  // SANDBOX FUNCTIONS
+
+  // SLIDE-EDITOR FUNCTIONS
+
+
+  // STYLER FUNCTIONS
+
+
+
 }

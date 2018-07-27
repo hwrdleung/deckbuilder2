@@ -1,4 +1,4 @@
-<div id="slide-editor-toolbar" class="accent04 flex-row-evenly">
+<div id="slide-editor-toolbar" class="grayAccent02 flex-row-evenly">
   <a (click)="this.data.test()" class="flex-row-evenly md-btn">
     <fa name="plus-square" size="3x"></fa>
     <p>Create a new slide</p>
@@ -32,20 +32,20 @@
 <div id="slide-editor-container" class="accent04">
   <div id="slide-render-container" class="flex-col-evenly accent01">
 
-    <div class="slide-render">
+    <div class="slide-render" [ngStyle]="this.getSlideRenderCss()">
       <!-- Render slide objects here -->
     </div>
 
   </div>
 
-  <div id="slide-control-panel" class="accent04">
-    <div id="slide-settings" class="accent02 flex-row-evenly">
+  <div id="slide-control-panel" class="grayAccent02">
+    <div id="slide-settings" class="grayAccent02 flex-row-evenly">
       <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
         <fa name="palette" size="2x"></fa>
         Set background color</a>
 
       <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
-        <fa name="palette" size="2x"></fa>Set Default background color</a>
+        <fa name="palette" size="2x"></fa>Set default background color</a>
 
       <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
         <fa name="image" size="2x"></fa>Set background image</a>
