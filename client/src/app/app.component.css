@@ -11,16 +11,23 @@
 
 #toolbar {
     grid-area: toolbar;
+    overflow: hidden;
 }
 
 #styler {
     grid-area: styler;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #sandbox {
     grid-area: sandbox;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 75px 1fr;
 }
 
 #slide-editor {
     grid-area: editor;
+    overflow: hidden;
 }

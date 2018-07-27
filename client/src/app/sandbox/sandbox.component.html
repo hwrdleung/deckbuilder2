@@ -1,3 +1,38 @@
-<p>
-  sandbox works!
-</p>
+<!-- Sandbox toolbar -->
+<div class="accent03 flex-row-evenly">
+  <a (click)="this.data.test()" class="flex-row-evenly lg-btn">
+    <fa name="vector-square" size="4x"></fa>
+    Create a new text object
+  </a>
+
+  <a (click)="this.data.test()" class="flex-row-evenly lg-btn">
+        <fa name="vector-square" size="4x"></fa>
+      Create a new image object
+    </a>
+
+    <a (click)="this.data.test()" class="flex-row-evenly lg-btn">
+        <fa name="vector-square" size="4x"></fa>
+        Create a new shape object
+      </a>
+</div>
+
+<!-- Text sandbox -->
+<div id="text-sandbox">
+  <div id="text-preview-container">
+    <p id="text-preview">The quick brown fox jumps over the lazy dog.</p>
+  </div>
+
+  <div class="flex-row-evenly">
+    <textarea>
+      User text input here
+    </textarea>
+    <a (click)="this.data.test()" class="lg-btn flex-col-evenly">
+      <fa name="share" size="4x"></fa>
+      Add text object to slide
+    </a>
+  </div>
+
+  <textarea>
+    Workspace
+  </textarea>
+</div>

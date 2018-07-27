@@ -1,3 +1,37 @@
-<p>
-  toolbar works!
-</p>
+<div class="flex-row-evenly">
+  <a (click)="this.dataService.test()" class="flex-col-evenly lg-btn">
+    <fa name="image" size="4x"></fa>
+    <p>Create a new image style</p>
+  </a>
+
+  <a (click)="this.dataService.test()" class="flex-col-evenly lg-btn">
+    <fa name="font" size="4x"></fa>
+    <p>Create a new text style</p>
+  </a>
+
+  <a (click)="this.dataService.test()" class="flex-col-evenly lg-btn">
+      <fa name="shapes" size="4x"></fa>
+      <p>Create a new shape style</p>
+    </a>
+</div>
+
+<div id="style-selector" class="accent02">
+  <a (click)="this.data.test()" class="accent04 style-btn">Test</a>
+</div>
+
+<div class="flex-row-evenly">
+  <a (click)="this.data.test()" class="flex-col-evenly lg-btn">
+    <fa name="file-image" size="4x"></fa>
+    <p>Save As PNG</p>
+  </a>
+
+  <a (click)="this.data.test()" class="flex-col-evenly lg-btn">
+      <fa name="file-pdf" size="4x"></fa>
+      <p>Export to PDF</p>
+  </a>
+
+  <a (click)="this.data.test()" class="flex-col-evenly lg-btn">
+    <fa name="save" size="4x"></fa>
+    <p>Save Session</p>
+  </a>
+</div>

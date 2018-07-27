@@ -7,6 +7,8 @@ import { StylerComponent } from './styler/styler.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
 import { SlideEditorComponent } from './slide-editor/slide-editor.component';
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +18,8 @@ import { SlideEditorComponent } from './slide-editor/slide-editor.component';
     SlideEditorComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AngularFontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

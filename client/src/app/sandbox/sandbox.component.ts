@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'sandbox',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SandboxComponent implements OnInit {
 
-  constructor() { }
+  constructor(data:DataService) { }
 
   ngOnInit() {
   }

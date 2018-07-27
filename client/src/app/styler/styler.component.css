@@ -1,0 +1,28 @@
+.style-card {
+    width: 100%;
+    height: auto;
+    padding: 15px 0;
+    border-bottom: 10px solid rgb(117, 156, 122);
+}
+
+.style-card-row {
+    width: 85%;
+    height: auto;
+}
+
+.style-card-btn {
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.style-card-btn:hover {
+    background: rgb(86, 116, 107);
+}
+
+input[type="number"]{
+    width: 30px;
+    margin: 0 3px;
+}

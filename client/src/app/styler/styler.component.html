@@ -1,3 +1,335 @@
-<p>
-  styler works!
-</p>
+<!-- TEXT STYLE CARD -->
+<div class="style-card accent02 flex-col-evenly">
+
+  <div class="flex-row-between style-card-row">
+    <h3>StyleName
+      <fa name="edit"></fa>
+    </h3>
+    <a (click)="this.data.test()">
+      <fa name="trash"></fa>
+    </a>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h4>Font:</h4>
+    <h5>Google font picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h4>Color:</h4>
+    <h5>Color picker</h5>
+  </div>
+
+
+  <div class="flex-row-between style-card-row">
+    <h4>Background:</h4>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <div class="flex-row-evenly">
+      <h5>Margin:</h5>
+      <h5>
+        <input type="number" value="0">px</h5>
+    </div>
+
+    <div class="flex-row-evenly">
+      <h5>Padding:</h5>
+      <h5>
+        <input type="number" value="0">px</h5>
+    </div>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <div class="flex-row-evenly">
+      <h5>Word spacing:</h5>
+      <h5>
+        <input type="number" value="0">
+      </h5>
+    </div>
+
+    <div class="flex-row-evenly">
+      <h5>Line height:</h5>
+      <h5>
+        <input type="number" value="0">
+      </h5>
+    </div>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <div class="flex-row-evenly">
+      <a (click)="this.data.test()" class="style-card-btn">
+        <i class="material-icons">format_align_left</i>
+      </a>
+
+      <a (click)="this.data.test()" class="style-card-btn">
+        <i class="material-icons">format_align_center</i>
+      </a>
+
+      <a (click)="this.data.test()" class="style-card-btn">
+        <i class="material-icons">format_align_right</i>
+      </a>
+    </div>
+
+    <div class="flex-row-evenly">
+      <a (click)="this.data.test()" class="style-card-btn">
+        <i class="material-icons">vertical_align_top</i>
+      </a>
+
+      <a (click)="this.data.test()" class="style-card-btn">
+        <i class="material-icons">vertical_align_center</i>
+      </a>
+
+      <a (click)="this.data.test()" class="style-card-btn">
+        <i class="material-icons">vertical_align_bottom</i>
+      </a>
+    </div>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <div class="flex-row-evenly">
+      <a (click)="this.data.test()" class="style-card-btn">
+        <fa name="underline"></fa>
+      </a>
+
+      <a (click)="this.data.test()" class="style-card-btn">
+        <fa name="strikethrough"></fa>
+      </a>
+
+      <a (click)="this.data.test()" class="style-card-btn">
+        <h3 style="text-decoration:overline">O</h3>
+      </a>
+    </div>
+
+    <div class="flex-row-evenly">
+      <a (click)="this.data.test()" class="style-card-btn">
+        <i class="material-icons">wrap_text</i>
+      </a>
+
+      <a (click)="this.data.test()" class="style-card-btn">
+        <i class="material-icons">format_size</i>
+      </a>
+
+      <a (click)="this.data.test()" class="style-card-btn">
+        <i class="material-icons">text_fields</i>
+      </a>
+    </div>
+  </div>
+
+
+  <div class="flex-row-between style-card-row">
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_outer</i>
+    </a>
+
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_left</i>
+    </a>
+
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_top</i>
+    </a>
+
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_right</i>
+    </a>
+
+    <a (click)="this.data.test()" class="style-card-btn">
+      <i class="material-icons">border_bottom</i>
+    </a>
+  </div>
+
+  <!-- Full border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Border: </h4>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Top border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Top Border: </h4>
+  </div>
+
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Right border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Right Border: </h4>
+  </div>
+
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Bottom border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Bottom Border: </h4>
+  </div>
+
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Left border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Left Border: </h4>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Width: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Style: </h5>
+    <select>
+      <option>Solid</option>
+      <option>Dashed</option>
+      <option>Dotted</option>
+    </select>
+  </div>
+
+  <!-- Full border settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Border Radius: </h4>
+  </div>
+
+  <!--Border radius settings -->
+  <div class="flex-row-between style-card-row">
+    <h5>Full border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Top left border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Top right border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Bottom left border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Bottom right border radius: </h5>
+    <h5>
+      <input type="number" value="1"> px</h5>
+  </div>
+
+  <!-- Text shadow settings -->
+  <div class="flex-row-between style-card-row">
+    <h4>Text shadow: </h4>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Color: </h5>
+    <h5>
+      Color picker</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Horizontal shadow: </h5>
+    <h5>
+      <input type="number" value="0"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Vertical shadow: </h5>
+    <h5>
+      <input type="number" value="0"> px</h5>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h5>Blur: </h5>
+    <h5>
+      <input type="number" value="0"> px</h5>
+  </div>
+
+</div>
