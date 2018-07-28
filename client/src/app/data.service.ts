@@ -48,6 +48,12 @@ export class DataService {
 
   test() {
     console.log("Test");
+    console.log(this.selectedTextStyleId);
+    console.log(this.slides);
+    console.log(this.textStyles);
+    console.log(this.imageStyles);
+    console.log(this.shapeStyles);
+    // console.log(this.getTextStyleById(this.selectedTextStyleId).getCss());
   }
 
   loadProject(project: Project) {
@@ -117,6 +123,39 @@ export class DataService {
   createShapeStyle() {
     let newShapeStyle = new ShapeStyle();
     this.shapeStyles.push(newShapeStyle);
+  }
+
+  selectStyle(type:string, id:number){
+    switch(type){
+      case 'text': this.selectedTextStyleId = id; break;
+      case 'image': this.selectedImageStyleId = id; break;
+      case 'shape': this.selectedShapeStyleId = id; break;
+    }
+  }
+
+  // General functions
+  getTextStyleById(id: number){
+    for(let i=0; i<this.textStyles.length; i++){
+      if(this.textStyles[i].getStyleProperty('id') === id){
+        return this.textStyles[i];
+      }
+    }
+  }
+
+  getImageStyleById(id: number){
+    for(let i=0; i<this.imageStyles.length; i++){
+      if(this.imageStyles[i].getStyleProperty('id') === id){
+        return this.imageStyles[i];
+      }
+    }
+  }
+
+  getShapeStyleById(id: number){
+    for(let i=0; i<this.shapeStyles.length; i++){
+      if(this.shapeStyles[i].getStyleProperty('id') === id){
+        return this.shapeStyles[i];
+      }
+    }
   }
 
   saveAsPNG() {

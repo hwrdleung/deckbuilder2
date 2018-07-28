@@ -8,6 +8,7 @@ export class TextStyle{
     private name: string;
     private id: number;
     private editNameMode: boolean;
+    private showExtraOptions: boolean;
     private fontPickerData: object; // Google font picker defines this format.  It includes family, size, and style
     private color: string;
     private underline: boolean;
@@ -19,6 +20,8 @@ export class TextStyle{
     private lowercase: boolean;
     private lineHeight: number;
     private wordSpacing: any;
+    private opacity: number;
+    private letterSpacing: any;
     private textShadow: ShadowControl;
     private margin: number;
     private padding: number;
@@ -29,16 +32,19 @@ export class TextStyle{
         this.id = TextStyle.textStyleCounter++;
         this.name = 'TextStyle' + TextStyle.textStyleCounter;
         this.editNameMode = false;
-        this.color = '#000';
+        this.showExtraOptions = false;
+        this.color = 'red';
         this.underline = false;
         this.overline = false;
         this.lineThrough = false;
         this.hAlign = 'left';
         this.vAlign = 'top';
+        this.opacity = 1;
         this.uppercase = false;
         this.lowercase = false;
         this.lineHeight = 1;
         this.wordSpacing = 'normal';
+        this.letterSpacing = 'normal';
         this.breakWord = false;
         this.border = new BorderControl();
         this.textShadow = new ShadowControl();
@@ -46,8 +52,8 @@ export class TextStyle{
 
     getCss(){
         let css = {
-            'font-family': this.fontPickerData['family'],
-            'font-style': this.fontPickerData['style'],
+            // 'font-family': this.fontPickerData['family'],
+            // 'font-style': this.fontPickerData['style'],
             'color': this.color,
             'font-size' : this.calculateRenderFontSize(),
             'text-align': this.hAlign,
@@ -56,6 +62,8 @@ export class TextStyle{
             'text-transform' : this.getTextTransform() ? this.getTextTransform : 'none',
             'line-height' : this.lineHeight,
             'word-spacing' : this.wordSpacing,
+            'opacity' : this.opacity,
+            'letter-spacing' : this.letterSpacing,
             'word-wrap' : this.breakWord ? 'break-word' : 'normal',
             'border-top' : this.border.getBorderProperty('showTopBorder') ? this.border.getFullBorderCss() : 'none',
             'border-right' : this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
@@ -120,5 +128,9 @@ export class TextStyle{
 
     toggleEditNameMode(){
         this.editNameMode = !this.editNameMode;
+    }
+
+    toggleExtraOptions(){
+        this.showExtraOptions = !this.showExtraOptions;
     }
 }

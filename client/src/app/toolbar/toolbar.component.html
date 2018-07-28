@@ -20,17 +20,17 @@
 
   <!-- Text styles -->
   <div *ngIf="this.data.viewTextElements">
-    <a (click)="this.data.test(); this.data.setMode('text')" class="greenAccent01 style-btn">Text Style</a>
+    <a *ngFor="let textStyle of this.data.textStyles" (click)="this.data.selectStyle('text', textStyle.id); this.data.setMode('text')" class="greenAccent01 style-btn">{{textStyle.name}}</a>
   </div>
 
   <!-- Image styles -->
   <div *ngIf="this.data.viewImageElements">
-    <a (click)="this.data.test(); this.data.setMode('image')" class="greenAccent01 style-btn">Image Style</a>
+    <a *ngFor="let imageStyle of this.data.imageStyles" (click)="this.data.selectStyle('image', imageStyle.id); this.data.setMode('image')" class="greenAccent01 style-btn">{{imageStyle.name}}</a>
   </div>
 
   <!-- Shape styles -->
   <div *ngIf="this.data.viewShapeElements">
-    <a (click)="this.data.test(); this.data.setMode('shape')" class="greenAccent01 style-btn">Shape Style</a>
+    <a *ngFor="let shapeStyle of this.data.shapeStyles" (click)="this.data.selectStyle('shape', shapeStyle.id); this.data.setMode('shape')" class="greenAccent01 style-btn">{{shapeStyle.name}}</a>
   </div>
 </div>
 

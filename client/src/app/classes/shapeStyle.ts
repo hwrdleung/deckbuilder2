@@ -4,11 +4,13 @@ export class ShapeStyle {
     private name: string;
     private id: number;
     private editNameMode: boolean;
+    private showExtraOptions: boolean;
 
     constructor () {
         this.id = ShapeStyle.shapeStyleCounter++;
         this.name = 'ShapeStyle' + ShapeStyle.shapeStyleCounter;
         this.editNameMode = false;
+        this.showExtraOptions = false;
     }
 
     getStyleProperty(propertyName){
@@ -21,5 +23,9 @@ export class ShapeStyle {
 
     toggleEditNameMode(){
         this.editNameMode = !this.editNameMode;
+    }
+
+    toggleExtraOptions(){
+        this.showExtraOptions = !this.showExtraOptions;
     }
 }

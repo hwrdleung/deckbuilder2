@@ -4,6 +4,7 @@ export class ImageStyle {
     private name: string;
     private id: number;
     private editNameMode: boolean;
+    private showExtraOptions: boolean;
 
     // Borders
     private borderWidth: number;
@@ -27,6 +28,8 @@ export class ImageStyle {
         this.id = ImageStyle.imageStyleCounter++;
         this.name = 'ImageStyle' + ImageStyle.imageStyleCounter;
         this.editNameMode = false;
+        this.showExtraOptions = false;
+
         this.borderWidth = 0;
         this.borderStyle = 'none';
         this.borderColor = 'transparent';
@@ -136,6 +139,10 @@ export class ImageStyle {
 
     toggleEditNameMode(){
         this.editNameMode = !this.editNameMode;
+    }
+
+    toggleExtraOptions(){
+        this.showExtraOptions = !this.showExtraOptions;
     }
 
 

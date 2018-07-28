@@ -20,13 +20,13 @@
 <div id="text-sandbox" class="grayAccent03" *ngIf="this.data.viewTextElements">
   <div id="text-preview-container">
     <div class="dotted-border">
-      <p id="text-preview">The quick brown fox jumps over the lazy dog.</p>
+      <p id="text-preview">{{this.data.sandboxText}}</p>
     </div>
   </div>
 
   <div class="flex-row-evenly">
-    <textarea>
-      User text input here
+    <textarea [(ngModel)]="this.data.sandboxText">
+      
     </textarea>
     <a (click)="this.data.addObjectToSlide('text')" class="lg-btn flex-col-evenly grayAccent02">
       <fa name="share" size="3x"></fa>
