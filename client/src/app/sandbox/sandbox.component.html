@@ -20,7 +20,7 @@
 <div id="text-sandbox" class="grayAccent03" *ngIf="this.data.viewTextElements">
   <div id="text-preview-container">
     <div class="dotted-border">
-      <p id="text-preview">{{this.data.sandboxText}}</p>
+      <p id="text-preview" [ngStyle]="this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()">{{this.data.sandboxText}}</p>
     </div>
   </div>
 

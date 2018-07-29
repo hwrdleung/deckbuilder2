@@ -3,7 +3,7 @@ export class BorderControl {
 
     private showFullBorder: boolean;
     private showTopBorder: boolean;
-    private showRightBrder: boolean;
+    private showRightBorder: boolean;
     private showBottomBorder: boolean;
     private showLeftBorder: boolean;
 
@@ -47,7 +47,7 @@ export class BorderControl {
     constructor() {
         this.showFullBorder = false;
         this.showTopBorder = false;
-        this.showRightBrder = false;
+        this.showRightBorder = false;
         this.showBottomBorder = false;
         this.showLeftBorder = false;
     
@@ -120,5 +120,9 @@ export class BorderControl {
 
     setBorderProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
+    }
+
+    toggleBorderProperty(propertyName:string){
+        this[propertyName] = !this[propertyName];
     }
 }

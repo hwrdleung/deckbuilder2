@@ -53,7 +53,7 @@ export class DataService {
     console.log(this.textStyles);
     console.log(this.imageStyles);
     console.log(this.shapeStyles);
-    // console.log(this.getTextStyleById(this.selectedTextStyleId).getCss());
+    console.log(this.getTextStyleById(this.selectedTextStyleId).getCss());
   }
 
   loadProject(project: Project) {
@@ -123,6 +123,31 @@ export class DataService {
   createShapeStyle() {
     let newShapeStyle = new ShapeStyle();
     this.shapeStyles.push(newShapeStyle);
+  }
+
+  // Delete styles
+  deleteTextStyleById(id:number){
+    for(let i=0; i<this.textStyles.length; i++){
+      if(this.textStyles[i].getStyleProperty('id') === id){
+        this.textStyles.splice(i, 1);
+      }
+    }
+  }
+
+  deleteImageStyleById(id:number){
+    for(let i=0; i<this.imageStyles.length; i++){
+      if(this.imageStyles[i].getStyleProperty('id') === id){
+        this.imageStyles.splice(i, 1);
+      }
+    }
+  }
+
+  deleteShapeStyleById(id:number){
+    for(let i=0; i<this.shapeStyles.length; i++){
+      if(this.shapeStyles[i].getStyleProperty('id') === id){
+        this.shapeStyles.splice(i, 1);
+      }
+    }
   }
 
   selectStyle(type:string, id:number){

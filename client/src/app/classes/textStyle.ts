@@ -11,6 +11,7 @@ export class TextStyle{
     private showExtraOptions: boolean;
     private fontPickerData: object; // Google font picker defines this format.  It includes family, size, and style
     private color: string;
+    private backgroundColor: string;
     private underline: boolean;
     private overline: boolean;
     private lineThrough: boolean;
@@ -19,9 +20,9 @@ export class TextStyle{
     private uppercase: boolean;
     private lowercase: boolean;
     private lineHeight: number;
-    private wordSpacing: any;
+    private wordSpacing: number;
     private opacity: number;
-    private letterSpacing: any;
+    private letterSpacing: number;
     private textShadow: ShadowControl;
     private margin: number;
     private padding: number;
@@ -33,7 +34,8 @@ export class TextStyle{
         this.name = 'TextStyle' + TextStyle.textStyleCounter;
         this.editNameMode = false;
         this.showExtraOptions = false;
-        this.color = 'red';
+        this.color = '#000';
+        this.backgroundColor = 'none';
         this.underline = false;
         this.overline = false;
         this.lineThrough = false;
@@ -43,34 +45,44 @@ export class TextStyle{
         this.uppercase = false;
         this.lowercase = false;
         this.lineHeight = 1;
-        this.wordSpacing = 'normal';
-        this.letterSpacing = 'normal';
+        this.margin = 0;
+        this.padding = 0;
+        this.wordSpacing = 0;
+        this.letterSpacing = 0;
         this.breakWord = false;
         this.border = new BorderControl();
         this.textShadow = new ShadowControl();
+        this.fontPickerData = {
+            family: 'Helvetica',
+            style: 'regular',
+            size: '25'
+        }
     }
 
     getCss(){
         let css = {
-            // 'font-family': this.fontPickerData['family'],
-            // 'font-style': this.fontPickerData['style'],
+            'font-family': this.fontPickerData['family'],
+            'font-style': this.fontPickerData['style'],
             'color': this.color,
-            'font-size' : this.calculateRenderFontSize(),
+            'background-color' : this.backgroundColor,
+            'font-size' : this.fontPickerData['size'],
             'text-align': this.hAlign,
             'vertical-align' : this.vAlign,
-            'text-decoration' : this.getTextDecoration() ? this.getTextDecoration : 'none',
-            'text-transform' : this.getTextTransform() ? this.getTextTransform : 'none',
+            'text-decoration' : this.getTextDecoration(),
+            'text-transform' : this.getTextTransform(),
             'line-height' : this.lineHeight,
-            'word-spacing' : this.wordSpacing,
+            'word-spacing' : this.wordSpacing + 'px',
             'opacity' : this.opacity,
-            'letter-spacing' : this.letterSpacing,
+            'letter-spacing' : this.letterSpacing + 'px',
             'word-wrap' : this.breakWord ? 'break-word' : 'normal',
-            'border-top' : this.border.getBorderProperty('showTopBorder') ? this.border.getFullBorderCss() : 'none',
+            'border-top' : this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',
             'border-right' : this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
             'border-bottom' : this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none',
             'border-left' : this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none',
             'border' : this.border.getBorderProperty('showFullBorder') ? this.border.getFullBorderCss() : 'none',
-            'text-shadow' : this.textShadow.getShadowProperty('showShadow') ? this.textShadow.getShadowCss() : 'none'
+            'text-shadow' : this.textShadow.getShadowProperty('showShadow') ? this.textShadow.getShadowCss() : 'none',
+            'margin' : this.margin + 'px',
+            'padding' : this.padding + 'px'
         }
         return css;
     }
@@ -78,18 +90,25 @@ export class TextStyle{
     getTextTransform(){
         let textTransform = "";
 
+        if(!this.uppercase && !this.lowercase){
+            return 'none';
+        }
+
         if(this.uppercase){
-            textTransform += 'uppercase';
+            return 'uppercase';
         }
 
         if(this.lowercase){
-            textTransform += 'lowercase';
+            return 'lowercase';
         }
-        return textTransform;
     }
     
     getTextDecoration(){
         let textDecoration = "";
+
+        if(!this.underline && !this.overline && !this.lineThrough){
+            return 'none';
+        }
 
         if(this.underline){
             textDecoration += "underline";
@@ -124,6 +143,10 @@ export class TextStyle{
 
     setStyleProperty(propertyName:string, propertyValue:any){
         this[propertyName] = propertyValue;
+    }
+
+    toggleStyleProperty(propertyName:string){
+        this[propertyName] = !this[propertyName];
     }
 
     toggleEditNameMode(){

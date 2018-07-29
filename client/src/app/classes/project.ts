@@ -39,9 +39,9 @@ export class Project {
         this.imageStyles = [new ImageStyle()];
         this.shapeStyles = [new ShapeStyle()];
 
-        this.selectedTextStyleId = 1;
-        this.selectedImageStyleId = 1;
-        this.selectedShapeStyleId = 1;
+        this.selectedTextStyleId = 0;
+        this.selectedImageStyleId = 0;
+        this.selectedShapeStyleId = 0;
 
         this.currentSlideIndex = 0;
         this.selectedSlideObjectId = 1;
