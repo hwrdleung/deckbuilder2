@@ -16,6 +16,7 @@ import { SlideEditorComponent } from './slide-editor/slide-editor.component';
 import { DataService } from './data.service';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { AngularDraggableModule } from 'angular2-draggable';
 
 const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
   // Change this to your Google API key
@@ -35,7 +36,8 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     AngularFontAwesomeModule,
     FormsModule,
     FontPickerModule,
-    ColorPickerModule
+    ColorPickerModule,
+    AngularDraggableModule
   ],
   providers: [DataService, {
     provide: FONT_PICKER_CONFIG,

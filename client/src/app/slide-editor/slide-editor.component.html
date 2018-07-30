@@ -1,106 +1,154 @@
 <div id="slide-editor-toolbar" class="grayAccent02 flex-row-evenly">
-  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+  <a (click)="this.createNewSlide()" class="flex-row-evenly md-btn">
     <fa name="plus-square" size="3x"></fa>
     <p>Create a new slide</p>
   </a>
 
-  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+  <a (click)="this.preview()" class="flex-row-evenly md-btn">
     <fa name="play" size="3x"></fa>
     <p>Preview</p>
   </a>
 
-  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+  <a (click)="this.previousSlide()" class="flex-row-evenly md-btn">
     <fa name="step-backward" size="3x"></fa>
-    <!-- <p>Previous slide slide</p> -->
   </a>
 
   <div>
-    <h1>1/1</h1>
+    <h1>{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>
   </div>
 
-  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+  <a (click)="this.nextSlide()" class="flex-row-evenly md-btn">
     <fa name="step-forward" size="3x"></fa>
-    <!-- <p>Next slide</p> -->
   </a>
 
-  <a (click)="this.data.test()" class="flex-row-evenly md-btn">
+  <a (click)="this.deleteCurrentSlide()" class="flex-row-evenly md-btn">
     <fa name="trash" size="3x"></fa>
     <p>Delete this slide</p>
   </a>
 </div>
 
 <div id="slide-editor-container" class="accent04">
-  <div id="slide-render-container" class="flex-col-evenly accent01">
+  <div *ngIf="this.data.slides.length > 0" id="slide-render-container" class="flex-col-evenly accent01">
 
     <div class="slide-render" [ngStyle]="this.getSlideRenderCss()">
       <!-- Render slide objects here -->
+      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" class="slide-object" [ngStyle]="slideObject.getCss()"
+        
+      (mousedown)="this.selectObject(slideObject.id)"
+      
+      ngResizable
+        [rzHandles]="'n,e,s,w,se,sw,ne,nw'"
+        (rzStop)="slideObject.setSize($event)"
+        
+        ngDraggable
+        (endOffset)="slideObject.setTranslation($event)"
+        [position]="slideObject.getTranslation()">
+        <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="this.data.getTextStyleById(slideObject.styleId).getCss()">{{slideObject.textValue}}</p>
+      </div>
+
     </div>
+
 
   </div>
 
   <div id="slide-control-panel" class="grayAccent02">
+
+
     <div id="slide-settings" class="grayAccent02 flex-row-evenly">
+      <!-- <fa name="palette" size="2x"></fa> -->
+      <div class="flex-col-evenly sm-btn">
+        <p>Set background color</p>
+        <input class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor" [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor"
+        />
+      </div>
+      <!-- 
       <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
-        <fa name="palette" size="2x"></fa><p>
-        Set background color</p></a>
+        <fa name="palette" size="2x"></fa>
+        <p>Set default background color</p>
+      </a> -->
 
       <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
-        <fa name="palette" size="2x"></fa><p>Set default background color</p></a>
+        <fa name="image" size="2x"></fa>
+        <p>Set background image</p>
+      </a>
 
-      <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
-        <fa name="image" size="2x"></fa><p>Set background image</p></a>
+      <div class="flex-row-evenly">
+        <a (click)="this.data.test()">
+          <fa name="search-minus" size="1x"></fa>
+        </a>
+
+        <input type='range' [(ngModel)]="this.slideRenderMagnification" min="0" max="100">
+
+        <a (click)="this.test()">
+          <fa name="search-plus" size="1x"></fa>
+        </a>
+        <p>{{this.slideRenderMagnification + '%'}}</p>
+      </div>
     </div>
 
 
-    <div class="slide-control-row flex-row-between wrap">
+    <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()" 
+    class="slide-control-row flex-row-between wrap"
+    [style.background]="this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null">
       <div class="flex-row-evenly">
-        
-        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
-            <h5>ObjectName</h5>
-          <fa name="edit"></fa>
-        </a>
+
+        <div *ngIf="!slideObject.editNameMode" class="sm-btn flex-row-evenly">
+          <h5>{{slideObject.name}}</h5>
+          <fa name="edit" (click)="slideObject.toggleEditNameMode()"></fa>
+        </div>
+
+        <div *ngIf="slideObject.editNameMode" class="sm-btn flex-row-evenly">
+          <input type="text" [(ngModel)]="slideObject.name" (placeholder)="slideObject.name">
+          <fa name="save" (click)="slideObject.toggleEditNameMode()"></fa>
+        </div>
+
       </div>
 
       <div class="flex-row-evenly">
-        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
-            <h5>Text substring here...</h5>
-          <fa name="edit"></fa>
-        </a>
+        <div *ngIf="!slideObject.editTextMode" class="sm-btn flex-row-evenly">
+          <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>
+          <fa name="edit" (click)="slideObject.toggleEditTextMode()"></fa>
+        </div>
+
+        <div *ngIf="slideObject.editTextMode" class="sm-btn flex-row-evenly">
+          <input type="text" [(ngModel)]="slideObject.textValue" (placeholder)="slideObject.textValue">
+          <fa name="save" (click)="slideObject.toggleEditTextMode()"></fa>
+        </div>
       </div>
 
       <div class="flex-row-evenly">
         <h5>X:</h5>
-        <input type="number" value="0">
+        <input type="number" [(ngModel)]="slideObject.xTranslation">
         <h5>Y:</h5>
-        <input type="number" value="0">
+        <input type="number" [(ngModel)]="slideObject.yTranslation">
 
         <h5>H:</h5>
-        <input type="number" value="0">
+        <input type="number" [(ngModel)]="slideObject.height">
 
         <h5>W:</h5>
-        <input type="number" value="0">
+        <input type="number"[(ngModel)]="slideObject.width">
 
-        <h5>R:</h5>
-        <input type="number" value="0">
+        <!-- <h5>R:</h5>
+        <input type="number" [(ngModel)]="slideObject.rotation"> -->
       </div>
 
       <div class="flex-row-evenly">
-        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+        <a (click)="this.data.increaseOneLayer(slideObject.id)" class="sm-btn flex-row-evenly">
           <fa name="arrow-up"></fa>
         </a>
-        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+        <a (click)="this.data.decreaseOneLayer(slideObject.id)" class="sm-btn flex-row-evenly">
           <fa name="arrow-down"></fa>
         </a>
-        <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
-            <fa name="eye"></fa>
-          </a>
+        <a (click)="slideObject.toggleSlideObjectProperty('display')" class="sm-btn flex-row-evenly">
+          <fa name="eye"></fa>
+        </a>
       </div>
 
-      <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+      <a (click)="this.deleteSlideObjectById(slideObject.id)" class="sm-btn flex-row-evenly">
         <fa name="trash"></fa>Delete</a>
     </div>
 
-    
+
 
   </div>
 </div>

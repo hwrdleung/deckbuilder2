@@ -5,7 +5,7 @@ import { ShapeStyle } from './shapeStyle';
 
 export class Project {
 
-    private name: string;
+    private title: string;
     private slideObjectIdCounter: number;
     private styleIdCounter: number;
     private slideIdCounter: number;
@@ -26,10 +26,10 @@ export class Project {
     private sandboxImage: string;
     private sandboxShape: Object;
 
-    private format: string;
+    private documentSize: object;
 
     constructor () {
-        this.name = 'New Project';
+        this.title = 'New Project';
         this.slideObjectIdCounter = 0;
         this.styleIdCounter = 0;
         this.slideIdCounter = 0;
@@ -47,7 +47,13 @@ export class Project {
         this.selectedSlideObjectId = 1;
 
         this.sandboxText = "Lorem ipsum";
+
+        this.documentSize = {
+            height: 432,
+            width: 768
+        }
     }
+
 
     getProjectProperty(propertyName){
         return this[propertyName];
@@ -58,7 +64,7 @@ export class Project {
     }
 
     save(project:Project){
-        this.name = project.name;
+        this.title = project.title;
         this.slideObjectIdCounter = project.slideObjectIdCounter;
         this.styleIdCounter = project.styleIdCounter;
         this.slideIdCounter = project.slideIdCounter;

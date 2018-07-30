@@ -3,10 +3,16 @@ import { SlideObject } from "./slideObject";
 export class TextObject extends SlideObject {
 
     private textValue: string;
+    private editTextMode: boolean;
     private styleId: number;
 
     constructor () {
         super();
+        this.editTextMode = false;
+    }
+
+    toggleEditTextMode(){
+        this.editTextMode = !this.editTextMode;
     }
 
     setTextvalue(textValue:string){

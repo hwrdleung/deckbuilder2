@@ -90,6 +90,10 @@ h1, h2, h3, h4, h5, h6, p {
     border: 3px silver dotted
 }
 
+a:hover {
+    cursor: pointer;
+}
+
 /*-----*/
 
 .greenAccent01{
@@ -170,7 +174,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .dotted-border{
-    border: 3px gray dotted
+    border: 1px silver dashed
 }
 
 /* Small toolbar buttons */

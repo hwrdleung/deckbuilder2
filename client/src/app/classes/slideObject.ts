@@ -4,23 +4,34 @@ export class SlideObject{
 
     private static slideObjectCounter:number = 0;
     private id: number;
+    private name: string;
+    private editNameMode: boolean;
     private top: number; // Save as percentage
     private left: number; // Save as percentage
     private xTranslation: number; // Save as percentage
     private yTranslation: number; // Save as percentage
+    private rotation: number;
     private height: number; // Save as percentage
     private width: number; // Save as percentage
+    private display: boolean;
     private zIndex: number;
 
     constructor () {
         this.id = SlideObject.slideObjectCounter++;
+        this.name = 'SlideObject' + this.id;
         this.top = 0;
         this.left = 0;
         this.xTranslation = 0;
         this.yTranslation = 0;
-        this.height = 0.1;
-        this.width = 0.2;
+        this.rotation = 0;
+        this.height = 75;
+        this.width = 200;
+        this.display = true;
         this.zIndex = 100;
+    }
+
+    toggleEditNameMode(){
+        this.editNameMode = !this.editNameMode;
     }
 
     setZIndex(zIndex){
@@ -35,44 +46,25 @@ export class SlideObject{
         let newTopPixels = event.position.top;
         let newLeftPixels = event.position.left;
 
-        let slideRenderHeight = document.querySelector('.slide-render').clientHeight;
-        let slideRenderWidth = document.querySelector('.slide-render').clientWidth;
-
-        // Convert to percentages and save
-        this.height = newHeightPixels/slideRenderHeight;
-        this.width = newWidthPixels/slideRenderWidth;
-        this.top = newTopPixels/slideRenderHeight;
-        this.left = newLeftPixels/slideRenderWidth;
+        // // Convert to percentages and save
+        this.height = newHeightPixels;
+        this.width = newWidthPixels;
+        this.top = newTopPixels;
+        this.left = newLeftPixels;
     }
 
 
-    // This is used with ngDraggable.  It emits an event onMoveEnd
+    // This is formatted to be used with ngDraggable.
     setTranslation(event){
-        // How much it moved in raw pixels
-        let xTranslationPixels = event.x; 
-        let yTranslationPixels = event.y;
-        let slideRenderHeight = document.querySelector('.slide-render').clientHeight;
-        let slideRenderWidth = document.querySelector('.slide-render').clientWidth;
-
-        // Convert to percentages and save
-        this.xTranslation = xTranslationPixels/slideRenderWidth;
-        this.yTranslation = yTranslationPixels/slideRenderHeight;
+        this.xTranslation = event.x;
+        this.yTranslation = event.y;
     }
 
     getTranslation(){
-        // Return translation in pixels according to current slide render size
-        let slideRenderHeight = document.querySelector('.slide-render').clientHeight;
-        let slideRenderWidth = document.querySelector('.slide-render').clientWidth; 
-
-        // Convert percentages to pixels
-        let xPixels = this.xTranslation * slideRenderWidth;
-        let yPixels = this.yTranslation * slideRenderHeight;
-
         let translation = {
-            x : xPixels,
-            y: yPixels
+            x: this.xTranslation,
+            y: this.yTranslation
         }
-
         return translation;
     }
 
@@ -81,15 +73,20 @@ export class SlideObject{
         let slideRenderWidth = document.querySelector('.slide-render').clientWidth; 
 
         let css = {
-            'height' : this.height * slideRenderHeight,
-            'width' : this.width * slideRenderWidth,
-            'top' : this.top * slideRenderHeight,
-            'left' : this.left * slideRenderWidth,
+            'height' : this.height + 'px',
+            'width' : this.width + 'px',
+            'top' : this.top + 'px',
+            'left' : this.left + 'px',
             'z-index' : this.zIndex,
+            'display' : this.display ? 'block' : 'none',
+            'transform' : 'rotate(' + this.rotation + 'deg)',
             'position' : 'absolute'
         }
-
         return css;
+    }
+
+    toggleSlideObjectProperty(propertyName:string){
+        this[propertyName] = !this[propertyName];
     }
 
     getSlideObjectProperty(propertyName){

@@ -19,6 +19,7 @@
 .slide-render {
     background: #FFF;
     margin: 0 auto;
+    position: relative;
 }
 
 .slide-control-row {
@@ -36,3 +37,25 @@ input[type="number"]{
     width: 30px;
     margin: 0 3px;
 }
+
+.slide-object {
+    box-sizing: border-box;
+    overflow: hidden;
+    user-select: none;
+}
+
+.slide-object p {
+    box-sizing: border-box;
+}
+
+.slide-object:hover{
+    cursor: move;
+    border: 1px silver dashed;
+    box-sizing: border-box;
+
+}
+
+.slide-control-row input[type="number"]{
+    width: 40px;
+}
+

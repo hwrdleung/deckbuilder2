@@ -1,5 +1,10 @@
+import { Project } from "./project";
 
-export class BorderControl {
+export class BorderControl{
+
+    private borderStyles: Array<string> = [
+        'solid', 'dashed', 'dotted', 'double'
+    ];
 
     private showFullBorder: boolean;
     private showTopBorder: boolean;
@@ -11,21 +16,16 @@ export class BorderControl {
     private fullBorderWidth: number;
     private fullBorderColor: string;
     private fullBorderStyle: string;
-    private fullBorderRadius: number;
 
     // Top border settings
     private topBorderWidth: number;
     private topBorderColor: string;
     private topBorderStyle: string;
-    private topBorderRadiusLeft: number;
-    private topBorderRadiusRight: number;
 
     // Bottom border settings
     private bottomBorderWidth: number;
     private bottomBorderColor: string;
     private bottomBorderStyle: string;
-    private bottomBorderRadiusLeft: number;
-    private bottomBorderRadiusRight: number;
 
     // Right border settings
     private rightBorderWidth: number;
@@ -38,7 +38,6 @@ export class BorderControl {
     private leftBorderStyle: string;
 
     // Radius settings
-    private radius: number;
     private topLeftRadius: number;
     private topRightRadius: number;
     private bottomLeftRadius: number;
@@ -55,21 +54,16 @@ export class BorderControl {
         this.fullBorderWidth = 1;
         this.fullBorderColor = '#000';
         this.fullBorderStyle = 'solid';
-        this.fullBorderRadius = 0;
     
         // Top border settings
         this.topBorderWidth = 1;
         this.topBorderColor = '#000';
         this.topBorderStyle = 'solid';
-        this.topBorderRadiusLeft = 0;
-        this.topBorderRadiusRight = 0;
     
         // Bottom border settings
         this.bottomBorderWidth = 1;
         this.bottomBorderColor = '#000';
         this.bottomBorderStyle = 'solid';
-        this.bottomBorderRadiusLeft = 0;
-        this.bottomBorderRadiusRight = 0;
     
         // Right border settings
         this.rightBorderWidth = 1;
@@ -82,7 +76,6 @@ export class BorderControl {
         this.leftBorderStyle = 'solid';
 
         // Radius settings
-        this.radius = 0;
         this.topLeftRadius = 0;
         this.topRightRadius = 0;
         this.bottomLeftRadius = 0;
@@ -90,28 +83,39 @@ export class BorderControl {
     }
 
     getFullBorderCss(){
-        let cssProperty = this.fullBorderWidth + ' ' + this.fullBorderColor + ' ' + this.fullBorderStyle;
+        let cssProperty = this.fullBorderWidth + 'px ' + this.fullBorderColor + ' ' + this.fullBorderStyle;
         return cssProperty;
     }
 
     getTopBorderCss(){
-        let cssProperty = this.topBorderWidth + ' ' + this.topBorderColor + ' ' + this.topBorderStyle;
+        let cssProperty = this.topBorderWidth + 'px ' + this.topBorderColor + ' ' + this.topBorderStyle;
         return cssProperty;
     }
 
     getRightBorderCss(){
-        let cssProperty = this.rightBorderWidth + ' ' + this.rightBorderColor + ' ' + this.rightBorderStyle;
+        let cssProperty = this.rightBorderWidth + 'px ' + this.rightBorderColor + ' ' + this.rightBorderStyle;
         return cssProperty;
     }
 
     getBottomBorderCss(){
-        let cssProperty = this.bottomBorderWidth + ' ' + this.bottomBorderColor + ' ' + this.bottomBorderStyle;
+        let cssProperty = this.bottomBorderWidth + 'px ' + this.bottomBorderColor + ' ' + this.bottomBorderStyle;
         return cssProperty;
     }
 
     getLeftBorderCss(){
-        let cssProperty = this.leftBorderWidth + ' ' + this.leftBorderColor + ' ' + this.leftBorderStyle;
+        let cssProperty = this.leftBorderWidth + 'px ' + this.leftBorderColor + ' ' + this.leftBorderStyle;
         return cssProperty;
+    }
+
+    getBorderRadiusCss(){
+        let borderRadiusCss = '';
+
+        borderRadiusCss += this.topLeftRadius + 'pt ';
+        borderRadiusCss += this.topRightRadius + 'pt ';
+        borderRadiusCss += this.bottomRightRadius + 'pt ';
+        borderRadiusCss += this.bottomLeftRadius + 'pt';
+
+        return borderRadiusCss;
     }
 
     getBorderProperty(propertyName) {
