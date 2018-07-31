@@ -303,13 +303,13 @@
 
     <div class="flex-row-between style-card-row">
       <h4>Font color:</h4>
-      <input class="md-color-selector" [(colorPicker)]="textStyle.color" [style.background]="textStyle.color" />
+      <input class="md-color-selector" [(colorPicker)]="textStyle.color" [style.background]="textStyle.color" cpOutputFormat="rgba" cpAlphaChannel="enabled" [cpPosition]="getCpPosition()"/>
     </div>
 
 
     <div class="flex-row-between style-card-row">
       <h4>Background color:</h4>
-      <input class="md-color-selector" [(colorPicker)]="textStyle.backgroundColor" [style.background]="textStyle.backgroundColor"
+      <input class="md-color-selector" [(colorPicker)]="textStyle.backgroundColor" [style.background]="textStyle.backgroundColor" cpOutputFormat="rgba" cpAlphaChannel="enabled" [cpPosition]="getCpPosition()"
       />
     </div>
 
@@ -423,15 +423,8 @@
         </h5>
       </div>
 
-      <div class="flex-row-between style-card-row">
-        <h5>Opacity:</h5>
-        <h5>
-          <input type="number" [(ngModel)]="textStyle.opacity">
-        </h5>
-      </div>
-
       <!-- Text shadow settings -->
-      <div class="flex-row-between style-card-row">
+      <!-- <div class="flex-row-between style-card-row">
         <h4>Text shadow: </h4>
       </div>
 
@@ -457,7 +450,7 @@
         <h5>Blur: </h5>
         <h5>
           <input type="number" value="0"> px</h5>
-      </div>
+      </div> -->
 
       <!-- BORDER OPTIONS -->
 
@@ -505,7 +498,7 @@
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.fullBorderColor" [style.background]="textStyle.border.fullBorderColor"
+          <input class="md-color-selector" [(colorPicker)]="textStyle.border.fullBorderColor" [style.background]="textStyle.border.fullBorderColor" cpOutputFormat="rgba" cpAlphaChannel="enabled" [cpPosition]="getCpPosition()"
           />
         </div>
 
@@ -561,7 +554,7 @@
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.topBorderColor" [style.background]="textStyle.border.topBorderColor"
+          <input class="md-color-selector" [(colorPicker)]="textStyle.border.topBorderColor" [style.background]="textStyle.border.topBorderColor" cpOutputFormat="rgba" cpAlphaChannel="enabled" [cpPosition]="getCpPosition()"
           />
 
         </div>
@@ -587,7 +580,7 @@
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.rightBorderColor" [style.background]="textStyle.border.rightBorderColor"
+          <input class="md-color-selector" [(colorPicker)]="textStyle.border.rightBorderColor" [style.background]="textStyle.border.rightBorderColor" cpOutputFormat="rgba" cpAlphaChannel="enabled" [cpPosition]="getCpPosition()"
           />
         </div>
 
@@ -614,7 +607,7 @@
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.bottomBorderColor" [style.background]="textStyle.border.bottomBorderColor"
+          <input class="md-color-selector" [(colorPicker)]="textStyle.border.bottomBorderColor" [style.background]="textStyle.border.bottomBorderColor" cpOutputFormat="rgba" cpAlphaChannel="enabled" [cpPosition]="getCpPosition()"
           />
         </div>
 
@@ -640,7 +633,7 @@
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.leftBorderColor" [style.background]="textStyle.border.leftBorderColor"
+          <input class="md-color-selector" [(colorPicker)]="textStyle.border.leftBorderColor" [style.background]="textStyle.border.leftBorderColor" cpOutputFormat="rgba" cpAlphaChannel="enabled" [cpPosition]="getCpPosition()"
           />
         </div>
 

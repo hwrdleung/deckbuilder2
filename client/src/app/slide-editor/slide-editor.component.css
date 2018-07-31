@@ -9,11 +9,15 @@
 #slide-render-container {
     height: 100%;
     width: 100%;
+    overflow: scroll;
 }
+
+
 
 #slide-control-panel {
     height: 100%;
     width: 100%;
+    overflow: auto;
 }
 
 .slide-render {

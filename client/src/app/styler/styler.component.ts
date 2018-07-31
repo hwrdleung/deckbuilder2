@@ -13,4 +13,9 @@ export class StylerComponent implements OnInit {
   ngOnInit() {
   }
 
+  getCpPosition(){
+    // 
+    return "top";
+  }
+
 }

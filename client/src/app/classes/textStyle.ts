@@ -19,7 +19,6 @@ export class TextStyle {
     private lowercase: boolean;
     private lineHeight: number;
     private wordSpacing: number;
-    private opacity: number;
     private letterSpacing: number;
     private margin: number;
     private padding: number;
@@ -38,7 +37,6 @@ export class TextStyle {
         this.lineThrough = false;
         this.hAlign = 'left';
         this.vAlign = 'top';
-        this.opacity = 1;
         this.uppercase = false;
         this.lowercase = false;
         this.lineHeight = 1;
@@ -68,9 +66,8 @@ export class TextStyle {
             'text-transform': this.getTextTransform(),
             'line-height': this.lineHeight,
             'word-spacing': this.wordSpacing + 'pt',
-            'opacity': this.opacity,
             'letter-spacing': this.letterSpacing + 'pt',
-            'word-wrap': this.breakWord ? 'break-word' : 'normal',
+            'word-break': this.breakWord ? 'break-all' : 'normal',
             'border-top': this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',
             'border-right': this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
             'border-bottom': this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none',

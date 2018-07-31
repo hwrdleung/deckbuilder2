@@ -44,6 +44,8 @@ export class DataService {
   sandboxShape: Object;
 
   documentSize: object;
+  slideRenderMagnification: number = 75;
+
 
   constructor() {
     // Set default values
@@ -133,7 +135,7 @@ export class DataService {
   // Delete styles
   deleteTextStyleById(id: number) {
     for (let i = 0; i < this.textStyles.length; i++) {
-      if (this.textStyles[i].getStyleProperty('id') === id) {
+      if (this.textStyles[i].getStyleProperty('id') === id && this.textStyles.length > 1) {
         this.textStyles.splice(i, 1);
       }
     }
@@ -141,7 +143,7 @@ export class DataService {
 
   deleteImageStyleById(id: number) {
     for (let i = 0; i < this.imageStyles.length; i++) {
-      if (this.imageStyles[i].getStyleProperty('id') === id) {
+      if (this.imageStyles[i].getStyleProperty('id') === id && this.imageStyles.length > 1) {
         this.imageStyles.splice(i, 1);
       }
     }
@@ -149,7 +151,7 @@ export class DataService {
 
   deleteShapeStyleById(id: number) {
     for (let i = 0; i < this.shapeStyles.length; i++) {
-      if (this.shapeStyles[i].getStyleProperty('id') === id) {
+      if (this.shapeStyles[i].getStyleProperty('id') === id && this.shapeStyles.length > 1) {
         this.shapeStyles.splice(i, 1);
       }
     }
@@ -203,28 +205,36 @@ export class DataService {
     });
   }
 
+
   exportAsPDF() {
-    let doc = new jsPDF({
-      orientation: "landscape",
-      unit: "in",
-      format: [16, 9]
-    });
+  
+    this.slideRenderMagnification = 100;
 
-    let width = doc.internal.pageSize.width;
-    let height = doc.internal.pageSize.height;
+    setTimeout(function(){
+      let doc = new jsPDF({
+        orientation: "landscape",
+        unit: "in",
+        format: [16, 9]
+      });
+  
+      let width = doc.internal.pageSize.width;
+      let height = doc.internal.pageSize.height;
+  
+      // To make the img output size match the pdf size, make sure that:
+      // canvas output size * scale factor === pdf document size converted to px
+  
+      html2canvas(document.querySelector(".slide-render"), {
+        height: 432,
+        width: 768,
+        scale: 2
+      }).then(canvas => {
+        let imgData = canvas.toDataURL("image/png");
+        doc.addImage(imgData, "PNG", 0, 0, width, height);
+        doc.save("a4.pdf");
+      });
+    }, 3000);
 
-    // To make the img output size match the pdf size, make sure that:
-    // canvas output size * scale factor === pdf document size converted to px
-
-    html2canvas(document.querySelector(".slide-render"), {
-      height: 432,
-      width: 768,
-      scale: 2
-    }).then(canvas => {
-      let imgData = canvas.toDataURL("image/png");
-      doc.addImage(imgData, "PNG", 0, 0, width, height);
-      doc.save("a4.pdf");
-    });
+   
   }
 
   saveSession() {

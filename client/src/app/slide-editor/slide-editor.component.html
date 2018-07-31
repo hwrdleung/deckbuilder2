@@ -40,7 +40,7 @@
         [rzHandles]="'n,e,s,w,se,sw,ne,nw'"
         (rzStop)="slideObject.setSize($event)"
         
-        ngDraggable
+        ngDraggable 
         (endOffset)="slideObject.setTranslation($event)"
         [position]="slideObject.getTranslation()">
         <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="this.data.getTextStyleById(slideObject.styleId).getCss()">{{slideObject.textValue}}</p>
@@ -77,12 +77,12 @@
           <fa name="search-minus" size="1x"></fa>
         </a>
 
-        <input type='range' [(ngModel)]="this.slideRenderMagnification" min="0" max="100">
+        <input type='range' [(ngModel)]="this.data.slideRenderMagnification" min="0" max="100">
 
         <a (click)="this.test()">
           <fa name="search-plus" size="1x"></fa>
         </a>
-        <p>{{this.slideRenderMagnification + '%'}}</p>
+        <p>{{this.data.slideRenderMagnification + '%'}}</p>
       </div>
     </div>
 

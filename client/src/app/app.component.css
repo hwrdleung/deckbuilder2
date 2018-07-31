@@ -4,9 +4,11 @@
     display: grid;
     grid-template-rows: 100px 1fr;
     grid-template-columns: 300px 1fr 1fr;
+    overflow: hidden;
     grid-template-areas:
         "toolbar toolbar toolbar"
         "styler sandbox editor"
+
 }
 
 #toolbar {

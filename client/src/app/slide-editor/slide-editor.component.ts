@@ -9,7 +9,6 @@ import { Slide } from '../classes/slide';
 })
 export class SlideEditorComponent implements OnInit {
 
-  slideRenderMagnification: number = 75;
   indexOfSelectedSlideObject : number;
 
   constructor(private data: DataService) { }
@@ -18,7 +17,7 @@ export class SlideEditorComponent implements OnInit {
   }
 
   test(){
-    console.log(this.slideRenderMagnification);
+    console.log(this.data.slideRenderMagnification);
   }
 
 // Slide editor Toolbar functions
@@ -70,11 +69,16 @@ export class SlideEditorComponent implements OnInit {
     let slideRenderHeight = this.data.documentSize['height'];
     let backgroundColor = this.data.slides[this.data.currentSlideIndex].getSlideProperty('backgroundColor');
 
+    let renderContainerWidth = document.querySelector('#slide-render-container').clientWidth;
+    let newOriginY = slideRenderHeight/2 + 'px';
+
     let css = {
       'background' : backgroundColor,
       'height' : slideRenderHeight + 'px',
       'width' : slideRenderWidth + 'px',
-      'transform' : 'scale('+ this.slideRenderMagnification/100 +')'
+      'transform-origin' : '100px' + ' ' + newOriginY,
+      'transform' : 'scale('+ this.data.slideRenderMagnification/100 +')',
+      'z-index' : '0'
     }
 
     return css;
