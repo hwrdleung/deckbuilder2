@@ -26,6 +26,8 @@ export class Project {
     private sandboxImage: string;
     private sandboxShape: Object;
 
+    private textNotes: string;
+
     private documentSize: object;
 
     constructor () {
@@ -47,6 +49,7 @@ export class Project {
         this.selectedSlideObjectId = 1;
 
         this.sandboxText = "Lorem ipsum";
+        this.textNotes = "Test";
 
         this.documentSize = {
             height: 432,

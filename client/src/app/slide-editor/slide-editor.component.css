@@ -13,7 +13,6 @@
 }
 
 
-
 #slide-control-panel {
     height: 100%;
     width: 100%;
@@ -24,6 +23,7 @@
     background: #FFF;
     margin: 0 auto;
     position: relative;
+    box-shadow: 0 0 40px 10px gray;
 }
 
 .slide-control-row {
@@ -38,7 +38,7 @@
 }
 
 input[type="number"]{
-    width: 30px;
+    width: 40px;
     margin: 0 3px;
 }
 

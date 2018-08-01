@@ -23,7 +23,6 @@ export class SlideObject{
         this.left = 0;
         this.xTranslation = 0;
         this.yTranslation = 0;
-        this.rotation = 0;
         this.height = 75;
         this.width = 200;
         this.display = true;
@@ -79,7 +78,6 @@ export class SlideObject{
             'left' : this.left + 'px',
             'z-index' : this.zIndex,
             'display' : this.display ? 'block' : 'none',
-            'transform' : 'rotate(' + this.rotation + 'deg)',
             'position' : 'absolute'
         }
         return css;

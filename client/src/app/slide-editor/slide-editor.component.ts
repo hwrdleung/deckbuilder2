@@ -65,20 +65,26 @@ export class SlideEditorComponent implements OnInit {
   // Slide editor render functions
 
   getSlideRenderCss(){
+    let backgroundColor = this.data.slides[this.data.currentSlideIndex].getSlideProperty('backgroundColor');
     let slideRenderWidth = this.data.documentSize['width'];
     let slideRenderHeight = this.data.documentSize['height'];
-    let backgroundColor = this.data.slides[this.data.currentSlideIndex].getSlideProperty('backgroundColor');
 
     let renderContainerWidth = document.querySelector('#slide-render-container').clientWidth;
-    let newOriginY = slideRenderHeight/2 + 'px';
+    let translationX;
+
+    if(slideRenderWidth > renderContainerWidth){
+      translationX = '-' + (slideRenderWidth-renderContainerWidth)/2 + 'px';
+    }else {
+      translationX = '0px';
+    }
 
     let css = {
       'background' : backgroundColor,
       'height' : slideRenderHeight + 'px',
       'width' : slideRenderWidth + 'px',
-      'transform-origin' : '100px' + ' ' + newOriginY,
-      'transform' : 'scale('+ this.data.slideRenderMagnification/100 +')',
-      'z-index' : '0'
+      'transform' : 'translate(' + translationX + ') scale('+ this.data.slideRenderMagnification/100 +')',
+      'z-index' : '0',
+      'position' : 'relative'
     }
 
     return css;

@@ -8,14 +8,20 @@ export class ShadowControl {
 
     constructor(){
         this.showShadow = false;
-        this.xValue = 0;
-        this.yValue = 0;
-        this.blurValue = 0;
+        this.xValue = 3;
+        this.yValue = 3;
+        this.blurValue = 3;
         this.color = '#000';
     }
 
     getShadowCss(){
-        let cssProperty = this.xValue + 'px ' + this.yValue + 'px ' + this.blurValue + 'px ' + this.color;
+        let cssProperty;
+
+        if(this.showShadow){
+            cssProperty = this.xValue + 'px ' + this.yValue + 'px ' + this.blurValue + 'px ' + this.color;
+        }else if(!this.showShadow){
+            cssProperty = 'none';
+        }
         return cssProperty;
     }
 

@@ -1,4 +1,5 @@
 import { BorderControl } from "./borderControl";
+import { ShadowControl } from "./shadowControl";
 
 export class TextStyle {
 
@@ -24,6 +25,7 @@ export class TextStyle {
     private padding: number;
     private breakWord: boolean;
     private border: BorderControl;
+    private textShadow: ShadowControl;
 
     constructor() {
         this.id = TextStyle.textStyleCounter++;
@@ -46,6 +48,7 @@ export class TextStyle {
         this.letterSpacing = 0;
         this.breakWord = false;
         this.border = new BorderControl();
+        this.textShadow = new ShadowControl();
         this.fontPickerData = {
             family: 'Helvetica',
             style: 'regular',
@@ -79,7 +82,8 @@ export class TextStyle {
             'padding': this.padding + 'pt',
             'display': 'flex',
             'justify-content': this.convertAlignToFlex(this.hAlign),
-            'align-items': this.convertAlignToFlex(this.vAlign)
+            'align-items': this.convertAlignToFlex(this.vAlign),
+            'text-shadow' : this.textShadow.getShadowCss() 
         }
         return css;
     }

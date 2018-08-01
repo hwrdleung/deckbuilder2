@@ -16,18 +16,12 @@ import { ShapeObject } from "./classes/shapeObject";
 })
 export class DataService {
 
-  // Project variables
   currentProject: Project;
+  // State variables
   slides: Array<Slide>;
   textStyles: Array<TextStyle>;
   imageStyles: Array<ImageStyle>;
   shapeStyles: Array<ShapeStyle>;
-  format: string;
-
-  // UI Logic variables
-  viewTextElements: boolean;
-  viewImageElements: boolean;
-  viewShapeElements: boolean;
 
   // Toolbar variables
   selectedTextStyleId: number;
@@ -43,8 +37,15 @@ export class DataService {
   sandboxImage: Object;
   sandboxShape: Object;
 
+  textNotes: string;
+
+  // UI Logic variables
+  viewTextElements: boolean;
+  viewImageElements: boolean;
+  viewShapeElements: boolean;
+
   documentSize: object;
-  slideRenderMagnification: number = 75;
+  slideRenderMagnification: number = 50;
 
 
   constructor() {
@@ -55,12 +56,7 @@ export class DataService {
 
   test() {
     console.log("Test");
-    console.log(this.selectedTextStyleId);
-    console.log(this.slides);
-    console.log(this.textStyles);
-    console.log(this.imageStyles);
-    console.log(this.shapeStyles);
-    console.log(this.getTextStyleById(this.selectedTextStyleId).getCss());
+    console.log(this.textNotes);
   }
 
   loadProject(project: Project) {
@@ -89,6 +85,7 @@ export class DataService {
     this.sandboxShape = project.getProjectProperty("sandboxShape");
 
     this.documentSize = project.getProjectProperty("documentSize");
+    this.slideRenderMagnification = project.getProjectProperty('slideRenderMagnification');
 
     this.viewTextElements = true;
     this.viewImageElements = false;
@@ -239,6 +236,33 @@ export class DataService {
 
   saveSession() {
     console.log("Save session");
+    let newProject = new Project();
+
+    newProject.setProjectProperty('slides', this.slides);
+    newProject.setProjectProperty('textStyles', this.textStyles);
+    newProject.setProjectProperty('imageStyles', this.imageStyles);
+    newProject.setProjectProperty('shapeStyles', this.shapeStyles);
+
+    newProject.setProjectProperty('selectedTextStyleId', this.selectedTextStyleId);
+    newProject.setProjectProperty('selectedImageStyleId', this.selectedImageStyleId);
+    newProject.setProjectProperty('selectedShapeStyleId', this.selectedShapeStyleId);
+
+    newProject.setProjectProperty('currentSlideIndex', this.currentSlideIndex);
+    newProject.setProjectProperty('selectedSlideObjectId', this.selectedSlideObjectId);
+
+    newProject.setProjectProperty('sandboxText', this.sandboxText);
+    newProject.setProjectProperty('sandboxImage', this.sandboxImage);
+    newProject.setProjectProperty('sandboxShape', this.sandboxShape);
+
+    newProject.setProjectProperty('documentSize', this.documentSize);
+    newProject.setProjectProperty('slideRenderMagnification', this.slideRenderMagnification);
+
+    newProject.setProjectProperty('textNotes', this.textNotes);
+
+    let newProjectJSON = JSON.stringify(newProject);
+    localStorage.setItem('deckbuilder2Data', newProjectJSON);
+    alert('Your session has been saved');
+
   }
 
   // SANDBOX FUNCTIONS
