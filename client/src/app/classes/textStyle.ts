@@ -68,22 +68,21 @@ export class TextStyle {
             'text-decoration': this.getTextDecoration(),
             'text-transform': this.getTextTransform(),
             'line-height': this.lineHeight,
-            'word-spacing': this.wordSpacing + 'pt',
-            'letter-spacing': this.letterSpacing + 'pt',
+            'word-spacing': this.wordSpacing + 'px',
+            'letter-spacing': this.letterSpacing + 'px',
             'word-break': this.breakWord ? 'break-all' : 'normal',
             'border-top': this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',
             'border-right': this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
             'border-bottom': this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none',
             'border-left': this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none',
             'border': this.border.getBorderProperty('showFullBorder') ? this.border.getFullBorderCss() : 'none',
-            // 'text-shadow': this.textShadow.getShadowProperty('showShadow') ? this.textShadow.getShadowCss() : 'none',
             'border-radius': this.border.getBorderRadiusCss(),
-            'margin': this.margin + 'pt',
-            'padding': this.padding + 'pt',
+            'margin': this.margin + 'px',
+            'padding': this.padding + 'px',
             'display': 'flex',
             'justify-content': this.convertAlignToFlex(this.hAlign),
             'align-items': this.convertAlignToFlex(this.vAlign),
-            'text-shadow' : this.textShadow.getShadowCss() 
+            'text-shadow': this.textShadow.getShadowCss()
         }
         return css;
     }

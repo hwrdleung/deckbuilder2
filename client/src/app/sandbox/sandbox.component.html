@@ -17,7 +17,7 @@
 </div>
 
 <!-- Text sandbox -->
-<div id="text-sandbox" class="grayAccent03" *ngIf="this.data.viewTextElements">
+<div id="text-sandbox" class="grayAccent03" *ngIf="this.data.viewTextElements && this.data.textStyles.length > 0">
   <div id="text-preview-container">
     <div class="dotted-border">
       <p id="text-preview" [ngStyle]="this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()">{{this.data.sandboxText}}</p>
@@ -40,14 +40,14 @@
 </div>
 
 <!-- Image sandbox -->
-<div id="image-sandbox" class="grayAccent03" *ngIf="this.data.viewImageElements">
+<div id="image-sandbox" class="grayAccent03" *ngIf="this.data.viewImageElements && this.data.imageStyles.length > 0">
 
   <h1>Image sandbox</h1>
 
 </div>
 
 <!-- Shape sandbox -->
-<div id="shape-sandbox" class="grayAccent03" *ngIf="this.data.viewShapeElements">
+<div id="shape-sandbox" class="grayAccent03" *ngIf="this.data.viewShapeElements && this.data.shapeStyles.length > 0">
 
     <h1>Shape sandbox</h1>
   

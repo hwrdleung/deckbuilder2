@@ -86,7 +86,6 @@ export class SlideEditorComponent implements OnInit {
       'z-index' : '0',
       'position' : 'relative'
     }
-
     return css;
   }
 

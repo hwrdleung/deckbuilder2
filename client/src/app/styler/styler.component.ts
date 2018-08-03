@@ -15,7 +15,7 @@ export class StylerComponent implements OnInit {
 
   getCpPosition(){
     // 
-    return "top";
+    return "right";
   }
 
 }

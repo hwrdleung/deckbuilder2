@@ -10,6 +10,7 @@
     height: 100%;
     width: 100%;
     overflow: scroll;
+    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));
 }
 
 
@@ -23,7 +24,6 @@
     background: #FFF;
     margin: 0 auto;
     position: relative;
-    box-shadow: 0 0 40px 10px gray;
 }
 
 .slide-control-row {

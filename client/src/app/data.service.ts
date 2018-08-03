@@ -50,13 +50,12 @@ export class DataService {
 
   constructor() {
     // Set default values
-    let newProject = new Project();
-    this.loadProject(newProject);
+
   }
 
   test() {
     console.log("Test");
-    console.log(this.textNotes);
+    console.log(this.slideRenderMagnification);
   }
 
   loadProject(project: Project) {
@@ -86,6 +85,8 @@ export class DataService {
 
     this.documentSize = project.getProjectProperty("documentSize");
     this.slideRenderMagnification = project.getProjectProperty('slideRenderMagnification');
+
+    this.textNotes = project.getProjectProperty('textNotes');
 
     this.viewTextElements = true;
     this.viewImageElements = false;

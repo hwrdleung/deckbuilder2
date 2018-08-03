@@ -36,10 +36,10 @@ export class Project {
         this.styleIdCounter = 0;
         this.slideIdCounter = 0;
 
-        this.slides = [new Slide()];
-        this.textStyles = [new TextStyle()];
-        this.imageStyles = [new ImageStyle()];
-        this.shapeStyles = [new ShapeStyle()];
+        this.slides = [];
+        this.textStyles = [];
+        this.imageStyles = [];
+        this.shapeStyles = [];
 
         this.selectedTextStyleId = 0;
         this.selectedImageStyleId = 0;
@@ -57,6 +57,20 @@ export class Project {
         }
     }
 
+    clearContents(){
+        this.slides = [];
+        this.textStyles = [];
+        this.imageStyles = [];
+        this.shapeStyles = [];
+    }
+
+    addSlide(slide:Slide){
+        this.slides.push(slide);
+    }
+
+    addTextStyle(textStyle: TextStyle){
+        this.textStyles.push(textStyle);
+    }
 
     getProjectProperty(propertyName){
         return this[propertyName];

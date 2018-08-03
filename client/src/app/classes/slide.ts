@@ -8,20 +8,12 @@ export class Slide {
     private backgroundImage: string;
     private backgroundColor: string;
 
-    private slideHeight: number;
-    private slideWidth: number;
-
-    private renderHeight: number;
-    private renderWidth: number;
-
     private slideObjects: Array<SlideObject>;
 
     constructor () {
         this.id = Slide.slideCounter++;
         this.backgroundImage = "";
         this.backgroundColor = "#FFF";
-        this.slideHeight = 432;
-        this.slideWidth = 768;
         this.slideObjects = [];
     }
 
@@ -35,6 +27,10 @@ export class Slide {
 
     addSlideObject(slideObject: SlideObject){
         this.slideObjects.push(slideObject);
+    }
+
+    clearSlideObjects(){
+        this.slideObjects = [];
     }
 
     deleteSlideObjectById(id){

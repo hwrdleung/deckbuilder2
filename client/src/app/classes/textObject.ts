@@ -27,6 +27,10 @@ export class TextObject extends SlideObject {
         this.styleId = styleId;
     }
 
+    setTextObjectProperty(propertyName, propertyValue){
+        this[propertyName] = propertyValue;
+    }
+
     getStyleId(){
         return this.styleId;
     }
