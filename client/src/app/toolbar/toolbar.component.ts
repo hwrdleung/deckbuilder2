@@ -12,6 +12,8 @@ import { ShapeStyle } from '../classes/shapeStyle';
 import { TextStyle } from '../classes/textStyle';
 
 import { Slide } from '../classes/slide';
+import { BorderControl } from '../classes/borderControl';
+import { ShadowControl } from '../classes/shadowControl';
 
 
 
@@ -30,11 +32,7 @@ export class ToolbarComponent implements OnInit {
 
   checkLocalStorage(){
     // Check local storage for data from previous session
-    let deckbuilder2Data = JSON.parse(localStorage.getItem('deckbuilder2Data'));
-
-    console.log('deckbuilder2Data', deckbuilder2Data);
-
-    
+    let deckbuilder2Data = JSON.parse(localStorage.getItem('deckbuilder2Data'));   
 
     if(deckbuilder2Data){
     // load
@@ -48,6 +46,22 @@ export class ToolbarComponent implements OnInit {
        for(let key in deckbuilder2Data.textStyles[i]){
           newTextStyle.setStyleProperty(key, deckbuilder2Data.textStyles[i][key]);
        }
+
+       // Load borders
+       newTextStyle.setStyleProperty('border', new BorderControl());
+       let newTextStyleBorder = newTextStyle.getStyleProperty('border');
+
+       for(let key in deckbuilder2Data.textStyles[i].border){
+         newTextStyleBorder.setBorderProperty(key, deckbuilder2Data.textStyles[i].border[key]);
+       }
+
+       // Load shadows
+       newTextStyle.setStyleProperty('textShadow', new ShadowControl());
+       let newTextStyleShadow = newTextStyle.getStyleProperty('textShadow');
+
+       for(let key in deckbuilder2Data.textStyles[i].textShadow){
+        newTextStyleShadow.setShadowProperty(key, deckbuilder2Data.textStyles[i].textShadow[key]);
+      }
        project.addTextStyle(newTextStyle);
      }
      
@@ -73,7 +87,6 @@ export class ToolbarComponent implements OnInit {
 
      this.data.loadProject(project);
 
-     console.log('project', project);
     } else if (!deckbuilder2Data){
       // Load a new project
       this.data.loadProject(new Project());
