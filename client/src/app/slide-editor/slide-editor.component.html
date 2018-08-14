@@ -29,32 +29,21 @@
 
 <div id="slide-editor-container" class="accent04">
   <div *ngIf="this.data.slides.length > 0" id="slide-render-container" class="flex-col-evenly accent01">
-
-    
     <div class="slide-render" [ngStyle]="this.getSlideRenderCss()">
       <!-- Render slide objects here -->
-      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" 
-      class="slide-object" 
-      [ngStyle]="slideObject.getCss()"
-      (mousedown)="this.selectObject(slideObject.id)"
-      
-      ngResizable
-        [rzHandles]="'n,e,s,w,se,sw,ne,nw'"
-        (rzStop)="slideObject.setSize($event)"
-        
-        ngDraggable 
-        (endOffset)="slideObject.setTranslation($event)"
-        [position]="slideObject.getTranslation()">
-        <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="this.data.getTextStyleById(slideObject.styleId).getCss()"
-        >{{slideObject.textValue}}</p>
+      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" class="slide-object" [ngStyle]="slideObject.getCss()"
+        (mousedown)="this.selectObject(slideObject.id)" ngResizable [rzHandles]="'n,e,s,w,se,sw,ne,nw'" (rzStop)="slideObject.setSize($event)"
+        ngDraggable (endOffset)="slideObject.setTranslation($event)" [position]="slideObject.getTranslation()" [rzAspectRatio]="slideObject.constructor.name==='ImageObject'">
+        <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="this.data.getTextStyleById(slideObject.styleId).getCss()">{{slideObject.textValue}}</p>
+        <img *ngIf="slideObject.constructor.name==='ImageObject'" [ngStyle]="this.data.getImageStyleById(slideObject.styleId).getCss()"
+          [src]="slideObject.imagePath" crossOrigin="anonymous">
       </div>
-
     </div>
 
 
   </div>
 
-  <div  *ngIf="this.data.slides.length > 0" id="slide-control-panel" class="grayAccent02">
+  <div *ngIf="this.data.slides.length > 0" id="slide-control-panel" class="grayAccent02">
 
 
     <div id="slide-settings" class="grayAccent02 flex-row-evenly">
@@ -76,20 +65,20 @@
       </a>
 
       <div class="flex-row-evenly">
-          <fa (click)="this.data.test()" name="search-minus" size="1x"></fa>
+        <fa (click)="this.data.test()" name="search-minus" size="1x"></fa>
 
         <input type='range' [(ngModel)]="this.data.slideRenderMagnification" min="0" max="200">
 
-          <fa name="search-plus" size="1x"></fa>
+        <fa name="search-plus" size="1x"></fa>
 
-        <p><input type="number" [(ngModel)]="this.data.slideRenderMagnification">%</p>
+        <p>
+          <input type="number" [(ngModel)]="this.data.slideRenderMagnification">%</p>
       </div>
     </div>
 
 
-    <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()" 
-    class="slide-control-row flex-row-between wrap"
-    [style.background]="this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null">
+    <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-between wrap"
+      [style.background]="this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null">
       <div class="flex-row-evenly">
 
         <div *ngIf="!slideObject.editNameMode" class="sm-btn flex-row-evenly">
@@ -104,7 +93,7 @@
 
       </div>
 
-      <div class="flex-row-evenly">
+      <div *ngIf="slideObject.constructor.name==='TextObject'" class="flex-row-evenly">
         <div *ngIf="!slideObject.editTextMode" class="sm-btn flex-row-evenly">
           <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>
           <fa name="edit" (click)="slideObject.toggleEditTextMode()"></fa>
@@ -114,6 +103,10 @@
           <input type="text" [(ngModel)]="slideObject.textValue" (placeholder)="slideObject.textValue">
           <fa name="save" (click)="slideObject.toggleEditTextMode()"></fa>
         </div>
+      </div>
+
+      <div *ngIf="slideObject.constructor.name==='ImageObject'" class="flex-row-evenly">
+        <h5>ImageObject</h5>
       </div>
 
       <div class="flex-row-evenly">
@@ -126,7 +119,7 @@
         <input type="number" [(ngModel)]="slideObject.height">
 
         <h5>W:</h5>
-        <input type="number"[(ngModel)]="slideObject.width">
+        <input type="number" [(ngModel)]="slideObject.width">
 
         <!-- <h5>R:</h5>
         <input type="number" [(ngModel)]="slideObject.rotation"> -->

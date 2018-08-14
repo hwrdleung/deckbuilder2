@@ -52,6 +52,11 @@ input[type="number"]{
     box-sizing: border-box;
 }
 
+.slide-object img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
 .slide-object:hover{
     cursor: move;
     border: 1px silver dashed;

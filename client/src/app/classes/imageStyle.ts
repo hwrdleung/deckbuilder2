@@ -1,3 +1,5 @@
+import { BorderControl } from "./borderControl";
+
 export class ImageStyle {
 
     private static imageStyleCounter:number = 0;
@@ -7,10 +9,7 @@ export class ImageStyle {
     private showExtraOptions: boolean;
 
     // Borders
-    private borderWidth: number;
-    private borderStyle: string;
-    private borderColor: string;
-    private borderRadius: number;
+    private border: BorderControl;
 
     // Filters
     private opacity: number;
@@ -29,44 +28,34 @@ export class ImageStyle {
         this.name = 'ImageStyle' + ImageStyle.imageStyleCounter;
         this.editNameMode = false;
         this.showExtraOptions = false;
-
-        this.borderWidth = 0;
-        this.borderStyle = 'none';
-        this.borderColor = 'transparent';
-        this.borderRadius = 0;
-
-        this.opacity = 1;
+        this.opacity = 100;
         this.grayscale = 0;
         this.blur = 0;
-        this.brightness = 1;
-        this.contrast = 1;
-        this.dropShadow = {
-            'h-shadow': 0,
-            'v-shadow': 0,
-            'blur': 0,
-            'spread': 0,
-            'color':'transparent'
-        }
+        this.brightness = 100;
+        this.contrast = 100;
         this.hueRotate = 0;
         this.invert = 0;
-        this.saturate = 1;
+        this.saturate = 100;
         this.sepia = 0;
+        this.border = new BorderControl();
+
     }
 
     getCss(){
         let css = {
-            'border-width' : this.borderWidth + 'px',
-            'border-style' : this.borderStyle + 'px',
-            'border-color': this.borderColor,
-            'border-radius': this.borderRadius,
+            'border-top': this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',
+            'border-right': this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
+            'border-bottom': this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none',
+            'border-left': this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none',
+            'border': this.border.getBorderProperty('showFullBorder') ? this.border.getFullBorderCss() : 'none',
+            'border-radius': this.border.getBorderRadiusCss(),
             'filter' : this.getFilters(),
         }
-
         return css;
     }
 
     getFilters(){
-        let cssFilters: string;
+        let cssFilters: string = "";
 
         // Default values:
         let defaultOpacity = 1;
@@ -74,57 +63,49 @@ export class ImageStyle {
         let defaultBlur = 0;
         let defaultBrightness = 1;
         let defaultContrast = 1;
-        let defaultDropShadow = {
-            'h-shadow': 0,
-            'v-shadow': 0,
-            'blur': 0,
-            'spread': 0,
-            'color':'transparent'
-        }
+
         let defaultHueRotate = 0;
         let defaultInvert = 0;
         let defaultSaturate = 1;
         let defaultSepia = 0;
 
         if(this.opacity !== defaultOpacity){
-            cssFilters += 'opacity(' + this.opacity + ') ';
+            cssFilters += 'opacity(' + this.opacity/100 + ') ';
         }
 
         if(this.grayscale !== defaultGrayscale){
-            cssFilters += 'grayscale(' + this.grayscale + ') ';
+            cssFilters += 'grayscale(' + this.grayscale/100 + ') ';
         }
 
         if(this.blur !== defaultBlur){
-            cssFilters += 'blur(' + this.blur + ') ';
+            cssFilters += 'blur(' + this.blur + 'px) ';
         }
 
         if(this.brightness !== defaultBrightness){
-            cssFilters += 'brightness(' + this.brightness + ') ';
+            cssFilters += 'brightness(' + this.brightness/100 + ') ';
         }
 
         if(this.contrast !== defaultContrast){
-            cssFilters += 'contrast(' + this.contrast + ') ';
-        }
-
-        if(JSON.stringify(this.dropShadow) !== JSON.stringify(defaultDropShadow)){
-            cssFilters += 'dropShadow(' + this.dropShadow + ') ';
+            cssFilters += 'contrast(' + this.contrast/100 + ') ';
         }
 
         if(this.hueRotate !== defaultHueRotate){
-            cssFilters += 'hue-rotate(' + this.hueRotate + ') ';
+            cssFilters += 'hue-rotate(' + this.hueRotate + 'deg) ';
         }
 
         if(this.invert !== defaultInvert){
-            cssFilters += 'invert(' + this.invert + ') ';
+            cssFilters += 'invert(' + this.invert/100 + ') ';
         }
 
         if(this.saturate !== defaultSaturate){
-            cssFilters += 'saturate(' + this.saturate + ') ';
+            cssFilters += 'saturate(' + this.saturate/100 + ') ';
         }
 
         if(this.sepia !== defaultSepia){
-            cssFilters += 'sepia(' + this.sepia + ') ';
+            cssFilters += 'sepia(' + this.sepia/100 + ') ';
         }
+
+        cssFilters = cssFilters.substring(0, cssFilters.length-1);
 
         return cssFilters;
     }

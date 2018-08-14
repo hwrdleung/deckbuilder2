@@ -19,54 +19,80 @@
       <h3>{{imageStyle.name}}
         <fa name="edit"></fa>
       </h3>
-      <a (click)="this.data.test()">
+      <a (click)="this.data.deleteImageStyleById(imageStyle.id)">
         <fa name="trash"></fa>
       </a>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Opacity: </h5>
-      <input type="number" value="1">
+      <h5>Opacity:</h5>
+      <input type="range" [(ngModel)]="imageStyle.opacity" min="0" max="100">
+      <h5>
+        <input type="number" [(ngModel)]="imageStyle.opacity">%</h5>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Grayscale: </h5>
-      <input type="number" value="1">
+      <h5>Grayscale:</h5>
+      <input type="range" [(ngModel)]="imageStyle.grayscale" min="0" max="100">
+      <h5>
+        <input type="number" [(ngModel)]="imageStyle.grayscale"> %
+      </h5>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Blur: </h5>
-      <input type="number" value="1">
+      <h5>Blur:</h5>
+      <input type="range" [(ngModel)]="imageStyle.blur" min="0" max="25">
+      <h5>
+        <input type="number" [(ngModel)]="imageStyle.blur"> px
+      </h5>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Brightness: </h5>
-      <input type="number" value="1">
+      <h5>Brightness:</h5>
+      <input type="range" [(ngModel)]="imageStyle.brightness" min="0" max="200">
+      <h5>
+        <input type="number" [(ngModel)]="imageStyle.brightness"> %
+      </h5>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Contrast: </h5>
-      <input type="number" value="1">
+      <h5>Contrast:</h5>
+      <input type="range" [(ngModel)]="imageStyle.contrast" min="0" max="200">
+      <h5>
+        <input type="number" [(ngModel)]="imageStyle.contrast"> %
+      </h5>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Invert: </h5>
-      <input type="number" value="1">
+      <h5>Invert:</h5>
+      <input type="range" [(ngModel)]="imageStyle.invert" min="0" max="200">
+      <h5>
+        <input type="number" [(ngModel)]="imageStyle.invert"> %
+      </h5>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Saturate: </h5>
-      <input type="number" value="1">
+      <h5>Saturate:</h5>
+      <input type="range" [(ngModel)]="imageStyle.saturate" min="0" max="200">
+      <h5>
+        <input type="number" [(ngModel)]="imageStyle.saturate"> %
+      </h5>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Sepia: </h5>
-      <input type="number" value="1">
+      <h5>Sepia:</h5>
+      <input type="range" [(ngModel)]="imageStyle.sepia" min="0" max="200">
+      <h5>
+        <input type="number" [(ngModel)]="imageStyle.sepia"> %
+      </h5>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Hue rotate: </h5>
-      <input type="number" value="1">
+      <h5>Hue rotate:</h5>
+      <input type="range" [(ngModel)]="imageStyle.hueRotate" min="0" max="360">
+      <h5>
+        <input type="number" [(ngModel)]="imageStyle.hueRotate"> deg
+      </h5>
     </div>
 
 
@@ -85,411 +111,39 @@
     </div>
 
     <div *ngIf="imageStyle.showExtraOptions">
+      <!-- Full border settings -->
       <div class="flex-row-between style-card-row">
-        <a (click)="this.data.test()" class="style-card-btn">
+        <a (click)="imageStyle.border.toggleBorderProperty('showFullBorder');
+          imageStyle.border.setBorderProperty('showTopBorder', false);
+          imageStyle.border.setBorderProperty('showRightBorder', false);
+          imageStyle.border.setBorderProperty('showBottomBorder', false);
+          imageStyle.border.setBorderProperty('showLeftBorder', false);" class="style-card-btn">
           <i class="material-icons">border_outer</i>
         </a>
 
-        <a (click)="this.data.test()" class="style-card-btn">
+        <a (click)="imageStyle.border.toggleBorderProperty('showLeftBorder');
+          imageStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
           <i class="material-icons">border_left</i>
         </a>
 
-        <a (click)="this.data.test()" class="style-card-btn">
+        <a (click)="imageStyle.border.toggleBorderProperty('showTopBorder');
+          imageStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
           <i class="material-icons">border_top</i>
         </a>
 
-        <a (click)="this.data.test()" class="style-card-btn">
+        <a (click)="imageStyle.border.toggleBorderProperty('showRightBorder');
+          imageStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
           <i class="material-icons">border_right</i>
         </a>
 
-        <a (click)="this.data.test()" class="style-card-btn">
+        <a (click)="imageStyle.border.toggleBorderProperty('showBottomBorder');
+          imageStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
           <i class="material-icons">border_bottom</i>
         </a>
       </div>
 
       <!-- Full border settings -->
-      <div class="flex-row-between style-card-row">
-        <h4>Border: </h4>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Width: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Color: </h5>
-        <h5>Color picker</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Style: </h5>
-        <select>
-          <option>Solid</option>
-          <option>Dashed</option>
-          <option>Dotted</option>
-        </select>
-      </div>
-
-      <!-- Top border settings -->
-      <div class="flex-row-between style-card-row">
-        <h4>Top Border: </h4>
-      </div>
-
-
-      <div class="flex-row-between style-card-row">
-        <h5>Width: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Color: </h5>
-        <h5>Color picker</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Style: </h5>
-        <select>
-          <option>Solid</option>
-          <option>Dashed</option>
-          <option>Dotted</option>
-        </select>
-      </div>
-
-      <!-- Right border settings -->
-      <div class="flex-row-between style-card-row">
-        <h4>Right Border: </h4>
-      </div>
-
-
-      <div class="flex-row-between style-card-row">
-        <h5>Width: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Color: </h5>
-        <h5>Color picker</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Style: </h5>
-        <select>
-          <option>Solid</option>
-          <option>Dashed</option>
-          <option>Dotted</option>
-        </select>
-      </div>
-
-      <!-- Bottom border settings -->
-      <div class="flex-row-between style-card-row">
-        <h4>Bottom Border: </h4>
-      </div>
-
-
-      <div class="flex-row-between style-card-row">
-        <h5>Width: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Color: </h5>
-        <h5>Color picker</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Style: </h5>
-        <select>
-          <option>Solid</option>
-          <option>Dashed</option>
-          <option>Dotted</option>
-        </select>
-      </div>
-
-      <!-- Left border settings -->
-      <div class="flex-row-between style-card-row">
-        <h4>Left Border: </h4>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Width: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Color: </h5>
-        <h5>Color picker</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Style: </h5>
-        <select>
-          <option>Solid</option>
-          <option>Dashed</option>
-          <option>Dotted</option>
-        </select>
-      </div>
-
-      <!-- Full border settings -->
-      <div class="flex-row-between style-card-row">
-        <h4>Border Radius: </h4>
-      </div>
-
-      <!--Border radius settings -->
-      <div class="flex-row-between style-card-row">
-        <h5>Full border radius: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Top left border radius: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Top right border radius: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Bottom left border radius: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Bottom right border radius: </h5>
-        <h5>
-          <input type="number" value="1"> px</h5>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- TEXT STYLE CARD -->
-<div class="style-cards-container" *ngIf="this.data.viewTextElements && this.data.textStyles.length > 0">
-  <div class="style-card greenAccent01" *ngFor="let textStyle of this.data.textStyles.reverse()">
-
-    <div class="flex-row-between style-card-row">
-      <h3 *ngIf="!textStyle.editNameMode">{{textStyle.name}}
-        <fa name="edit" (click)="textStyle.toggleEditNameMode()"></fa>
-      </h3>
-
-      <div *ngIf="textStyle.editNameMode">
-        <input type="text" [(ngModel)]="textStyle.name" placeholder="textStyle.name">
-        <fa name="save" (click)="textStyle.toggleEditNameMode()"></fa>
-      </div>
-
-      <a (click)="this.data.deleteTextStyleById(textStyle.id)">
-        <fa name="trash"></fa>
-      </a>
-    </div>
-
-    <div class="flex-row-between style-card-row">
-      <h4>Font family:</h4>
-      <div [(fontPicker)]="textStyle.fontPickerData" [fpWidth]="'320px'" [fpPosition]="'bottom'" [fpSizeSelect]="true" [fpStyleSelect]="true">
-        <p>{{textStyle.fontPickerData['family']}} {{textStyle.fontPickerData['style']}} {{textStyle.fontPickerData['size']}}
-        </p>
-      </div>
-    </div>
-
-    <div class="flex-row-between style-card-row">
-      <h4>Font color:</h4>
-      <input class="md-color-selector" [(colorPicker)]="textStyle.color" [style.background]="textStyle.color" cpOutputFormat="rgba"
-        cpAlphaChannel="enabled"/>
-    </div>
-
-
-    <div class="flex-row-between style-card-row">
-      <h4>Background color:</h4>
-      <input class="md-color-selector" [(colorPicker)]="textStyle.backgroundColor" [style.background]="textStyle.backgroundColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
-    </div>
-
-    <div class="flex-row-between style-card-row">
-      <div class="flex-row-evenly">
-        <a (click)="textStyle.setStyleProperty('hAlign', 'left')" class="style-card-btn">
-          <i class="material-icons">format_align_left</i>
-        </a>
-
-        <a (click)="textStyle.setStyleProperty('hAlign', 'center')" class="style-card-btn">
-          <i class="material-icons">format_align_center</i>
-        </a>
-
-        <a (click)="textStyle.setStyleProperty('hAlign', 'right')" class="style-card-btn">
-          <i class="material-icons">format_align_right</i>
-        </a>
-      </div>
-
-      <div class="flex-row-evenly">
-        <a (click)="textStyle.setStyleProperty('vAlign', 'top')" class="style-card-btn">
-          <i class="material-icons">vertical_align_top</i>
-        </a>
-
-        <a (click)="textStyle.setStyleProperty('vAlign', 'center')" class="style-card-btn">
-          <i class="material-icons">vertical_align_center</i>
-        </a>
-
-        <a (click)="textStyle.setStyleProperty('vAlign', 'bottom')" class="style-card-btn">
-          <i class="material-icons">vertical_align_bottom</i>
-        </a>
-      </div>
-    </div>
-
-    <div class="flex-row-between style-card-row">
-      <div class="flex-row-evenly">
-        <a (click)="textStyle.toggleStyleProperty('underline')" class="style-card-btn">
-          <fa name="underline"></fa>
-        </a>
-
-        <a (click)="textStyle.toggleStyleProperty('lineThrough')" class="style-card-btn">
-          <fa name="strikethrough"></fa>
-        </a>
-
-        <a (click)="textStyle.toggleStyleProperty('overline')" class="style-card-btn" >
-          <h4 style="text-decoration: overline; font-family: Arial">O</h4>
-        </a>
-      </div>
-
-      <div class="flex-row-evenly">
-        <a (click)="textStyle.toggleStyleProperty('breakWord')" class="style-card-btn">
-          <i class="material-icons">wrap_text</i>
-        </a>
-
-        <a (click)="textStyle.toggleStyleProperty('uppercase'); textStyle.setStyleProperty('lowercase', false)" class="style-card-btn">
-          <i class="material-icons">format_size</i>
-        </a>
-
-        <a (click)="textStyle.toggleStyleProperty('lowercase'); textStyle.setStyleProperty('uppercase', false)" class="style-card-btn">
-          <i class="material-icons">text_fields</i>
-        </a>
-      </div>
-    </div>
-
-    <div class="flex-row-between style-card-row">
-      <a (click)="textStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="!textStyle.showExtraOptions">
-        <fa name="angle-double-down"></fa>
-        <p>Show extra options</p>
-        <fa name="angle-double-down"></fa>
-      </a>
-
-      <a (click)="textStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="textStyle.showExtraOptions">
-        <fa name="angle-double-down"></fa>
-        <p>Hide extra options</p>
-        <fa name="angle-double-down"></fa>
-      </a>
-    </div>
-
-    <!-- EXTRA TEXT STYLE OPTIONS -->
-    <div *ngIf="textStyle.showExtraOptions">
-
-      <div class="flex-row-between style-card-row">
-        <h5>Margin:</h5>
-        <h5>
-          <input type="number" [(ngModel)]="textStyle.margin">px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Padding:</h5>
-        <h5>
-          <input type="number" [(ngModel)]="textStyle.padding">px</h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Word spacing:</h5>
-        <h5>
-          <input type="number" [(ngModel)]="textStyle.wordSpacing">px
-        </h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Line height:</h5>
-        <h5>
-          <input type="number" [(ngModel)]="textStyle.lineHeight">x
-        </h5>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h5>Letter spacing:</h5>
-        <h5>
-          <input type="number" [(ngModel)]="textStyle.letterSpacing">px
-        </h5>
-      </div>
-
-      <!-- Text shadow settings -->
-      <div class="flex-row-between style-card-row">
-        <h4>Text shadow: </h4>
-        <input type="checkbox" [(ngModel)]="textStyle.textShadow.showShadow">
-      </div>
-
-      <div *ngIf="textStyle.textShadow.showShadow">
-        <div class="flex-row-between style-card-row">
-          <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.textShadow.color" [style.background]="textStyle.textShadow.color"
-            cpOutputFormat="rgba" cpAlphaChannel="enabled"/>
-        </div>
-
-        <div class="flex-row-between style-card-row">
-          <h5>Horizontal shadow: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="textStyle.textShadow.xValue"> px</h5>
-        </div>
-
-        <div class="flex-row-between style-card-row">
-          <h5>Vertical shadow: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="textStyle.textShadow.yValue"> px</h5>
-        </div>
-
-        <div class="flex-row-between style-card-row">
-          <h5>Blur: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="textStyle.textShadow.blurValue"> px</h5>
-        </div>
-      </div>
-
-      <!-- BORDER OPTIONS -->
-
-      <div class="flex-row-between style-card-row">
-        <a (click)="textStyle.border.toggleBorderProperty('showFullBorder');
-        textStyle.border.setBorderProperty('showTopBorder', false);
-        textStyle.border.setBorderProperty('showRightBorder', false);
-        textStyle.border.setBorderProperty('showBottomBorder', false);
-        textStyle.border.setBorderProperty('showLeftBorder', false);" class="style-card-btn">
-          <i class="material-icons">border_outer</i>
-        </a>
-
-        <a (click)="textStyle.border.toggleBorderProperty('showLeftBorder');
-        textStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
-          <i class="material-icons">border_left</i>
-        </a>
-
-        <a (click)="textStyle.border.toggleBorderProperty('showTopBorder');
-        textStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
-          <i class="material-icons">border_top</i>
-        </a>
-
-        <a (click)="textStyle.border.toggleBorderProperty('showRightBorder');
-        textStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
-          <i class="material-icons">border_right</i>
-        </a>
-
-        <a (click)="textStyle.border.toggleBorderProperty('showBottomBorder');
-        textStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
-          <i class="material-icons">border_bottom</i>
-        </a>
-      </div>
-
-      <!-- Full border settings -->
-      <div *ngIf="textStyle.border.showFullBorder">
+      <div *ngIf="imageStyle.border.showFullBorder">
         <div class="flex-row-between style-card-row">
           <h4>Border: </h4>
         </div>
@@ -497,19 +151,19 @@
         <div class="flex-row-between style-card-row">
           <h5>Width: </h5>
           <h5>
-            <input type="number" [(ngModel)]="textStyle.border.fullBorderWidth"> px</h5>
+            <input type="number" [(ngModel)]="imageStyle.border.fullBorderWidth"> px</h5>
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.fullBorderColor" [style.background]="textStyle.border.fullBorderColor"
+          <input class="md-color-selector" [(colorPicker)]="imageStyle.border.fullBorderColor" [style.background]="imageStyle.border.fullBorderColor"
             cpOutputFormat="rgba" cpAlphaChannel="enabled" />
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Style: </h5>
-          <select [(ngModel)]="textStyle.border.fullBorderStyle">
-            <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+          <select [(ngModel)]="imageStyle.border.fullBorderStyle">
+            <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
         </div>
 
@@ -522,30 +176,30 @@
         <div class="flex-row-between style-card-row">
           <h5>Top left border radius: </h5>
           <h5>
-            <input type="number" [(ngModel)]="textStyle.border.topLeftRadius">px</h5>
+            <input type="number" [(ngModel)]="imageStyle.border.topLeftRadius">px</h5>
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Top right border radius: </h5>
           <h5>
-            <input type="number" [(ngModel)]="textStyle.border.topRightRadius">px</h5>
+            <input type="number" [(ngModel)]="imageStyle.border.topRightRadius">px</h5>
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Bottom right border radius: </h5>
           <h5>
-            <input type="number" [(ngModel)]="textStyle.border.bottomRightRadius">px</h5>
+            <input type="number" [(ngModel)]="imageStyle.border.bottomRightRadius">px</h5>
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Bottom left border radius: </h5>
           <h5>
-            <input type="number" [(ngModel)]="textStyle.border.bottomLeftRadius">px</h5>
+            <input type="number" [(ngModel)]="imageStyle.border.bottomLeftRadius">px</h5>
         </div>
       </div>
 
       <!-- Top border settings -->
-      <div *ngIf="textStyle.border.showTopBorder">
+      <div *ngIf="imageStyle.border.showTopBorder">
         <div class="flex-row-between style-card-row">
           <h4>Top Border: </h4>
         </div>
@@ -553,25 +207,25 @@
         <div class="flex-row-between style-card-row">
           <h5>Width: </h5>
           <h5>
-            <input type="number" [(ngModel)]="textStyle.border.topBorderWidth"> px</h5>
+            <input type="number" [(ngModel)]="imageStyle.border.topBorderWidth"> px</h5>
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.topBorderColor" [style.background]="textStyle.border.topBorderColor"
-            cpOutputFormat="rgba" cpAlphaChannel="enabled"/>
+          <input class="md-color-selector" [(colorPicker)]="imageStyle.border.topBorderColor" [style.background]="imageStyle.border.topBorderColor"
+            cpOutputFormat="rgba" cpAlphaChannel="enabled" />
 
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Style: </h5>
-          <select [(ngModel)]="textStyle.border.topBorderStyle">
-            <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+          <select [(ngModel)]="imageStyle.border.topBorderStyle">
+            <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
         </div>
       </div>
       <!-- Right border settings -->
-      <div *ngIf="textStyle.border.showRightBorder">
+      <div *ngIf="imageStyle.border.showRightBorder">
         <div class="flex-row-between style-card-row">
           <h4>Right Border: </h4>
         </div>
@@ -579,25 +233,25 @@
         <div class="flex-row-between style-card-row">
           <h5>Width: </h5>
           <h5>
-            <input type="number" [(ngModel)]="textStyle.border.rightBorderWidth"> px</h5>
+            <input type="number" [(ngModel)]="imageStyle.border.rightBorderWidth"> px</h5>
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.rightBorderColor" [style.background]="textStyle.border.rightBorderColor"
+          <input class="md-color-selector" [(colorPicker)]="imageStyle.border.rightBorderColor" [style.background]="imageStyle.border.rightBorderColor"
             cpOutputFormat="rgba" cpAlphaChannel="enabled" />
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Style: </h5>
-          <select [(ngModel)]="textStyle.border.rightBorderStyle">
-            <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+          <select [(ngModel)]="imageStyle.border.rightBorderStyle">
+            <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
         </div>
       </div>
 
       <!-- Bottom border settings -->
-      <div *ngIf="textStyle.border.showBottomBorder">
+      <div *ngIf="imageStyle.border.showBottomBorder">
         <div class="flex-row-between style-card-row">
           <h4>Bottom Border: </h4>
         </div>
@@ -606,25 +260,25 @@
         <div class="flex-row-between style-card-row">
           <h5>Width: </h5>
           <h5>
-            <input type="number" [(ngModel)]="textStyle.border.bottomBorderWidth"> px</h5>
+            <input type="number" [(ngModel)]="imageStyle.border.bottomBorderWidth"> px</h5>
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.bottomBorderColor" [style.background]="textStyle.border.bottomBorderColor"
+          <input class="md-color-selector" [(colorPicker)]="imageStyle.border.bottomBorderColor" [style.background]="imageStyle.border.bottomBorderColor"
             cpOutputFormat="rgba" cpAlphaChannel="enabled" />
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Style: </h5>
-          <select [(ngModel)]="textStyle.border.bottomBorderStyle">
-            <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+          <select [(ngModel)]="imageStyle.border.bottomBorderStyle">
+            <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
         </div>
       </div>
 
       <!-- Left border settings -->
-      <div *ngIf="textStyle.border.showLeftBorder">
+      <div *ngIf="imageStyle.border.showLeftBorder">
         <div class="flex-row-between style-card-row">
           <h4>Left Border: </h4>
         </div>
@@ -632,23 +286,404 @@
         <div class="flex-row-between style-card-row">
           <h5>Width: </h5>
           <h5>
-            <input type="number" [(ngModel)]="textStyle.border.leftBorderWidth"> px</h5>
+            <input type="number" [(ngModel)]="imageStyle.border.leftBorderWidth"> px</h5>
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Color: </h5>
-          <input class="md-color-selector" [(colorPicker)]="textStyle.border.leftBorderColor" [style.background]="textStyle.border.leftBorderColor"
-            cpOutputFormat="rgba" cpAlphaChannel="enabled"/>
+          <input class="md-color-selector" [(colorPicker)]="imageStyle.border.leftBorderColor" [style.background]="imageStyle.border.leftBorderColor"
+            cpOutputFormat="rgba" cpAlphaChannel="enabled" />
         </div>
 
         <div class="flex-row-between style-card-row">
           <h5>Style: </h5>
-          <select [(ngModel)]="textStyle.border.leftBorderStyle">
-            <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+          <select [(ngModel)]="imageStyle.border.leftBorderStyle">
+            <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
         </div>
       </div>
     </div>
-
   </div>
 </div>
+
+
+
+
+      <!-- TEXT STYLE CARD -->
+      <div class="style-cards-container" *ngIf="this.data.viewTextElements && this.data.textStyles.length > 0">
+        <div class="style-card greenAccent01" *ngFor="let textStyle of this.data.textStyles.reverse()">
+
+          <div class="flex-row-between style-card-row">
+            <h3 *ngIf="!textStyle.editNameMode">{{textStyle.name}}
+              <fa name="edit" (click)="textStyle.toggleEditNameMode()"></fa>
+            </h3>
+
+            <div *ngIf="textStyle.editNameMode">
+              <input type="text" [(ngModel)]="textStyle.name" placeholder="textStyle.name">
+              <fa name="save" (click)="textStyle.toggleEditNameMode()"></fa>
+            </div>
+
+            <a (click)="this.data.deleteTextStyleById(textStyle.id)">
+              <fa name="trash"></fa>
+            </a>
+          </div>
+
+          <div class="flex-row-between style-card-row">
+            <h4>Font family:</h4>
+            <div [(fontPicker)]="textStyle.fontPickerData" [fpWidth]="'320px'" [fpPosition]="'bottom'" [fpSizeSelect]="true" [fpStyleSelect]="true">
+              <p>{{textStyle.fontPickerData['family']}} {{textStyle.fontPickerData['style']}} {{textStyle.fontPickerData['size']}}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex-row-between style-card-row">
+            <h4>Font color:</h4>
+            <input class="md-color-selector" [(colorPicker)]="textStyle.color" [style.background]="textStyle.color" cpOutputFormat="rgba"
+              cpAlphaChannel="enabled" />
+          </div>
+
+
+          <div class="flex-row-between style-card-row">
+            <h4>Background color:</h4>
+            <input class="md-color-selector" [(colorPicker)]="textStyle.backgroundColor" [style.background]="textStyle.backgroundColor"
+              cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+          </div>
+
+          <div class="flex-row-between style-card-row">
+            <div class="flex-row-evenly">
+              <a (click)="textStyle.setStyleProperty('hAlign', 'left')" class="style-card-btn">
+                <i class="material-icons">format_align_left</i>
+              </a>
+
+              <a (click)="textStyle.setStyleProperty('hAlign', 'center')" class="style-card-btn">
+                <i class="material-icons">format_align_center</i>
+              </a>
+
+              <a (click)="textStyle.setStyleProperty('hAlign', 'right')" class="style-card-btn">
+                <i class="material-icons">format_align_right</i>
+              </a>
+            </div>
+
+            <div class="flex-row-evenly">
+              <a (click)="textStyle.setStyleProperty('vAlign', 'top')" class="style-card-btn">
+                <i class="material-icons">vertical_align_top</i>
+              </a>
+
+              <a (click)="textStyle.setStyleProperty('vAlign', 'center')" class="style-card-btn">
+                <i class="material-icons">vertical_align_center</i>
+              </a>
+
+              <a (click)="textStyle.setStyleProperty('vAlign', 'bottom')" class="style-card-btn">
+                <i class="material-icons">vertical_align_bottom</i>
+              </a>
+            </div>
+          </div>
+
+          <div class="flex-row-between style-card-row">
+            <div class="flex-row-evenly">
+              <a (click)="textStyle.toggleStyleProperty('underline')" class="style-card-btn">
+                <fa name="underline"></fa>
+              </a>
+
+              <a (click)="textStyle.toggleStyleProperty('lineThrough')" class="style-card-btn">
+                <fa name="strikethrough"></fa>
+              </a>
+
+              <a (click)="textStyle.toggleStyleProperty('overline')" class="style-card-btn">
+                <h4 style="text-decoration: overline; font-family: Arial">O</h4>
+              </a>
+            </div>
+
+            <div class="flex-row-evenly">
+              <a (click)="textStyle.toggleStyleProperty('breakWord')" class="style-card-btn">
+                <i class="material-icons">wrap_text</i>
+              </a>
+
+              <a (click)="textStyle.toggleStyleProperty('uppercase'); textStyle.setStyleProperty('lowercase', false)" class="style-card-btn">
+                <i class="material-icons">format_size</i>
+              </a>
+
+              <a (click)="textStyle.toggleStyleProperty('lowercase'); textStyle.setStyleProperty('uppercase', false)" class="style-card-btn">
+                <i class="material-icons">text_fields</i>
+              </a>
+            </div>
+          </div>
+
+          <div class="flex-row-between style-card-row">
+            <a (click)="textStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="!textStyle.showExtraOptions">
+              <fa name="angle-double-down"></fa>
+              <p>Show extra options</p>
+              <fa name="angle-double-down"></fa>
+            </a>
+
+            <a (click)="textStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="textStyle.showExtraOptions">
+              <fa name="angle-double-down"></fa>
+              <p>Hide extra options</p>
+              <fa name="angle-double-down"></fa>
+            </a>
+          </div>
+
+          <!-- EXTRA TEXT STYLE OPTIONS -->
+          <div *ngIf="textStyle.showExtraOptions">
+
+            <div class="flex-row-between style-card-row">
+              <h5>Margin:</h5>
+              <h5>
+                <input type="number" [(ngModel)]="textStyle.margin">px</h5>
+            </div>
+
+            <div class="flex-row-between style-card-row">
+              <h5>Padding:</h5>
+              <h5>
+                <input type="number" [(ngModel)]="textStyle.padding">px</h5>
+            </div>
+
+            <div class="flex-row-between style-card-row">
+              <h5>Word spacing:</h5>
+              <h5>
+                <input type="number" [(ngModel)]="textStyle.wordSpacing">px
+              </h5>
+            </div>
+
+            <div class="flex-row-between style-card-row">
+              <h5>Line height:</h5>
+              <h5>
+                <input type="number" [(ngModel)]="textStyle.lineHeight">x
+              </h5>
+            </div>
+
+            <div class="flex-row-between style-card-row">
+              <h5>Letter spacing:</h5>
+              <h5>
+                <input type="number" [(ngModel)]="textStyle.letterSpacing">px
+              </h5>
+            </div>
+
+            <!-- Text shadow settings -->
+            <div class="flex-row-between style-card-row">
+              <h4>Text shadow: </h4>
+              <input type="checkbox" [(ngModel)]="textStyle.textShadow.showShadow">
+            </div>
+
+            <div *ngIf="textStyle.textShadow.showShadow">
+              <div class="flex-row-between style-card-row">
+                <h5>Color: </h5>
+                <input class="md-color-selector" [(colorPicker)]="textStyle.textShadow.color" [style.background]="textStyle.textShadow.color"
+                  cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Horizontal shadow: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.textShadow.xValue"> px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Vertical shadow: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.textShadow.yValue"> px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Blur: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.textShadow.blurValue"> px</h5>
+              </div>
+            </div>
+
+            <!-- BORDER OPTIONS -->
+
+            <div class="flex-row-between style-card-row">
+              <a (click)="textStyle.border.toggleBorderProperty('showFullBorder');
+        textStyle.border.setBorderProperty('showTopBorder', false);
+        textStyle.border.setBorderProperty('showRightBorder', false);
+        textStyle.border.setBorderProperty('showBottomBorder', false);
+        textStyle.border.setBorderProperty('showLeftBorder', false);" class="style-card-btn">
+                <i class="material-icons">border_outer</i>
+              </a>
+
+              <a (click)="textStyle.border.toggleBorderProperty('showLeftBorder');
+        textStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
+                <i class="material-icons">border_left</i>
+              </a>
+
+              <a (click)="textStyle.border.toggleBorderProperty('showTopBorder');
+        textStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
+                <i class="material-icons">border_top</i>
+              </a>
+
+              <a (click)="textStyle.border.toggleBorderProperty('showRightBorder');
+        textStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
+                <i class="material-icons">border_right</i>
+              </a>
+
+              <a (click)="textStyle.border.toggleBorderProperty('showBottomBorder');
+        textStyle.border.setBorderProperty('showFullBorder', false);" class="style-card-btn">
+                <i class="material-icons">border_bottom</i>
+              </a>
+            </div>
+
+            <!-- Full border settings -->
+            <div *ngIf="textStyle.border.showFullBorder">
+              <div class="flex-row-between style-card-row">
+                <h4>Border: </h4>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Width: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.border.fullBorderWidth"> px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Color: </h5>
+                <input class="md-color-selector" [(colorPicker)]="textStyle.border.fullBorderColor" [style.background]="textStyle.border.fullBorderColor"
+                  cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Style: </h5>
+                <select [(ngModel)]="textStyle.border.fullBorderStyle">
+                  <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+                </select>
+              </div>
+
+
+              <!--Border radius settings -->
+              <div class="flex-row-between style-card-row">
+                <h4>Border Radius: </h4>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Top left border radius: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.border.topLeftRadius">px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Top right border radius: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.border.topRightRadius">px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Bottom right border radius: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.border.bottomRightRadius">px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Bottom left border radius: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.border.bottomLeftRadius">px</h5>
+              </div>
+            </div>
+
+            <!-- Top border settings -->
+            <div *ngIf="textStyle.border.showTopBorder">
+              <div class="flex-row-between style-card-row">
+                <h4>Top Border: </h4>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Width: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.border.topBorderWidth"> px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Color: </h5>
+                <input class="md-color-selector" [(colorPicker)]="textStyle.border.topBorderColor" [style.background]="textStyle.border.topBorderColor"
+                  cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Style: </h5>
+                <select [(ngModel)]="textStyle.border.topBorderStyle">
+                  <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+                </select>
+              </div>
+            </div>
+            <!-- Right border settings -->
+            <div *ngIf="textStyle.border.showRightBorder">
+              <div class="flex-row-between style-card-row">
+                <h4>Right Border: </h4>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Width: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.border.rightBorderWidth"> px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Color: </h5>
+                <input class="md-color-selector" [(colorPicker)]="textStyle.border.rightBorderColor" [style.background]="textStyle.border.rightBorderColor"
+                  cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Style: </h5>
+                <select [(ngModel)]="textStyle.border.rightBorderStyle">
+                  <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Bottom border settings -->
+            <div *ngIf="textStyle.border.showBottomBorder">
+              <div class="flex-row-between style-card-row">
+                <h4>Bottom Border: </h4>
+              </div>
+
+
+              <div class="flex-row-between style-card-row">
+                <h5>Width: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.border.bottomBorderWidth"> px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Color: </h5>
+                <input class="md-color-selector" [(colorPicker)]="textStyle.border.bottomBorderColor" [style.background]="textStyle.border.bottomBorderColor"
+                  cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Style: </h5>
+                <select [(ngModel)]="textStyle.border.bottomBorderStyle">
+                  <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Left border settings -->
+            <div *ngIf="textStyle.border.showLeftBorder">
+              <div class="flex-row-between style-card-row">
+                <h4>Left Border: </h4>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Width: </h5>
+                <h5>
+                  <input type="number" [(ngModel)]="textStyle.border.leftBorderWidth"> px</h5>
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Color: </h5>
+                <input class="md-color-selector" [(colorPicker)]="textStyle.border.leftBorderColor" [style.background]="textStyle.border.leftBorderColor"
+                  cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+              </div>
+
+              <div class="flex-row-between style-card-row">
+                <h5>Style: </h5>
+                <select [(ngModel)]="textStyle.border.leftBorderStyle">
+                  <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>

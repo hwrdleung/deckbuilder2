@@ -24,31 +24,51 @@
     </div>
   </div>
 
-  <div class="flex-row-evenly">
-    <textarea [(ngModel)]="this.data.sandboxText">
+  <div class="sandbox-bottom-half">
+    <div class="flex-row-evenly sandbox-toolbar">
+      <textarea [(ngModel)]="this.data.sandboxText">
       
     </textarea>
-    <a (click)="this.data.addTextObjectToSlide()" class="lg-btn flex-col-evenly grayAccent02">
-      <fa name="share" size="3x"></fa>
-      <p>Add text object to slide</p>
-    </a>
-  </div>
+      <a (click)="this.data.addTextObjectToSlide()" class="lg-btn flex-col-evenly grayAccent02">
+        <fa name="share" size="3x"></fa>
+        <p>Add text object to slide</p>
+      </a>
+    </div>
 
-  <textarea [(ngModel)]="this.data.textNotes">
+    <textarea id="text-workspace" [(ngModel)]="this.data.textNotes">
     {{this.data.textNotes}}
   </textarea>
+  </div>
 </div>
 
 <!-- Image sandbox -->
 <div id="image-sandbox" class="grayAccent03" *ngIf="this.data.viewImageElements && this.data.imageStyles.length > 0">
+  <div id="image-preview-container">
+    <img id="image-preview" [src]="this.data.images[this.data.selectedImage]" 
+    [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
+  </div>
 
-  <h1>Image sandbox</h1>
+  <div class="sandbox-bottom-half">
+    <div class="flex-row-between sandbox-toolbar">
+        <input type="file" (change)="this.data.uploadToServer($event)">
+      <a (click)="this.data.addImageObjectToSlide()" class="lg-btn flex-col-evenly grayAccent02">
+        <fa name="share" size="3x"></fa>
+        <p>Add image object to slide</p>
+      </a>
+    </div>
 
+    <div id="image-gallery">
+        <div *ngFor="let imageUrl of this.data.images; let i = index;">
+          <img src="{{imageUrl}}" (click)="this.data.selectImage(i)">
+        </div>
+    </div>
+  </div>
 </div>
+
 
 <!-- Shape sandbox -->
 <div id="shape-sandbox" class="grayAccent03" *ngIf="this.data.viewShapeElements && this.data.shapeStyles.length > 0">
 
-    <h1>Shape sandbox</h1>
-  
-  </div>
+  <h1>Shape sandbox</h1>
+
+</div>

@@ -28,3 +28,6 @@
     background: rgb(86, 116, 107);
 }
 
+.style-card-row input[type="range"]{
+    width: 100px;
+}

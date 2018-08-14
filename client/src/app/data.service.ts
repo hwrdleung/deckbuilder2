@@ -7,6 +7,7 @@ import { ShapeStyle } from "./classes/shapeStyle";
 import { TextObject } from "./classes/textObject";
 import * as jsPDF from 'jspdf';
 import * as html2canvas from "html2canvas";
+import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 
 import { ImageObject } from "./classes/imageObject";
 import { ShapeObject } from "./classes/shapeObject";
@@ -36,8 +37,9 @@ export class DataService {
   sandboxText: string;
   sandboxImage: Object;
   sandboxShape: Object;
-
   textNotes: string;
+  images: Array<string>;
+  selectedImage: number = 0;
 
   // UI Logic variables
   viewTextElements: boolean;
@@ -48,16 +50,64 @@ export class DataService {
   slideRenderMagnification: number = 50;
 
 
-  constructor() {
-    // Set default values
+
+  constructor(private http: HttpClient) {
 
   }
 
   test() {
     console.log("Test");
-    console.log(this.slideRenderMagnification);
+    console.log(this.textStyles);
   }
 
+  // FUNCTIONS USED BY ALL COMPONENTS
+  // App view mode:  text || image || shape
+  setMode(mode: string) {
+    switch (mode) {
+      case "text":
+        this.viewTextElements = true;
+        this.viewImageElements = false;
+        this.viewShapeElements = false;
+        break;
+      case "image":
+        this.viewTextElements = false;
+        this.viewImageElements = true;
+        this.viewShapeElements = false;
+        break;
+      case "shape":
+        this.viewTextElements = false;
+        this.viewImageElements = false;
+        this.viewShapeElements = true;
+        break;
+    }
+  }
+
+  getTextStyleById(id: number) {
+    for (let i = 0; i < this.textStyles.length; i++) {
+      if (this.textStyles[i].getStyleProperty('id') === id) {
+        return this.textStyles[i];
+      }
+    }
+  }
+
+  getImageStyleById(id: number) {
+    for (let i = 0; i < this.imageStyles.length; i++) {
+      if (this.imageStyles[i].getStyleProperty('id') === id) {
+        return this.imageStyles[i];
+      }
+    }
+  }
+
+  getShapeStyleById(id: number) {
+    for (let i = 0; i < this.shapeStyles.length; i++) {
+      if (this.shapeStyles[i].getStyleProperty('id') === id) {
+        return this.shapeStyles[i];
+      }
+    }
+  }
+
+
+  //  TOOLBAR FUNCTIONS
   loadProject(project: Project) {
     this.slides = project.getProjectProperty("slides");
     this.textStyles = project.getProjectProperty("textStyles");
@@ -93,28 +143,6 @@ export class DataService {
     this.viewShapeElements = false;
   }
 
-  // App view mode
-  setMode(mode: string) {
-    switch (mode) {
-      case "text":
-        this.viewTextElements = true;
-        this.viewImageElements = false;
-        this.viewShapeElements = false;
-        break;
-      case "image":
-        this.viewTextElements = false;
-        this.viewImageElements = true;
-        this.viewShapeElements = false;
-        break;
-      case "shape":
-        this.viewTextElements = false;
-        this.viewImageElements = false;
-        this.viewShapeElements = true;
-        break;
-    }
-  }
-
-  // TOOLBAR FUNCTIONS
   createTextStyle() {
     let newTextStyle = new TextStyle();
     this.textStyles.push(newTextStyle);
@@ -130,31 +158,6 @@ export class DataService {
     this.shapeStyles.push(newShapeStyle);
   }
 
-  // Delete styles
-  deleteTextStyleById(id: number) {
-    for (let i = 0; i < this.textStyles.length; i++) {
-      if (this.textStyles[i].getStyleProperty('id') === id && this.textStyles.length > 1) {
-        this.textStyles.splice(i, 1);
-      }
-    }
-  }
-
-  deleteImageStyleById(id: number) {
-    for (let i = 0; i < this.imageStyles.length; i++) {
-      if (this.imageStyles[i].getStyleProperty('id') === id && this.imageStyles.length > 1) {
-        this.imageStyles.splice(i, 1);
-      }
-    }
-  }
-
-  deleteShapeStyleById(id: number) {
-    for (let i = 0; i < this.shapeStyles.length; i++) {
-      if (this.shapeStyles[i].getStyleProperty('id') === id && this.shapeStyles.length > 1) {
-        this.shapeStyles.splice(i, 1);
-      }
-    }
-  }
-
   selectStyle(type: string, id: number) {
     switch (type) {
       case 'text': this.selectedTextStyleId = id; break;
@@ -163,36 +166,12 @@ export class DataService {
     }
   }
 
-  // General functions
-  getTextStyleById(id: number) {
-    for (let i = 0; i < this.textStyles.length; i++) {
-      if (this.textStyles[i].getStyleProperty('id') === id) {
-        return this.textStyles[i];
-      }
-    }
-  }
-
-  getImageStyleById(id: number) {
-    for (let i = 0; i < this.imageStyles.length; i++) {
-      if (this.imageStyles[i].getStyleProperty('id') === id) {
-        return this.imageStyles[i];
-      }
-    }
-  }
-
-  getShapeStyleById(id: number) {
-    for (let i = 0; i < this.shapeStyles.length; i++) {
-      if (this.shapeStyles[i].getStyleProperty('id') === id) {
-        return this.shapeStyles[i];
-      }
-    }
-  }
-
   saveAsPng() {
     html2canvas(document.querySelector(".slide-render"), {
       height: 432,
       width: 768,
-      scale: 2
+      scale: 2,
+      allowTaint : true
     }).then(canvas => {
       let imgElement = document.createElement('a');
       let imgData = canvas.toDataURL("image/png");
@@ -205,34 +184,32 @@ export class DataService {
 
 
   exportAsPDF() {
-  
     this.slideRenderMagnification = 100;
-
-    setTimeout(function(){
+    setTimeout(function () {
       let doc = new jsPDF({
         orientation: "landscape",
         unit: "in",
         format: [16, 9]
       });
-  
+
       let width = doc.internal.pageSize.width;
       let height = doc.internal.pageSize.height;
-  
+
       // To make the img output size match the pdf size, make sure that:
       // canvas output size * scale factor === pdf document size converted to px
-  
+
       html2canvas(document.querySelector(".slide-render"), {
         height: 432,
         width: 768,
-        scale: 2
+        scale: 2,
+        allowTaint : false,
+        useCORS: true
       }).then(canvas => {
         let imgData = canvas.toDataURL("image/png");
         doc.addImage(imgData, "PNG", 0, 0, width, height);
         doc.save("a4.pdf");
       });
     }, 3000);
-
-   
   }
 
   saveSession() {
@@ -266,19 +243,95 @@ export class DataService {
 
   }
 
-  // SANDBOX FUNCTIONS
+
+  //  STYLER FUNCTIONS
+  deleteTextStyleById(id: number) {
+    for (let i = 0; i < this.textStyles.length; i++) {
+      if (this.textStyles[i].getStyleProperty('id') === id && this.textStyles.length > 1) {
+        this.textStyles.splice(i, 1);
+      }
+    }
+  }
+
+  deleteImageStyleById(id: number) {
+    for (let i = 0; i < this.imageStyles.length; i++) {
+      if (this.imageStyles[i].getStyleProperty('id') === id && this.imageStyles.length > 1) {
+        this.imageStyles.splice(i, 1);
+
+      }
+    }
+  }
+
+  deleteShapeStyleById(id: number) {
+    for (let i = 0; i < this.shapeStyles.length; i++) {
+      if (this.shapeStyles[i].getStyleProperty('id') === id && this.shapeStyles.length > 1) {
+        this.shapeStyles.splice(i, 1);
+      }
+    }
+  }
+
+
+
+  //  SANDBOX FUNCTIONS
   addTextObjectToSlide() {
     let currentSlide = this.slides[this.currentSlideIndex];
     let currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
     let newTextObject = new TextObject();
+
     newTextObject.setTextvalue(this.sandboxText);
     newTextObject.setStyleId(this.selectedTextStyleId);
+
     // !important!  set z index last to ensure proper assignment of z index
     currentSlide.addSlideObject(newTextObject);
-    console.log(this.getTextStyleById(this.selectedTextStyleId).getCss());
     newTextObject.setZIndex(currentSlideObjects.length - 1);
   }
 
+  addImageObjectToSlide(){
+    let currentSlide = this.slides[this.currentSlideIndex];
+    let currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
+    let newImageObject = new ImageObject();
+
+    newImageObject.setImagePath(this.images[this.selectedImage]);
+    newImageObject.setStyleId(this.selectedImageStyleId);
+    console.log(newImageObject);
+
+    currentSlide.addSlideObject(newImageObject);
+    newImageObject.setZIndex(currentSlideObjects.length - 1);
+  }
+
+  uploadToServer(event){
+    let file = event.target.files[0];
+    console.log(file);
+
+    let formData = new FormData();
+    let context = this;
+    formData.append('file', file, file.name);
+
+    this.http.post('http://localhost:3000/upload', formData).subscribe((res)=>{
+      console.log(res);
+      context.getImageUrlsFromServer();
+    });
+  }
+
+  getImageUrlsFromServer(){
+    let url = 'http://localhost:3000/getImageNames';
+
+    this.http.get(url).subscribe((res)=>{
+      console.log(res);
+      this.images = res['images'];
+
+      for(let i=0; i < this.images.length; i++){
+        this.images[i] = 'http://localhost:3000/' + this.images[i];
+      }
+      console.log(this.images);
+    });
+  }
+
+  selectImage(index){
+    this.selectedImage = index;
+  }
+
+  //  SLIDE EDITOR FUNCTIONS
   increaseOneLayer(objectId: number) {
     // Locate object in currentSlideObjects
     let currentSlide = this.slides[this.currentSlideIndex];
@@ -299,7 +352,6 @@ export class DataService {
     }
   }
 
-
   decreaseOneLayer(objectId: number) {
     // Locate object in currentSlideObjects
     let currentSlide = this.slides[this.currentSlideIndex];
@@ -317,56 +369,5 @@ export class DataService {
         }
       }
     }
-   }
-
-  // addImageObjectToSlide(){
-  //   let newImageObject = new ImageObject();
-  //   // TODO: ADD IMAGE OBJECT ATTRIBUTES FROM SANDBOXIMAGE
-  //   newImageObject.setStyleId(this.selectedImageStyleId);
-  //   this.currentSlide.addSlideObject(newImageObject);
-  // }
-
-  // addShapeObjectToSlide(){
-  //   let newShapeObject = new ShapeObject();
-  //       // TODO: ADD SHAPE OBJECT ATTRIBUTES FROM SANDBOXIMAGE
-  //       newShapeObject.setStyleId(this.selectedShapeStyleId);
-  //       this.currentSlide.addSlideObject(newShapeObject);
-  // }
-
-  // addObjectToSlide(type: string, styleId: number) {
-
-  //   // Create a new textObject || shapeObject || imageObject with whatever data is 
-  //   // currently stored in sandboxText || sandboxShape || sandboxImage 
-  //   // and add it as a slide object in the current slide
-
-  //   let currentSlide = this.slides[this.currentSlideIndex];
-
-  //   switch (type) {
-  //     case "text":
-  //       let newTextObject = new TextObject();
-  //       newTextObject.setTextvalue(this.sandboxText);
-  //       newTextObject.setStyleId(this.selectedTextStyleId);
-  //       currentSlide.addSlideObject(newTextObject);
-  //       break;
-
-  //     case "image":
-  //       let newImageObject = new ImageObject();
-  //       // TODO: ADD IMAGE OBJECT ATTRIBUTES FROM SANDBOXIMAGE
-  //       newImageObject.setStyleId(this.selectedImageStyleId);
-  //       currentSlide.addSlideObject(newImageObject);
-  //       break;
-
-  //     case "shape":
-  //       let newShapeObject = new ShapeObject();
-  //       // TODO: ADD SHAPE OBJECT ATTRIBUTES FROM SANDBOXIMAGE
-  //       newShapeObject.setStyleId(this.selectedShapeStyleId);
-  //       currentSlide.addSlideObject(newShapeObject);
-  //       break;
-  //   }
-  // }
-
-  // SLIDE-EDITOR FUNCTIONS
-
-
-  // STYLER FUNCTIONS
+  }
 }

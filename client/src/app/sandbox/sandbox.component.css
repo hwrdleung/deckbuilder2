@@ -1,25 +1,80 @@
-#text-sandbox {
-    height: 100%;
+#shape-sandbox,
+#text-sandbox,
+#image-sandbox {
     display: grid;
-    grid-template-rows: 1fr 100px 1fr;
+    grid-template-rows: 50% 50%;
 }
 
-textarea {
+#image-preview-container,
+#text-preview-container {
     height: 100%;
     width: 100%;
-    resize: none;
-    outline: none;
-    user-select: none;
-    padding: 0;
-    margin: 0;
-}
+    overflow: scroll;
+    background: linear-gradient(to bottom right, rgb(179, 179, 179), rgb(241, 241, 241));
 
-#text-preview-container {
-    height: auto;
-    width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 85%;
-    margin: 0 auto;
 }
+
+.sandbox-toolbar {
+    width: 100%;
+    height: 100px;
+}
+
+.sandbox-toolbar
+textarea,
+.sandbox-toolbar
+input {
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+#text-workspace {
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sandbox-bottom-half {
+    display: grid;
+    grid-template-rows: 100px 1fr;
+}
+
+/* text-sandbox styling*/
+
+#image-preview {
+    max-width: 90%;
+    max-height: 90%;
+    margin: 0;
+    padding: 0;
+}
+
+
+#image-gallery {
+    background: rgb(168, 168, 168);
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+}
+
+#image-gallery div img {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.img-placeholder {
+    height: 150px;
+    width: 150px;
+    margin: 0;
+    padding: 0;
+}
+
