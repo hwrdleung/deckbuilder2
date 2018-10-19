@@ -8,6 +8,7 @@ import { TextObject } from "./classes/textObject";
 import * as jsPDF from 'jspdf';
 import * as html2canvas from "html2canvas";
 import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
+// import { caman } from "./caman";
 
 import { ImageObject } from "./classes/imageObject";
 import { ShapeObject } from "./classes/shapeObject";
@@ -17,6 +18,8 @@ import { ShapeObject } from "./classes/shapeObject";
 })
 export class DataService {
 
+
+  // These variable define the state of the app
   currentProject: Project;
   // State variables
   slides: Array<Slide>;
@@ -38,7 +41,7 @@ export class DataService {
   sandboxImage: Object;
   sandboxShape: Object;
   textNotes: string;
-  images: Array<string>;
+  images = [];
   selectedImage: number = 0;
 
   // UI Logic variables
@@ -48,8 +51,6 @@ export class DataService {
 
   documentSize: object;
   slideRenderMagnification: number = 50;
-
-
 
   constructor(private http: HttpClient) {
 
@@ -236,6 +237,7 @@ export class DataService {
     newProject.setProjectProperty('slideRenderMagnification', this.slideRenderMagnification);
 
     newProject.setProjectProperty('textNotes', this.textNotes);
+    newProject.setProjectProperty('images', this.images);
 
     let newProjectJSON = JSON.stringify(newProject);
     localStorage.setItem('deckbuilder2Data', newProjectJSON);
@@ -262,13 +264,13 @@ export class DataService {
     }
   }
 
-  deleteShapeStyleById(id: number) {
-    for (let i = 0; i < this.shapeStyles.length; i++) {
-      if (this.shapeStyles[i].getStyleProperty('id') === id && this.shapeStyles.length > 1) {
-        this.shapeStyles.splice(i, 1);
-      }
-    }
-  }
+  // deleteShapeStyleById(id: number) {
+  //   for (let i = 0; i < this.shapeStyles.length; i++) {
+  //     if (this.shapeStyles[i].getStyleProperty('id') === id && this.shapeStyles.length > 1) {
+  //       this.shapeStyles.splice(i, 1);
+  //     }
+  //   }
+  // }
 
 
 
@@ -291,7 +293,7 @@ export class DataService {
     let currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
     let newImageObject = new ImageObject();
 
-    newImageObject.setImagePath(this.images[this.selectedImage]);
+    newImageObject.setImagePath(this.images[this.selectedImage].url);
     newImageObject.setStyleId(this.selectedImageStyleId);
     console.log(newImageObject);
 
@@ -299,32 +301,20 @@ export class DataService {
     newImageObject.setZIndex(currentSlideObjects.length - 1);
   }
 
-  uploadToServer(event){
-    let file = event.target.files[0];
-    console.log(file);
+  uploadImage(event){
+    let file = event.srcElement.files[0];
+    console.log(event);
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
 
-    let formData = new FormData();
-    let context = this;
-    formData.append('file', file, file.name);
-
-    this.http.post('http://localhost:3000/upload', formData).subscribe((res)=>{
-      console.log(res);
-      context.getImageUrlsFromServer();
-    });
-  }
-
-  getImageUrlsFromServer(){
-    let url = 'http://localhost:3000/getImageNames';
-
-    this.http.get(url).subscribe((res)=>{
-      console.log(res);
-      this.images = res['images'];
-
-      for(let i=0; i < this.images.length; i++){
-        this.images[i] = 'http://localhost:3000/' + this.images[i];
+    reader.onload = (e) => {
+      let url = (<FileReader>e.target).result;
+      let image = {
+        url: url,
+        id: this.images.length;
       }
-      console.log(this.images);
-    });
+      this.images.push(image);
+    }
   }
 
   selectImage(index){

@@ -21,6 +21,7 @@ export class Project {
 
     private currentSlideIndex: number;
     private selectedSlideObjectId: number;
+    private images: Array<object>;
 
     private sandboxText: string;
     private sandboxImage: string;
@@ -50,6 +51,7 @@ export class Project {
 
         this.sandboxText = "Lorem ipsum";
         this.textNotes = "Test";
+        this.images = [];
 
         this.documentSize = {
             height: 432,

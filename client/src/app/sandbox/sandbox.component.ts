@@ -11,7 +11,9 @@ export class SandboxComponent implements OnInit {
   constructor(private data:DataService) { }
 
   ngOnInit() {
-    this.data.getImageUrlsFromServer();
+    
   }
+
+ 
 
 }

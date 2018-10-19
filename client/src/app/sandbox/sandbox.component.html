@@ -10,10 +10,10 @@
     <p>Create a new image object</p>
   </a>
 
-  <a (click)="this.data.setMode('shape')" class="flex-row-evenly md-btn">
+  <!-- <a (click)="this.data.setMode('shape')" class="flex-row-evenly md-btn">
     <fa name="shapes" size="3x" class="accent03 object-icon"></fa>
     <p>Create a new shape object</p>
-  </a>
+  </a> -->
 </div>
 
 <!-- Text sandbox -->
@@ -44,13 +44,13 @@
 <!-- Image sandbox -->
 <div id="image-sandbox" class="grayAccent03" *ngIf="this.data.viewImageElements && this.data.imageStyles.length > 0">
   <div id="image-preview-container">
-    <img id="image-preview" [src]="this.data.images[this.data.selectedImage]" 
+    <img id="image-preview" [src]="this.data.images[this.data.selectedImage].url" 
     [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
   </div>
 
   <div class="sandbox-bottom-half">
     <div class="flex-row-between sandbox-toolbar">
-        <input type="file" (change)="this.data.uploadToServer($event)">
+        <input type="file" (change)="this.data.uploadImage($event)">
       <a (click)="this.data.addImageObjectToSlide()" class="lg-btn flex-col-evenly grayAccent02">
         <fa name="share" size="3x"></fa>
         <p>Add image object to slide</p>
@@ -58,8 +58,8 @@
     </div>
 
     <div id="image-gallery">
-        <div *ngFor="let imageUrl of this.data.images; let i = index;">
-          <img src="{{imageUrl}}" (click)="this.data.selectImage(i)">
+        <div *ngFor="let image of this.data.images; let i = index;">
+          <img src="{{image.url}}" (click)="this.data.selectImage(image.id)">
         </div>
     </div>
   </div>
@@ -67,8 +67,8 @@
 
 
 <!-- Shape sandbox -->
-<div id="shape-sandbox" class="grayAccent03" *ngIf="this.data.viewShapeElements && this.data.shapeStyles.length > 0">
+<!-- <div id="shape-sandbox" class="grayAccent03" *ngIf="this.data.viewShapeElements && this.data.shapeStyles.length > 0">
 
   <h1>Shape sandbox</h1>
 
-</div>
+</div> -->
