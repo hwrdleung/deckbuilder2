@@ -12,6 +12,9 @@ import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 
 import { ImageObject } from "./classes/imageObject";
 import { ShapeObject } from "./classes/shapeObject";
+import { SlideObject } from "./classes/slideObject";
+import { BorderControl } from "./classes/borderControl";
+import { ShadowControl } from "./classes/shadowControl";
 
 @Injectable({
   providedIn: "root"
@@ -20,37 +23,36 @@ export class DataService {
 
 
   // These variable define the state of the app
-  currentProject: Project;
-  // State variables
-  slides: Array<Slide>;
-  textStyles: Array<TextStyle>;
-  imageStyles: Array<ImageStyle>;
-  shapeStyles: Array<ShapeStyle>;
+  currentProject: Project = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : this.loadNewProject();
+  // currentProject: Project = new Project();
+
+  slides: Array<Slide> = this.currentProject.getProjectProperty('slides');
+  textStyles: Array<TextStyle> = this.currentProject.getProjectProperty('textStyles');
+  imageStyles: Array<ImageStyle> = this.currentProject.getProjectProperty('imageStyles');
+  shapeStyles: Array<ShapeStyle> = this.currentProject.getProjectProperty('shapeStyles');
 
   // Toolbar variables
-  selectedTextStyleId: number;
-  selectedImageStyleId: number;
-  selectedShapeStyleId: number;
+  selectedTextStyleId: number = this.currentProject.getProjectProperty('selectedTextStyleId');
+  selectedImageStyleId: number = this.currentProject.getProjectProperty('selectedImageStyleId');
+  selectedShapeStyleId: number = this.currentProject.getProjectProperty('selectedShapeStyleId');
 
   // Slide editor variables
-  currentSlideIndex: number;
-  selectedSlideObjectId: number;
+  currentSlideIndex: number = this.currentProject.getProjectProperty('currentSlideIndex');
+  selectedSlideObjectId: number = this.currentProject.getProjectProperty('selectedSlideObjectId');
 
   // Sandbox variables
-  sandboxText: string;
-  sandboxImage: Object;
-  sandboxShape: Object;
-  textNotes: string;
-  images = [];
-  selectedImage: number = 0;
+  sandboxText: string = this.currentProject.getProjectProperty('sandboxText');
+  textNotes: string = this.currentProject.getProjectProperty('textNotes');
+  images = this.currentProject.getProjectProperty('images');
+  selectedImage: number = this.currentProject.getProjectProperty('selectedImage');
 
   // UI Logic variables
-  viewTextElements: boolean;
-  viewImageElements: boolean;
-  viewShapeElements: boolean;
+  viewTextElements: boolean = this.currentProject.getProjectProperty('viewTextElements');
+  viewImageElements: boolean  = this.currentProject.getProjectProperty('viewImageElements');
+  viewShapeElements: boolean  = this.currentProject.getProjectProperty('viewShapeElements');
 
-  documentSize: object;
-  slideRenderMagnification: number = 50;
+  documentSize: object  = this.currentProject.getProjectProperty('documentSize');
+  slideRenderMagnification: number = this.currentProject.getProjectProperty('slideRenderMagnification');
 
   constructor(private http: HttpClient) {
 
@@ -58,7 +60,7 @@ export class DataService {
 
   test() {
     console.log("Test");
-    console.log(this.textStyles);
+    console.log(this.currentProject);
   }
 
   // FUNCTIONS USED BY ALL COMPONENTS
@@ -107,42 +109,124 @@ export class DataService {
     }
   }
 
+  loadNewProject(){
+    let project = new Project();
+
+    project.addTextStyle(new TextStyle());
+    project.addImageStyle(new ImageStyle());
+    project.addSlide(new Slide());
+
+    return project;
+  }
+
+  getSavedProject () {
+    let savedProjectData = JSON.parse(localStorage.getItem('deckbuilder2Data'));
+
+    let project = new Project();
+    project.revive(savedProjectData);
+
+    // Revive Slides
+    let slides = [];
+
+    for(let i = 0; i < savedProjectData.slides.length; i++){
+      let slide = new Slide();
+      slide.revive(savedProjectData.slides[i]);
+
+      let slideObjects = [];
+
+      for(let j = 0; j < savedProjectData.slides[i].slideObjects.length; j++){
+        let currentSlideObject = savedProjectData.slides[i].slideObjects[j];
+        // Revive text objects
+        if(currentSlideObject.hasOwnProperty('textValue')){
+          let textObject = new TextObject();
+          textObject.revive(currentSlideObject);
+          slideObjects.push(textObject);
+        } else if(currentSlideObject.hasOwnProperty('imagePath')){
+        // Revive image objects
+          let imageObject = new ImageObject();
+          imageObject.revive(currentSlideObject);
+          slideObjects.push(imageObject);
+        }
+
+        slide.setSlideProperty('slideObjects', slideObjects);
+      }
+      slides.push(slide);
+    }   
+    
+    project.setProjectProperty('slides', slides);
+
+    // Revive text styles
+    let textStyles = []; // REMEMBER TO ADD ME BACK INTO PROJECT
+    for(let i = 0; i < savedProjectData.textStyles.length; i++){
+      let currentTextStyle = savedProjectData.textStyles[i];
+      let textStyle = new TextStyle();
+      textStyle.revive(currentTextStyle);
+
+      // Revive borders
+      let border = new BorderControl();
+      border.revive(currentTextStyle.border);
+      textStyle.setStyleProperty('border', border);
+
+      // Revive shadows
+      let shadow = new ShadowControl();
+      shadow.revive(currentTextStyle.textShadow);
+      textStyle.setStyleProperty('textShadow', shadow);
+
+      textStyles.push(textStyle);
+    }
+
+    project.setProjectProperty('textStyles', textStyles);
+
+    // Revive image styles
+    let imageStyles = [];
+    for(let i = 0; i < savedProjectData.imageStyles.length; i++){
+      let currentImageStyle = savedProjectData.imageStyles[i];
+      let imageStyle = new ImageStyle();
+      imageStyle.revive(currentImageStyle);
+
+      // Revive borders
+      let border = new BorderControl();
+      border.revive(currentImageStyle.border);
+      imageStyle.setStyleProperty('border', border);
+
+      imageStyles.push(imageStyle);
+    }
+
+    project.setProjectProperty('imageStyles', imageStyles);
+
+    return project;
+  }
+
+  saveSession() {
+    console.log("Save session does not work yet");
+
+    this.currentProject.setProjectProperty('slides', this.slides);
+    this.currentProject.setProjectProperty('textStyles', this.textStyles);
+    this.currentProject.setProjectProperty('imageStyles', this.imageStyles);
+    this.currentProject.setProjectProperty('shapeStyles', this.shapeStyles);
+
+    this.currentProject.setProjectProperty('selectedTextStyleId', this.selectedTextStyleId);
+    this.currentProject.setProjectProperty('selectedImageStyleId', this.selectedImageStyleId);
+    this.currentProject.setProjectProperty('selectedShapeStyleId', this.selectedShapeStyleId);
+
+    this.currentProject.setProjectProperty('currentSlideIndex', this.currentSlideIndex);
+    this.currentProject.setProjectProperty('selectedSlideObjectId', this.selectedSlideObjectId);
+
+    this.currentProject.setProjectProperty('sandboxText', this.sandboxText);
+
+    this.currentProject.setProjectProperty('documentSize', this.documentSize);
+    this.currentProject.setProjectProperty('slideRenderMagnification', this.slideRenderMagnification);
+
+    this.currentProject.setProjectProperty('textNotes', this.textNotes);
+    this.currentProject.setProjectProperty('images', this.images);
+
+    localStorage.setItem('deckbuilder2Data', JSON.stringify(this.currentProject));
+    alert('Your session has been saved');
+
+  }
+
 
   //  TOOLBAR FUNCTIONS
-  loadProject(project: Project) {
-    this.slides = project.getProjectProperty("slides");
-    this.textStyles = project.getProjectProperty("textStyles");
-    this.imageStyles = project.getProjectProperty("imageStyles");
-    this.shapeStyles = project.getProjectProperty("shapeStyles");
-
-    this.selectedTextStyleId = project.getProjectProperty(
-      "selectedTextStyleId"
-    );
-    this.selectedImageStyleId = project.getProjectProperty(
-      "selectedImageStyleId"
-    );
-    this.selectedShapeStyleId = project.getProjectProperty(
-      "selectedShapeStyleId"
-    );
-
-    this.currentSlideIndex = project.getProjectProperty("currentSlideIndex");
-    this.selectedSlideObjectId = project.getProjectProperty(
-      "selectedSlideObjectId"
-    );
-
-    this.sandboxText = project.getProjectProperty("sandboxText");
-    this.sandboxImage = project.getProjectProperty("sandboxImage");
-    this.sandboxShape = project.getProjectProperty("sandboxShape");
-
-    this.documentSize = project.getProjectProperty("documentSize");
-    this.slideRenderMagnification = project.getProjectProperty('slideRenderMagnification');
-
-    this.textNotes = project.getProjectProperty('textNotes');
-
-    this.viewTextElements = true;
-    this.viewImageElements = false;
-    this.viewShapeElements = false;
-  }
 
   createTextStyle() {
     let newTextStyle = new TextStyle();
@@ -213,37 +297,6 @@ export class DataService {
     }, 3000);
   }
 
-  saveSession() {
-    console.log("Save session");
-    let newProject = new Project();
-
-    newProject.setProjectProperty('slides', this.slides);
-    newProject.setProjectProperty('textStyles', this.textStyles);
-    newProject.setProjectProperty('imageStyles', this.imageStyles);
-    newProject.setProjectProperty('shapeStyles', this.shapeStyles);
-
-    newProject.setProjectProperty('selectedTextStyleId', this.selectedTextStyleId);
-    newProject.setProjectProperty('selectedImageStyleId', this.selectedImageStyleId);
-    newProject.setProjectProperty('selectedShapeStyleId', this.selectedShapeStyleId);
-
-    newProject.setProjectProperty('currentSlideIndex', this.currentSlideIndex);
-    newProject.setProjectProperty('selectedSlideObjectId', this.selectedSlideObjectId);
-
-    newProject.setProjectProperty('sandboxText', this.sandboxText);
-    newProject.setProjectProperty('sandboxImage', this.sandboxImage);
-    newProject.setProjectProperty('sandboxShape', this.sandboxShape);
-
-    newProject.setProjectProperty('documentSize', this.documentSize);
-    newProject.setProjectProperty('slideRenderMagnification', this.slideRenderMagnification);
-
-    newProject.setProjectProperty('textNotes', this.textNotes);
-    newProject.setProjectProperty('images', this.images);
-
-    let newProjectJSON = JSON.stringify(newProject);
-    localStorage.setItem('deckbuilder2Data', newProjectJSON);
-    alert('Your session has been saved');
-
-  }
 
 
   //  STYLER FUNCTIONS
@@ -311,7 +364,7 @@ export class DataService {
       let url = (<FileReader>e.target).result;
       let image = {
         url: url,
-        id: this.images.length;
+        id: this.images.length
       }
       this.images.push(image);
     }

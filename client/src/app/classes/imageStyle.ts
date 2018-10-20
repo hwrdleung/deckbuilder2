@@ -41,6 +41,12 @@ export class ImageStyle {
 
     }
 
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
+        }
+    }
+
     getCss(){
         let css = {
             'border-top': this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',

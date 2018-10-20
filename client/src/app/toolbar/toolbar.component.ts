@@ -27,71 +27,71 @@ export class ToolbarComponent implements OnInit {
   constructor(private data:DataService) { }
 
   ngOnInit() {
-    this.checkLocalStorage();
+    // this.checkLocalStorage();
   }
 
-  checkLocalStorage(){
-    // Check local storage for data from previous session
-    let deckbuilder2Data = JSON.parse(localStorage.getItem('deckbuilder2Data'));   
+  // checkLocalStorage(){
+  //   // Check local storage for data from previous session
+  //   let deckbuilder2Data = JSON.parse(localStorage.getItem('deckbuilder2Data'));   
 
-    if(deckbuilder2Data){
-    // load
-      let project = new Project();
-      project.clearContents();
+  //   if(deckbuilder2Data){
+  //   // load
+  //     let project = new Project();
+  //     project.clearContents();
 
-     // Create image styles based on deckbuilder2Data JSON object
-     for(let i=0; i<deckbuilder2Data.textStyles.length; i++){
-       let newTextStyle = new TextStyle();
-       // Populate this textStyle's variables with data from deckbuilder2Data.textStyles[i]
-       for(let key in deckbuilder2Data.textStyles[i]){
-          newTextStyle.setStyleProperty(key, deckbuilder2Data.textStyles[i][key]);
-       }
+  //    // Create image styles based on deckbuilder2Data JSON object
+  //    for(let i=0; i<deckbuilder2Data.textStyles.length; i++){
+  //      let newTextStyle = new TextStyle();
+  //      // Populate this textStyle's variables with data from deckbuilder2Data.textStyles[i]
+  //      for(let key in deckbuilder2Data.textStyles[i]){
+  //         newTextStyle.setStyleProperty(key, deckbuilder2Data.textStyles[i][key]);
+  //      }
 
-       // Load borders
-       newTextStyle.setStyleProperty('border', new BorderControl());
-       let newTextStyleBorder = newTextStyle.getStyleProperty('border');
+  //      // Load borders
+  //      newTextStyle.setStyleProperty('border', new BorderControl());
+  //      let newTextStyleBorder = newTextStyle.getStyleProperty('border');
 
-       for(let key in deckbuilder2Data.textStyles[i].border){
-         newTextStyleBorder.setBorderProperty(key, deckbuilder2Data.textStyles[i].border[key]);
-       }
+  //      for(let key in deckbuilder2Data.textStyles[i].border){
+  //        newTextStyleBorder.setBorderProperty(key, deckbuilder2Data.textStyles[i].border[key]);
+  //      }
 
-       // Load shadows
-       newTextStyle.setStyleProperty('textShadow', new ShadowControl());
-       let newTextStyleShadow = newTextStyle.getStyleProperty('textShadow');
+  //      // Load shadows
+  //      newTextStyle.setStyleProperty('textShadow', new ShadowControl());
+  //      let newTextStyleShadow = newTextStyle.getStyleProperty('textShadow');
 
-       for(let key in deckbuilder2Data.textStyles[i].textShadow){
-        newTextStyleShadow.setShadowProperty(key, deckbuilder2Data.textStyles[i].textShadow[key]);
-      }
-       project.addTextStyle(newTextStyle);
-     }
+  //      for(let key in deckbuilder2Data.textStyles[i].textShadow){
+  //       newTextStyleShadow.setShadowProperty(key, deckbuilder2Data.textStyles[i].textShadow[key]);
+  //     }
+  //      project.addTextStyle(newTextStyle);
+  //    }
      
-    // Create slides based on deckbuilder2Data JSON object
-     for(let i=0; i<deckbuilder2Data.slides.length; i++){
-       let newSlide = new Slide();
-       for(let key in deckbuilder2Data.slides[i]){
-         newSlide.setSlideProperty(key, deckbuilder2Data.slides[i][key]);
-       }
+  //   // Create slides based on deckbuilder2Data JSON object
+  //    for(let i=0; i<deckbuilder2Data.slides.length; i++){
+  //      let newSlide = new Slide();
+  //      for(let key in deckbuilder2Data.slides[i]){
+  //        newSlide.setSlideProperty(key, deckbuilder2Data.slides[i][key]);
+  //      }
 
-       // Create all slide objects for this slide based on deckbuilder2Data JSON object
-       newSlide.clearSlideObjects();
-       for(let j=0; j < deckbuilder2Data.slides[i].slideObjects.length; j++){
-        let newTextObject = new TextObject();
-        for(let key in deckbuilder2Data.slides[i].slideObjects[j]){
-          newTextObject.setTextObjectProperty(key, deckbuilder2Data.slides[i].slideObjects[j][key])
-        }
-        newSlide.addSlideObject(newTextObject);
-       }
+  //      // Create all slide objects for this slide based on deckbuilder2Data JSON object
+  //      newSlide.clearSlideObjects();
+  //      for(let j=0; j < deckbuilder2Data.slides[i].slideObjects.length; j++){
+  //       let newTextObject = new TextObject();
+  //       for(let key in deckbuilder2Data.slides[i].slideObjects[j]){
+  //         newTextObject.setTextObjectProperty(key, deckbuilder2Data.slides[i].slideObjects[j][key])
+  //       }
+  //       newSlide.addSlideObject(newTextObject);
+  //      }
   
-       project.addSlide(newSlide);
-     }
+  //      project.addSlide(newSlide);
+  //    }
 
-     this.data.loadProject(project);
+  //    this.data.loadProject(project);
 
-    } else if (!deckbuilder2Data){
-      // Load a new project
-      this.data.loadProject(new Project());
-    }
+  //   } else if (!deckbuilder2Data){
+  //     // Load a new project
+  //     this.data.loadProject(new Project());
+  //   }
 
-  }
+  // }
 
 }

@@ -82,6 +82,12 @@ export class BorderControl{
         this.bottomRightRadius = 0;
     }
 
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
+        }
+    }
+
     getFullBorderCss(){
         let cssProperty = this.fullBorderWidth + 'px ' + this.fullBorderColor + ' ' + this.fullBorderStyle;
         return cssProperty;

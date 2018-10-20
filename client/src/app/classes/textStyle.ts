@@ -56,6 +56,12 @@ export class TextStyle {
         }
     }
 
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
+        }
+    }
+
     getCss() {
         let css = {
             'height': '100%',

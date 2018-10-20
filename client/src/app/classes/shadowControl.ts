@@ -14,6 +14,12 @@ export class ShadowControl {
         this.color = '#000';
     }
 
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
+        }
+    }
+
     getShadowCss(){
         let cssProperty;
 

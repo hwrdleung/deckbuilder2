@@ -9,6 +9,12 @@ export class ImageObject extends SlideObject {
         super();
     }
 
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
+        }
+    }
+
     setImagePath(imagePath:string){
         this.imagePath = imagePath;
     }
@@ -23,5 +29,9 @@ export class ImageObject extends SlideObject {
 
     getStyleId(){
         return this.styleId;
+    }
+
+    setImageObjectProperty(propertyName, propertyValue){
+        this[propertyName] = propertyValue;
     }
 }

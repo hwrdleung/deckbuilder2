@@ -27,9 +27,16 @@ export class Project {
     private sandboxImage: string;
     private sandboxShape: Object;
 
+    
+    private viewTextElements: boolean;
+    private viewImageElements: boolean;
+    private viewShapeElements: boolean;
+
     private textNotes: string;
+    private selectedImage: number;
 
     private documentSize: object;
+    private slideRenderMagnification;
 
     constructor () {
         this.title = 'New Project';
@@ -46,16 +53,29 @@ export class Project {
         this.selectedImageStyleId = 0;
         this.selectedShapeStyleId = 0;
 
+        this.viewTextElements = true;
+        this.viewImageElements = false;
+        this.viewShapeElements = false;
+
         this.currentSlideIndex = 0;
         this.selectedSlideObjectId = 1;
 
         this.sandboxText = "Lorem ipsum";
         this.textNotes = "Test";
         this.images = [];
+        this.selectedImage = 0;
 
         this.documentSize = {
             height: 432,
             width: 768
+        }
+
+        this.slideRenderMagnification = 50;
+    }
+
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
         }
     }
 
@@ -72,6 +92,10 @@ export class Project {
 
     addTextStyle(textStyle: TextStyle){
         this.textStyles.push(textStyle);
+    }
+
+    addImageStyle(imageStyle: ImageStyle){
+        this.imageStyles.push(imageStyle);
     }
 
     getProjectProperty(propertyName){

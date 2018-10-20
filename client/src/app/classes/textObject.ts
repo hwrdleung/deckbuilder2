@@ -9,6 +9,14 @@ export class TextObject extends SlideObject {
     constructor () {
         super();
         this.editTextMode = false;
+        this.styleId = 0;
+        this.textValue = "Lorem Ipsum";
+    }
+
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
+        }
     }
 
     toggleEditTextMode(){

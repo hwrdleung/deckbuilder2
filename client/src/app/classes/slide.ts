@@ -17,6 +17,12 @@ export class Slide {
         this.slideObjects = [];
     }
 
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
+        }
+    }
+
     getSlideProperty(propertyName){
         return this[propertyName];
     }

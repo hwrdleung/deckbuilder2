@@ -29,6 +29,12 @@ export class SlideObject{
         this.zIndex = 100;
     }
 
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
+        }
+    }
+
     toggleEditNameMode(){
         this.editNameMode = !this.editNameMode;
     }
