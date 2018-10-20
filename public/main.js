@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-rows: 100px 1fr;\r\n        grid-template-rows: 100px 1fr;\r\n        -ms-grid-columns: 300px 1fr 1fr;\r\n        grid-template-columns: 300px 1fr 1fr;\r\n    overflow: hidden;\r\n        grid-template-areas:\r\n        \"toolbar toolbar toolbar\"\r\n        \"styler sandbox editor\"\r\n\r\n}\r\n\r\n#toolbar {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    -ms-grid-column-span: 3;\r\n    grid-area: toolbar;\r\n    overflow: hidden;\r\n}\r\n\r\n#styler {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 1;\r\n    grid-area: styler;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n}\r\n\r\n#sandbox {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 2;\r\n    grid-area: sandbox;\r\n    overflow: hidden;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 75px 100%;\r\n        grid-template-rows: 75px 100%;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}\r\n\r\n#slide-editor {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 3;\r\n    grid-area: editor;\r\n    overflow: hidden;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 75px 100%;\r\n        grid-template-rows: 75px 100%;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}"
+module.exports = ".app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-rows: 100px auto;\r\n        grid-template-rows: 100px auto;\r\n        -ms-grid-columns: 300px 1fr 1fr;\r\n        grid-template-columns: 300px 1fr 1fr;\r\n    overflow: hidden;\r\n        grid-template-areas:\r\n        \"toolbar toolbar toolbar\"\r\n        \"styler sandbox editor\"\r\n\r\n}\r\n\r\n#toolbar {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    -ms-grid-column-span: 3;\r\n    grid-area: toolbar;\r\n    overflow: hidden;\r\n}\r\n\r\n#styler {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 1;\r\n    grid-area: styler;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n}\r\n\r\n#sandbox {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 2;\r\n    grid-area: sandbox;\r\n    overflow: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 75px auto;\r\n        grid-template-rows: 75px auto;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}\r\n\r\n#slide-editor {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 3;\r\n    grid-area: editor;\r\n    overflow: hidden;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 75px auto;\r\n        grid-template-rows: 75px auto;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}"
 
 /***/ }),
 
@@ -208,6 +208,11 @@ var BorderControl = /** @class */ (function () {
         this.bottomLeftRadius = 0;
         this.bottomRightRadius = 0;
     }
+    BorderControl.prototype.revive = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
     BorderControl.prototype.getFullBorderCss = function () {
         var cssProperty = this.fullBorderWidth + 'px ' + this.fullBorderColor + ' ' + this.fullBorderStyle;
         return cssProperty;
@@ -252,6 +257,60 @@ var BorderControl = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/classes/imageObject.ts":
+/*!****************************************!*\
+  !*** ./src/app/classes/imageObject.ts ***!
+  \****************************************/
+/*! exports provided: ImageObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageObject", function() { return ImageObject; });
+/* harmony import */ var _slideObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slideObject */ "./src/app/classes/slideObject.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+var ImageObject = /** @class */ (function (_super) {
+    __extends(ImageObject, _super);
+    function ImageObject() {
+        return _super.call(this) || this;
+    }
+    ImageObject.prototype.revive = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
+    ImageObject.prototype.setImagePath = function (imagePath) {
+        this.imagePath = imagePath;
+    };
+    ImageObject.prototype.getImagePath = function () {
+        return this.imagePath;
+    };
+    ImageObject.prototype.setStyleId = function (styleId) {
+        this.styleId = styleId;
+    };
+    ImageObject.prototype.getStyleId = function () {
+        return this.styleId;
+    };
+    ImageObject.prototype.setImageObjectProperty = function (propertyName, propertyValue) {
+        this[propertyName] = propertyValue;
+    };
+    return ImageObject;
+}(_slideObject__WEBPACK_IMPORTED_MODULE_0__["SlideObject"]));
+
+
+
+/***/ }),
+
 /***/ "./src/app/classes/imageStyle.ts":
 /*!***************************************!*\
   !*** ./src/app/classes/imageStyle.ts ***!
@@ -262,92 +321,82 @@ var BorderControl = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageStyle", function() { return ImageStyle; });
+/* harmony import */ var _borderControl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./borderControl */ "./src/app/classes/borderControl.ts");
+
 var ImageStyle = /** @class */ (function () {
     function ImageStyle() {
         this.id = ImageStyle.imageStyleCounter++;
         this.name = 'ImageStyle' + ImageStyle.imageStyleCounter;
         this.editNameMode = false;
         this.showExtraOptions = false;
-        this.borderWidth = 0;
-        this.borderStyle = 'none';
-        this.borderColor = 'transparent';
-        this.borderRadius = 0;
-        this.opacity = 1;
+        this.opacity = 100;
         this.grayscale = 0;
         this.blur = 0;
-        this.brightness = 1;
-        this.contrast = 1;
-        this.dropShadow = {
-            'h-shadow': 0,
-            'v-shadow': 0,
-            'blur': 0,
-            'spread': 0,
-            'color': 'transparent'
-        };
+        this.brightness = 100;
+        this.contrast = 100;
         this.hueRotate = 0;
         this.invert = 0;
-        this.saturate = 1;
+        this.saturate = 100;
         this.sepia = 0;
+        this.border = new _borderControl__WEBPACK_IMPORTED_MODULE_0__["BorderControl"]();
     }
+    ImageStyle.prototype.revive = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
     ImageStyle.prototype.getCss = function () {
         var css = {
-            'border-width': this.borderWidth + 'px',
-            'border-style': this.borderStyle + 'px',
-            'border-color': this.borderColor,
-            'border-radius': this.borderRadius,
+            'border-top': this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',
+            'border-right': this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
+            'border-bottom': this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none',
+            'border-left': this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none',
+            'border': this.border.getBorderProperty('showFullBorder') ? this.border.getFullBorderCss() : 'none',
+            'border-radius': this.border.getBorderRadiusCss(),
             'filter': this.getFilters(),
         };
         return css;
     };
     ImageStyle.prototype.getFilters = function () {
-        var cssFilters;
+        var cssFilters = "";
         // Default values:
         var defaultOpacity = 1;
         var defaultGrayscale = 0;
         var defaultBlur = 0;
         var defaultBrightness = 1;
         var defaultContrast = 1;
-        var defaultDropShadow = {
-            'h-shadow': 0,
-            'v-shadow': 0,
-            'blur': 0,
-            'spread': 0,
-            'color': 'transparent'
-        };
         var defaultHueRotate = 0;
         var defaultInvert = 0;
         var defaultSaturate = 1;
         var defaultSepia = 0;
         if (this.opacity !== defaultOpacity) {
-            cssFilters += 'opacity(' + this.opacity + ') ';
+            cssFilters += 'opacity(' + this.opacity / 100 + ') ';
         }
         if (this.grayscale !== defaultGrayscale) {
-            cssFilters += 'grayscale(' + this.grayscale + ') ';
+            cssFilters += 'grayscale(' + this.grayscale / 100 + ') ';
         }
         if (this.blur !== defaultBlur) {
-            cssFilters += 'blur(' + this.blur + ') ';
+            cssFilters += 'blur(' + this.blur + 'px) ';
         }
         if (this.brightness !== defaultBrightness) {
-            cssFilters += 'brightness(' + this.brightness + ') ';
+            cssFilters += 'brightness(' + this.brightness / 100 + ') ';
         }
         if (this.contrast !== defaultContrast) {
-            cssFilters += 'contrast(' + this.contrast + ') ';
-        }
-        if (JSON.stringify(this.dropShadow) !== JSON.stringify(defaultDropShadow)) {
-            cssFilters += 'dropShadow(' + this.dropShadow + ') ';
+            cssFilters += 'contrast(' + this.contrast / 100 + ') ';
         }
         if (this.hueRotate !== defaultHueRotate) {
-            cssFilters += 'hue-rotate(' + this.hueRotate + ') ';
+            cssFilters += 'hue-rotate(' + this.hueRotate + 'deg) ';
         }
         if (this.invert !== defaultInvert) {
-            cssFilters += 'invert(' + this.invert + ') ';
+            cssFilters += 'invert(' + this.invert / 100 + ') ';
         }
         if (this.saturate !== defaultSaturate) {
-            cssFilters += 'saturate(' + this.saturate + ') ';
+            cssFilters += 'saturate(' + this.saturate / 100 + ') ';
         }
         if (this.sepia !== defaultSepia) {
-            cssFilters += 'sepia(' + this.sepia + ') ';
+            cssFilters += 'sepia(' + this.sepia / 100 + ') ';
         }
+        cssFilters = cssFilters.substring(0, cssFilters.length - 1);
         return cssFilters;
     };
     ImageStyle.prototype.getStyleProperty = function (propertyName) {
@@ -393,15 +442,26 @@ var Project = /** @class */ (function () {
         this.selectedTextStyleId = 0;
         this.selectedImageStyleId = 0;
         this.selectedShapeStyleId = 0;
+        this.viewTextElements = true;
+        this.viewImageElements = false;
+        this.viewShapeElements = false;
         this.currentSlideIndex = 0;
         this.selectedSlideObjectId = 1;
         this.sandboxText = "Lorem ipsum";
         this.textNotes = "Test";
+        this.images = [];
+        this.selectedImage = 0;
         this.documentSize = {
             height: 432,
             width: 768
         };
+        this.slideRenderMagnification = 50;
     }
+    Project.prototype.revive = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
     Project.prototype.clearContents = function () {
         this.slides = [];
         this.textStyles = [];
@@ -413,6 +473,9 @@ var Project = /** @class */ (function () {
     };
     Project.prototype.addTextStyle = function (textStyle) {
         this.textStyles.push(textStyle);
+    };
+    Project.prototype.addImageStyle = function (imageStyle) {
+        this.imageStyles.push(imageStyle);
     };
     Project.prototype.getProjectProperty = function (propertyName) {
         return this[propertyName];
@@ -463,6 +526,11 @@ var ShadowControl = /** @class */ (function () {
         this.blurValue = 3;
         this.color = '#000';
     }
+    ShadowControl.prototype.revive = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
     ShadowControl.prototype.getShadowCss = function () {
         var cssProperty;
         if (this.showShadow) {
@@ -540,6 +608,11 @@ var Slide = /** @class */ (function () {
         this.backgroundColor = "#FFF";
         this.slideObjects = [];
     }
+    Slide.prototype.revive = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
     Slide.prototype.getSlideProperty = function (propertyName) {
         return this[propertyName];
     };
@@ -585,11 +658,16 @@ var SlideObject = /** @class */ (function () {
         this.left = 0;
         this.xTranslation = 0;
         this.yTranslation = 0;
-        this.height = 75;
-        this.width = 200;
+        this.height = 'auto';
+        this.width = 'auto';
         this.display = true;
         this.zIndex = 100;
     }
+    SlideObject.prototype.revive = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
     SlideObject.prototype.toggleEditNameMode = function () {
         this.editNameMode = !this.editNameMode;
     };
@@ -604,8 +682,8 @@ var SlideObject = /** @class */ (function () {
         var newTopPixels = event.position.top;
         var newLeftPixels = event.position.left;
         // // Convert to percentages and save
-        this.height = newHeightPixels;
-        this.width = newWidthPixels;
+        this.height = newHeightPixels + 'px';
+        this.width = newWidthPixels + 'px';
         this.top = newTopPixels;
         this.left = newLeftPixels;
     };
@@ -625,8 +703,8 @@ var SlideObject = /** @class */ (function () {
         var slideRenderHeight = document.querySelector('.slide-render').clientHeight;
         var slideRenderWidth = document.querySelector('.slide-render').clientWidth;
         var css = {
-            'height': this.height + 'px',
-            'width': this.width + 'px',
+            'height': this.height,
+            'width': this.width,
             'top': this.top + 'px',
             'left': this.left + 'px',
             'z-index': this.zIndex,
@@ -679,8 +757,15 @@ var TextObject = /** @class */ (function (_super) {
     function TextObject() {
         var _this = _super.call(this) || this;
         _this.editTextMode = false;
+        _this.styleId = 0;
+        _this.textValue = "Lorem Ipsum";
         return _this;
     }
+    TextObject.prototype.revive = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
     TextObject.prototype.toggleEditTextMode = function () {
         this.editTextMode = !this.editTextMode;
     };
@@ -749,6 +834,11 @@ var TextStyle = /** @class */ (function () {
             size: '25px'
         };
     }
+    TextStyle.prototype.revive = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
     TextStyle.prototype.getCss = function () {
         var css = {
             'height': '100%',
@@ -865,14 +955,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataService", function() { return DataService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _classes_project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./classes/project */ "./src/app/classes/project.ts");
-/* harmony import */ var _classes_textStyle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./classes/textStyle */ "./src/app/classes/textStyle.ts");
-/* harmony import */ var _classes_imageStyle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./classes/imageStyle */ "./src/app/classes/imageStyle.ts");
-/* harmony import */ var _classes_shapeStyle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./classes/shapeStyle */ "./src/app/classes/shapeStyle.ts");
-/* harmony import */ var _classes_textObject__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./classes/textObject */ "./src/app/classes/textObject.ts");
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.min.js");
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(jspdf__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
-/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _classes_slide__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./classes/slide */ "./src/app/classes/slide.ts");
+/* harmony import */ var _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./classes/textStyle */ "./src/app/classes/textStyle.ts");
+/* harmony import */ var _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./classes/imageStyle */ "./src/app/classes/imageStyle.ts");
+/* harmony import */ var _classes_shapeStyle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./classes/shapeStyle */ "./src/app/classes/shapeStyle.ts");
+/* harmony import */ var _classes_textObject__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./classes/textObject */ "./src/app/classes/textObject.ts");
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.min.js");
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(jspdf__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _classes_imageObject__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./classes/imageObject */ "./src/app/classes/imageObject.ts");
+/* harmony import */ var _classes_borderControl__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./classes/borderControl */ "./src/app/classes/borderControl.ts");
+/* harmony import */ var _classes_shadowControl__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./classes/shadowControl */ "./src/app/classes/shadowControl.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -890,36 +985,47 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+// import { caman } from "./caman";
+
+
+
 var DataService = /** @class */ (function () {
-    function DataService() {
-        // Set default values
-        this.slideRenderMagnification = 50;
+    function DataService(http) {
+        this.http = http;
+        // These variable define the state of the app
+        this.currentProject = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : this.loadNewProject();
+        // currentProject: Project = new Project();
+        this.slides = this.currentProject.getProjectProperty('slides');
+        this.textStyles = this.currentProject.getProjectProperty('textStyles');
+        this.imageStyles = this.currentProject.getProjectProperty('imageStyles');
+        this.shapeStyles = this.currentProject.getProjectProperty('shapeStyles');
+        // Toolbar variables
+        this.selectedTextStyleId = this.currentProject.getProjectProperty('selectedTextStyleId');
+        this.selectedImageStyleId = this.currentProject.getProjectProperty('selectedImageStyleId');
+        this.selectedShapeStyleId = this.currentProject.getProjectProperty('selectedShapeStyleId');
+        // Slide editor variables
+        this.currentSlideIndex = this.currentProject.getProjectProperty('currentSlideIndex');
+        this.selectedSlideObjectId = this.currentProject.getProjectProperty('selectedSlideObjectId');
+        // Sandbox variables
+        this.sandboxText = this.currentProject.getProjectProperty('sandboxText');
+        this.textNotes = this.currentProject.getProjectProperty('textNotes');
+        this.images = this.currentProject.getProjectProperty('images');
+        this.selectedImage = this.currentProject.getProjectProperty('selectedImage');
+        // UI Logic variables
+        this.viewTextElements = this.currentProject.getProjectProperty('viewTextElements');
+        this.viewImageElements = this.currentProject.getProjectProperty('viewImageElements');
+        this.viewShapeElements = this.currentProject.getProjectProperty('viewShapeElements');
+        this.documentSize = this.currentProject.getProjectProperty('documentSize');
+        this.slideRenderMagnification = this.currentProject.getProjectProperty('slideRenderMagnification');
     }
     DataService.prototype.test = function () {
         console.log("Test");
-        console.log(this.slideRenderMagnification);
+        console.log(this.currentProject);
     };
-    DataService.prototype.loadProject = function (project) {
-        this.slides = project.getProjectProperty("slides");
-        this.textStyles = project.getProjectProperty("textStyles");
-        this.imageStyles = project.getProjectProperty("imageStyles");
-        this.shapeStyles = project.getProjectProperty("shapeStyles");
-        this.selectedTextStyleId = project.getProjectProperty("selectedTextStyleId");
-        this.selectedImageStyleId = project.getProjectProperty("selectedImageStyleId");
-        this.selectedShapeStyleId = project.getProjectProperty("selectedShapeStyleId");
-        this.currentSlideIndex = project.getProjectProperty("currentSlideIndex");
-        this.selectedSlideObjectId = project.getProjectProperty("selectedSlideObjectId");
-        this.sandboxText = project.getProjectProperty("sandboxText");
-        this.sandboxImage = project.getProjectProperty("sandboxImage");
-        this.sandboxShape = project.getProjectProperty("sandboxShape");
-        this.documentSize = project.getProjectProperty("documentSize");
-        this.slideRenderMagnification = project.getProjectProperty('slideRenderMagnification');
-        this.textNotes = project.getProjectProperty('textNotes');
-        this.viewTextElements = true;
-        this.viewImageElements = false;
-        this.viewShapeElements = false;
-    };
-    // App view mode
+    // FUNCTIONS USED BY ALL COMPONENTS
+    // App view mode:  text || image || shape
     DataService.prototype.setMode = function (mode) {
         switch (mode) {
             case "text":
@@ -939,55 +1045,6 @@ var DataService = /** @class */ (function () {
                 break;
         }
     };
-    // TOOLBAR FUNCTIONS
-    DataService.prototype.createTextStyle = function () {
-        var newTextStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_2__["TextStyle"]();
-        this.textStyles.push(newTextStyle);
-    };
-    DataService.prototype.createImageStyle = function () {
-        var newImageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_3__["ImageStyle"]();
-        this.imageStyles.push(newImageStyle);
-    };
-    DataService.prototype.createShapeStyle = function () {
-        var newShapeStyle = new _classes_shapeStyle__WEBPACK_IMPORTED_MODULE_4__["ShapeStyle"]();
-        this.shapeStyles.push(newShapeStyle);
-    };
-    // Delete styles
-    DataService.prototype.deleteTextStyleById = function (id) {
-        for (var i = 0; i < this.textStyles.length; i++) {
-            if (this.textStyles[i].getStyleProperty('id') === id && this.textStyles.length > 1) {
-                this.textStyles.splice(i, 1);
-            }
-        }
-    };
-    DataService.prototype.deleteImageStyleById = function (id) {
-        for (var i = 0; i < this.imageStyles.length; i++) {
-            if (this.imageStyles[i].getStyleProperty('id') === id && this.imageStyles.length > 1) {
-                this.imageStyles.splice(i, 1);
-            }
-        }
-    };
-    DataService.prototype.deleteShapeStyleById = function (id) {
-        for (var i = 0; i < this.shapeStyles.length; i++) {
-            if (this.shapeStyles[i].getStyleProperty('id') === id && this.shapeStyles.length > 1) {
-                this.shapeStyles.splice(i, 1);
-            }
-        }
-    };
-    DataService.prototype.selectStyle = function (type, id) {
-        switch (type) {
-            case 'text':
-                this.selectedTextStyleId = id;
-                break;
-            case 'image':
-                this.selectedImageStyleId = id;
-                break;
-            case 'shape':
-                this.selectedShapeStyleId = id;
-                break;
-        }
-    };
-    // General functions
     DataService.prototype.getTextStyleById = function (id) {
         for (var i = 0; i < this.textStyles.length; i++) {
             if (this.textStyles[i].getStyleProperty('id') === id) {
@@ -1009,11 +1066,125 @@ var DataService = /** @class */ (function () {
             }
         }
     };
+    DataService.prototype.loadNewProject = function () {
+        var project = new _classes_project__WEBPACK_IMPORTED_MODULE_1__["Project"]();
+        project.addTextStyle(new _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__["TextStyle"]());
+        project.addImageStyle(new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]());
+        project.addSlide(new _classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]());
+        return project;
+    };
+    DataService.prototype.getSavedProject = function () {
+        var savedProjectData = JSON.parse(localStorage.getItem('deckbuilder2Data'));
+        var project = new _classes_project__WEBPACK_IMPORTED_MODULE_1__["Project"]();
+        project.revive(savedProjectData);
+        // Revive Slides
+        var slides = [];
+        for (var i = 0; i < savedProjectData.slides.length; i++) {
+            var slide = new _classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]();
+            slide.revive(savedProjectData.slides[i]);
+            var slideObjects = [];
+            for (var j = 0; j < savedProjectData.slides[i].slideObjects.length; j++) {
+                var currentSlideObject = savedProjectData.slides[i].slideObjects[j];
+                // Revive text objects
+                if (currentSlideObject.hasOwnProperty('textValue')) {
+                    var textObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_6__["TextObject"]();
+                    textObject.revive(currentSlideObject);
+                    slideObjects.push(textObject);
+                }
+                else if (currentSlideObject.hasOwnProperty('imagePath')) {
+                    // Revive image objects
+                    var imageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_10__["ImageObject"]();
+                    imageObject.revive(currentSlideObject);
+                    slideObjects.push(imageObject);
+                }
+                slide.setSlideProperty('slideObjects', slideObjects);
+            }
+            slides.push(slide);
+        }
+        project.setProjectProperty('slides', slides);
+        // Revive text styles
+        var textStyles = []; // REMEMBER TO ADD ME BACK INTO PROJECT
+        for (var i = 0; i < savedProjectData.textStyles.length; i++) {
+            var currentTextStyle = savedProjectData.textStyles[i];
+            var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__["TextStyle"]();
+            textStyle.revive(currentTextStyle);
+            // Revive borders
+            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_11__["BorderControl"]();
+            border.revive(currentTextStyle.border);
+            textStyle.setStyleProperty('border', border);
+            // Revive shadows
+            var shadow = new _classes_shadowControl__WEBPACK_IMPORTED_MODULE_12__["ShadowControl"]();
+            shadow.revive(currentTextStyle.textShadow);
+            textStyle.setStyleProperty('textShadow', shadow);
+            textStyles.push(textStyle);
+        }
+        project.setProjectProperty('textStyles', textStyles);
+        // Revive image styles
+        var imageStyles = [];
+        for (var i = 0; i < savedProjectData.imageStyles.length; i++) {
+            var currentImageStyle = savedProjectData.imageStyles[i];
+            var imageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]();
+            imageStyle.revive(currentImageStyle);
+            // Revive borders
+            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_11__["BorderControl"]();
+            border.revive(currentImageStyle.border);
+            imageStyle.setStyleProperty('border', border);
+            imageStyles.push(imageStyle);
+        }
+        project.setProjectProperty('imageStyles', imageStyles);
+        return project;
+    };
+    DataService.prototype.saveSession = function () {
+        console.log("Save session does not work yet");
+        this.currentProject.setProjectProperty('slides', this.slides);
+        this.currentProject.setProjectProperty('textStyles', this.textStyles);
+        this.currentProject.setProjectProperty('imageStyles', this.imageStyles);
+        this.currentProject.setProjectProperty('shapeStyles', this.shapeStyles);
+        this.currentProject.setProjectProperty('selectedTextStyleId', this.selectedTextStyleId);
+        this.currentProject.setProjectProperty('selectedImageStyleId', this.selectedImageStyleId);
+        this.currentProject.setProjectProperty('selectedShapeStyleId', this.selectedShapeStyleId);
+        this.currentProject.setProjectProperty('currentSlideIndex', this.currentSlideIndex);
+        this.currentProject.setProjectProperty('selectedSlideObjectId', this.selectedSlideObjectId);
+        this.currentProject.setProjectProperty('sandboxText', this.sandboxText);
+        this.currentProject.setProjectProperty('documentSize', this.documentSize);
+        this.currentProject.setProjectProperty('slideRenderMagnification', this.slideRenderMagnification);
+        this.currentProject.setProjectProperty('textNotes', this.textNotes);
+        this.currentProject.setProjectProperty('images', this.images);
+        localStorage.setItem('deckbuilder2Data', JSON.stringify(this.currentProject));
+        alert('Your session has been saved');
+    };
+    //  TOOLBAR FUNCTIONS
+    DataService.prototype.createTextStyle = function () {
+        var newTextStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__["TextStyle"]();
+        this.textStyles.push(newTextStyle);
+    };
+    DataService.prototype.createImageStyle = function () {
+        var newImageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]();
+        this.imageStyles.push(newImageStyle);
+    };
+    DataService.prototype.createShapeStyle = function () {
+        var newShapeStyle = new _classes_shapeStyle__WEBPACK_IMPORTED_MODULE_5__["ShapeStyle"]();
+        this.shapeStyles.push(newShapeStyle);
+    };
+    DataService.prototype.selectStyle = function (type, id) {
+        switch (type) {
+            case 'text':
+                this.selectedTextStyleId = id;
+                break;
+            case 'image':
+                this.selectedImageStyleId = id;
+                break;
+            case 'shape':
+                this.selectedShapeStyleId = id;
+                break;
+        }
+    };
     DataService.prototype.saveAsPng = function () {
-        html2canvas__WEBPACK_IMPORTED_MODULE_7__(document.querySelector(".slide-render"), {
+        html2canvas__WEBPACK_IMPORTED_MODULE_8__(document.querySelector(".slide-render"), {
             height: 432,
             width: 768,
-            scale: 2
+            scale: 2,
+            allowTaint: true
         }).then(function (canvas) {
             var imgElement = document.createElement('a');
             var imgData = canvas.toDataURL("image/png");
@@ -1026,7 +1197,7 @@ var DataService = /** @class */ (function () {
     DataService.prototype.exportAsPDF = function () {
         this.slideRenderMagnification = 100;
         setTimeout(function () {
-            var doc = new jspdf__WEBPACK_IMPORTED_MODULE_6__({
+            var doc = new jspdf__WEBPACK_IMPORTED_MODULE_7__({
                 orientation: "landscape",
                 unit: "in",
                 format: [16, 9]
@@ -1035,10 +1206,12 @@ var DataService = /** @class */ (function () {
             var height = doc.internal.pageSize.height;
             // To make the img output size match the pdf size, make sure that:
             // canvas output size * scale factor === pdf document size converted to px
-            html2canvas__WEBPACK_IMPORTED_MODULE_7__(document.querySelector(".slide-render"), {
+            html2canvas__WEBPACK_IMPORTED_MODULE_8__(document.querySelector(".slide-render"), {
                 height: 432,
                 width: 768,
-                scale: 2
+                scale: 2,
+                allowTaint: false,
+                useCORS: true
             }).then(function (canvas) {
                 var imgData = canvas.toDataURL("image/png");
                 doc.addImage(imgData, "PNG", 0, 0, width, height);
@@ -1046,40 +1219,68 @@ var DataService = /** @class */ (function () {
             });
         }, 3000);
     };
-    DataService.prototype.saveSession = function () {
-        console.log("Save session");
-        var newProject = new _classes_project__WEBPACK_IMPORTED_MODULE_1__["Project"]();
-        newProject.setProjectProperty('slides', this.slides);
-        newProject.setProjectProperty('textStyles', this.textStyles);
-        newProject.setProjectProperty('imageStyles', this.imageStyles);
-        newProject.setProjectProperty('shapeStyles', this.shapeStyles);
-        newProject.setProjectProperty('selectedTextStyleId', this.selectedTextStyleId);
-        newProject.setProjectProperty('selectedImageStyleId', this.selectedImageStyleId);
-        newProject.setProjectProperty('selectedShapeStyleId', this.selectedShapeStyleId);
-        newProject.setProjectProperty('currentSlideIndex', this.currentSlideIndex);
-        newProject.setProjectProperty('selectedSlideObjectId', this.selectedSlideObjectId);
-        newProject.setProjectProperty('sandboxText', this.sandboxText);
-        newProject.setProjectProperty('sandboxImage', this.sandboxImage);
-        newProject.setProjectProperty('sandboxShape', this.sandboxShape);
-        newProject.setProjectProperty('documentSize', this.documentSize);
-        newProject.setProjectProperty('slideRenderMagnification', this.slideRenderMagnification);
-        newProject.setProjectProperty('textNotes', this.textNotes);
-        var newProjectJSON = JSON.stringify(newProject);
-        localStorage.setItem('deckbuilder2Data', newProjectJSON);
-        alert('Your session has been saved');
+    //  STYLER FUNCTIONS
+    DataService.prototype.deleteTextStyleById = function (id) {
+        for (var i = 0; i < this.textStyles.length; i++) {
+            if (this.textStyles[i].getStyleProperty('id') === id && this.textStyles.length > 1) {
+                this.textStyles.splice(i, 1);
+            }
+        }
     };
-    // SANDBOX FUNCTIONS
+    DataService.prototype.deleteImageStyleById = function (id) {
+        for (var i = 0; i < this.imageStyles.length; i++) {
+            if (this.imageStyles[i].getStyleProperty('id') === id && this.imageStyles.length > 1) {
+                this.imageStyles.splice(i, 1);
+            }
+        }
+    };
+    // deleteShapeStyleById(id: number) {
+    //   for (let i = 0; i < this.shapeStyles.length; i++) {
+    //     if (this.shapeStyles[i].getStyleProperty('id') === id && this.shapeStyles.length > 1) {
+    //       this.shapeStyles.splice(i, 1);
+    //     }
+    //   }
+    // }
+    //  SANDBOX FUNCTIONS
     DataService.prototype.addTextObjectToSlide = function () {
         var currentSlide = this.slides[this.currentSlideIndex];
         var currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
-        var newTextObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_5__["TextObject"]();
+        var newTextObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_6__["TextObject"]();
         newTextObject.setTextvalue(this.sandboxText);
         newTextObject.setStyleId(this.selectedTextStyleId);
         // !important!  set z index last to ensure proper assignment of z index
         currentSlide.addSlideObject(newTextObject);
-        console.log(this.getTextStyleById(this.selectedTextStyleId).getCss());
         newTextObject.setZIndex(currentSlideObjects.length - 1);
     };
+    DataService.prototype.addImageObjectToSlide = function () {
+        var currentSlide = this.slides[this.currentSlideIndex];
+        var currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
+        var newImageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_10__["ImageObject"]();
+        newImageObject.setImagePath(this.images[this.selectedImage].url);
+        newImageObject.setStyleId(this.selectedImageStyleId);
+        console.log(newImageObject);
+        currentSlide.addSlideObject(newImageObject);
+        newImageObject.setZIndex(currentSlideObjects.length - 1);
+    };
+    DataService.prototype.uploadImage = function (event) {
+        var _this = this;
+        var file = event.srcElement.files[0];
+        console.log(event);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            var url = e.target.result;
+            var image = {
+                url: url,
+                id: _this.images.length
+            };
+            _this.images.push(image);
+        };
+    };
+    DataService.prototype.selectImage = function (index) {
+        this.selectedImage = index;
+    };
+    //  SLIDE EDITOR FUNCTIONS
     DataService.prototype.increaseOneLayer = function (objectId) {
         // Locate object in currentSlideObjects
         var currentSlide = this.slides[this.currentSlideIndex];
@@ -1119,7 +1320,7 @@ var DataService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: "root"
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClient"]])
     ], DataService);
     return DataService;
 }());
@@ -1135,7 +1336,7 @@ var DataService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#text-sandbox {\r\n    height: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 1fr 100px 1fr;\r\n        grid-template-rows: 1fr 100px 1fr;\r\n}\r\n\r\ntextarea {\r\n    height: 100%;\r\n    width: 100%;\r\n    resize: none;\r\n    outline: none;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n    padding: 0;\r\n    margin: 0;\r\n}\r\n\r\n#text-preview-container {\r\n    height: auto;\r\n    width: auto;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    max-width: 85%;\r\n    margin: 0 auto;\r\n}"
+module.exports = "#shape-sandbox,\r\n#text-sandbox,\r\n#image-sandbox {\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 50% 50%;\r\n        grid-template-rows: 50% 50%;\r\n}\r\n\r\n#image-preview-container,\r\n#text-preview-container {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: scroll;\r\n    background: linear-gradient(to bottom right, rgb(179, 179, 179), rgb(241, 241, 241));\r\n\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.sandbox-toolbar {\r\n    width: 100%;\r\n    height: 100px;\r\n}\r\n\r\n.sandbox-toolbar\r\ntextarea,\r\n.sandbox-toolbar\r\ninput {\r\n    width: 100%;\r\n    height: 100px;\r\n    box-sizing: border-box;\r\n}\r\n\r\n#text-workspace {\r\n    height: auto;\r\n    width: 100%;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.sandbox-bottom-half {\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 100px 1fr;\r\n        grid-template-rows: 100px 1fr;\r\n}\r\n\r\n/* text-sandbox styling*/\r\n\r\n#image-preview {\r\n    max-width: 90%;\r\n    max-height: 90%;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#image-gallery {\r\n    background: rgb(168, 168, 168);\r\n    width: 100%;\r\n    height: auto;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-start;\r\n    align-items: flex-start;\r\n    flex-wrap: wrap;\r\n    overflow: auto;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#image-gallery div img {\r\n    max-height: 150px;\r\n    max-width: 150px;\r\n}\r\n\r\n.img-placeholder {\r\n    height: 150px;\r\n    width: 150px;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n"
 
 /***/ }),
 
@@ -1146,7 +1347,7 @@ module.exports = "#text-sandbox {\r\n    height: 100%;\r\n    display: -ms-grid;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Sandbox toolbar -->\r\n<div class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.data.setMode('text')\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"font\" size=\"3x\" class=\"accent03 object-icon\"></fa>\r\n    <p>Create a new text object</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.setMode('image')\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"image\" size=\"3x\" class=\"accent03 object-icon\"></fa>\r\n    <p>Create a new image object</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.setMode('shape')\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"shapes\" size=\"3x\" class=\"accent03 object-icon\"></fa>\r\n    <p>Create a new shape object</p>\r\n  </a>\r\n</div>\r\n\r\n<!-- Text sandbox -->\r\n<div id=\"text-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewTextElements && this.data.textStyles.length > 0\">\r\n  <div id=\"text-preview-container\">\r\n    <div class=\"dotted-border\">\r\n      <p id=\"text-preview\" [ngStyle]=\"this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()\">{{this.data.sandboxText}}</p>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly\">\r\n    <textarea [(ngModel)]=\"this.data.sandboxText\">\r\n      \r\n    </textarea>\r\n    <a (click)=\"this.data.addTextObjectToSlide()\" class=\"lg-btn flex-col-evenly grayAccent02\">\r\n      <fa name=\"share\" size=\"3x\"></fa>\r\n      <p>Add text object to slide</p>\r\n    </a>\r\n  </div>\r\n\r\n  <textarea [(ngModel)]=\"this.data.textNotes\">\r\n    {{this.data.textNotes}}\r\n  </textarea>\r\n</div>\r\n\r\n<!-- Image sandbox -->\r\n<div id=\"image-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewImageElements && this.data.imageStyles.length > 0\">\r\n\r\n  <h1>Image sandbox</h1>\r\n\r\n</div>\r\n\r\n<!-- Shape sandbox -->\r\n<div id=\"shape-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewShapeElements && this.data.shapeStyles.length > 0\">\r\n\r\n    <h1>Shape sandbox</h1>\r\n  \r\n  </div>"
+module.exports = "<!-- Sandbox toolbar -->\r\n<div class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.data.setMode('text')\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"font\" size=\"3x\" class=\"accent03 object-icon\"></fa>\r\n    <p>Create a new text object</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.setMode('image')\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"image\" size=\"3x\" class=\"accent03 object-icon\"></fa>\r\n    <p>Create a new image object</p>\r\n  </a>\r\n\r\n  <!-- <a (click)=\"this.data.setMode('shape')\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"shapes\" size=\"3x\" class=\"accent03 object-icon\"></fa>\r\n    <p>Create a new shape object</p>\r\n  </a> -->\r\n</div>\r\n\r\n<!-- Text sandbox -->\r\n<div id=\"text-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewTextElements && this.data.textStyles.length > 0\">\r\n  <div id=\"text-preview-container\">\r\n    <div class=\"dotted-border\">\r\n      <p id=\"text-preview\" [ngStyle]=\"this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()\">{{this.data.sandboxText}}</p>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"sandbox-bottom-half\">\r\n    <div class=\"flex-row-evenly sandbox-toolbar\">\r\n      <textarea [(ngModel)]=\"this.data.sandboxText\">\r\n      \r\n    </textarea>\r\n      <a (click)=\"this.data.addTextObjectToSlide()\" class=\"lg-btn flex-col-evenly grayAccent02\">\r\n        <fa name=\"share\" size=\"3x\"></fa>\r\n        <p>Add text object to slide</p>\r\n      </a>\r\n    </div>\r\n\r\n    <textarea id=\"text-workspace\" [(ngModel)]=\"this.data.textNotes\">\r\n    {{this.data.textNotes}}\r\n  </textarea>\r\n  </div>\r\n</div>\r\n\r\n<!-- Image sandbox -->\r\n<div id=\"image-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewImageElements && this.data.imageStyles.length > 0\">\r\n  <div id=\"image-preview-container\">\r\n    <img id=\"image-preview\" [src]=\"this.data.images[this.data.selectedImage].url\" \r\n    [ngStyle]=\"this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()\">\r\n  </div>\r\n\r\n  <div class=\"sandbox-bottom-half\">\r\n    <div class=\"flex-row-between sandbox-toolbar\">\r\n        <input type=\"file\" (change)=\"this.data.uploadImage($event)\">\r\n      <a (click)=\"this.data.addImageObjectToSlide()\" class=\"lg-btn flex-col-evenly grayAccent02\">\r\n        <fa name=\"share\" size=\"3x\"></fa>\r\n        <p>Add image object to slide</p>\r\n      </a>\r\n    </div>\r\n\r\n    <div id=\"image-gallery\">\r\n        <div *ngFor=\"let image of this.data.images; let i = index;\">\r\n          <img src=\"{{image.url}}\" (click)=\"this.data.selectImage(image.id)\">\r\n        </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!-- Shape sandbox -->\r\n<!-- <div id=\"shape-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewShapeElements && this.data.shapeStyles.length > 0\">\r\n\r\n  <h1>Shape sandbox</h1>\r\n\r\n</div> -->"
 
 /***/ }),
 
@@ -1201,7 +1402,7 @@ var SandboxComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#slide-editor-container {\r\n    height: 100%;\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 50% 50%;\r\n        grid-template-rows: 50% 50%;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}\r\n\r\n#slide-render-container {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: scroll;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n}\r\n\r\n#slide-control-panel {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: auto;\r\n}\r\n\r\n.slide-render {\r\n    background: #FFF;\r\n    margin: 0 auto;\r\n    position: relative;\r\n}\r\n\r\n.slide-control-row {\r\n    width: 100%;\r\n    border-bottom: 3px rgb(81, 133, 81) solid;\r\n    \r\n}\r\n\r\n#slide-settings {\r\n    height: 50px;\r\n    width: 100%;\r\n}\r\n\r\ninput[type=\"number\"]{\r\n    width: 40px;\r\n    margin: 0 3px;\r\n}\r\n\r\n.slide-object {\r\n    box-sizing: border-box;\r\n    overflow: hidden;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n}\r\n\r\n.slide-object p {\r\n    box-sizing: border-box;\r\n}\r\n\r\n.slide-object:hover{\r\n    cursor: move;\r\n    border: 1px silver dashed;\r\n    box-sizing: border-box;\r\n\r\n}\r\n\r\n\r\n"
+module.exports = "#slide-editor-container {\r\n    height: 100%;\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 50% 50%;\r\n        grid-template-rows: 50% 50%;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}\r\n\r\n#slide-render-container {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: scroll;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n}\r\n\r\n#slide-control-panel {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: auto;\r\n}\r\n\r\n.slide-render {\r\n    background: #FFF;\r\n    margin: 0 auto;\r\n    position: relative;\r\n}\r\n\r\n.slide-control-row {\r\n    width: 100%;\r\n    border-bottom: 3px rgb(81, 133, 81) solid;\r\n    \r\n}\r\n\r\n#slide-settings {\r\n    height: 50px;\r\n    width: 100%;\r\n}\r\n\r\ninput[type=\"number\"]{\r\n    width: 40px;\r\n    margin: 0 3px;\r\n}\r\n\r\n.slide-object {\r\n    box-sizing: border-box;\r\n    overflow: hidden;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n}\r\n\r\n.slide-object p {\r\n    box-sizing: border-box;\r\n}\r\n\r\n.slide-object img {\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n}\r\n\r\n.slide-object:hover{\r\n    cursor: move;\r\n    border: 1px silver dashed;\r\n    box-sizing: border-box;\r\n\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1212,7 +1413,7 @@ module.exports = "#slide-editor-container {\r\n    height: 100%;\r\n    width: 1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"slide-editor-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.createNewSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"plus-square\" size=\"3x\"></fa>\r\n    <p>Create a new slide</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.preview()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"play\" size=\"3x\"></fa>\r\n    <p>Preview</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.previousSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"step-backward\" size=\"3x\"></fa>\r\n  </a>\r\n\r\n  <div>\r\n    <h1>{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>\r\n  </div>\r\n\r\n  <a (click)=\"this.nextSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"step-forward\" size=\"3x\"></fa>\r\n  </a>\r\n\r\n  <a (click)=\"this.deleteCurrentSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"trash\" size=\"3x\"></fa>\r\n    <p>Delete this slide</p>\r\n  </a>\r\n</div>\r\n\r\n<div id=\"slide-editor-container\" class=\"accent04\">\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-render-container\" class=\"flex-col-evenly accent01\">\r\n\r\n    \r\n    <div class=\"slide-render\" [ngStyle]=\"this.getSlideRenderCss()\">\r\n      <!-- Render slide objects here -->\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects\" \r\n      class=\"slide-object\" \r\n      [ngStyle]=\"slideObject.getCss()\"\r\n      (mousedown)=\"this.selectObject(slideObject.id)\"\r\n      \r\n      ngResizable\r\n        [rzHandles]=\"'n,e,s,w,se,sw,ne,nw'\"\r\n        (rzStop)=\"slideObject.setSize($event)\"\r\n        \r\n        ngDraggable \r\n        (endOffset)=\"slideObject.setTranslation($event)\"\r\n        [position]=\"slideObject.getTranslation()\">\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"this.data.getTextStyleById(slideObject.styleId).getCss()\"\r\n        >{{slideObject.textValue}}</p>\r\n      </div>\r\n\r\n    </div>\r\n\r\n\r\n  </div>\r\n\r\n  <div  *ngIf=\"this.data.slides.length > 0\" id=\"slide-control-panel\" class=\"grayAccent02\">\r\n\r\n\r\n    <div id=\"slide-settings\" class=\"grayAccent02 flex-row-evenly\">\r\n      <!-- <fa name=\"palette\" size=\"2x\"></fa> -->\r\n      <div class=\"flex-col-evenly sm-btn\">\r\n        <p>Set background color</p>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\" [style.background]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\"\r\n        />\r\n      </div>\r\n      <!-- \r\n      <a (click)=\"this.data.test()\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"palette\" size=\"2x\"></fa>\r\n        <p>Set default background color</p>\r\n      </a> -->\r\n\r\n      <a (click)=\"this.data.test()\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"image\" size=\"2x\"></fa>\r\n        <p>Set background image</p>\r\n      </a>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n          <fa (click)=\"this.data.test()\" name=\"search-minus\" size=\"1x\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"this.data.slideRenderMagnification\" min=\"0\" max=\"200\">\r\n\r\n          <fa name=\"search-plus\" size=\"1x\"></fa>\r\n\r\n        <p><input type=\"number\" [(ngModel)]=\"this.data.slideRenderMagnification\">%</p>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()\" \r\n    class=\"slide-control-row flex-row-between wrap\"\r\n    [style.background]=\"this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null\">\r\n      <div class=\"flex-row-evenly\">\r\n\r\n        <div *ngIf=\"!slideObject.editNameMode\" class=\"sm-btn flex-row-evenly\">\r\n          <h5>{{slideObject.name}}</h5>\r\n          <fa name=\"edit\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.editNameMode\" class=\"sm-btn flex-row-evenly\">\r\n          <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n          <fa name=\"save\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <div *ngIf=\"!slideObject.editTextMode\" class=\"sm-btn flex-row-evenly\">\r\n          <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n          <fa name=\"edit\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.editTextMode\" class=\"sm-btn flex-row-evenly\">\r\n          <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n          <fa name=\"save\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <h5>X:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n        <h5>Y:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n        <h5>H:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.height\">\r\n\r\n        <h5>W:</h5>\r\n        <input type=\"number\"[(ngModel)]=\"slideObject.width\">\r\n\r\n        <!-- <h5>R:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.rotation\"> -->\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <a (click)=\"this.data.increaseOneLayer(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"arrow-up\"></fa>\r\n        </a>\r\n        <a (click)=\"this.data.decreaseOneLayer(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"arrow-down\"></fa>\r\n        </a>\r\n        <a (click)=\"slideObject.toggleSlideObjectProperty('display')\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"eye\"></fa>\r\n        </a>\r\n      </div>\r\n\r\n      <a (click)=\"this.deleteSlideObjectById(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"trash\"></fa>Delete</a>\r\n    </div>\r\n\r\n\r\n\r\n  </div>\r\n</div>"
+module.exports = "<div id=\"slide-editor-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.createNewSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"plus-square\" size=\"3x\"></fa>\r\n    <p>Create a new slide</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.test()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"play\" size=\"3x\"></fa>\r\n    <p>Preview</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.previousSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"step-backward\" size=\"3x\"></fa>\r\n  </a>\r\n\r\n  <div>\r\n    <h1>{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>\r\n  </div>\r\n\r\n  <a (click)=\"this.nextSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"step-forward\" size=\"3x\"></fa>\r\n  </a>\r\n\r\n  <a (click)=\"this.deleteCurrentSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"trash\" size=\"3x\"></fa>\r\n    <p>Delete this slide</p>\r\n  </a>\r\n</div>\r\n\r\n<div id=\"slide-editor-container\" class=\"accent04\">\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-render-container\" class=\"flex-col-evenly accent01\">\r\n    <div class=\"slide-render\" [ngStyle]=\"this.getSlideRenderCss()\">\r\n      <!-- Render slide objects here -->\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"this.selectObject(slideObject.id)\" ngResizable [rzHandles]=\"'n,e,s,w,se,sw,ne,nw'\" (rzStop)=\"slideObject.setSize($event)\"\r\n        ngDraggable (endOffset)=\"slideObject.setTranslation($event)\" [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'\">\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"this.data.getTextStyleById(slideObject.styleId).getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"this.data.getImageStyleById(slideObject.styleId).getCss()\"\r\n          [src]=\"slideObject.imagePath\" crossOrigin=\"anonymous\">\r\n      </div>\r\n    </div>\r\n\r\n\r\n  </div>\r\n\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-control-panel\" class=\"grayAccent02\">\r\n\r\n\r\n    <div id=\"slide-settings\" class=\"grayAccent02 flex-row-evenly\">\r\n      <!-- <fa name=\"palette\" size=\"2x\"></fa> -->\r\n      <div class=\"flex-col-evenly sm-btn\">\r\n        <p>Set background color</p>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\" [style.background]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\"\r\n        />\r\n      </div>\r\n      <!-- \r\n      <a (click)=\"this.data.test()\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"palette\" size=\"2x\"></fa>\r\n        <p>Set default background color</p>\r\n      </a> -->\r\n\r\n      <a (click)=\"this.data.test()\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"image\" size=\"2x\"></fa>\r\n        <p>Set background image</p>\r\n      </a>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa (click)=\"this.data.test()\" name=\"search-minus\" size=\"1x\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"this.data.slideRenderMagnification\" min=\"0\" max=\"200\">\r\n\r\n        <fa name=\"search-plus\" size=\"1x\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"this.data.slideRenderMagnification\">%</p>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-between wrap\"\r\n      [style.background]=\"this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null\">\r\n      <div class=\"flex-row-evenly\">\r\n\r\n        <div *ngIf=\"!slideObject.editNameMode\" class=\"sm-btn flex-row-evenly\">\r\n          <h5>{{slideObject.name}}</h5>\r\n          <fa name=\"edit\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.editNameMode\" class=\"sm-btn flex-row-evenly\">\r\n          <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n          <fa name=\"save\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly\">\r\n        <div *ngIf=\"!slideObject.editTextMode\" class=\"sm-btn flex-row-evenly\">\r\n          <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n          <fa name=\"edit\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.editTextMode\" class=\"sm-btn flex-row-evenly\">\r\n          <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n          <fa name=\"save\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n        </div>\r\n      </div>\r\n\r\n      <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly\">\r\n        <h5>ImageObject</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <h5>X:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n        <h5>Y:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n        <h5>H:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.height\">\r\n\r\n        <h5>W:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.width\">\r\n\r\n        <!-- <h5>R:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.rotation\"> -->\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <a (click)=\"this.data.increaseOneLayer(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"arrow-up\"></fa>\r\n        </a>\r\n        <a (click)=\"this.data.decreaseOneLayer(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"arrow-down\"></fa>\r\n        </a>\r\n        <a (click)=\"slideObject.toggleSlideObjectProperty('display')\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"eye\"></fa>\r\n        </a>\r\n      </div>\r\n\r\n      <a (click)=\"this.deleteSlideObjectById(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"trash\"></fa>Delete</a>\r\n    </div>\r\n\r\n\r\n\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1301,7 +1502,6 @@ var SlideEditorComponent = /** @class */ (function () {
             'height': slideRenderHeight + 'px',
             'width': slideRenderWidth + 'px',
             'transform': 'translate(' + translationX + ') scale(' + this.data.slideRenderMagnification / 100 + ')',
-            'z-index': '0',
             'position': 'relative'
         };
         return css;
@@ -1332,7 +1532,7 @@ var SlideEditorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".style-card {\r\n    width: 100%;\r\n    height: auto;\r\n    padding: 15px 0;\r\n    border-bottom: 10px solid rgb(117, 156, 122);\r\n}\r\n\r\n.style-card-row {\r\n    width: 85%;\r\n    height: auto;\r\n    margin: 10px auto;\r\n}\r\n\r\n.style-cards-container {\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\n.style-card-btn {\r\n    padding: 3px 5px;\r\n    border-radius: 5px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-btn:hover {\r\n    background: rgb(86, 116, 107);\r\n}\r\n\r\n"
+module.exports = ".style-card {\r\n    width: 100%;\r\n    height: auto;\r\n    padding: 15px 0;\r\n    border-bottom: 10px solid rgb(117, 156, 122);\r\n}\r\n\r\n.style-card-row {\r\n    width: 85%;\r\n    height: auto;\r\n    margin: 10px auto;\r\n}\r\n\r\n.style-cards-container {\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\n.style-card-btn {\r\n    padding: 3px 5px;\r\n    border-radius: 5px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-btn:hover {\r\n    background: rgb(86, 116, 107);\r\n}\r\n\r\n.style-card-row input[type=\"range\"]{\r\n    width: 100px;\r\n}\r\n"
 
 /***/ }),
 
@@ -1343,7 +1543,7 @@ module.exports = ".style-card {\r\n    width: 100%;\r\n    height: auto;\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- SHAPE STYLE CARD -->\r\n<div class=\"style-cards-container\" *ngIf=\"this.data.viewShapeElements && this.data.shapeStyles.length > 0\">\r\n  <div class=\"style-card greenAccent01\" *ngFor=\"let shapeStyle of this.data.shapeStyles.reverse()\">\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h3>{{shapeStyle.name}}\r\n        <fa name=\"edit\"></fa>\r\n      </h3>\r\n      <a (click)=\"this.data.test()\">\r\n        <fa name=\"trash\"></fa>\r\n      </a>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!-- IMAGE STYLE CARD -->\r\n<div class=\"style-cards-container\" *ngIf=\"this.data.viewImageElements && this.data.imageStyles.length > 0\">\r\n  <div class=\"style-card greenAccent01\" *ngFor=\"let imageStyle of this.data.imageStyles.reverse()\">\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h3>{{imageStyle.name}}\r\n        <fa name=\"edit\"></fa>\r\n      </h3>\r\n      <a (click)=\"this.data.test()\">\r\n        <fa name=\"trash\"></fa>\r\n      </a>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Opacity: </h5>\r\n      <input type=\"number\" value=\"1\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Grayscale: </h5>\r\n      <input type=\"number\" value=\"1\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Blur: </h5>\r\n      <input type=\"number\" value=\"1\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Brightness: </h5>\r\n      <input type=\"number\" value=\"1\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Contrast: </h5>\r\n      <input type=\"number\" value=\"1\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Invert: </h5>\r\n      <input type=\"number\" value=\"1\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Saturate: </h5>\r\n      <input type=\"number\" value=\"1\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Sepia: </h5>\r\n      <input type=\"number\" value=\"1\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Hue rotate: </h5>\r\n      <input type=\"number\" value=\"1\">\r\n    </div>\r\n\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <a (click)=\"imageStyle.toggleExtraOptions()\" class=\"xs-btn flex-row-evenly\" *ngIf=\"!imageStyle.showExtraOptions\">\r\n        <fa name=\"angle-double-down\"></fa>\r\n        <p>Show extra options</p>\r\n        <fa name=\"angle-double-down\"></fa>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.toggleExtraOptions()\" class=\"xs-btn flex-row-evenly\" *ngIf=\"imageStyle.showExtraOptions\">\r\n        <fa name=\"angle-double-down\"></fa>\r\n        <p>Hide extra options</p>\r\n        <fa name=\"angle-double-down\"></fa>\r\n      </a>\r\n    </div>\r\n\r\n    <div *ngIf=\"imageStyle.showExtraOptions\">\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <a (click)=\"this.data.test()\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_outer</i>\r\n        </a>\r\n\r\n        <a (click)=\"this.data.test()\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_left</i>\r\n        </a>\r\n\r\n        <a (click)=\"this.data.test()\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_top</i>\r\n        </a>\r\n\r\n        <a (click)=\"this.data.test()\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_right</i>\r\n        </a>\r\n\r\n        <a (click)=\"this.data.test()\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_bottom</i>\r\n        </a>\r\n      </div>\r\n\r\n      <!-- Full border settings -->\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Border: </h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Width: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Color: </h5>\r\n        <h5>Color picker</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Style: </h5>\r\n        <select>\r\n          <option>Solid</option>\r\n          <option>Dashed</option>\r\n          <option>Dotted</option>\r\n        </select>\r\n      </div>\r\n\r\n      <!-- Top border settings -->\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Top Border: </h4>\r\n      </div>\r\n\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Width: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Color: </h5>\r\n        <h5>Color picker</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Style: </h5>\r\n        <select>\r\n          <option>Solid</option>\r\n          <option>Dashed</option>\r\n          <option>Dotted</option>\r\n        </select>\r\n      </div>\r\n\r\n      <!-- Right border settings -->\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Right Border: </h4>\r\n      </div>\r\n\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Width: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Color: </h5>\r\n        <h5>Color picker</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Style: </h5>\r\n        <select>\r\n          <option>Solid</option>\r\n          <option>Dashed</option>\r\n          <option>Dotted</option>\r\n        </select>\r\n      </div>\r\n\r\n      <!-- Bottom border settings -->\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Bottom Border: </h4>\r\n      </div>\r\n\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Width: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Color: </h5>\r\n        <h5>Color picker</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Style: </h5>\r\n        <select>\r\n          <option>Solid</option>\r\n          <option>Dashed</option>\r\n          <option>Dotted</option>\r\n        </select>\r\n      </div>\r\n\r\n      <!-- Left border settings -->\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Left Border: </h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Width: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Color: </h5>\r\n        <h5>Color picker</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Style: </h5>\r\n        <select>\r\n          <option>Solid</option>\r\n          <option>Dashed</option>\r\n          <option>Dotted</option>\r\n        </select>\r\n      </div>\r\n\r\n      <!-- Full border settings -->\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Border Radius: </h4>\r\n      </div>\r\n\r\n      <!--Border radius settings -->\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Full border radius: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Top left border radius: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Top right border radius: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Bottom left border radius: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Bottom right border radius: </h5>\r\n        <h5>\r\n          <input type=\"number\" value=\"1\"> px</h5>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!-- TEXT STYLE CARD -->\r\n<div class=\"style-cards-container\" *ngIf=\"this.data.viewTextElements && this.data.textStyles.length > 0\">\r\n  <div class=\"style-card greenAccent01\" *ngFor=\"let textStyle of this.data.textStyles.reverse()\">\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h3 *ngIf=\"!textStyle.editNameMode\">{{textStyle.name}}\r\n        <fa name=\"edit\" (click)=\"textStyle.toggleEditNameMode()\"></fa>\r\n      </h3>\r\n\r\n      <div *ngIf=\"textStyle.editNameMode\">\r\n        <input type=\"text\" [(ngModel)]=\"textStyle.name\" placeholder=\"textStyle.name\">\r\n        <fa name=\"save\" (click)=\"textStyle.toggleEditNameMode()\"></fa>\r\n      </div>\r\n\r\n      <a (click)=\"this.data.deleteTextStyleById(textStyle.id)\">\r\n        <fa name=\"trash\"></fa>\r\n      </a>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Font family:</h4>\r\n      <div [(fontPicker)]=\"textStyle.fontPickerData\" [fpWidth]=\"'320px'\" [fpPosition]=\"'bottom'\" [fpSizeSelect]=\"true\" [fpStyleSelect]=\"true\">\r\n        <p>{{textStyle.fontPickerData['family']}} {{textStyle.fontPickerData['style']}} {{textStyle.fontPickerData['size']}}\r\n        </p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Font color:</h4>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.color\" [style.background]=\"textStyle.color\" cpOutputFormat=\"rgba\"\r\n        cpAlphaChannel=\"enabled\"/>\r\n    </div>\r\n\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Background color:</h4>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.backgroundColor\" [style.background]=\"textStyle.backgroundColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <div class=\"flex-row-evenly\">\r\n        <a (click)=\"textStyle.setStyleProperty('hAlign', 'left')\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">format_align_left</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.setStyleProperty('hAlign', 'center')\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">format_align_center</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.setStyleProperty('hAlign', 'right')\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">format_align_right</i>\r\n        </a>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <a (click)=\"textStyle.setStyleProperty('vAlign', 'top')\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">vertical_align_top</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.setStyleProperty('vAlign', 'center')\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">vertical_align_center</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.setStyleProperty('vAlign', 'bottom')\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">vertical_align_bottom</i>\r\n        </a>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <div class=\"flex-row-evenly\">\r\n        <a (click)=\"textStyle.toggleStyleProperty('underline')\" class=\"style-card-btn\">\r\n          <fa name=\"underline\"></fa>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.toggleStyleProperty('lineThrough')\" class=\"style-card-btn\">\r\n          <fa name=\"strikethrough\"></fa>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.toggleStyleProperty('overline')\" class=\"style-card-btn\" >\r\n          <h4 style=\"text-decoration: overline; font-family: Arial\">O</h4>\r\n        </a>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <a (click)=\"textStyle.toggleStyleProperty('breakWord')\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">wrap_text</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.toggleStyleProperty('uppercase'); textStyle.setStyleProperty('lowercase', false)\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">format_size</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.toggleStyleProperty('lowercase'); textStyle.setStyleProperty('uppercase', false)\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">text_fields</i>\r\n        </a>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <a (click)=\"textStyle.toggleExtraOptions()\" class=\"xs-btn flex-row-evenly\" *ngIf=\"!textStyle.showExtraOptions\">\r\n        <fa name=\"angle-double-down\"></fa>\r\n        <p>Show extra options</p>\r\n        <fa name=\"angle-double-down\"></fa>\r\n      </a>\r\n\r\n      <a (click)=\"textStyle.toggleExtraOptions()\" class=\"xs-btn flex-row-evenly\" *ngIf=\"textStyle.showExtraOptions\">\r\n        <fa name=\"angle-double-down\"></fa>\r\n        <p>Hide extra options</p>\r\n        <fa name=\"angle-double-down\"></fa>\r\n      </a>\r\n    </div>\r\n\r\n    <!-- EXTRA TEXT STYLE OPTIONS -->\r\n    <div *ngIf=\"textStyle.showExtraOptions\">\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Margin:</h5>\r\n        <h5>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.margin\">px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Padding:</h5>\r\n        <h5>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.padding\">px</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Word spacing:</h5>\r\n        <h5>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.wordSpacing\">px\r\n        </h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Line height:</h5>\r\n        <h5>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.lineHeight\">x\r\n        </h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h5>Letter spacing:</h5>\r\n        <h5>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.letterSpacing\">px\r\n        </h5>\r\n      </div>\r\n\r\n      <!-- Text shadow settings -->\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Text shadow: </h4>\r\n        <input type=\"checkbox\" [(ngModel)]=\"textStyle.textShadow.showShadow\">\r\n      </div>\r\n\r\n      <div *ngIf=\"textStyle.textShadow.showShadow\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.textShadow.color\" [style.background]=\"textStyle.textShadow.color\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"/>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Horizontal shadow: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.xValue\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Vertical shadow: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.yValue\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Blur: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.blurValue\"> px</h5>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- BORDER OPTIONS -->\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <a (click)=\"textStyle.border.toggleBorderProperty('showFullBorder');\r\n        textStyle.border.setBorderProperty('showTopBorder', false);\r\n        textStyle.border.setBorderProperty('showRightBorder', false);\r\n        textStyle.border.setBorderProperty('showBottomBorder', false);\r\n        textStyle.border.setBorderProperty('showLeftBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_outer</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.border.toggleBorderProperty('showLeftBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_left</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.border.toggleBorderProperty('showTopBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_top</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.border.toggleBorderProperty('showRightBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_right</i>\r\n        </a>\r\n\r\n        <a (click)=\"textStyle.border.toggleBorderProperty('showBottomBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_bottom</i>\r\n        </a>\r\n      </div>\r\n\r\n      <!-- Full border settings -->\r\n      <div *ngIf=\"textStyle.border.showFullBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.border.fullBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.fullBorderColor\" [style.background]=\"textStyle.border.fullBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"textStyle.border.fullBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n\r\n\r\n        <!--Border radius settings -->\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Border Radius: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Top left border radius: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.border.topLeftRadius\">px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Top right border radius: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.border.topRightRadius\">px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Bottom right border radius: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomRightRadius\">px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Bottom left border radius: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomLeftRadius\">px</h5>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- Top border settings -->\r\n      <div *ngIf=\"textStyle.border.showTopBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Top Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.border.topBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.topBorderColor\" [style.background]=\"textStyle.border.topBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"/>\r\n\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"textStyle.border.topBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n      <!-- Right border settings -->\r\n      <div *ngIf=\"textStyle.border.showRightBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Right Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.border.rightBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.rightBorderColor\" [style.background]=\"textStyle.border.rightBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"textStyle.border.rightBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- Bottom border settings -->\r\n      <div *ngIf=\"textStyle.border.showBottomBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Bottom Border: </h4>\r\n        </div>\r\n\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.bottomBorderColor\" [style.background]=\"textStyle.border.bottomBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"textStyle.border.bottomBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- Left border settings -->\r\n      <div *ngIf=\"textStyle.border.showLeftBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Left Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"textStyle.border.leftBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.leftBorderColor\" [style.background]=\"textStyle.border.leftBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"/>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"textStyle.border.leftBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</div>"
+module.exports = "<!-- SHAPE STYLE CARD -->\r\n<!-- <div class=\"style-cards-container\" *ngIf=\"this.data.viewShapeElements && this.data.shapeStyles.length > 0\">\r\n  <div class=\"style-card greenAccent01\" *ngFor=\"let shapeStyle of this.data.shapeStyles.reverse()\">\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h3>{{shapeStyle.name}}\r\n        <fa name=\"edit\"></fa>\r\n      </h3>\r\n      <a (click)=\"this.data.test()\">\r\n        <fa name=\"trash\"></fa>\r\n      </a>\r\n    </div>\r\n  </div>\r\n</div> -->\r\n\r\n<!-- IMAGE STYLE CARD -->\r\n<div class=\"style-cards-container\" *ngIf=\"this.data.viewImageElements && this.data.imageStyles.length > 0\">\r\n  <div class=\"style-card greenAccent01\" *ngFor=\"let imageStyle of this.data.imageStyles.reverse()\">\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h3>{{imageStyle.name}}\r\n        <fa name=\"edit\"></fa>\r\n      </h3>\r\n      <a (click)=\"this.data.deleteImageStyleById(imageStyle.id)\">\r\n        <fa name=\"trash\"></fa>\r\n      </a>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Opacity:</h5>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.opacity\" min=\"0\" max=\"100\">\r\n      <h5>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.opacity\">%</h5>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Grayscale:</h5>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.grayscale\" min=\"0\" max=\"100\">\r\n      <h5>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.grayscale\"> %\r\n      </h5>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Blur:</h5>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.blur\" min=\"0\" max=\"25\">\r\n      <h5>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.blur\"> px\r\n      </h5>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Brightness:</h5>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.brightness\" min=\"0\" max=\"200\">\r\n      <h5>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.brightness\"> %\r\n      </h5>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Contrast:</h5>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.contrast\" min=\"0\" max=\"200\">\r\n      <h5>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.contrast\"> %\r\n      </h5>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Invert:</h5>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.invert\" min=\"0\" max=\"200\">\r\n      <h5>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.invert\"> %\r\n      </h5>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Saturate:</h5>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.saturate\" min=\"0\" max=\"200\">\r\n      <h5>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.saturate\"> %\r\n      </h5>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Sepia:</h5>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.sepia\" min=\"0\" max=\"200\">\r\n      <h5>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.sepia\"> %\r\n      </h5>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h5>Hue rotate:</h5>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.hueRotate\" min=\"0\" max=\"360\">\r\n      <h5>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.hueRotate\"> deg\r\n      </h5>\r\n    </div>\r\n\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <a (click)=\"imageStyle.toggleExtraOptions()\" class=\"xs-btn flex-row-evenly\" *ngIf=\"!imageStyle.showExtraOptions\">\r\n        <fa name=\"angle-double-down\"></fa>\r\n        <p>Show extra options</p>\r\n        <fa name=\"angle-double-down\"></fa>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.toggleExtraOptions()\" class=\"xs-btn flex-row-evenly\" *ngIf=\"imageStyle.showExtraOptions\">\r\n        <fa name=\"angle-double-down\"></fa>\r\n        <p>Hide extra options</p>\r\n        <fa name=\"angle-double-down\"></fa>\r\n      </a>\r\n    </div>\r\n\r\n    <div *ngIf=\"imageStyle.showExtraOptions\">\r\n      <!-- Full border settings -->\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showFullBorder');\r\n          imageStyle.border.setBorderProperty('showTopBorder', false);\r\n          imageStyle.border.setBorderProperty('showRightBorder', false);\r\n          imageStyle.border.setBorderProperty('showBottomBorder', false);\r\n          imageStyle.border.setBorderProperty('showLeftBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_outer</i>\r\n        </a>\r\n\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showLeftBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_left</i>\r\n        </a>\r\n\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showTopBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_top</i>\r\n        </a>\r\n\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showRightBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_right</i>\r\n        </a>\r\n\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showBottomBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_bottom</i>\r\n        </a>\r\n      </div>\r\n\r\n      <!-- Full border settings -->\r\n      <div *ngIf=\"imageStyle.border.showFullBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.fullBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.fullBorderColor\" [style.background]=\"imageStyle.border.fullBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"imageStyle.border.fullBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n\r\n\r\n        <!--Border radius settings -->\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Border Radius: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Top left border radius: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.topLeftRadius\">px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Top right border radius: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.topRightRadius\">px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Bottom right border radius: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomRightRadius\">px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Bottom left border radius: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomLeftRadius\">px</h5>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- Top border settings -->\r\n      <div *ngIf=\"imageStyle.border.showTopBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Top Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.topBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.topBorderColor\" [style.background]=\"imageStyle.border.topBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"imageStyle.border.topBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n      <!-- Right border settings -->\r\n      <div *ngIf=\"imageStyle.border.showRightBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Right Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.rightBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.rightBorderColor\" [style.background]=\"imageStyle.border.rightBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"imageStyle.border.rightBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- Bottom border settings -->\r\n      <div *ngIf=\"imageStyle.border.showBottomBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Bottom Border: </h4>\r\n        </div>\r\n\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.bottomBorderColor\" [style.background]=\"imageStyle.border.bottomBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"imageStyle.border.bottomBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- Left border settings -->\r\n      <div *ngIf=\"imageStyle.border.showLeftBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Left Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Width: </h5>\r\n          <h5>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.leftBorderWidth\"> px</h5>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Color: </h5>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.leftBorderColor\" [style.background]=\"imageStyle.border.leftBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h5>Style: </h5>\r\n          <select [(ngModel)]=\"imageStyle.border.leftBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n\r\n      <!-- TEXT STYLE CARD -->\r\n      <div class=\"style-cards-container\" *ngIf=\"this.data.viewTextElements && this.data.textStyles.length > 0\">\r\n        <div class=\"style-card greenAccent01\" *ngFor=\"let textStyle of this.data.textStyles.reverse()\">\r\n\r\n          <div class=\"flex-row-between style-card-row\">\r\n            <h3 *ngIf=\"!textStyle.editNameMode\">{{textStyle.name}}\r\n              <fa name=\"edit\" (click)=\"textStyle.toggleEditNameMode()\"></fa>\r\n            </h3>\r\n\r\n            <div *ngIf=\"textStyle.editNameMode\">\r\n              <input type=\"text\" [(ngModel)]=\"textStyle.name\" placeholder=\"textStyle.name\">\r\n              <fa name=\"save\" (click)=\"textStyle.toggleEditNameMode()\"></fa>\r\n            </div>\r\n\r\n            <a (click)=\"this.data.deleteTextStyleById(textStyle.id)\">\r\n              <fa name=\"trash\"></fa>\r\n            </a>\r\n          </div>\r\n\r\n          <div class=\"flex-row-between style-card-row\">\r\n            <h4>Font family:</h4>\r\n            <div [(fontPicker)]=\"textStyle.fontPickerData\" [fpWidth]=\"'320px'\" [fpPosition]=\"'bottom'\" [fpSizeSelect]=\"true\" [fpStyleSelect]=\"true\">\r\n              <p>{{textStyle.fontPickerData['family']}} {{textStyle.fontPickerData['style']}} {{textStyle.fontPickerData['size']}}\r\n              </p>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"flex-row-between style-card-row\">\r\n            <h4>Font color:</h4>\r\n            <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.color\" [style.background]=\"textStyle.color\" cpOutputFormat=\"rgba\"\r\n              cpAlphaChannel=\"enabled\" />\r\n          </div>\r\n\r\n\r\n          <div class=\"flex-row-between style-card-row\">\r\n            <h4>Background color:</h4>\r\n            <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.backgroundColor\" [style.background]=\"textStyle.backgroundColor\"\r\n              cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n          </div>\r\n\r\n          <div class=\"flex-row-between style-card-row\">\r\n            <div class=\"flex-row-evenly\">\r\n              <a (click)=\"textStyle.setStyleProperty('hAlign', 'left')\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">format_align_left</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.setStyleProperty('hAlign', 'center')\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">format_align_center</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.setStyleProperty('hAlign', 'right')\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">format_align_right</i>\r\n              </a>\r\n            </div>\r\n\r\n            <div class=\"flex-row-evenly\">\r\n              <a (click)=\"textStyle.setStyleProperty('vAlign', 'top')\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">vertical_align_top</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.setStyleProperty('vAlign', 'center')\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">vertical_align_center</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.setStyleProperty('vAlign', 'bottom')\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">vertical_align_bottom</i>\r\n              </a>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"flex-row-between style-card-row\">\r\n            <div class=\"flex-row-evenly\">\r\n              <a (click)=\"textStyle.toggleStyleProperty('underline')\" class=\"style-card-btn\">\r\n                <fa name=\"underline\"></fa>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.toggleStyleProperty('lineThrough')\" class=\"style-card-btn\">\r\n                <fa name=\"strikethrough\"></fa>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.toggleStyleProperty('overline')\" class=\"style-card-btn\">\r\n                <h4 style=\"text-decoration: overline; font-family: Arial\">O</h4>\r\n              </a>\r\n            </div>\r\n\r\n            <div class=\"flex-row-evenly\">\r\n              <a (click)=\"textStyle.toggleStyleProperty('breakWord')\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">wrap_text</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.toggleStyleProperty('uppercase'); textStyle.setStyleProperty('lowercase', false)\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">format_size</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.toggleStyleProperty('lowercase'); textStyle.setStyleProperty('uppercase', false)\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">text_fields</i>\r\n              </a>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"flex-row-between style-card-row\">\r\n            <a (click)=\"textStyle.toggleExtraOptions()\" class=\"xs-btn flex-row-evenly\" *ngIf=\"!textStyle.showExtraOptions\">\r\n              <fa name=\"angle-double-down\"></fa>\r\n              <p>Show extra options</p>\r\n              <fa name=\"angle-double-down\"></fa>\r\n            </a>\r\n\r\n            <a (click)=\"textStyle.toggleExtraOptions()\" class=\"xs-btn flex-row-evenly\" *ngIf=\"textStyle.showExtraOptions\">\r\n              <fa name=\"angle-double-down\"></fa>\r\n              <p>Hide extra options</p>\r\n              <fa name=\"angle-double-down\"></fa>\r\n            </a>\r\n          </div>\r\n\r\n          <!-- EXTRA TEXT STYLE OPTIONS -->\r\n          <div *ngIf=\"textStyle.showExtraOptions\">\r\n\r\n            <div class=\"flex-row-between style-card-row\">\r\n              <h5>Margin:</h5>\r\n              <h5>\r\n                <input type=\"number\" [(ngModel)]=\"textStyle.margin\">px</h5>\r\n            </div>\r\n\r\n            <div class=\"flex-row-between style-card-row\">\r\n              <h5>Padding:</h5>\r\n              <h5>\r\n                <input type=\"number\" [(ngModel)]=\"textStyle.padding\">px</h5>\r\n            </div>\r\n\r\n            <div class=\"flex-row-between style-card-row\">\r\n              <h5>Word spacing:</h5>\r\n              <h5>\r\n                <input type=\"number\" [(ngModel)]=\"textStyle.wordSpacing\">px\r\n              </h5>\r\n            </div>\r\n\r\n            <div class=\"flex-row-between style-card-row\">\r\n              <h5>Line height:</h5>\r\n              <h5>\r\n                <input type=\"number\" [(ngModel)]=\"textStyle.lineHeight\">x\r\n              </h5>\r\n            </div>\r\n\r\n            <div class=\"flex-row-between style-card-row\">\r\n              <h5>Letter spacing:</h5>\r\n              <h5>\r\n                <input type=\"number\" [(ngModel)]=\"textStyle.letterSpacing\">px\r\n              </h5>\r\n            </div>\r\n\r\n            <!-- Text shadow settings -->\r\n            <div class=\"flex-row-between style-card-row\">\r\n              <h4>Text shadow: </h4>\r\n              <input type=\"checkbox\" [(ngModel)]=\"textStyle.textShadow.showShadow\">\r\n            </div>\r\n\r\n            <div *ngIf=\"textStyle.textShadow.showShadow\">\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Color: </h5>\r\n                <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.textShadow.color\" [style.background]=\"textStyle.textShadow.color\"\r\n                  cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Horizontal shadow: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.xValue\"> px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Vertical shadow: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.yValue\"> px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Blur: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.blurValue\"> px</h5>\r\n              </div>\r\n            </div>\r\n\r\n            <!-- BORDER OPTIONS -->\r\n\r\n            <div class=\"flex-row-between style-card-row\">\r\n              <a (click)=\"textStyle.border.toggleBorderProperty('showFullBorder');\r\n        textStyle.border.setBorderProperty('showTopBorder', false);\r\n        textStyle.border.setBorderProperty('showRightBorder', false);\r\n        textStyle.border.setBorderProperty('showBottomBorder', false);\r\n        textStyle.border.setBorderProperty('showLeftBorder', false);\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">border_outer</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.border.toggleBorderProperty('showLeftBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">border_left</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.border.toggleBorderProperty('showTopBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">border_top</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.border.toggleBorderProperty('showRightBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">border_right</i>\r\n              </a>\r\n\r\n              <a (click)=\"textStyle.border.toggleBorderProperty('showBottomBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n                <i class=\"material-icons\">border_bottom</i>\r\n              </a>\r\n            </div>\r\n\r\n            <!-- Full border settings -->\r\n            <div *ngIf=\"textStyle.border.showFullBorder\">\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h4>Border: </h4>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Width: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.border.fullBorderWidth\"> px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Color: </h5>\r\n                <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.fullBorderColor\" [style.background]=\"textStyle.border.fullBorderColor\"\r\n                  cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Style: </h5>\r\n                <select [(ngModel)]=\"textStyle.border.fullBorderStyle\">\r\n                  <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n                </select>\r\n              </div>\r\n\r\n\r\n              <!--Border radius settings -->\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h4>Border Radius: </h4>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Top left border radius: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.border.topLeftRadius\">px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Top right border radius: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.border.topRightRadius\">px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Bottom right border radius: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomRightRadius\">px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Bottom left border radius: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomLeftRadius\">px</h5>\r\n              </div>\r\n            </div>\r\n\r\n            <!-- Top border settings -->\r\n            <div *ngIf=\"textStyle.border.showTopBorder\">\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h4>Top Border: </h4>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Width: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.border.topBorderWidth\"> px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Color: </h5>\r\n                <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.topBorderColor\" [style.background]=\"textStyle.border.topBorderColor\"\r\n                  cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Style: </h5>\r\n                <select [(ngModel)]=\"textStyle.border.topBorderStyle\">\r\n                  <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n                </select>\r\n              </div>\r\n            </div>\r\n            <!-- Right border settings -->\r\n            <div *ngIf=\"textStyle.border.showRightBorder\">\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h4>Right Border: </h4>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Width: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.border.rightBorderWidth\"> px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Color: </h5>\r\n                <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.rightBorderColor\" [style.background]=\"textStyle.border.rightBorderColor\"\r\n                  cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Style: </h5>\r\n                <select [(ngModel)]=\"textStyle.border.rightBorderStyle\">\r\n                  <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n                </select>\r\n              </div>\r\n            </div>\r\n\r\n            <!-- Bottom border settings -->\r\n            <div *ngIf=\"textStyle.border.showBottomBorder\">\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h4>Bottom Border: </h4>\r\n              </div>\r\n\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Width: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomBorderWidth\"> px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Color: </h5>\r\n                <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.bottomBorderColor\" [style.background]=\"textStyle.border.bottomBorderColor\"\r\n                  cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Style: </h5>\r\n                <select [(ngModel)]=\"textStyle.border.bottomBorderStyle\">\r\n                  <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n                </select>\r\n              </div>\r\n            </div>\r\n\r\n            <!-- Left border settings -->\r\n            <div *ngIf=\"textStyle.border.showLeftBorder\">\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h4>Left Border: </h4>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Width: </h5>\r\n                <h5>\r\n                  <input type=\"number\" [(ngModel)]=\"textStyle.border.leftBorderWidth\"> px</h5>\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Color: </h5>\r\n                <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.leftBorderColor\" [style.background]=\"textStyle.border.leftBorderColor\"\r\n                  cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n              </div>\r\n\r\n              <div class=\"flex-row-between style-card-row\">\r\n                <h5>Style: </h5>\r\n                <select [(ngModel)]=\"textStyle.border.leftBorderStyle\">\r\n                  <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n                </select>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n      </div>"
 
 /***/ }),
 
@@ -1413,7 +1613,7 @@ module.exports = "#style-selector {\r\n    height: 90%;\r\n    width: 60%;\r\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"flex-row-evenly\">\r\n\r\n  <a (click)=\"this.data.createTextStyle(); this.data.setMode('text')\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"font\" size=\"4x\"></fa>\r\n    <p>Create a new text style</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.createImageStyle(); this.data.setMode('image')\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"image\" size=\"4x\"></fa>\r\n    <p>Create a new image style</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.createShapeStyle(); this.data.setMode('shape')\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"shapes\" size=\"4x\"></fa>\r\n    <p>Create a new shape style</p>\r\n  </a>\r\n</div>\r\n\r\n<div id=\"style-selector\" class=\"greenAccent02\">\r\n\r\n  <!-- Text styles -->\r\n  <div *ngIf=\"this.data.viewTextElements\">\r\n    <a *ngFor=\"let textStyle of this.data.textStyles\" (click)=\"this.data.selectStyle('text', textStyle.id); this.data.setMode('text')\" class=\"greenAccent01 style-btn\">{{textStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Image styles -->\r\n  <div *ngIf=\"this.data.viewImageElements\">\r\n    <a *ngFor=\"let imageStyle of this.data.imageStyles\" (click)=\"this.data.selectStyle('image', imageStyle.id); this.data.setMode('image')\" class=\"greenAccent01 style-btn\">{{imageStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Shape styles -->\r\n  <div *ngIf=\"this.data.viewShapeElements\">\r\n    <a *ngFor=\"let shapeStyle of this.data.shapeStyles\" (click)=\"this.data.selectStyle('shape', shapeStyle.id); this.data.setMode('shape')\" class=\"greenAccent01 style-btn\">{{shapeStyle.name}}</a>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n<div class=\"flex-row-evenly\">\r\n  <a (click)=\"this.data.saveAsPng()\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"file-image\" size=\"4x\"></fa>\r\n    <p>Save As PNG</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.exportAsPDF()\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"file-pdf\" size=\"4x\"></fa>\r\n    <p>Export to PDF</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.saveSession()\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"save\" size=\"4x\"></fa>\r\n    <p>Save Session</p>\r\n  </a>\r\n</div>"
+module.exports = "<div class=\"flex-row-evenly\">\r\n\r\n  <a (click)=\"this.data.createTextStyle(); this.data.setMode('text')\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"font\" size=\"4x\"></fa>\r\n    <p>Create a new text style</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.createImageStyle(); this.data.setMode('image')\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"image\" size=\"4x\"></fa>\r\n    <p>Create a new image style</p>\r\n  </a>\r\n\r\n  <!-- <a (click)=\"this.data.createShapeStyle(); this.data.setMode('shape')\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"shapes\" size=\"4x\"></fa>\r\n    <p>Create a new shape style</p>\r\n  </a> -->\r\n</div>\r\n\r\n<div id=\"style-selector\" class=\"greenAccent02\">\r\n\r\n  <!-- Text styles -->\r\n  <div *ngIf=\"this.data.viewTextElements\">\r\n    <a *ngFor=\"let textStyle of this.data.textStyles\" (click)=\"this.data.selectStyle('text', textStyle.id); this.data.setMode('text')\" class=\"greenAccent01 style-btn\">{{textStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Image styles -->\r\n  <div *ngIf=\"this.data.viewImageElements\">\r\n    <a *ngFor=\"let imageStyle of this.data.imageStyles\" (click)=\"this.data.selectStyle('image', imageStyle.id); this.data.setMode('image')\" class=\"greenAccent01 style-btn\">{{imageStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Shape styles -->\r\n  <div *ngIf=\"this.data.viewShapeElements\">\r\n    <a *ngFor=\"let shapeStyle of this.data.shapeStyles\" (click)=\"this.data.selectStyle('shape', shapeStyle.id); this.data.setMode('shape')\" class=\"greenAccent01 style-btn\">{{shapeStyle.name}}</a>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n<div class=\"flex-row-evenly\">\r\n  <a (click)=\"this.data.saveAsPng()\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"file-image\" size=\"4x\"></fa>\r\n    <p>Save As PNG</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.exportAsPDF()\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"file-pdf\" size=\"4x\"></fa>\r\n    <p>Export to PDF</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.saveSession()\" class=\"flex-col-evenly lg-btn\">\r\n    <fa name=\"save\" size=\"4x\"></fa>\r\n    <p>Save Session</p>\r\n  </a>\r\n</div>"
 
 /***/ }),
 
@@ -1429,12 +1629,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToolbarComponent", function() { return ToolbarComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
-/* harmony import */ var _classes_project__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../classes/project */ "./src/app/classes/project.ts");
-/* harmony import */ var _classes_textObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../classes/textObject */ "./src/app/classes/textObject.ts");
-/* harmony import */ var _classes_textStyle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../classes/textStyle */ "./src/app/classes/textStyle.ts");
-/* harmony import */ var _classes_slide__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../classes/slide */ "./src/app/classes/slide.ts");
-/* harmony import */ var _classes_borderControl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../classes/borderControl */ "./src/app/classes/borderControl.ts");
-/* harmony import */ var _classes_shadowControl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../classes/shadowControl */ "./src/app/classes/shadowControl.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1446,70 +1640,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-
-
-
-
-
-
 var ToolbarComponent = /** @class */ (function () {
     function ToolbarComponent(data) {
         this.data = data;
     }
     ToolbarComponent.prototype.ngOnInit = function () {
-        this.checkLocalStorage();
-    };
-    ToolbarComponent.prototype.checkLocalStorage = function () {
-        // Check local storage for data from previous session
-        var deckbuilder2Data = JSON.parse(localStorage.getItem('deckbuilder2Data'));
-        if (deckbuilder2Data) {
-            // load
-            var project = new _classes_project__WEBPACK_IMPORTED_MODULE_2__["Project"]();
-            project.clearContents();
-            // Create image styles based on deckbuilder2Data JSON object
-            for (var i = 0; i < deckbuilder2Data.textStyles.length; i++) {
-                var newTextStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_4__["TextStyle"]();
-                // Populate this textStyle's variables with data from deckbuilder2Data.textStyles[i]
-                for (var key in deckbuilder2Data.textStyles[i]) {
-                    newTextStyle.setStyleProperty(key, deckbuilder2Data.textStyles[i][key]);
-                }
-                // Load borders
-                newTextStyle.setStyleProperty('border', new _classes_borderControl__WEBPACK_IMPORTED_MODULE_6__["BorderControl"]());
-                var newTextStyleBorder = newTextStyle.getStyleProperty('border');
-                for (var key in deckbuilder2Data.textStyles[i].border) {
-                    newTextStyleBorder.setBorderProperty(key, deckbuilder2Data.textStyles[i].border[key]);
-                }
-                // Load shadows
-                newTextStyle.setStyleProperty('textShadow', new _classes_shadowControl__WEBPACK_IMPORTED_MODULE_7__["ShadowControl"]());
-                var newTextStyleShadow = newTextStyle.getStyleProperty('textShadow');
-                for (var key in deckbuilder2Data.textStyles[i].textShadow) {
-                    newTextStyleShadow.setShadowProperty(key, deckbuilder2Data.textStyles[i].textShadow[key]);
-                }
-                project.addTextStyle(newTextStyle);
-            }
-            // Create slides based on deckbuilder2Data JSON object
-            for (var i = 0; i < deckbuilder2Data.slides.length; i++) {
-                var newSlide = new _classes_slide__WEBPACK_IMPORTED_MODULE_5__["Slide"]();
-                for (var key in deckbuilder2Data.slides[i]) {
-                    newSlide.setSlideProperty(key, deckbuilder2Data.slides[i][key]);
-                }
-                // Create all slide objects for this slide based on deckbuilder2Data JSON object
-                newSlide.clearSlideObjects();
-                for (var j = 0; j < deckbuilder2Data.slides[i].slideObjects.length; j++) {
-                    var newTextObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_3__["TextObject"]();
-                    for (var key in deckbuilder2Data.slides[i].slideObjects[j]) {
-                        newTextObject.setTextObjectProperty(key, deckbuilder2Data.slides[i].slideObjects[j][key]);
-                    }
-                    newSlide.addSlideObject(newTextObject);
-                }
-                project.addSlide(newSlide);
-            }
-            this.data.loadProject(project);
-        }
-        else if (!deckbuilder2Data) {
-            // Load a new project
-            this.data.loadProject(new _classes_project__WEBPACK_IMPORTED_MODULE_2__["Project"]());
-        }
+        // this.checkLocalStorage();
     };
     ToolbarComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
