@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-rows: 100px auto;\r\n        grid-template-rows: 100px auto;\r\n        -ms-grid-columns: 300px 1fr 1fr;\r\n        grid-template-columns: 300px 1fr 1fr;\r\n    overflow: hidden;\r\n        grid-template-areas:\r\n        \"toolbar toolbar toolbar\"\r\n        \"styler sandbox editor\"\r\n\r\n}\r\n\r\n#toolbar {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    -ms-grid-column-span: 3;\r\n    grid-area: toolbar;\r\n    overflow: hidden;\r\n}\r\n\r\n#styler {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 1;\r\n    grid-area: styler;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n}\r\n\r\n#sandbox {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 2;\r\n    grid-area: sandbox;\r\n    overflow: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 75px auto;\r\n        grid-template-rows: 75px auto;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}\r\n\r\n#slide-editor {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 3;\r\n    grid-area: editor;\r\n    overflow: hidden;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 75px auto;\r\n        grid-template-rows: 75px auto;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}"
+module.exports = ".app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-rows: 100px auto;\r\n        grid-template-rows: 100px auto;\r\n        -ms-grid-columns: 300px 1fr 1fr;\r\n        grid-template-columns: 300px 1fr 1fr;\r\n        grid-template-areas:\r\n        \"toolbar toolbar toolbar\"\r\n        \"styler sandbox editor\"\r\n\r\n}\r\n\r\n#toolbar {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    -ms-grid-column-span: 3;\r\n    grid-area: toolbar;\r\n    overflow: hidden;\r\n}\r\n\r\n#styler {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 1;\r\n    grid-area: styler;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n}\r\n\r\n#sandbox {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 2;\r\n    grid-area: sandbox;\r\n    overflow: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 75px auto;\r\n        grid-template-rows: 75px auto;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}\r\n\r\n#slide-editor {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 3;\r\n    grid-area: editor;\r\n    overflow: hidden;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 75px auto;\r\n        grid-template-rows: 75px auto;\r\n    -ms-grid-columns: 100%;\r\n        grid-template-columns: 100%;\r\n}"
 
 /***/ }),
 
@@ -554,43 +554,6 @@ var ShadowControl = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/classes/shapeStyle.ts":
-/*!***************************************!*\
-  !*** ./src/app/classes/shapeStyle.ts ***!
-  \***************************************/
-/*! exports provided: ShapeStyle */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShapeStyle", function() { return ShapeStyle; });
-var ShapeStyle = /** @class */ (function () {
-    function ShapeStyle() {
-        this.id = ShapeStyle.shapeStyleCounter++;
-        this.name = 'ShapeStyle' + ShapeStyle.shapeStyleCounter;
-        this.editNameMode = false;
-        this.showExtraOptions = false;
-    }
-    ShapeStyle.prototype.getStyleProperty = function (propertyName) {
-        return this[propertyName];
-    };
-    ShapeStyle.prototype.setStyleProperty = function (propertyName, propertyValue) {
-        this[propertyName] = propertyValue;
-    };
-    ShapeStyle.prototype.toggleEditNameMode = function () {
-        this.editNameMode = !this.editNameMode;
-    };
-    ShapeStyle.prototype.toggleExtraOptions = function () {
-        this.showExtraOptions = !this.showExtraOptions;
-    };
-    ShapeStyle.shapeStyleCounter = 0;
-    return ShapeStyle;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/classes/slide.ts":
 /*!**********************************!*\
   !*** ./src/app/classes/slide.ts ***!
@@ -958,16 +921,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_slide__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./classes/slide */ "./src/app/classes/slide.ts");
 /* harmony import */ var _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./classes/textStyle */ "./src/app/classes/textStyle.ts");
 /* harmony import */ var _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./classes/imageStyle */ "./src/app/classes/imageStyle.ts");
-/* harmony import */ var _classes_shapeStyle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./classes/shapeStyle */ "./src/app/classes/shapeStyle.ts");
-/* harmony import */ var _classes_textObject__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./classes/textObject */ "./src/app/classes/textObject.ts");
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.min.js");
-/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(jspdf__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
-/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _classes_imageObject__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./classes/imageObject */ "./src/app/classes/imageObject.ts");
-/* harmony import */ var _classes_borderControl__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./classes/borderControl */ "./src/app/classes/borderControl.ts");
-/* harmony import */ var _classes_shadowControl__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./classes/shadowControl */ "./src/app/classes/shadowControl.ts");
+/* harmony import */ var _classes_textObject__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./classes/textObject */ "./src/app/classes/textObject.ts");
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.min.js");
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(jspdf__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _classes_imageObject__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./classes/imageObject */ "./src/app/classes/imageObject.ts");
+/* harmony import */ var _classes_borderControl__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./classes/borderControl */ "./src/app/classes/borderControl.ts");
+/* harmony import */ var _classes_shadowControl__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./classes/shadowControl */ "./src/app/classes/shadowControl.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -977,7 +939,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -1022,7 +983,6 @@ var DataService = /** @class */ (function () {
     }
     DataService.prototype.test = function () {
         console.log("Test");
-        console.log(this.currentProject);
     };
     // FUNCTIONS USED BY ALL COMPONENTS
     // App view mode:  text || image || shape
@@ -1087,13 +1047,13 @@ var DataService = /** @class */ (function () {
                 var currentSlideObject = savedProjectData.slides[i].slideObjects[j];
                 // Revive text objects
                 if (currentSlideObject.hasOwnProperty('textValue')) {
-                    var textObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_6__["TextObject"]();
+                    var textObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_5__["TextObject"]();
                     textObject.revive(currentSlideObject);
                     slideObjects.push(textObject);
                 }
                 else if (currentSlideObject.hasOwnProperty('imagePath')) {
                     // Revive image objects
-                    var imageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_10__["ImageObject"]();
+                    var imageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_9__["ImageObject"]();
                     imageObject.revive(currentSlideObject);
                     slideObjects.push(imageObject);
                 }
@@ -1109,11 +1069,11 @@ var DataService = /** @class */ (function () {
             var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__["TextStyle"]();
             textStyle.revive(currentTextStyle);
             // Revive borders
-            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_11__["BorderControl"]();
+            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_10__["BorderControl"]();
             border.revive(currentTextStyle.border);
             textStyle.setStyleProperty('border', border);
             // Revive shadows
-            var shadow = new _classes_shadowControl__WEBPACK_IMPORTED_MODULE_12__["ShadowControl"]();
+            var shadow = new _classes_shadowControl__WEBPACK_IMPORTED_MODULE_11__["ShadowControl"]();
             shadow.revive(currentTextStyle.textShadow);
             textStyle.setStyleProperty('textShadow', shadow);
             textStyles.push(textStyle);
@@ -1126,7 +1086,7 @@ var DataService = /** @class */ (function () {
             var imageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]();
             imageStyle.revive(currentImageStyle);
             // Revive borders
-            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_11__["BorderControl"]();
+            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_10__["BorderControl"]();
             border.revive(currentImageStyle.border);
             imageStyle.setStyleProperty('border', border);
             imageStyles.push(imageStyle);
@@ -1162,10 +1122,10 @@ var DataService = /** @class */ (function () {
         var newImageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]();
         this.imageStyles.push(newImageStyle);
     };
-    DataService.prototype.createShapeStyle = function () {
-        var newShapeStyle = new _classes_shapeStyle__WEBPACK_IMPORTED_MODULE_5__["ShapeStyle"]();
-        this.shapeStyles.push(newShapeStyle);
-    };
+    // createShapeStyle() {
+    //   let newShapeStyle = new ShapeStyle();
+    //   this.shapeStyles.push(newShapeStyle);
+    // }
     DataService.prototype.selectStyle = function (type, id) {
         switch (type) {
             case 'text':
@@ -1180,7 +1140,7 @@ var DataService = /** @class */ (function () {
         }
     };
     DataService.prototype.saveAsPng = function () {
-        html2canvas__WEBPACK_IMPORTED_MODULE_8__(document.querySelector(".slide-render"), {
+        html2canvas__WEBPACK_IMPORTED_MODULE_7__(document.querySelector(".slide-render"), {
             height: 432,
             width: 768,
             scale: 2,
@@ -1188,7 +1148,6 @@ var DataService = /** @class */ (function () {
         }).then(function (canvas) {
             var imgElement = document.createElement('a');
             var imgData = canvas.toDataURL("image/png");
-            console.log(imgData);
             imgElement.href = imgData;
             imgElement.download = "slide.png";
             imgElement.click();
@@ -1196,28 +1155,51 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.exportAsPDF = function () {
         this.slideRenderMagnification = 100;
-        setTimeout(function () {
-            var doc = new jspdf__WEBPACK_IMPORTED_MODULE_7__({
-                orientation: "landscape",
-                unit: "in",
-                format: [16, 9]
-            });
-            var width = doc.internal.pageSize.width;
-            var height = doc.internal.pageSize.height;
-            // To make the img output size match the pdf size, make sure that:
-            // canvas output size * scale factor === pdf document size converted to px
-            html2canvas__WEBPACK_IMPORTED_MODULE_8__(document.querySelector(".slide-render"), {
-                height: 432,
-                width: 768,
-                scale: 2,
-                allowTaint: false,
-                useCORS: true
-            }).then(function (canvas) {
-                var imgData = canvas.toDataURL("image/png");
-                doc.addImage(imgData, "PNG", 0, 0, width, height);
-                doc.save("a4.pdf");
-            });
-        }, 3000);
+        this.currentSlideIndex = 0;
+        var context = this;
+        var slideRender = document.body.getElementsByClassName('slide-render')[0];
+        // Parent container must be set to overflow: visible to capture entire canvas
+        var slideEditor = document.getElementById('slide-editor');
+        slideEditor.style.overflow = "visible";
+        var doc = new jspdf__WEBPACK_IMPORTED_MODULE_6__({
+            orientation: "landscape",
+            unit: "in",
+            format: [16, 9]
+        });
+        var width = doc.internal.pageSize.width;
+        var height = doc.internal.pageSize.height;
+        // To make the img output size match the pdf size, make sure that:
+        // canvas output size * scale factor === pdf document size converted to px
+        addPages();
+        function addPages() {
+            setTimeout(function () {
+                console.log("this.copy", this.copy);
+                if (context.currentSlideIndex === context.slides.length) {
+                    context.currentSlideIndex = 0;
+                    doc.save("a4.pdf");
+                    slideEditor.style.overflow = "hidden";
+                    return;
+                }
+                else {
+                    console.log('saving slide ' + context.currentSlideIndex);
+                    html2canvas__WEBPACK_IMPORTED_MODULE_7__(slideRender, {
+                        height: 432,
+                        width: 768,
+                        scale: 2,
+                        allowTaint: false,
+                        useCORS: true
+                    }).then(function (canvas) {
+                        var imgData = canvas.toDataURL("image/png");
+                        doc.addImage(imgData, "PNG", 0, 0, width, height);
+                        context.currentSlideIndex += 1;
+                        if (context.currentSlideIndex < context.slides.length) {
+                            doc.addPage();
+                        }
+                        addPages();
+                    });
+                }
+            }, 1000);
+        }
     };
     //  STYLER FUNCTIONS
     DataService.prototype.deleteTextStyleById = function (id) {
@@ -1245,7 +1227,7 @@ var DataService = /** @class */ (function () {
     DataService.prototype.addTextObjectToSlide = function () {
         var currentSlide = this.slides[this.currentSlideIndex];
         var currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
-        var newTextObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_6__["TextObject"]();
+        var newTextObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_5__["TextObject"]();
         newTextObject.setTextvalue(this.sandboxText);
         newTextObject.setStyleId(this.selectedTextStyleId);
         // !important!  set z index last to ensure proper assignment of z index
@@ -1255,7 +1237,7 @@ var DataService = /** @class */ (function () {
     DataService.prototype.addImageObjectToSlide = function () {
         var currentSlide = this.slides[this.currentSlideIndex];
         var currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
-        var newImageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_10__["ImageObject"]();
+        var newImageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_9__["ImageObject"]();
         newImageObject.setImagePath(this.images[this.selectedImage].url);
         newImageObject.setStyleId(this.selectedImageStyleId);
         console.log(newImageObject);
@@ -1320,7 +1302,7 @@ var DataService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: "root"
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClient"]])
     ], DataService);
     return DataService;
 }());
@@ -1413,7 +1395,7 @@ module.exports = "#slide-editor-container {\r\n    height: 100%;\r\n    width: 1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"slide-editor-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.createNewSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"plus-square\" size=\"3x\"></fa>\r\n    <p>Create a new slide</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.test()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"play\" size=\"3x\"></fa>\r\n    <p>Preview</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.previousSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"step-backward\" size=\"3x\"></fa>\r\n  </a>\r\n\r\n  <div>\r\n    <h1>{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>\r\n  </div>\r\n\r\n  <a (click)=\"this.nextSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"step-forward\" size=\"3x\"></fa>\r\n  </a>\r\n\r\n  <a (click)=\"this.deleteCurrentSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"trash\" size=\"3x\"></fa>\r\n    <p>Delete this slide</p>\r\n  </a>\r\n</div>\r\n\r\n<div id=\"slide-editor-container\" class=\"accent04\">\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-render-container\" class=\"flex-col-evenly accent01\">\r\n    <div class=\"slide-render\" [ngStyle]=\"this.getSlideRenderCss()\">\r\n      <!-- Render slide objects here -->\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"this.selectObject(slideObject.id)\" ngResizable [rzHandles]=\"'n,e,s,w,se,sw,ne,nw'\" (rzStop)=\"slideObject.setSize($event)\"\r\n        ngDraggable (endOffset)=\"slideObject.setTranslation($event)\" [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'\">\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"this.data.getTextStyleById(slideObject.styleId).getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"this.data.getImageStyleById(slideObject.styleId).getCss()\"\r\n          [src]=\"slideObject.imagePath\" crossOrigin=\"anonymous\">\r\n      </div>\r\n    </div>\r\n\r\n\r\n  </div>\r\n\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-control-panel\" class=\"grayAccent02\">\r\n\r\n\r\n    <div id=\"slide-settings\" class=\"grayAccent02 flex-row-evenly\">\r\n      <!-- <fa name=\"palette\" size=\"2x\"></fa> -->\r\n      <div class=\"flex-col-evenly sm-btn\">\r\n        <p>Set background color</p>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\" [style.background]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\"\r\n        />\r\n      </div>\r\n      <!-- \r\n      <a (click)=\"this.data.test()\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"palette\" size=\"2x\"></fa>\r\n        <p>Set default background color</p>\r\n      </a> -->\r\n\r\n      <a (click)=\"this.data.test()\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"image\" size=\"2x\"></fa>\r\n        <p>Set background image</p>\r\n      </a>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa (click)=\"this.data.test()\" name=\"search-minus\" size=\"1x\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"this.data.slideRenderMagnification\" min=\"0\" max=\"200\">\r\n\r\n        <fa name=\"search-plus\" size=\"1x\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"this.data.slideRenderMagnification\">%</p>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-between wrap\"\r\n      [style.background]=\"this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null\">\r\n      <div class=\"flex-row-evenly\">\r\n\r\n        <div *ngIf=\"!slideObject.editNameMode\" class=\"sm-btn flex-row-evenly\">\r\n          <h5>{{slideObject.name}}</h5>\r\n          <fa name=\"edit\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.editNameMode\" class=\"sm-btn flex-row-evenly\">\r\n          <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n          <fa name=\"save\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly\">\r\n        <div *ngIf=\"!slideObject.editTextMode\" class=\"sm-btn flex-row-evenly\">\r\n          <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n          <fa name=\"edit\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.editTextMode\" class=\"sm-btn flex-row-evenly\">\r\n          <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n          <fa name=\"save\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n        </div>\r\n      </div>\r\n\r\n      <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly\">\r\n        <h5>ImageObject</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <h5>X:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n        <h5>Y:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n        <h5>H:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.height\">\r\n\r\n        <h5>W:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.width\">\r\n\r\n        <!-- <h5>R:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.rotation\"> -->\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <a (click)=\"this.data.increaseOneLayer(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"arrow-up\"></fa>\r\n        </a>\r\n        <a (click)=\"this.data.decreaseOneLayer(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"arrow-down\"></fa>\r\n        </a>\r\n        <a (click)=\"slideObject.toggleSlideObjectProperty('display')\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"eye\"></fa>\r\n        </a>\r\n      </div>\r\n\r\n      <a (click)=\"this.deleteSlideObjectById(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"trash\"></fa>Delete</a>\r\n    </div>\r\n\r\n\r\n\r\n  </div>\r\n</div>"
+module.exports = "<div id=\"slide-editor-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.createNewSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"plus-square\" size=\"3x\"></fa>\r\n    <p>Create a new slide</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.preview()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"play\" size=\"3x\"></fa>\r\n    <p>Preview</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.previousSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"step-backward\" size=\"3x\"></fa>\r\n  </a>\r\n\r\n  <div>\r\n    <h1>{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>\r\n  </div>\r\n\r\n  <a (click)=\"this.nextSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"step-forward\" size=\"3x\"></fa>\r\n  </a>\r\n\r\n  <a (click)=\"this.deleteCurrentSlide()\" class=\"flex-row-evenly md-btn\">\r\n    <fa name=\"trash\" size=\"3x\"></fa>\r\n    <p>Delete this slide</p>\r\n  </a>\r\n</div>\r\n\r\n<div id=\"slide-editor-container\" class=\"accent04\">\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-render-container\" class=\"flex-col-evenly accent01\">\r\n    <div class=\"slide-render\" [ngStyle]=\"this.getSlideRenderCss()\">\r\n      <!-- Render slide objects here -->\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"this.selectObject(slideObject.id)\" ngResizable [rzHandles]=\"'n,e,s,w,se,sw,ne,nw'\" (rzStop)=\"slideObject.setSize($event)\"\r\n        ngDraggable (endOffset)=\"slideObject.setTranslation($event)\" [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'\">\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"this.data.getTextStyleById(slideObject.styleId).getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"this.data.getImageStyleById(slideObject.styleId).getCss()\"\r\n          [src]=\"slideObject.imagePath\" crossOrigin=\"anonymous\">\r\n      </div>\r\n    </div>\r\n\r\n\r\n  </div>\r\n\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-control-panel\" class=\"grayAccent02\">\r\n\r\n\r\n    <div id=\"slide-settings\" class=\"grayAccent02 flex-row-evenly\">\r\n      <!-- <fa name=\"palette\" size=\"2x\"></fa> -->\r\n      <div class=\"flex-col-evenly sm-btn\">\r\n        <p>Set background color</p>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\" [style.background]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\"\r\n        />\r\n      </div>\r\n      <!-- \r\n      <a (click)=\"this.data.test()\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"palette\" size=\"2x\"></fa>\r\n        <p>Set default background color</p>\r\n      </a> -->\r\n\r\n      <a (click)=\"this.data.test()\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"image\" size=\"2x\"></fa>\r\n        <p>Set background image</p>\r\n      </a>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa (click)=\"this.data.test()\" name=\"search-minus\" size=\"1x\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"this.data.slideRenderMagnification\" min=\"0\" max=\"200\">\r\n\r\n        <fa name=\"search-plus\" size=\"1x\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"this.data.slideRenderMagnification\">%</p>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-between wrap\"\r\n      [style.background]=\"this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null\">\r\n      <div class=\"flex-row-evenly\">\r\n\r\n        <div *ngIf=\"!slideObject.editNameMode\" class=\"sm-btn flex-row-evenly\">\r\n          <h5>{{slideObject.name}}</h5>\r\n          <fa name=\"edit\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.editNameMode\" class=\"sm-btn flex-row-evenly\">\r\n          <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n          <fa name=\"save\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n        </div>\r\n\r\n      </div>\r\n\r\n      <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly\">\r\n        <div *ngIf=\"!slideObject.editTextMode\" class=\"sm-btn flex-row-evenly\">\r\n          <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n          <fa name=\"edit\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.editTextMode\" class=\"sm-btn flex-row-evenly\">\r\n          <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n          <fa name=\"save\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n        </div>\r\n      </div>\r\n\r\n      <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly\">\r\n        <h5>ImageObject</h5>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <h5>X:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n        <h5>Y:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n        <h5>H:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.height\">\r\n\r\n        <h5>W:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.width\">\r\n\r\n        <!-- <h5>R:</h5>\r\n        <input type=\"number\" [(ngModel)]=\"slideObject.rotation\"> -->\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <a (click)=\"this.data.increaseOneLayer(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"arrow-up\"></fa>\r\n        </a>\r\n        <a (click)=\"this.data.decreaseOneLayer(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"arrow-down\"></fa>\r\n        </a>\r\n        <a (click)=\"slideObject.toggleSlideObjectProperty('display')\" class=\"sm-btn flex-row-evenly\">\r\n          <fa name=\"eye\"></fa>\r\n        </a>\r\n      </div>\r\n\r\n      <a (click)=\"this.deleteSlideObjectById(slideObject.id)\" class=\"sm-btn flex-row-evenly\">\r\n        <fa name=\"trash\"></fa>Delete</a>\r\n    </div>\r\n\r\n\r\n\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1448,27 +1430,119 @@ var SlideEditorComponent = /** @class */ (function () {
     }
     SlideEditorComponent.prototype.ngOnInit = function () {
     };
-    SlideEditorComponent.prototype.test = function () {
-        console.log(this.data.slideRenderMagnification);
-    };
     // Slide editor Toolbar functions
     SlideEditorComponent.prototype.createNewSlide = function () {
-        var newSlide = new _classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]();
-        this.data.slides.push(newSlide);
+        this.data.slides.push(new _classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]());
         this.data.currentSlideIndex = this.data.slides.length - 1;
     };
     SlideEditorComponent.prototype.preview = function () {
-        console.log('Enter preview mode');
+        var context = this;
+        // The 'click' eventListener causes mouseControl to increment currentSlideIndex.
+        // Initializing to -1 allows the slideshow to start at currentSlideIndex = 0
+        this.data.currentSlideIndex = -1;
+        // Create HTML elements to be displayed in fullscreen mode:
+        // Slideshow contents
+        var slideRender = document.getElementsByClassName('slide-render')[0];
+        var copy;
+        // Foreground fullscreen transparent overlay to disable draggable contents in fullscreen mode
+        var overlay = document.createElement('div');
+        overlay.style.cssText = "\n      background: transparent;\n      width: 100%;\n      height: 100%;\n      position: absolute;\n      top: 0 ;\n      left: 0;\n      z-index: 100;\n    ";
+        // Fullscreen container 
+        // Putting fullscreen contents in a container allows control over the sizing 
+        // and positioning of elements displayed in fullscreen mode
+        var fullscreenContainer = document.createElement('div');
+        fullscreenContainer.style.cssText = "\n      background\" #000;\n    ";
+        // Add elements to DOM
+        document.body.appendChild(fullscreenContainer);
+        refreshPreview();
+        launchIntoFullscreen(fullscreenContainer);
+        // Enable slideshow navgation
+        document.addEventListener('keyup', keyboardControl);
+        document.addEventListener('click', mouseControl);
+        // Exit preview mode - Remove fullscreen elements and event listeners from DOM
+        document.addEventListener("fullscreenchange", exitPreviewMode);
+        document.addEventListener("mozfullscreenchange", exitPreviewMode);
+        document.addEventListener("webkitfullscreenchange", exitPreviewMode);
+        document.addEventListener("msfullscreenchange", exitPreviewMode);
+        function exitPreviewMode(event) {
+            console.log(event);
+            console.log(document.fullscreenElement, document.webkitFullscreenElement);
+            if (document.fullscreenElement || document.webkitFullscreenElement === null) {
+                document.body.removeChild(fullscreenContainer);
+                // Disable keyboard and mouse navigation
+                document.removeEventListener('keyup', keyboardControl);
+                document.removeEventListener('click', mouseControl);
+            }
+        }
+        function launchIntoFullscreen(element) {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            }
+            else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            }
+            else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            }
+            else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
+            element.requestPointerLock();
+        }
+        function mouseControl(event) {
+            console.log(event.button);
+            switch (event.button) {
+                case 2:// Right click
+                    context.previousSlide();
+                    refreshPreview();
+                    break;
+                case 0:// Left click
+                    context.nextSlide();
+                    refreshPreview();
+                    break;
+            }
+        }
+        function keyboardControl(event) {
+            switch (event.key) {
+                case 'ArrowLeft':
+                    context.previousSlide();
+                    refreshPreview();
+                    break;
+                case 'ArrowRight':
+                    context.nextSlide();
+                    refreshPreview();
+                    break;
+            }
+        }
+        function refreshPreview() {
+            setTimeout(function () {
+                copy = slideRender.cloneNode(true);
+                copy.appendChild(overlay);
+                fullscreenContainer.appendChild(copy);
+                // Scale elements to full screen size while maintaining aspect ratio
+                var scaleX = screen.width / copy.clientWidth;
+                var scaleY = screen.height / copy.clientHeight;
+                var scaleFactor = Math.min(scaleX, scaleY).toFixed(1);
+                copy.style.transform = "scale(" + scaleFactor.toString() + ", " + scaleFactor.toString() + ")";
+                copy.style.position = "absolute";
+                copy.style.transformOrigin = "left top";
+                copy.style.top = "0";
+                copy.style.left = "0";
+                copy.style.overflow = "hidden";
+            }, 300);
+        }
     };
     SlideEditorComponent.prototype.previousSlide = function () {
         if (this.data.currentSlideIndex > 0) {
             this.data.currentSlideIndex--;
         }
+        console.log('Current slide index:', this.data.currentSlideIndex);
     };
     SlideEditorComponent.prototype.nextSlide = function () {
         if (this.data.currentSlideIndex < this.data.slides.length - 1) {
             this.data.currentSlideIndex++;
         }
+        console.log('Current slide index:', this.data.currentSlideIndex);
     };
     SlideEditorComponent.prototype.deleteCurrentSlide = function () {
         this.data.slides.splice(this.data.currentSlideIndex, 1);
