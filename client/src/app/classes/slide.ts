@@ -4,7 +4,6 @@ export class Slide {
 
     private static slideCounter: number = 0;
     private id: number;
-
     private backgroundImage: string;
     private backgroundColor: string;
 

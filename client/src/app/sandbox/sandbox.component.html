@@ -1,69 +1,66 @@
 <!-- Sandbox toolbar -->
-<div class="grayAccent02 flex-row-evenly">
-  <a (click)="this.data.setMode('text')" class="flex-row-evenly md-btn">
-    <fa name="font" size="3x" class="accent03 object-icon"></fa>
-    <p>Create a new text object</p>
+<div id="sandbox-toolbar" class="grayAccent02 flex-row-evenly">
+  <a (click)="this.data.setMode('text')" class="flex-row-evenly sandbox-toolbar-btn-group">
+    <fa name="font"></fa>
+    <p>New text object</p>
   </a>
 
-  <a (click)="this.data.setMode('image')" class="flex-row-evenly md-btn">
-    <fa name="image" size="3x" class="accent03 object-icon"></fa>
-    <p>Create a new image object</p>
-  </a>
+  <a (click)="this.data.setMode('image')" class="flex-row-evenly sandbox-toolbar-btn-group">
+    <fa name="image"></fa>
+    <p>New image object</p>
+  </a> 
 
-  <!-- <a (click)="this.data.setMode('shape')" class="flex-row-evenly md-btn">
-    <fa name="shapes" size="3x" class="accent03 object-icon"></fa>
-    <p>Create a new shape object</p>
+  <!-- <a (click)="this.data.setMode('shape')" class="flex-row-evenly sandbox-btn-group">
+    <fa name="shapes"></fa>
+    <p>New shape object</p>
   </a> -->
 </div>
 
 <!-- Text sandbox -->
 <div id="text-sandbox" class="grayAccent03" *ngIf="this.data.viewTextElements && this.data.textStyles.length > 0">
-  <div id="text-preview-container">
-    <div class="dotted-border">
-      <p id="text-preview" [ngStyle]="this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()">{{this.data.sandboxText}}</p>
+  <div class="flex-col-evenly sandbox-preview-area">
+    <div class="sandbox-preview-container">
+      <p [ngStyle]="this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()">{{this.data.sandboxText}}</p>
     </div>
   </div>
 
-  <div class="sandbox-bottom-half">
-    <div class="flex-row-evenly sandbox-toolbar">
-      <textarea [(ngModel)]="this.data.sandboxText">
+    <div class="sandbox-middle-bar flex-row-evenly">
+      <textarea class="sandbox-textarea" [(ngModel)]="this.data.sandboxText">
       
     </textarea>
-      <a (click)="this.data.addTextObjectToSlide()" class="lg-btn flex-col-evenly grayAccent02">
-        <fa name="share" size="3x"></fa>
-        <p>Add text object to slide</p>
+
+      <a (click)="this.data.addTextObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
+        <fa name="share"></fa>
+        <p>Add text object <br> to slide</p>
       </a>
     </div>
 
-    <textarea id="text-workspace" [(ngModel)]="this.data.textNotes">
+    <textarea class="sandbox-textarea" [(ngModel)]="this.data.textNotes">
     {{this.data.textNotes}}
   </textarea>
   </div>
-</div>
 
 <!-- Image sandbox -->
 <div id="image-sandbox" class="grayAccent03" *ngIf="this.data.viewImageElements && this.data.imageStyles.length > 0">
-  <div id="image-preview-container">
+  <div class="flex-col-evenly sandbox-preview-area">
     <img id="image-preview" *ngIf="this.data.images[this.data.selectedImage]" [src]="this.data.images[this.data.selectedImage].url" [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
   </div>
 
-  <div class="sandbox-bottom-half">
-    <div class="flex-row-between sandbox-toolbar">
-      <input type="file" (change)="this.data.uploadImage($event)">
+  <div class="sandbox-middle-bar flex-row-evenly">
+    <input type="file" (change)="this.data.uploadImage($event)">
 
-      <a (click)="this.data.addImageObjectToSlide()" class="lg-btn flex-col-evenly grayAccent02">
-        <fa name="share" size="3x"></fa>
+      <a (click)="this.data.addImageObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
+        <fa name="share"></fa>
         <p>Add image object to slide</p>
       </a>
     </div>
 
-    <div id="image-gallery">
-      <div *ngFor="let image of this.data.images; let i = index;" class="gallery-img-container">
+    <div id="gallery">
+      <div *ngFor="let image of this.data.images" class="gallery-img-container">
         <img src="{{image.url}}" (click)="this.data.selectImage(image.id)" class="clickable gallery-img">
         <fa name="trash" class="clickable delete-icon flex-row-evenly" (click)="this.data.deleteImageById(image.id)"></fa>
       </div>
     </div>
-  </div>
 </div>
 
 

@@ -2,36 +2,34 @@
     width: 100%;
     height: 100vh;
     display: grid;
-    grid-template-rows: 100px auto;
-    grid-template-columns: 300px 1fr 1fr;
+    grid-template-rows: 8vh 92vh;
+    grid-template-columns: 18vw 41vw 41vw;
     grid-template-areas:
         "toolbar toolbar toolbar"
         "styler sandbox editor"
-
 }
 
 #toolbar {
     grid-area: toolbar;
-    overflow: hidden;
+    /* overflow: hidden; */
+    margin: 0;
+    padding: 0;
 }
 
 #styler {
     grid-area: styler;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     overflow-y: auto;
 }
 
 #sandbox {
     grid-area: sandbox;
     overflow: auto;
-    display: grid;
-    grid-template-rows: 75px auto;
-    grid-template-columns: 100%;
 }
 
 #slide-editor {
     grid-area: editor;
-    overflow: hidden;
+    /* overflow: hidden; */
     display: grid;
     grid-template-rows: 75px auto;
     grid-template-columns: 100%;

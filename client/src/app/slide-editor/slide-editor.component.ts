@@ -200,7 +200,7 @@ export class SlideEditorComponent implements OnInit {
       'height': slideRenderHeight + 'px',
       'width': slideRenderWidth + 'px',
       'transform': 'translate(' + translationX + ') scale(' + this.data.slideRenderMagnification / 100 + ')',
-      'position': 'relative'
+      'position': 'relative',
     }
     return css;
   }

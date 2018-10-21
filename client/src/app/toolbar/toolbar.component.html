@@ -1,54 +1,54 @@
 <div class="flex-row-evenly">
 
-  <a (click)="this.data.createTextStyle(); this.data.setMode('text')" class="flex-col-evenly lg-btn">
-    <fa name="font" size="4x"></fa>
-    <p>Create a new text style</p>
+  <a (click)="this.data.createTextStyle(); this.data.setMode('text')" class="flex-col-evenly toolbar-btn-group">
+    <fa name="font"></fa>
+    <p>New text style</p>
   </a>
 
-  <a (click)="this.data.createImageStyle(); this.data.setMode('image')" class="flex-col-evenly lg-btn">
-    <fa name="image" size="4x"></fa>
-    <p>Create a new image style</p>
+  <a (click)="this.data.createImageStyle(); this.data.setMode('image')" class="flex-col-evenly toolbar-btn-group">
+    <fa name="image"></fa>
+    <p>New image style</p>
   </a>
 
-  <!-- <a (click)="this.data.createShapeStyle(); this.data.setMode('shape')" class="flex-col-evenly lg-btn">
-    <fa name="shapes" size="4x"></fa>
+  <!-- <a (click)="this.data.createShapeStyle(); this.data.setMode('shape')" class="flex-col-evenly">
+    <fa name="shapes"></fa>
     <p>Create a new shape style</p>
   </a> -->
 </div>
 
-<div id="style-selector" class="greenAccent02">
+<div id="toolbar-style-selector" class="greenAccent02">
 
   <!-- Text styles -->
   <div *ngIf="this.data.viewTextElements">
-    <a *ngFor="let textStyle of this.data.textStyles" (click)="this.data.selectStyle('text', textStyle.id); this.data.setMode('text')" class="greenAccent01 style-btn">{{textStyle.name}}</a>
+    <a *ngFor="let textStyle of this.data.textStyles" (click)="this.data.selectStyle('text', textStyle.id); this.data.setMode('text')" class=" greenAccent01 toolbar-style-btn">{{textStyle.name}}</a>
   </div>
 
   <!-- Image styles -->
   <div *ngIf="this.data.viewImageElements">
-    <a *ngFor="let imageStyle of this.data.imageStyles" (click)="this.data.selectStyle('image', imageStyle.id); this.data.setMode('image')" class="greenAccent01 style-btn">{{imageStyle.name}}</a>
+    <a *ngFor="let imageStyle of this.data.imageStyles" (click)="this.data.selectStyle('image', imageStyle.id); this.data.setMode('image')" class=" greenAccent01 toolbar-style-btn">{{imageStyle.name}}</a>
   </div>
 
   <!-- Shape styles -->
   <div *ngIf="this.data.viewShapeElements">
-    <a *ngFor="let shapeStyle of this.data.shapeStyles" (click)="this.data.selectStyle('shape', shapeStyle.id); this.data.setMode('shape')" class="greenAccent01 style-btn">{{shapeStyle.name}}</a>
+    <a *ngFor="let shapeStyle of this.data.shapeStyles" (click)="this.data.selectStyle('shape', shapeStyle.id); this.data.setMode('shape')" class=" greenAccent01 toolbar-style-btn">{{shapeStyle.name}}</a>
   </div>
 </div>
 
 
 
 <div class="flex-row-evenly">
-  <a (click)="this.data.saveAsPng()" class="flex-col-evenly lg-btn">
-    <fa name="file-image" size="4x"></fa>
+  <a (click)="this.data.saveAsPng()" class="flex-col-evenly toolbar-btn-group">
+    <fa name="file-image"></fa>
     <p>Save As PNG</p>
   </a>
 
-  <a (click)="this.data.exportAsPDF()" class="flex-col-evenly lg-btn">
-    <fa name="file-pdf" size="4x"></fa>
+  <a (click)="this.data.exportAsPDF()" class="flex-col-evenly toolbar-btn-group">
+    <fa name="file-pdf"></fa>
     <p>Export to PDF</p>
   </a>
 
-  <a (click)="this.data.saveSession()" class="flex-col-evenly lg-btn">
-    <fa name="save" size="4x"></fa>
+  <a (click)="this.data.saveSession()" class="flex-col-evenly toolbar-btn-group">
+    <fa name="save"></fa>
     <p>Save Session</p>
   </a>
 </div>

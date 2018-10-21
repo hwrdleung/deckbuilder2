@@ -111,19 +111,6 @@ input[type="number"]{
     color: #3A4E48;
 }
 
-.object-icon {
-    padding: 5px;
-    border-radius: 5px;
-    background: none;
-    border: 3px silver dotted
-}
-
-a:hover {
-    cursor: pointer;
-}
-
-/*-----*/
-
 .greenAccent01{
     background: #60695C;
     color: #D6F9DD;
@@ -132,16 +119,6 @@ a:hover {
 .greenAccent02{
     background: rgb(63, 78, 66);
     color: rgb(255, 209, 82)
-}
-
-.blueAccent01{
-    background: rgb(56, 23, 243);
-    color: rgb(255, 255, 255);
-}
-
-.blueAccent02{
-    background: rgb(73, 85, 73);
-    color: rgb(204, 235, 204)
 }
 
 .grayAccent01{
@@ -159,74 +136,16 @@ a:hover {
     color: rgb(99, 99, 99)
 }
 
-/* Large toolbar buttons */
-
-.lg-btn {
-    font-size: 0.7rem;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    height: 100px;
-    width: 125px;
-    min-width: 100px;
-}
-
-.lg-btn:hover {
-    background: rgb(82, 82, 82);
-}
-
-.lg-btn p {
-    margin: 0 10px;
-}
-
 /* Medium toolbar buttons */
-
-.md-btn {
-    font-size: 0.7rem;
-    text-align: center;
-    margin: 0;
-    padding: 0 20px;
-    height: 75px;
-}
-
-.md-btn:hover {
-    background: rgb(82, 82, 82);
-}
-
 .md-btn p {
     max-width: 75px;
     padding: 10px;
 }
 
-.dotted-border{
-    border: 1px silver dashed
-}
-
 /* Small toolbar buttons */
-.sm-btn {
-    font-size: 0.7rem;
-    text-align: center;
-    margin: 0;
-    padding: 0 5px;
-    height: 30px;
-}
 
-.sm-btn fa {
-    margin: 0 5px;
-}
-
-.sm-btn:hover {
-    background: rgb(82, 82, 82);
-}
 
 /* Extra small buttons */
-.xs-btn{
-    font-size: 0.7rem;
-    text-align: center;
-    margin: 0 auto;
-    padding: 0;
-    height: auto;
-}
 
 
 /* Color Selectors */

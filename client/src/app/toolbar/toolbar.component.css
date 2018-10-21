@@ -1,20 +1,56 @@
-#style-selector {
+.toolbar-btn-group {
+    width: 75px;
+    height: 8vh;
+    margin: 0 5px;
+    padding: 0 20px;
+}
+
+.toolbar-btn-group:hover {
+    background: rgb(80, 80, 80);
+}
+
+.toolbar-btn-group fa {
+    font-size: 3vh;
+    margin: 0;
+    padding: 0;
+}
+
+.toolbar-btn-group p {
+    text-align: center;
+    font-size: 0.7rem;
+    font-size: 0.9vw;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+#toolbar-style-selector {
+    box-sizing: border-box;
     height: 90%;
-    width: 60%;
     overflow-x: hidden;
     overflow-y: auto;
-}
-
-.style-btn {
-    text-decoration: none;
     padding: 5px;
-    width: 125px;
-    border-radius: 5px;
-    margin: 5px;
-    display: inline-block;
-    text-align: center;
+    flex-grow: 1;
 }
 
-.style-btn:hover {
-    background: rgb(202, 228, 191);
+.toolbar-style-btn {
+    text-decoration: none;
+    width: 150px;
+    line-height: 25px;
+    border-radius: 5px;
+    margin-right: 5px;
+    padding: 0 5px;
+    text-align: center;
+    display: inline-block;
+    overflow: hidden;
 }
+
+.toolbar-style-btn:hover {
+    background: rgb(156, 172, 149);
+}
+
+@media screen and (min-width: 1200px) {
+    .toolbar-btn-group p {
+       font-size: 0.8rem;
+    }
+  }

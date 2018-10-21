@@ -1,33 +1,33 @@
 <div id="slide-editor-toolbar" class="grayAccent02 flex-row-evenly">
-  <a (click)="this.createNewSlide()" class="flex-row-evenly md-btn">
-    <fa name="plus-square" size="3x"></fa>
+  <a (click)="this.createNewSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <fa name="plus-square"></fa>
     <p>Create a new slide</p>
   </a>
 
-  <a (click)="this.preview()" class="flex-row-evenly md-btn">
-    <fa name="play" size="3x"></fa>
+  <a (click)="this.preview()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <fa name="play"></fa>
     <p>Preview</p>
   </a>
 
-  <a (click)="this.previousSlide()" class="flex-row-evenly md-btn">
-    <fa name="step-backward" size="3x"></fa>
+  <a (click)="this.previousSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <fa name="step-backward"></fa>
   </a>
 
   <div>
     <h1 style="padding: 10px;" (click)="this.data.test()">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>
   </div>
 
-  <a (click)="this.nextSlide()" class="flex-row-evenly md-btn">
-    <fa name="step-forward" size="3x"></fa>
+  <a (click)="this.nextSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <fa name="step-forward"></fa>
   </a>
 
-  <a (click)="this.deleteCurrentSlide()" class="flex-row-evenly md-btn">
-    <fa name="trash" size="3x"></fa>
+  <a (click)="this.deleteCurrentSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <fa name="trash"></fa>
     <p>Delete slide</p>
   </a>
 </div>
 
-<div id="slide-editor-container" class="accent04">
+<div id="slide-editor-workspace" class="accent04">
   <div *ngIf="this.data.slides.length > 0" id="slide-render-container" class="flex-col-evenly accent01">
     <div class="slide-render" [ngStyle]="this.getSlideRenderCss()">
       <!-- Render slide objects here -->
@@ -39,8 +39,6 @@
           [src]="slideObject.imagePath" crossOrigin="anonymous">
       </div>
     </div>
-
-
   </div>
 
   <div *ngIf="this.data.slides.length > 0" id="slide-control-panel" class="grayAccent02">
@@ -50,8 +48,7 @@
       <!-- <fa name="palette" size="2x"></fa> -->
       <div class="flex-col-evenly sm-btn">
         <p>Set background color</p>
-        <input class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor" [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor"
-        />
+        <input class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor" [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor"/>
       </div>
       <!-- 
       <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
@@ -59,10 +56,10 @@
         <p>Set default background color</p>
       </a> -->
 
-      <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
+      <!-- <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
         <fa name="image" size="2x"></fa>
         <p>Set background image</p>
-      </a>
+      </a> -->
 
       <div class="flex-row-evenly">
         <fa (click)="this.data.test()" name="search-minus" size="1x"></fa>
