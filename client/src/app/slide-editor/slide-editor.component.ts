@@ -26,17 +26,16 @@ export class SlideEditorComponent implements OnInit {
   }
 
   preview() {
-
     let context = this;
-    this.data.currentSlideIndex = 0;
 
+    // The 'click' eventListener causes mouseControl to increment currentSlideIndex.
+    // Initializing to -1 allows the slideshow to start at currentSlideIndex = 0
+    this.data.currentSlideIndex = -1;
+
+    // Create HTML elements to be displayed in fullscreen mode:
     // Slideshow contents
     let slideRender = document.getElementsByClassName('slide-render')[0] as HTMLElement;
-    let copy = slideRender.cloneNode(true) as HTMLElement;
-
-    // Fullscreen container
-    let fullscreenContainer = document.createElement('div');
-    fullscreenContainer.style.background = "black";
+    let copy;
 
     // Foreground fullscreen transparent overlay to disable draggable contents in fullscreen mode
     let overlay = document.createElement('div');
@@ -50,41 +49,42 @@ export class SlideEditorComponent implements OnInit {
       z-index: 100;
     `;
 
-    // Append elements to DOM
-    copy.appendChild(overlay);
-    fullscreenContainer.appendChild(copy);
+    // Fullscreen container 
+    // Putting fullscreen contents in a container allows control over the sizing 
+    // and positioning of elements displayed in fullscreen mode
+    let fullscreenContainer = document.createElement('div');
+    fullscreenContainer.style.cssText = `
+      background" #000;
+    `;
+
+    // Add elements to DOM
+
     document.body.appendChild(fullscreenContainer);
 
-    // Scale elements to full screen size while maintaining aspect ratio
-    let scaleX = screen.width / copy.clientWidth;
-    let scaleY = screen.height / copy.clientHeight;
-    let scaleFactor = Math.min(scaleX, scaleY).toFixed(1);
-    copy.style.transform = "scale(" + scaleFactor.toString() + ", " + scaleFactor.toString() + ")";
-    copy.style.position = "absolute";
-    copy.style.transformOrigin = "left top";
-    copy.style.top = "0";
-    copy.style.left = "0";
-    copy.style.overflow = "hidden";
-
+    refreshPreview();
     launchIntoFullscreen(fullscreenContainer);
 
     // Enable slideshow navgation
     document.addEventListener('keyup', keyboardControl);
     document.addEventListener('click', mouseControl);
 
-    // Exit preview mode - Remove fullscreen elements from DOM
+    // Exit preview mode - Remove fullscreen elements and event listeners from DOM
     document.addEventListener("fullscreenchange", exitPreviewMode);
     document.addEventListener("mozfullscreenchange", exitPreviewMode);
     document.addEventListener("webkitfullscreenchange", exitPreviewMode);
     document.addEventListener("msfullscreenchange", exitPreviewMode);
 
-    function exitPreviewMode() {
+    function exitPreviewMode(event) {
+
+      console.log(event);
+      console.log(document.fullscreenElement, document.webkitFullscreenElement);
+
       if (document.fullscreenElement || document.webkitFullscreenElement === null) {
         document.body.removeChild(fullscreenContainer);
-      
+
         // Disable keyboard and mouse navigation
-       document.removeEventListener('keyup', keyboardControl);
-       document.removeEventListener('click', mouseControl);
+        document.removeEventListener('keyup', keyboardControl);
+        document.removeEventListener('click', mouseControl);
       }
     }
 
@@ -129,16 +129,21 @@ export class SlideEditorComponent implements OnInit {
     }
 
     function refreshPreview() {
-      setTimeout(()=>{
-        fullscreenContainer.removeChild(copy);
+      setTimeout(() => {
         copy = slideRender.cloneNode(true) as HTMLElement;
+        copy.appendChild(overlay);
+        fullscreenContainer.appendChild(copy);
+
+        // Scale elements to full screen size while maintaining aspect ratio
+        let scaleX = screen.width / copy.clientWidth;
+        let scaleY = screen.height / copy.clientHeight;
+        let scaleFactor = Math.min(scaleX, scaleY).toFixed(1);
         copy.style.transform = "scale(" + scaleFactor.toString() + ", " + scaleFactor.toString() + ")";
         copy.style.position = "absolute";
         copy.style.transformOrigin = "left top";
         copy.style.top = "0";
         copy.style.left = "0";
         copy.style.overflow = "hidden";
-        fullscreenContainer.appendChild(copy);
       }, 300);
     }
   }

@@ -227,7 +227,6 @@ export class DataService {
 
 
   //  TOOLBAR FUNCTIONS
-
   createTextStyle() {
     let newTextStyle = new TextStyle();
     this.textStyles.push(newTextStyle);
@@ -238,10 +237,10 @@ export class DataService {
     this.imageStyles.push(newImageStyle);
   }
 
-  createShapeStyle() {
-    let newShapeStyle = new ShapeStyle();
-    this.shapeStyles.push(newShapeStyle);
-  }
+  // createShapeStyle() {
+  //   let newShapeStyle = new ShapeStyle();
+  //   this.shapeStyles.push(newShapeStyle);
+  // }
 
   selectStyle(type: string, id: number) {
     switch (type) {
@@ -273,7 +272,11 @@ export class DataService {
     let context = this;
 
     let slideRender = document.body.getElementsByClassName('slide-render')[0];
-   
+
+    // Parent container must be set to overflow: visible to capture entire canvas
+    let slideEditor = document.getElementById('slide-editor');
+    slideEditor.style.overflow = "visible";
+
       let doc = new jsPDF({
         orientation: "landscape",
         unit: "in",
@@ -290,12 +293,17 @@ export class DataService {
 
     function addPages (){
       setTimeout(function(){
+
+        console.log("this.copy", this.copy);
+
         if(context.currentSlideIndex === context.slides.length){
           context.currentSlideIndex = 0;
-
           doc.save("a4.pdf");
+          slideEditor.style.overflow = "hidden";
           return;
+
         } else {
+
           console.log('saving slide ' + context.currentSlideIndex);
 
           html2canvas(slideRender, {
@@ -313,8 +321,6 @@ export class DataService {
             if(context.currentSlideIndex < context.slides.length){
               doc.addPage();
             }
-
-
 
             addPages();
           });
