@@ -60,7 +60,7 @@ export class DataService {
 
   test() {
     console.log("Test");
-    console.log((document.getElementsByClassName('slide-render')[0] as HTMLElement).style);
+
   }
 
   // FUNCTIONS USED BY ALL COMPONENTS
@@ -260,7 +260,6 @@ export class DataService {
     }).then(canvas => {
       let imgElement = document.createElement('a');
       let imgData = canvas.toDataURL("image/png");
-      console.log(imgData);
       imgElement.href = imgData;
       imgElement.download = "slide.png";
       imgElement.click();
@@ -273,19 +272,8 @@ export class DataService {
     this.currentSlideIndex = 0;
     let context = this;
 
-    let slideRender = document.body.getElementsByClassName('slide-render')[0] as HTMLElement;
-
-    
-    // slideRender.style.position = "fixed";
-    // slideRender.style.top = "200px";
-    // slideRender.style.left = "200px";
-    // slideRender.style.height = this.documentSize['height'] + 'px !important';
-    // slideRender.style.width = this.documentSize['width'] + 'px !important';
-    // document.body.style.overflow = "visible";
-
-    // slideRender.style.overflow = "visible";
-
-    
+    let slideRender = document.body.getElementsByClassName('slide-render')[0];
+   
       let doc = new jsPDF({
         orientation: "landscape",
         unit: "in",
@@ -294,7 +282,7 @@ export class DataService {
 
       let width = doc.internal.pageSize.width;
       let height = doc.internal.pageSize.height;
-
+    
       // To make the img output size match the pdf size, make sure that:
       // canvas output size * scale factor === pdf document size converted to px
 
@@ -304,15 +292,13 @@ export class DataService {
       setTimeout(function(){
         if(context.currentSlideIndex === context.slides.length){
           context.currentSlideIndex = 0;
-          // slideRender.style.position = "relative";
-          // slideRender.style.top = "0";
-          // slideRender.style.left = "0";
+
           doc.save("a4.pdf");
           return;
         } else {
           console.log('saving slide ' + context.currentSlideIndex);
 
-          html2canvas(document.querySelector(".slide-render"), {
+          html2canvas(slideRender, {
             height: 432,
             width: 768,
             scale: 2,
@@ -321,11 +307,14 @@ export class DataService {
           }).then(canvas => {
             let imgData = canvas.toDataURL("image/png");
             doc.addImage(imgData, "PNG", 0, 0, width, height);
+
             context.currentSlideIndex += 1;
 
             if(context.currentSlideIndex < context.slides.length){
               doc.addPage();
             }
+
+
 
             addPages();
           });
