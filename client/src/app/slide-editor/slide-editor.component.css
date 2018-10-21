@@ -59,9 +59,7 @@ input[type="number"]{
 
 .slide-object:hover{
     cursor: move;
-    border: 1px silver dashed;
-    box-sizing: border-box;
-
+    background: rgba(0, 0, 0, 0.1);
 }
 
 

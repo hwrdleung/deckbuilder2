@@ -10,6 +10,22 @@ h1, h2, h3, h4, h5, h6, p {
     padding: 0;
 }
 
+h1:hover,
+h2:hover,
+h3:hover,
+h4:hover,
+h5:hover,
+h6:hover,
+ {
+    cursor: default;
+}
+
+a:hover, 
+button:hover,
+ .clickable:hover {
+    cursor: pointer;
+}
+
 input[type="number"]{
     width: 40px;
     text-align: right;
@@ -143,10 +159,6 @@ a:hover {
     color: rgb(99, 99, 99)
 }
 
-
-
-
-
 /* Large toolbar buttons */
 
 .lg-btn {
@@ -183,6 +195,7 @@ a:hover {
 
 .md-btn p {
     max-width: 75px;
+    padding: 10px;
 }
 
 .dotted-border{
@@ -221,6 +234,6 @@ a:hover {
 .md-color-selector{
     width: 100px;
     height: 10px;
-    border: 0;
+    border: 1px #D6F9DD solid;
 }
 

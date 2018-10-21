@@ -48,10 +48,10 @@ export class DataService {
 
   // UI Logic variables
   viewTextElements: boolean = this.currentProject.getProjectProperty('viewTextElements');
-  viewImageElements: boolean  = this.currentProject.getProjectProperty('viewImageElements');
-  viewShapeElements: boolean  = this.currentProject.getProjectProperty('viewShapeElements');
+  viewImageElements: boolean = this.currentProject.getProjectProperty('viewImageElements');
+  viewShapeElements: boolean = this.currentProject.getProjectProperty('viewShapeElements');
 
-  documentSize: object  = this.currentProject.getProjectProperty('documentSize');
+  documentSize = this.currentProject.getProjectProperty('documentSize');
   slideRenderMagnification: number = this.currentProject.getProjectProperty('slideRenderMagnification');
 
   constructor(private http: HttpClient) {
@@ -60,7 +60,8 @@ export class DataService {
 
   test() {
     console.log("Test");
-
+    console.log(this.documentSize.height);
+    
   }
 
   // FUNCTIONS USED BY ALL COMPONENTS
@@ -109,7 +110,8 @@ export class DataService {
     }
   }
 
-  loadNewProject(){
+
+  loadNewProject() {
     let project = new Project();
 
     project.addTextStyle(new TextStyle());
@@ -119,7 +121,7 @@ export class DataService {
     return project;
   }
 
-  getSavedProject () {
+  getSavedProject() {
     let savedProjectData = JSON.parse(localStorage.getItem('deckbuilder2Data'));
 
     let project = new Project();
@@ -128,21 +130,21 @@ export class DataService {
     // Revive Slides
     let slides = [];
 
-    for(let i = 0; i < savedProjectData.slides.length; i++){
+    for (let i = 0; i < savedProjectData.slides.length; i++) {
       let slide = new Slide();
       slide.revive(savedProjectData.slides[i]);
 
       let slideObjects = [];
 
-      for(let j = 0; j < savedProjectData.slides[i].slideObjects.length; j++){
+      for (let j = 0; j < savedProjectData.slides[i].slideObjects.length; j++) {
         let currentSlideObject = savedProjectData.slides[i].slideObjects[j];
         // Revive text objects
-        if(currentSlideObject.hasOwnProperty('textValue')){
+        if (currentSlideObject.hasOwnProperty('textValue')) {
           let textObject = new TextObject();
           textObject.revive(currentSlideObject);
           slideObjects.push(textObject);
-        } else if(currentSlideObject.hasOwnProperty('imagePath')){
-        // Revive image objects
+        } else if (currentSlideObject.hasOwnProperty('imagePath')) {
+          // Revive image objects
           let imageObject = new ImageObject();
           imageObject.revive(currentSlideObject);
           slideObjects.push(imageObject);
@@ -151,13 +153,13 @@ export class DataService {
         slide.setSlideProperty('slideObjects', slideObjects);
       }
       slides.push(slide);
-    }   
-    
+    }
+
     project.setProjectProperty('slides', slides);
 
     // Revive text styles
     let textStyles = []; // REMEMBER TO ADD ME BACK INTO PROJECT
-    for(let i = 0; i < savedProjectData.textStyles.length; i++){
+    for (let i = 0; i < savedProjectData.textStyles.length; i++) {
       let currentTextStyle = savedProjectData.textStyles[i];
       let textStyle = new TextStyle();
       textStyle.revive(currentTextStyle);
@@ -179,7 +181,7 @@ export class DataService {
 
     // Revive image styles
     let imageStyles = [];
-    for(let i = 0; i < savedProjectData.imageStyles.length; i++){
+    for (let i = 0; i < savedProjectData.imageStyles.length; i++) {
       let currentImageStyle = savedProjectData.imageStyles[i];
       let imageStyle = new ImageStyle();
       imageStyle.revive(currentImageStyle);
@@ -198,8 +200,6 @@ export class DataService {
   }
 
   saveSession() {
-    console.log("Save session does not work yet");
-
     this.currentProject.setProjectProperty('slides', this.slides);
     this.currentProject.setProjectProperty('textStyles', this.textStyles);
     this.currentProject.setProjectProperty('imageStyles', this.imageStyles);
@@ -221,10 +221,11 @@ export class DataService {
     this.currentProject.setProjectProperty('images', this.images);
 
     localStorage.setItem('deckbuilder2Data', JSON.stringify(this.currentProject));
+    // Send to server and save to database when backend is set up
+
     alert('Your session has been saved');
 
   }
-
 
   //  TOOLBAR FUNCTIONS
   createTextStyle() {
@@ -251,55 +252,66 @@ export class DataService {
   }
 
   saveAsPng() {
+    // Parent container must be set to overflow: visible to capture entire canvas
+    let slideEditor = document.getElementById('slide-editor');
+    slideEditor.style.overflow = "visible";
+
+
     html2canvas(document.querySelector(".slide-render"), {
-      height: 432,
-      width: 768,
+      height: this.documentSize.height,
+      width: this.documentSize.width,
       scale: 2,
-      allowTaint : true
+      allowTaint: true
     }).then(canvas => {
       let imgElement = document.createElement('a');
       let imgData = canvas.toDataURL("image/png");
       imgElement.href = imgData;
       imgElement.download = "slide.png";
       imgElement.click();
+
+      // Change styleEditor overflow back to original value
+      slideEditor.style.overflow = "hidden";
     });
   }
 
 
   exportAsPDF() {
+
+    let context = this;
     this.slideRenderMagnification = 100;
     this.currentSlideIndex = 0;
-    let context = this;
-
     let slideRender = document.body.getElementsByClassName('slide-render')[0];
 
     // Parent container must be set to overflow: visible to capture entire canvas
     let slideEditor = document.getElementById('slide-editor');
     slideEditor.style.overflow = "visible";
 
-      let doc = new jsPDF({
-        orientation: "landscape",
-        unit: "in",
-        format: [16, 9]
-      });
+    let doc = new jsPDF({
+      orientation: "landscape",
+      unit: "in",
+      format: [16, 9]
+    });
 
-      let width = doc.internal.pageSize.width;
-      let height = doc.internal.pageSize.height;
-    
-      // To make the img output size match the pdf size, make sure that:
-      // canvas output size * scale factor === pdf document size converted to px
+    let pdfWidth = doc.internal.pageSize.width;
+    let pdfHeight = doc.internal.pageSize.height;
 
-      addPages();
+    // To make the img output size match the pdf size, make sure that:
+    // canvas output size * scale factor === pdf document size converted to px
 
-    function addPages (){
-      setTimeout(function(){
+    addPages();
+
+    function addPages() {
+      setTimeout(function () {
 
         console.log("this.copy", this.copy);
 
-        if(context.currentSlideIndex === context.slides.length){
+        if (context.currentSlideIndex === context.slides.length) {
           context.currentSlideIndex = 0;
           doc.save("a4.pdf");
+
+          // Change styleEditor overflow back to original value
           slideEditor.style.overflow = "hidden";
+
           return;
 
         } else {
@@ -307,18 +319,18 @@ export class DataService {
           console.log('saving slide ' + context.currentSlideIndex);
 
           html2canvas(slideRender, {
-            height: 432,
-            width: 768,
+            height: context.documentSize.height,
+            width: context.documentSize.width,
             scale: 2,
-            allowTaint : false,
+            allowTaint: false,
             useCORS: true
           }).then(canvas => {
             let imgData = canvas.toDataURL("image/png");
-            doc.addImage(imgData, "PNG", 0, 0, width, height);
+            doc.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
 
             context.currentSlideIndex += 1;
 
-            if(context.currentSlideIndex < context.slides.length){
+            if (context.currentSlideIndex < context.slides.length) {
               doc.addPage();
             }
 
@@ -373,7 +385,7 @@ export class DataService {
     newTextObject.setZIndex(currentSlideObjects.length - 1);
   }
 
-  addImageObjectToSlide(){
+  addImageObjectToSlide() {
     let currentSlide = this.slides[this.currentSlideIndex];
     let currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
     let newImageObject = new ImageObject();
@@ -386,7 +398,7 @@ export class DataService {
     newImageObject.setZIndex(currentSlideObjects.length - 1);
   }
 
-  uploadImage(event){
+  uploadImage(event) {
     let file = event.srcElement.files[0];
     console.log(event);
     let reader = new FileReader();
@@ -402,8 +414,17 @@ export class DataService {
     }
   }
 
-  selectImage(index){
+  selectImage(index) {
     this.selectedImage = index;
+  }
+
+  deleteImageById(imageId:number) {
+    console.log(imageId);
+    for(let i = 0; i < this.images.length; i++){
+      if(this.images[i].id === imageId){
+        this.images.splice(i, 1);
+      }
+    }
   }
 
   //  SLIDE EDITOR FUNCTIONS

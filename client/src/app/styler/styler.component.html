@@ -20,7 +20,7 @@
         <fa name="edit"></fa>
       </h3>
       <a (click)="this.data.deleteImageStyleById(imageStyle.id)">
-        <fa name="trash"></fa>
+        <fa class="clickable" name="trash"></fa>
       </a>
     </div>
 
@@ -99,13 +99,13 @@
     <div class="flex-row-between style-card-row">
       <a (click)="imageStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="!imageStyle.showExtraOptions">
         <fa name="angle-double-down"></fa>
-        <p>Show extra options</p>
+        <a>Show extra options</a>
         <fa name="angle-double-down"></fa>
       </a>
 
       <a (click)="imageStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="imageStyle.showExtraOptions">
         <fa name="angle-double-down"></fa>
-        <p>Hide extra options</p>
+        <a>Hide extra options</a>
         <fa name="angle-double-down"></fa>
       </a>
     </div>
@@ -314,13 +314,13 @@
         <div class="style-card greenAccent01" *ngFor="let textStyle of this.data.textStyles.reverse()">
 
           <div class="flex-row-between style-card-row">
-            <h3 *ngIf="!textStyle.editNameMode">{{textStyle.name}}
-              <fa name="edit" (click)="textStyle.toggleEditNameMode()"></fa>
+            <h3 *ngIf="!textStyle.editNameMode" >{{textStyle.name}}
+              <fa name="edit" (click)="textStyle.toggleEditNameMode()" class="clickable"></fa>
             </h3>
 
             <div *ngIf="textStyle.editNameMode">
               <input type="text" [(ngModel)]="textStyle.name" placeholder="textStyle.name">
-              <fa name="save" (click)="textStyle.toggleEditNameMode()"></fa>
+              <fa name="save" (click)="textStyle.toggleEditNameMode()" class="clickable"></fa>
             </div>
 
             <a (click)="this.data.deleteTextStyleById(textStyle.id)">
@@ -330,7 +330,7 @@
 
           <div class="flex-row-between style-card-row">
             <h4>Font family:</h4>
-            <div [(fontPicker)]="textStyle.fontPickerData" [fpWidth]="'320px'" [fpPosition]="'bottom'" [fpSizeSelect]="true" [fpStyleSelect]="true">
+            <div class="clickable" [(fontPicker)]="textStyle.fontPickerData" [fpWidth]="'320px'" [fpPosition]="'bottom'" [fpSizeSelect]="true" [fpStyleSelect]="true">
               <p>{{textStyle.fontPickerData['family']}} {{textStyle.fontPickerData['style']}} {{textStyle.fontPickerData['size']}}
               </p>
             </div>
@@ -338,14 +338,14 @@
 
           <div class="flex-row-between style-card-row">
             <h4>Font color:</h4>
-            <input class="md-color-selector" [(colorPicker)]="textStyle.color" [style.background]="textStyle.color" cpOutputFormat="rgba"
+            <input class="md-color-selector clickable" [(colorPicker)]="textStyle.color" [style.background]="textStyle.color" cpOutputFormat="rgba"
               cpAlphaChannel="enabled" />
           </div>
 
 
           <div class="flex-row-between style-card-row">
             <h4>Background color:</h4>
-            <input class="md-color-selector" [(colorPicker)]="textStyle.backgroundColor" [style.background]="textStyle.backgroundColor"
+            <input class="md-color-selector clickable" [(colorPicker)]="textStyle.backgroundColor" [style.background]="textStyle.backgroundColor"
               cpOutputFormat="rgba" cpAlphaChannel="enabled" />
           </div>
 
@@ -412,13 +412,13 @@
           <div class="flex-row-between style-card-row">
             <a (click)="textStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="!textStyle.showExtraOptions">
               <fa name="angle-double-down"></fa>
-              <p>Show extra options</p>
+              <a>Show extra options</a>
               <fa name="angle-double-down"></fa>
             </a>
 
             <a (click)="textStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="textStyle.showExtraOptions">
               <fa name="angle-double-down"></fa>
-              <p>Hide extra options</p>
+              <a>Hide extra options</a>
               <fa name="angle-double-down"></fa>
             </a>
           </div>

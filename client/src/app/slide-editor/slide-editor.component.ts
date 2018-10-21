@@ -210,4 +210,40 @@ export class SlideEditorComponent implements OnInit {
     this.indexOfSelectedSlideObject = objectId;
   }
 
+  maintainRatio(slideObject, dimension, value) {
+    // Get original aspect ratio of this slide object
+    console.log(slideObject.width, slideObject.height);
+    let ratio: number;
+
+    if (slideObject.width || slideObject.height === "auto") {
+      // Get ratio by some other method
+      let img = new Image;
+      img.src = slideObject.getSlideObjectProperty('imagePath');
+      img.onload = () => {
+        ratio = img.width / img.height;
+        calculate();
+        img = null;
+      }
+    } else {
+      ratio = slideObject.width / slideObject.height;
+      calculate();
+    }
+
+    function calculate() {
+      switch (dimension) {
+        case 'width':
+          let newHeight = value / ratio;
+          slideObject.width = value;
+          slideObject.height = newHeight;
+          console.log(value, newHeight, 'New Ratio', value / newHeight);
+          break;
+        case 'height':
+          let newWidth = value * ratio;
+          slideObject.height = value;
+          slideObject.width = newWidth;
+          console.log(value, newWidth, 'New Ratio', newWidth / value);
+          break;
+      }
+    }
+  }
 }

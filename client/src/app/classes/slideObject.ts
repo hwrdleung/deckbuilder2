@@ -11,8 +11,8 @@ export class SlideObject{
     private xTranslation: number; // Save as percentage
     private yTranslation: number; // Save as percentage
     private rotation: number;
-    private height: string; // Save as percentage
-    private width: string; // Save as percentage
+    private height:  string | number; // Save as percentage
+    private width: string | number; // Save as percentage
     private display: boolean;
     private zIndex: number;
 
@@ -51,13 +51,11 @@ export class SlideObject{
         let newTopPixels = event.position.top;
         let newLeftPixels = event.position.left;
 
-        // // Convert to percentages and save
-        this.height = newHeightPixels + 'px';
-        this.width = newWidthPixels + 'px';
+        // Convert to percentages and save
+        this.height = newHeightPixels;
+        this.width = newWidthPixels;
         this.top = newTopPixels;
         this.left = newLeftPixels;
-
-
     }
 
 
@@ -76,12 +74,9 @@ export class SlideObject{
     }
 
     getCss(){
-        let slideRenderHeight = document.querySelector('.slide-render').clientHeight;
-        let slideRenderWidth = document.querySelector('.slide-render').clientWidth; 
-
         let css = {
-            'height': this.height,
-            'width':this.width,
+            'height': this.height + 'px',
+            'width':this.width + 'px',
             'top' : this.top + 'px',
             'left' : this.left + 'px',
             'z-index' : this.zIndex,

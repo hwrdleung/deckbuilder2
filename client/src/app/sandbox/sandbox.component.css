@@ -25,10 +25,16 @@
 .sandbox-toolbar
 textarea,
 .sandbox-toolbar
-input {
+input[type="text"] {
     width: 100%;
     height: 100px;
     box-sizing: border-box;
+}
+
+input[type="file"] {
+    text-align: center !important;
+    align-items: center !important;
+    margin: 0 auto;
 }
 
 #text-workspace {
@@ -66,15 +72,38 @@ input {
     padding: 0;
 }
 
-#image-gallery div img {
-    max-height: 150px;
-    max-width: 150px;
+.gallery-img-container {
+    background: #000;
+    margin: 6px;
+    box-shadow: 3px 3px 3px gray;
+    height: 75px;
+    position: relative;
 }
 
-.img-placeholder {
-    height: 150px;
-    width: 150px;
-    margin: 0;
-    padding: 0;
+.gallery-img {
+    height: 100%;
+    opacity: 0.9;
+}
+
+.gallery-img:hover {
+    opacity: 1;
+}
+
+.delete-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #FFF;
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+    padding: 5px;
+    margin: 5px;
+    border: 2px #FFF solid;
+    opacity: 0.6;
+}
+
+.delete-icon:hover {
+    opacity: 0.9;
 }
 

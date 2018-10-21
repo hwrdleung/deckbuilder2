@@ -44,13 +44,13 @@
 <!-- Image sandbox -->
 <div id="image-sandbox" class="grayAccent03" *ngIf="this.data.viewImageElements && this.data.imageStyles.length > 0">
   <div id="image-preview-container">
-    <img id="image-preview" [src]="this.data.images[this.data.selectedImage].url" 
-    [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
+    <img id="image-preview" *ngIf="this.data.images[this.data.selectedImage]" [src]="this.data.images[this.data.selectedImage].url" [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
   </div>
 
   <div class="sandbox-bottom-half">
     <div class="flex-row-between sandbox-toolbar">
-        <input type="file" (change)="this.data.uploadImage($event)">
+      <input type="file" (change)="this.data.uploadImage($event)">
+
       <a (click)="this.data.addImageObjectToSlide()" class="lg-btn flex-col-evenly grayAccent02">
         <fa name="share" size="3x"></fa>
         <p>Add image object to slide</p>
@@ -58,9 +58,10 @@
     </div>
 
     <div id="image-gallery">
-        <div *ngFor="let image of this.data.images; let i = index;">
-          <img src="{{image.url}}" (click)="this.data.selectImage(image.id)">
-        </div>
+      <div *ngFor="let image of this.data.images; let i = index;" class="gallery-img-container">
+        <img src="{{image.url}}" (click)="this.data.selectImage(image.id)" class="clickable gallery-img">
+        <fa name="trash" class="clickable delete-icon flex-row-evenly" (click)="this.data.deleteImageById(image.id)"></fa>
+      </div>
     </div>
   </div>
 </div>
