@@ -44,6 +44,7 @@
 }
 
 #slide-render-area {
+    position: relative;
     height: 100%;
     width: 41vw;
     overflow: scroll;
@@ -54,6 +55,7 @@
     box-sizing: border-box;
     overflow: hidden;
     user-select: none;
+    z-index: -1;
 }
 
 .slide-object img {

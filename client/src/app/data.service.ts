@@ -11,8 +11,6 @@ import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 // import { caman } from "./caman";
 
 import { ImageObject } from "./classes/imageObject";
-import { ShapeObject } from "./classes/shapeObject";
-import { SlideObject } from "./classes/slideObject";
 import { BorderControl } from "./classes/borderControl";
 import { ShadowControl } from "./classes/shadowControl";
 
@@ -289,11 +287,6 @@ export class DataService {
     slideRenderArea.style.width = "auto";
     slideRenderArea.style.overflow = "visible";
 
-    let appContainer = document.getElementById('app-container');
-    let originalCols = appContainer.style.gridTemplateColumns;
-    appContainer.style.gridTemplateColumns = "18vw 41vw auto";
-
-
     let doc = new jsPDF({
       orientation: "landscape",
       unit: "in",
@@ -310,9 +303,6 @@ export class DataService {
 
     function addPages() {
       setTimeout(function () {
-
-        console.log("this.copy", this.copy);
-
         if (context.currentSlideIndex === context.slides.length) {
           context.currentSlideIndex = 0;
           doc.save("a4.pdf");
@@ -320,14 +310,9 @@ export class DataService {
           // Change styleEditor overflow back to original value
           slideRenderArea.style.width = originalWidth;
           slideRenderArea.style.overflow = originalOverflow;
-          appContainer.style.gridTemplateColumns = originalCols;
-
+          
           return;
-
         } else {
-
-          console.log('saving slide ' + context.currentSlideIndex);
-
           html2canvas(slideRender, {
             height: context.documentSize.height,
             width: context.documentSize.width,

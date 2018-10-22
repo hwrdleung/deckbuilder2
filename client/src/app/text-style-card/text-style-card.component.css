@@ -57,30 +57,3 @@ input[type="number"]{
     cursor: pointer;
     line-height: 1;
 }
-
-/* .style-card-row {
-    width: 85%;
-    height: auto;
-    margin: 10px auto;
-}
-
-.style-cards-container {
-    width: 100%;
-    height: 100%;
-}
-
-.style-card-btn {
-    padding: 3px 5px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.style-card-btn:hover {
-    background: rgb(86, 116, 107);
-}
-
-.style-card-row input[type="range"]{
-    width: 100px;
-}  */

@@ -1,0 +1,63 @@
+
+.style-card-container {
+    padding: 8px;
+    border-bottom: 3px #FFF solid;
+    margin-bottom: 4px;
+    height: auto;
+}
+
+.style-card-row {
+    width: 100%;
+    height: 25px;
+    margin: 3px auto;
+}
+
+.style-card-row h3 {
+    font-size: 1rem;
+}
+
+.style-card-row a,
+.style-card-row h4 {
+    font-size: 0.8rem;
+}
+
+.style-card-row 
+.material-icons {
+    font-size: 1.2rem;
+    padding: 7px;
+}
+
+.style-card-row fa {
+    font-size: 0.8rem;
+    padding: 7px;
+}
+
+.style-card-row fa:hover,
+.style-card-row .material-icons:hover {
+    background:rgb(137, 150, 132);
+    cursor: pointer;
+}
+
+.style-card-row
+input[type="number"]{
+    width: 45px;
+    margin: 0 3px;
+    padding: 2px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #D6F9DD;
+    border: 1px #D6F9DD solid;
+    text-align: center;
+}
+
+input[type="range"]{
+    width: 85px;
+}
+
+.google-font-name {
+    font-size: 0.7rem;
+    border: 1px #D6F9DD solid;
+    padding: 2px 4px;
+    cursor: pointer;
+    line-height: 1;
+}

@@ -1,5 +1,5 @@
-<div class="style-cards-container" >
-  <div class="style-card greenAccent01" >
+<div class="style-card-container greenAccent01">
+
     <div class="flex-row-between style-card-row">
       <h3>{{imageStyle.name}}
         <fa name="edit"></fa>
@@ -10,85 +10,76 @@
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Opacity:</h5>
+      <h4>Opacity:</h4>
+      <h4>
       <input type="range" [(ngModel)]="imageStyle.opacity" min="0" max="100">
-      <h5>
-        <input type="number" [(ngModel)]="imageStyle.opacity">%</h5>
+        <input type="number" [(ngModel)]="imageStyle.opacity">%&nbsp;&nbsp;&nbsp;</h4>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Grayscale:</h5>
+      <h4>Grayscale:</h4>
+      <h4>
       <input type="range" [(ngModel)]="imageStyle.grayscale" min="0" max="100">
-      <h5>
-        <input type="number" [(ngModel)]="imageStyle.grayscale"> %
-      </h5>
+        <input type="number" [(ngModel)]="imageStyle.grayscale">%&nbsp;&nbsp;&nbsp;</h4>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Blur:</h5>
+      <h4>Blur:</h4>
+      <h4>
       <input type="range" [(ngModel)]="imageStyle.blur" min="0" max="25">
-      <h5>
-        <input type="number" [(ngModel)]="imageStyle.blur"> px
-      </h5>
+        <input type="number" [(ngModel)]="imageStyle.blur">px&nbsp;&nbsp;</h4>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Brightness:</h5>
+      <h4>Brightness:</h4>
+      <h4>
       <input type="range" [(ngModel)]="imageStyle.brightness" min="0" max="200">
-      <h5>
-        <input type="number" [(ngModel)]="imageStyle.brightness"> %
-      </h5>
+        <input type="number" [(ngModel)]="imageStyle.brightness">%&nbsp;&nbsp;&nbsp;</h4>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Contrast:</h5>
+      <h4>Contrast:</h4>
+      <h4>
       <input type="range" [(ngModel)]="imageStyle.contrast" min="0" max="200">
-      <h5>
-        <input type="number" [(ngModel)]="imageStyle.contrast"> %
-      </h5>
+        <input type="number" [(ngModel)]="imageStyle.contrast">%&nbsp;&nbsp;&nbsp;</h4>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Invert:</h5>
+      <h4>Invert:</h4>
+      <h4>
       <input type="range" [(ngModel)]="imageStyle.invert" min="0" max="200">
-      <h5>
-        <input type="number" [(ngModel)]="imageStyle.invert"> %
-      </h5>
+        <input type="number" [(ngModel)]="imageStyle.invert">%&nbsp;&nbsp;&nbsp;</h4>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Saturate:</h5>
+      <h4>Saturate:</h4>
+      <h4>
       <input type="range" [(ngModel)]="imageStyle.saturate" min="0" max="200">
-      <h5>
-        <input type="number" [(ngModel)]="imageStyle.saturate"> %
-      </h5>
+        <input type="number" [(ngModel)]="imageStyle.saturate">%&nbsp;&nbsp;&nbsp;</h4>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Sepia:</h5>
+      <h4>Sepia:</h4>
+      <h4>
       <input type="range" [(ngModel)]="imageStyle.sepia" min="0" max="200">
-      <h5>
-        <input type="number" [(ngModel)]="imageStyle.sepia"> %
-      </h5>
+        <input type="number" [(ngModel)]="imageStyle.sepia">%&nbsp;&nbsp;&nbsp;</h4>
     </div>
 
     <div class="flex-row-between style-card-row">
-      <h5>Hue rotate:</h5>
+      <h4>Hue rotate:</h4>
+      <h4>
       <input type="range" [(ngModel)]="imageStyle.hueRotate" min="0" max="360">
-      <h5>
-        <input type="number" [(ngModel)]="imageStyle.hueRotate"> deg
-      </h5>
+        <input type="number" [(ngModel)]="imageStyle.hueRotate">deg</h4>
     </div>
 
-
-    <div class="flex-row-between style-card-row">
-      <a (click)="imageStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="!imageStyle.showExtraOptions">
+    <div class="flex-row-evenly style-card-row">
+      <a (click)="imageStyle.toggleExtraOptions()" class="flex-row-evenly" *ngIf="!imageStyle.showExtraOptions">
         <fa name="angle-double-down"></fa>
         <a>Show extra options</a>
         <fa name="angle-double-down"></fa>
       </a>
 
-      <a (click)="imageStyle.toggleExtraOptions()" class="xs-btn flex-row-evenly" *ngIf="imageStyle.showExtraOptions">
+      <a (click)="imageStyle.toggleExtraOptions()" class="flex-row-evenly" *ngIf="imageStyle.showExtraOptions">
         <fa name="angle-double-down"></fa>
         <a>Hide extra options</a>
         <fa name="angle-double-down"></fa>
@@ -97,6 +88,10 @@
 
     <div *ngIf="imageStyle.showExtraOptions">
       <!-- Full border settings -->
+      <div class="flex-row-evenly style-card-row">
+          <h4>Borders: </h4>
+        </div>
+
       <div class="flex-row-between style-card-row">
         <a (click)="imageStyle.border.toggleBorderProperty('showFullBorder');
           imageStyle.border.setBorderProperty('showTopBorder', false);
@@ -129,24 +124,23 @@
 
       <!-- Full border settings -->
       <div *ngIf="imageStyle.border.showFullBorder">
+
         <div class="flex-row-between style-card-row">
-          <h4>Border: </h4>
+          <h4>Width: </h4>
+          <h4>
+            <input type="number" [(ngModel)]="imageStyle.border.fullBorderWidth"> px</h4>
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Width: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="imageStyle.border.fullBorderWidth"> px</h5>
-        </div>
-
-        <div class="flex-row-between style-card-row">
-          <h5>Color: </h5>
+          <h4>Color: </h4>
+          <div style="flex: 1">
+              <!--This spacer prevents colorPicker from repositioning the next div--></div>
           <input class="md-color-selector" [(colorPicker)]="imageStyle.border.fullBorderColor" [style.background]="imageStyle.border.fullBorderColor"
             cpOutputFormat="rgba" cpAlphaChannel="enabled" />
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Style: </h5>
+          <h4>Style: </h4>
           <select [(ngModel)]="imageStyle.border.fullBorderStyle">
             <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
@@ -154,32 +148,32 @@
 
 
         <!--Border radius settings -->
+    <div class="flex-row-evenly style-card-row">
+        <h4>Border radius: </h4>
+      </div>
+
         <div class="flex-row-between style-card-row">
-          <h4>Border Radius: </h4>
+          <h4>Top left radius: </h4>
+          <h4>
+            <input type="number" [(ngModel)]="imageStyle.border.topLeftRadius">px</h4>
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Top left border radius: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="imageStyle.border.topLeftRadius">px</h5>
+          <h4>Top right radius: </h4>
+          <h4>
+            <input type="number" [(ngModel)]="imageStyle.border.topRightRadius">px</h4>
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Top right border radius: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="imageStyle.border.topRightRadius">px</h5>
+          <h4>Bottom right radius: </h4>
+          <h4>
+            <input type="number" [(ngModel)]="imageStyle.border.bottomRightRadius">px</h4>
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Bottom right border radius: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="imageStyle.border.bottomRightRadius">px</h5>
-        </div>
-
-        <div class="flex-row-between style-card-row">
-          <h5>Bottom left border radius: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="imageStyle.border.bottomLeftRadius">px</h5>
+          <h4>Bottom left radius: </h4>
+          <h4>
+            <input type="number" [(ngModel)]="imageStyle.border.bottomLeftRadius">px</h4>
         </div>
       </div>
 
@@ -190,20 +184,21 @@
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Width: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="imageStyle.border.topBorderWidth"> px</h5>
+          <h4>Width: </h4>
+          <h4>
+            <input type="number" [(ngModel)]="imageStyle.border.topBorderWidth"> px</h4>
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Color: </h5>
+          <h4>Color: </h4><div style="flex: 1">
+              <!--This spacer prevents colorPicker from repositioning the next div--></div>
           <input class="md-color-selector" [(colorPicker)]="imageStyle.border.topBorderColor" [style.background]="imageStyle.border.topBorderColor"
             cpOutputFormat="rgba" cpAlphaChannel="enabled" />
 
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Style: </h5>
+          <h4>Style: </h4>
           <select [(ngModel)]="imageStyle.border.topBorderStyle">
             <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
@@ -216,19 +211,21 @@
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Width: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="imageStyle.border.rightBorderWidth"> px</h5>
+          <h4>Width: </h4>
+          <h4>
+            <input type="number" [(ngModel)]="imageStyle.border.rightBorderWidth"> px</h4>
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Color: </h5>
+          <h4>Color: </h4>
+          <div style="flex: 1">
+              <!--This spacer prevents colorPicker from repositioning the next div--></div>
           <input class="md-color-selector" [(colorPicker)]="imageStyle.border.rightBorderColor" [style.background]="imageStyle.border.rightBorderColor"
             cpOutputFormat="rgba" cpAlphaChannel="enabled" />
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Style: </h5>
+          <h4>Style: </h4>
           <select [(ngModel)]="imageStyle.border.rightBorderStyle">
             <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
@@ -243,19 +240,21 @@
 
 
         <div class="flex-row-between style-card-row">
-          <h5>Width: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="imageStyle.border.bottomBorderWidth"> px</h5>
+          <h4>Width: </h4>
+          <h4>
+            <input type="number" [(ngModel)]="imageStyle.border.bottomBorderWidth"> px</h4>
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Color: </h5>
+          <h4>Color: </h4>
+          <div style="flex: 1">
+              <!--This spacer prevents colorPicker from repositioning the next div--></div>
           <input class="md-color-selector" [(colorPicker)]="imageStyle.border.bottomBorderColor" [style.background]="imageStyle.border.bottomBorderColor"
             cpOutputFormat="rgba" cpAlphaChannel="enabled" />
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Style: </h5>
+          <h4>Style: </h4>
           <select [(ngModel)]="imageStyle.border.bottomBorderStyle">
             <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
@@ -269,19 +268,21 @@
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Width: </h5>
-          <h5>
-            <input type="number" [(ngModel)]="imageStyle.border.leftBorderWidth"> px</h5>
+          <h4>Width: </h4>
+          <h4>
+            <input type="number" [(ngModel)]="imageStyle.border.leftBorderWidth"> px</h4>
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Color: </h5>
+          <h4>Color: </h4>
+          <div style="flex: 1">
+              <!--This spacer prevents colorPicker from repositioning the next div--></div>
           <input class="md-color-selector" [(colorPicker)]="imageStyle.border.leftBorderColor" [style.background]="imageStyle.border.leftBorderColor"
             cpOutputFormat="rgba" cpAlphaChannel="enabled" />
         </div>
 
         <div class="flex-row-between style-card-row">
-          <h5>Style: </h5>
+          <h4>Style: </h4>
           <select [(ngModel)]="imageStyle.border.leftBorderStyle">
             <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
@@ -289,7 +290,6 @@
       </div>
     </div>
   </div>
-</div>
 
 
 

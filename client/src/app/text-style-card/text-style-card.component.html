@@ -27,6 +27,8 @@
 
   <div class="flex-row-between style-card-row">
     <h4>Font color:</h4>
+    <div style="flex: 1">
+        <!--This spacer prevents colorPicker from repositioning the next div--></div>
     <input class="md-color-selector clickable" [(colorPicker)]="textStyle.color" [style.background]="textStyle.color"
       cpOutputFormat="rgba" cpAlphaChannel="enabled" />
   </div>
@@ -34,6 +36,8 @@
 
   <div class="flex-row-between style-card-row">
     <h4>Background color:</h4>
+    <div style="flex: 1">
+        <!--This spacer prevents colorPicker from repositioning the next div--></div>
     <input class="md-color-selector clickable" [(colorPicker)]="textStyle.backgroundColor" [style.background]="textStyle.backgroundColor"
       cpOutputFormat="rgba" cpAlphaChannel="enabled" />
   </div>
@@ -125,6 +129,8 @@
     <div *ngIf="textStyle.textShadow.showShadow">
       <div class="flex-row-between style-card-row">
         <h4>Color: </h4>
+        <div style="flex: 1">
+            <!--This spacer prevents colorPicker from repositioning the next div--></div>
         <input class="md-color-selector" [(colorPicker)]="textStyle.textShadow.color" [style.background]="textStyle.textShadow.color"
           cpOutputFormat="rgba" cpAlphaChannel="enabled" />
       </div>
@@ -192,6 +198,8 @@
 
       <div class="flex-row-between style-card-row">
         <h4>Color: </h4>
+        <div style="flex: 1">
+            <!--This spacer prevents colorPicker from repositioning the next div--></div>
         <input class="md-color-selector" [(colorPicker)]="textStyle.border.fullBorderColor" [style.background]="textStyle.border.fullBorderColor"
           cpOutputFormat="rgba" cpAlphaChannel="enabled" />
       </div>
@@ -249,6 +257,8 @@
 
       <div class="flex-row-between style-card-row">
         <h4>Color: </h4>
+        <div style="flex: 1">
+            <!--This spacer prevents colorPicker from repositioning the next div--></div>
         <input class="md-color-selector" [(colorPicker)]="textStyle.border.topBorderColor" [style.background]="textStyle.border.topBorderColor"
           cpOutputFormat="rgba" cpAlphaChannel="enabled" />
 
@@ -275,6 +285,8 @@
 
       <div class="flex-row-between style-card-row">
         <h4>Color: </h4>
+        <div style="flex: 1">
+            <!--This spacer prevents colorPicker from repositioning the next div--></div>
         <input class="md-color-selector" [(colorPicker)]="textStyle.border.rightBorderColor" [style.background]="textStyle.border.rightBorderColor"
           cpOutputFormat="rgba" cpAlphaChannel="enabled" />
       </div>
@@ -302,6 +314,8 @@
 
       <div class="flex-row-between style-card-row">
         <h4>Color: </h4>
+        <div style="flex: 1">
+            <!--This spacer prevents colorPicker from repositioning the next div--></div>
         <input class="md-color-selector" [(colorPicker)]="textStyle.border.bottomBorderColor" [style.background]="textStyle.border.bottomBorderColor"
           cpOutputFormat="rgba" cpAlphaChannel="enabled" />
       </div>

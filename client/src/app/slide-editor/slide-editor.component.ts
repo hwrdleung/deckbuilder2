@@ -34,7 +34,7 @@ export class SlideEditorComponent implements OnInit {
 
     // Create HTML elements to be displayed in fullscreen mode:
     // Slideshow contents
-    let slideRender = document.getElementsByClassName('slide-render')[0] as HTMLElement;
+    let slideRender = document.getElementById('slide-render') as HTMLElement;
     let copy;
 
     // Foreground fullscreen transparent overlay to disable draggable contents in fullscreen mode
