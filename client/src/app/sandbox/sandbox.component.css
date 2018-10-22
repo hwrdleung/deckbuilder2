@@ -48,6 +48,7 @@
     max-width: 40vw !important;
     overflow-wrap: break-word;
     word-wrap: break-word;
+    user-select: none;
 }
 
 .sandbox-middle-bar { 

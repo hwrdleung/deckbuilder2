@@ -186,7 +186,7 @@ export class SlideEditorComponent implements OnInit {
     let backgroundColor = this.data.slides[this.data.currentSlideIndex].getSlideProperty('backgroundColor');
     let slideRenderWidth = this.data.documentSize['width'];
     let slideRenderHeight = this.data.documentSize['height'];
-    let renderContainerWidth = document.querySelector('#slide-render-container').clientWidth;
+    let renderContainerWidth = document.getElementById('slide-render-area').clientWidth;
     let translationX;
 
     if (slideRenderWidth > renderContainerWidth) {
@@ -201,6 +201,7 @@ export class SlideEditorComponent implements OnInit {
       'width': slideRenderWidth + 'px',
       'transform': 'translate(' + translationX + ') scale(' + this.data.slideRenderMagnification / 100 + ')',
       'position': 'relative',
+
     }
     return css;
   }

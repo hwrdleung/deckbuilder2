@@ -257,7 +257,7 @@ export class DataService {
     slideEditor.style.overflow = "visible";
 
 
-    html2canvas(document.querySelector(".slide-render"), {
+    html2canvas(document.getElementById("slide-render"), {
       height: this.documentSize.height,
       width: this.documentSize.width,
       scale: 2,
@@ -280,7 +280,7 @@ export class DataService {
     let context = this;
     this.slideRenderMagnification = 100;
     this.currentSlideIndex = 0;
-    let slideRender = document.body.getElementsByClassName('slide-render')[0];
+    let slideRender = document.getElementById('slide-render');
 
     // Parent container must be set to overflow: visible to capture entire canvas
     let slideEditor = document.getElementById('slide-editor');

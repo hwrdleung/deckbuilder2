@@ -1,4 +1,5 @@
 #slide-editor-toolbar {
+    width: 100%;
     height: 6vh;
     margin: 0;
     padding: 0;
@@ -6,7 +7,6 @@
 
 .slide-editor-toolbar-btn-group {
     height: 100%;
-    width: 20%;
     max-width: 150px;
     padding: 0 15px;
 }
@@ -16,7 +16,7 @@
 }
 
 .slide-editor-toolbar-btn-group fa {
-    font-size: 3vh;
+    font-size: 2vh;
     margin: 0;
     padding: 2px 4px;
 }
@@ -30,58 +30,30 @@
     white-space: nowrap;
 }
 
+#slide-number {
+    font-size: 1.5rem;
+    font-size: 1.8vw;
+}
+
 #slide-editor-workspace {
     width: 100%;
     display: grid;
-    grid-template-rows: 42.5vh 42.5vh;
+    grid-template-rows: 43vh 43vh;
     margin: 0;
     padding: 0;
 }
 
-#slide-render-container {
+#slide-render-area {
     height: 100%;
-    width: 100%;
+    width: 41vw;
     overflow: scroll;
     background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));
-}
-
-
-#slide-control-panel {
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-}
-
-.slide-render {
-    background: #FFF;
-    margin: 0 auto;
-    position: relative;
-}
-
-.slide-control-row {
-    width: 100%;
-    border-bottom: 3px rgb(81, 133, 81) solid;
-    
-}
-
-#slide-settings {
-    height: 50px;
-    width: 100%;
-}
-
-input[type="number"]{
-    width: 40px;
-    margin: 0 3px;
 }
 
 .slide-object {
     box-sizing: border-box;
     overflow: hidden;
     user-select: none;
-}
-
-.slide-object p {
-    box-sizing: border-box;
 }
 
 .slide-object img {
@@ -91,12 +63,106 @@ input[type="number"]{
 
 .slide-object:hover{
     cursor: move;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px dashed silver;
 }
+
+#slide-control {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    display: grid;
+    grid-template-rows: 3vh 40vh;
+}
+
+#slide-control-toolbar {
+    width: 100%;
+}
+
+#slide-control-toolbar fa,
+#slide-control-toolbar p {
+    font-size: 0.7rem;
+    margin: 0 5px;
+}
+
+input[type="range"]{
+    width: 5vw;
+}
+
+input[type="number"]{
+    width: 45px;
+    margin: 0 3px;
+    padding: 2px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #FFF;
+    border: 1px #FFF solid;
+    text-align: center;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type="text"]{
+    width: 85%;
+}
+
+#heirarchy {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.heirarchy-control-group {
+    font-size: 0.7rem;
+    overflow: hidden;
+    padding: 2px 0;
+}
+
+.heirarchy-control-group fa {
+    font-size: 0.75rem;
+    padding: 5px;
+}
+
+.heirarchy-control-group fa:hover {
+    background-color: rgb(100, 100, 100);
+    cursor: pointer;
+}
+
+.heirarchy-name {
+    width: 100px;
+}
+
+.heirarchy-content {
+    width:100px;
+}
+
+.heirarchy-dim {
+    width: 250px;
+}
+
+.heirarchy-content-misc {
+    width: 150px;
+}
+
+.slide-control-row {
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 2px 0;
+    border-bottom: 3px rgb(81, 133, 81) solid; 
+}
+
 
 @media screen and (min-width: 1200px) {
     .slide-editor-toolbar-btn-group p {
        font-size: 0.8rem;
+    }
+
+    #slide-number {
+        font-size: 1.5rem;
     }
   }
 

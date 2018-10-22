@@ -1,12 +1,12 @@
 <div id="slide-editor-toolbar" class="grayAccent02 flex-row-evenly">
   <a (click)="this.createNewSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
     <fa name="plus-square"></fa>
-    <p>Create a new slide</p>
+    <!-- <p>Create a new slide</p> -->
   </a>
 
   <a (click)="this.preview()" class="flex-row-evenly slide-editor-toolbar-btn-group">
     <fa name="play"></fa>
-    <p>Preview</p>
+    <!-- <p>Preview</p> -->
   </a>
 
   <a (click)="this.previousSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
@@ -14,7 +14,7 @@
   </a>
 
   <div>
-    <h1 style="padding: 10px;" (click)="this.data.test()">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>
+    <h1 style="padding: 10px;" id="slide-number" (click)="this.data.test()">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>
   </div>
 
   <a (click)="this.nextSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
@@ -23,14 +23,13 @@
 
   <a (click)="this.deleteCurrentSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
     <fa name="trash"></fa>
-    <p>Delete slide</p>
+    <!-- <p>Delete slide</p> -->
   </a>
 </div>
 
 <div id="slide-editor-workspace" class="accent04">
-  <div *ngIf="this.data.slides.length > 0" id="slide-render-container" class="flex-col-evenly accent01">
-    <div class="slide-render" [ngStyle]="this.getSlideRenderCss()">
-      <!-- Render slide objects here -->
+  <div *ngIf="this.data.slides.length > 0" id="slide-render-area">
+    <div id="slide-render" [ngStyle]="this.getSlideRenderCss()">
       <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" class="slide-object" [ngStyle]="slideObject.getCss()"
         (mousedown)="this.selectObject(slideObject.id)" ngResizable [rzHandles]="'all'" (rzStop)="slideObject.setSize($event)"
         ngDraggable (endOffset)="slideObject.setTranslation($event)" [position]="slideObject.getTranslation()" [rzAspectRatio]="slideObject.constructor.name==='ImageObject'? true: false">
@@ -41,104 +40,82 @@
     </div>
   </div>
 
-  <div *ngIf="this.data.slides.length > 0" id="slide-control-panel" class="grayAccent02">
 
+  <div *ngIf="this.data.slides.length > 0" id="slide-control" class="grayAccent02">
 
-    <div id="slide-settings" class="grayAccent02 flex-row-evenly">
-      <!-- <fa name="palette" size="2x"></fa> -->
-      <div class="flex-col-evenly sm-btn">
-        <p>Set background color</p>
-        <input class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor" [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor"/>
+    <div id="slide-control-toolbar" class="grayAccent02 flex-row-evenly">
+      <div class="flex-row-evenly">
+        <p>Set background color: </p>
+        <input class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor" [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor"
+        />
       </div>
-      <!-- 
-      <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
-        <fa name="palette" size="2x"></fa>
-        <p>Set default background color</p>
-      </a> -->
-
-      <!-- <a (click)="this.data.test()" class="sm-btn flex-row-evenly">
-        <fa name="image" size="2x"></fa>
-        <p>Set background image</p>
-      </a> -->
 
       <div class="flex-row-evenly">
-        <fa (click)="this.data.test()" name="search-minus" size="1x"></fa>
+        <fa name="search-minus"></fa>
 
         <input type='range' [(ngModel)]="this.data.slideRenderMagnification" min="0" max="200">
 
-        <fa name="search-plus" size="1x"></fa>
+        <fa name="search-plus"></fa>
 
         <p>
           <input type="number" [(ngModel)]="this.data.slideRenderMagnification">%</p>
       </div>
     </div>
 
-
-    <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-between wrap"
-      [style.background]="this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null">
-      <div class="flex-row-evenly">
-
-        <div *ngIf="!slideObject.editNameMode" class="sm-btn flex-row-evenly">
-          <h5>{{slideObject.name}}</h5>
-          <fa class="clickable" name="edit" (click)="slideObject.toggleEditNameMode()"></fa>
+    <div id="heirarchy">
+      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-evenly"
+        [style.background]="this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null">
+        <div class="flex-row-evenly heirarchy-control-group heirarchy-name">
+          <div *ngIf="!slideObject.editNameMode" class="flex-row-evenly">
+            <h5>{{slideObject.name}}</h5>
+            <fa name="edit" (click)="slideObject.toggleEditNameMode()"></fa>
+          </div>
+          <div *ngIf="slideObject.editNameMode" class="flex-row-evenly">
+            <input type="text" [(ngModel)]="slideObject.name" (placeholder)="slideObject.name">
+            <fa name="save" (click)="slideObject.toggleEditNameMode()"></fa>
+          </div>
         </div>
 
-        <div *ngIf="slideObject.editNameMode" class="sm-btn flex-row-evenly">
-          <input type="text" [(ngModel)]="slideObject.name" (placeholder)="slideObject.name">
-          <fa class="clickable" name="save" (click)="slideObject.toggleEditNameMode()"></fa>
+        <div *ngIf="slideObject.constructor.name==='TextObject'" class="flex-row-evenly heirarchy-content heirarchy-control-group">
+          <div *ngIf="!slideObject.editTextMode" class="flex-row-evenly">
+            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>
+            <fa name="edit" (click)="slideObject.toggleEditTextMode()"></fa>
+          </div>
+
+          <div *ngIf="slideObject.editTextMode" class="flex-row-evenly">
+            <input type="text" [(ngModel)]="slideObject.textValue" (placeholder)="slideObject.textValue">
+            <fa name="save" (click)="slideObject.toggleEditTextMode()"></fa>
+          </div>
+        </div>
+
+        <div *ngIf="slideObject.constructor.name==='ImageObject'" class="flex-row-evenly heirarchy-control-group heirarchy-content">
+          <h5>ImageObject</h5>
+        </div>
+
+        <div class="heirarchy-control-group heirarchy-content-misc flex-row-evenly">
+            <fa (click)="this.data.increaseOneLayer(slideObject.id)" name="arrow-up"></fa>
+
+            <fa (click)="this.data.decreaseOneLayer(slideObject.id)" name="arrow-down"></fa>
+
+            <fa (click)="slideObject.toggleSlideObjectProperty('display')" name="eye"></fa>
+
+            <fa (click)="this.deleteSlideObjectById(slideObject.id)" name="trash"></fa>
+        </div>
+
+        <div class="heirarchy-control-group heirarchy-dim flex-row-evenly">
+          <h5>X:</h5>
+          <input type="number" [(ngModel)]="slideObject.xTranslation">
+          <h5>Y:</h5>
+          <input type="number" [(ngModel)]="slideObject.yTranslation">
+
+          <h5>H:</h5>
+          <input type="number" #heightInput [ngModel]="slideObject.height" (change)="maintainRatio(slideObject, 'height', heightInput.value)">
+
+          <h5>W:</h5>
+          <input type="number" #widthInput [ngModel]="slideObject.width" (change)="maintainRatio(slideObject, 'width', widthInput.value)">
         </div>
 
       </div>
-
-      <div *ngIf="slideObject.constructor.name==='TextObject'" class="flex-row-evenly">
-        <div *ngIf="!slideObject.editTextMode" class="sm-btn flex-row-evenly">
-          <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>
-          <fa class="clickable" name="edit" (click)="slideObject.toggleEditTextMode()"></fa>
-        </div>
-
-        <div *ngIf="slideObject.editTextMode" class="sm-btn flex-row-evenly">
-          <input type="text" [(ngModel)]="slideObject.textValue" (placeholder)="slideObject.textValue">
-          <fa class="clickable" name="save" (click)="slideObject.toggleEditTextMode()"></fa>
-        </div>
-      </div>
-
-      <div *ngIf="slideObject.constructor.name==='ImageObject'" class="flex-row-evenly">
-        <h5>ImageObject</h5>
-      </div>
-
-      <div class="flex-row-evenly">
-        <h5>X:</h5>
-        <input type="number" [(ngModel)]="slideObject.xTranslation">
-        <h5>Y:</h5>
-        <input type="number" [(ngModel)]="slideObject.yTranslation">
-
-        <h5>H:</h5>
-        <input type="number" #heightInput [ngModel]="slideObject.height" (change)="maintainRatio(slideObject, 'height', heightInput.value)">
-
-        <h5>W:</h5>
-        <input type="number" #widthInput [ngModel]="slideObject.width" (change)="maintainRatio(slideObject, 'width', widthInput.value)">
-
-        <!-- <h5>R:</h5>
-        <input type="number" [(ngModel)]="slideObject.rotation"> -->
-      </div>
-
-      <div class="flex-row-evenly">
-        <a (click)="this.data.increaseOneLayer(slideObject.id)" class="sm-btn flex-row-evenly">
-          <fa name="arrow-up"></fa>
-        </a>
-        <a (click)="this.data.decreaseOneLayer(slideObject.id)" class="sm-btn flex-row-evenly">
-          <fa name="arrow-down"></fa>
-        </a>
-        <a (click)="slideObject.toggleSlideObjectProperty('display')" class="sm-btn flex-row-evenly">
-          <fa name="eye"></fa>
-        </a>
-      </div>
-
-      <a (click)="this.deleteSlideObjectById(slideObject.id)" class="sm-btn flex-row-evenly">
-        <fa name="trash"></fa>Delete</a>
     </div>
-
-
-
   </div>
 </div>
