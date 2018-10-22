@@ -43,10 +43,18 @@
     text-align: center;
     display: inline-block;
     overflow: hidden;
+    font-size: 0.9rem;
 }
 
 .toolbar-style-btn:hover {
     background: rgb(156, 172, 149);
+}
+
+.selected {
+    background: rgb(156, 172, 149);
+    border: 2px white solid;
+    line-height: 21px;
+    width: 146px;
 }
 
 @media screen and (min-width: 1200px) {
