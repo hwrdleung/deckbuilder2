@@ -283,8 +283,16 @@ export class DataService {
     let slideRender = document.getElementById('slide-render');
 
     // Parent container must be set to overflow: visible to capture entire canvas
-    let slideEditor = document.getElementById('slide-editor');
-    slideEditor.style.overflow = "visible";
+    let slideRenderArea = document.getElementById('slide-render-area');
+    let originalWidth = slideRenderArea.style.width;
+    let originalOverflow = slideRenderArea.style.overflow;
+    slideRenderArea.style.width = "auto";
+    slideRenderArea.style.overflow = "visible";
+
+    let appContainer = document.getElementById('app-container');
+    let originalCols = appContainer.style.gridTemplateColumns;
+    appContainer.style.gridTemplateColumns = "18vw 41vw auto";
+
 
     let doc = new jsPDF({
       orientation: "landscape",
@@ -310,7 +318,9 @@ export class DataService {
           doc.save("a4.pdf");
 
           // Change styleEditor overflow back to original value
-          slideEditor.style.overflow = "hidden";
+          slideRenderArea.style.width = originalWidth;
+          slideRenderArea.style.overflow = originalOverflow;
+          appContainer.style.gridTemplateColumns = originalCols;
 
           return;
 

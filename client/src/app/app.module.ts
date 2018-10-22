@@ -17,6 +17,8 @@ import { DataService } from './data.service';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularDraggableModule } from 'angular2-draggable';
+import { TextStyleCardComponent } from './text-style-card/text-style-card.component';
+import { ImageStyleCardComponent } from './image-style-card/image-style-card.component';
 
 const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
   // Change this to your Google API key
@@ -29,7 +31,9 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     ToolbarComponent,
     StylerComponent,
     SandboxComponent,
-    SlideEditorComponent
+    SlideEditorComponent,
+    TextStyleCardComponent,
+    ImageStyleCardComponent
   ],
   imports: [
     BrowserModule,

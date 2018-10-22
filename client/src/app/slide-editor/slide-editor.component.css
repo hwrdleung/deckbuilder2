@@ -36,7 +36,7 @@
 }
 
 #slide-editor-workspace {
-    width: 100%;
+    width: auto;
     display: grid;
     grid-template-rows: 43vh 43vh;
     margin: 0;
