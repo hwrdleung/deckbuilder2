@@ -183,8 +183,8 @@ export class SlideEditorComponent implements OnInit {
 
   // Slide editor render functions
 
-  toggleRenderOverflow(){
-    this.showRenderOverflow  = !this.showRenderOverflow;
+  toggleRenderOverflow() {
+    this.showRenderOverflow = !this.showRenderOverflow;
   }
 
   getSlideRenderCss() {
@@ -207,7 +207,7 @@ export class SlideEditorComponent implements OnInit {
       'transform': 'translate(' + translationX + ') scale(' + this.data.slideRenderMagnification / 100 + ')',
       'position': 'relative',
       'overflow': this.showRenderOverflow ? 'visible' : 'hidden'
-}
+    }
 
     return css;
   }
@@ -217,6 +217,42 @@ export class SlideEditorComponent implements OnInit {
     this.indexOfSelectedSlideObject = objectId;
   }
 
+  // User clicks zoom in/out
+  zoom(direction: string) {
+    console.log('zoom');
+    let magnification = this.data.slideRenderMagnification;
+    console.log('starting value: ', magnification);
+
+    let increment = 5;
+
+    switch (direction) {
+      case 'in':
+        console.log('in');
+        if (magnification > 200 - increment) {
+          magnification = 200;
+          console.log(magnification);
+        } else {
+          magnification += increment;
+          console.log(magnification);
+        }
+        this.data.slideRenderMagnification = magnification;
+        break;
+      case 'out':
+        console.log('out');
+        if (magnification < increment) {
+          magnification = 0;
+          console.log(magnification);
+        } else {
+          magnification -= increment;
+          console.log(magnification);
+        }
+        this.data.slideRenderMagnification = magnification;
+        break;
+    }
+
+  }
+
+  // This controls the image size when user inputs a value in the heirarchy
   maintainRatio(slideObject, dimension, value) {
     // Get original aspect ratio of this slide object
     console.log(slideObject.width, slideObject.height);

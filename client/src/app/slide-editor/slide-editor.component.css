@@ -86,9 +86,14 @@
 }
 
 #slide-control-toolbar fa {
-    width: 15px;
-    height: 15px;
+    width: 25px;
+    height: 25px;
     margin: 0 5px;
+    cursor: pointer;
+}
+
+#slide-control-toolbar fa:hover {
+    background: rgb(87, 87, 87);
 }
 
 #slide-control-toolbar p {
@@ -141,6 +146,16 @@ input[type="text"]{
 .heirarchy-control-group fa:hover {
     background-color: rgb(100, 100, 100);
     cursor: pointer;
+}
+
+#heirarchy
+input[type="text"]{
+    margin: 0 3px;
+    padding: 2px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #FFF;
+    border: 1px #FFF solid;
 }
 
 .heirarchy-name {

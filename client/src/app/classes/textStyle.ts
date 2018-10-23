@@ -30,7 +30,7 @@ export class TextStyle {
 
     constructor() {
         this.id = TextStyle.textStyleCounter++;
-        this.name = 'TextStyle' + TextStyle.textStyleCounter;
+        this.name = 'TextStyle' + this.id;
         this.editNameMode = false;
         this.showExtraOptions = false;
         this.color = '#000';

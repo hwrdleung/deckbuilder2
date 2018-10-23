@@ -64,11 +64,11 @@
       </div>
 
       <div class="flex-row-evenly">
-        <fa name="search-minus"></fa>
+        <fa name="search-minus" class="flex-row-evenly" (click)="this.zoom('out')"></fa>
 
         <input type='range' [(ngModel)]="this.data.slideRenderMagnification" min="0" max="200">
 
-        <fa name="search-plus"></fa>
+        <fa name="search-plus" class="flex-row-evenly" (click)="this.zoom('in')"></fa>
 
         <p>
           <input type="number" [(ngModel)]="this.data.slideRenderMagnification">%</p>
@@ -78,7 +78,7 @@
         <p>{{this.data.documentSize.width}}px X {{this.data.documentSize.height}}px</p>
       </div>
 
-      <fa [name]="this.showRenderOverflow ? 'object-ungroup' : 'object-group'" (click)="this.toggleRenderOverflow()"></fa>
+      <fa class="flex-row-evenly" [name]="this.showRenderOverflow ? 'object-ungroup' : 'object-group'" (click)="this.toggleRenderOverflow()"></fa>
 
     </div>
 

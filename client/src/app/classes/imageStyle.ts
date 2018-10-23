@@ -26,7 +26,7 @@ export class ImageStyle {
 
     constructor () {
         this.id = ImageStyle.imageStyleCounter++;
-        this.name = 'ImageStyle' + ImageStyle.imageStyleCounter;
+        this.name = 'ImageStyle' + this.id;
         this.editNameMode = false;
         this.showExtraOptions = false;
         this.opacity = 100;
