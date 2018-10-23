@@ -1,16 +1,23 @@
 <div class="style-card-container greenAccent01">
 
     <div class="flex-row-between style-card-row">
-      <h3>{{imageStyle.name}}
-        <fa name="edit"></fa>
+      <h3 *ngIf="!imageStyle.editNameMode">{{imageStyle.name}}
+        <fa *ngIf="!imageStyle.isDefault" (click)="imageStyle.toggleEditNameMode()" name="edit"></fa>
       </h3>
-      <a (click)="this.data.deleteImageStyleById(imageStyle.id)">
+
+      <div *ngIf="imageStyle.editNameMode">
+        <input type="text" [(ngModel)]="imageStyle.name" placeholder="imageStyle.name">
+        <fa name="save" (click)="imageStyle.toggleEditNameMode()" class="clickable"></fa>
+      </div>
+
+      <a *ngIf="!imageStyle.isDefault" (click)="this.data.deleteImageStyleById(imageStyle.id)">
         <fa class="clickable" name="trash"></fa>
       </a>
     </div>
 
     <div class="flex-row-between style-card-row">
       <h4>Opacity:</h4>
+
       <h4>
       <input type="range" [(ngModel)]="imageStyle.opacity" min="0" max="100">
         <input type="number" [(ngModel)]="imageStyle.opacity">%&nbsp;&nbsp;&nbsp;</h4>
@@ -87,6 +94,37 @@
     </div>
 
     <div *ngIf="imageStyle.showExtraOptions">
+
+        <!--Border radius settings -->
+        <div class="flex-row-evenly style-card-row">
+            <h4>Border radius: </h4>
+          </div>
+  
+          <div class="flex-row-between style-card-row">
+            <h4>Top left radius: </h4>
+            <h4>
+              <input type="number" [(ngModel)]="imageStyle.border.topLeftRadius">px</h4>
+          </div>
+  
+          <div class="flex-row-between style-card-row">
+            <h4>Top right radius: </h4>
+            <h4>
+              <input type="number" [(ngModel)]="imageStyle.border.topRightRadius">px</h4>
+          </div>
+  
+          <div class="flex-row-between style-card-row">
+            <h4>Bottom right radius: </h4>
+            <h4>
+              <input type="number" [(ngModel)]="imageStyle.border.bottomRightRadius">px</h4>
+          </div>
+  
+          <div class="flex-row-between style-card-row">
+            <h4>Bottom left radius: </h4>
+            <h4>
+              <input type="number" [(ngModel)]="imageStyle.border.bottomLeftRadius">px</h4>
+          </div>
+        </div>
+
       <!-- Full border settings -->
       <div class="flex-row-evenly style-card-row">
           <h4>Borders: </h4>
@@ -145,37 +183,10 @@
             <option *ngFor="let borderStyle of imageStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
           </select>
         </div>
-
-
-        <!--Border radius settings -->
-    <div class="flex-row-evenly style-card-row">
-        <h4>Border radius: </h4>
       </div>
 
-        <div class="flex-row-between style-card-row">
-          <h4>Top left radius: </h4>
-          <h4>
-            <input type="number" [(ngModel)]="imageStyle.border.topLeftRadius">px</h4>
-        </div>
 
-        <div class="flex-row-between style-card-row">
-          <h4>Top right radius: </h4>
-          <h4>
-            <input type="number" [(ngModel)]="imageStyle.border.topRightRadius">px</h4>
-        </div>
 
-        <div class="flex-row-between style-card-row">
-          <h4>Bottom right radius: </h4>
-          <h4>
-            <input type="number" [(ngModel)]="imageStyle.border.bottomRightRadius">px</h4>
-        </div>
-
-        <div class="flex-row-between style-card-row">
-          <h4>Bottom left radius: </h4>
-          <h4>
-            <input type="number" [(ngModel)]="imageStyle.border.bottomLeftRadius">px</h4>
-        </div>
-      </div>
 
       <!-- Top border settings -->
       <div *ngIf="imageStyle.border.showTopBorder">
@@ -288,7 +299,6 @@
           </select>
         </div>
       </div>
-    </div>
   </div>
 
 

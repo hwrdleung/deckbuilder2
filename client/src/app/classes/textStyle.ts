@@ -26,6 +26,7 @@ export class TextStyle {
     private breakWord: boolean;
     private border: BorderControl;
     private textShadow: ShadowControl;
+    private isDefault: Boolean;
 
     constructor() {
         this.id = TextStyle.textStyleCounter++;
@@ -54,10 +55,11 @@ export class TextStyle {
             style: 'regular',
             size: '25px'
         }
+        this.isDefault = false;
     }
 
-    revive(obj){
-        for(let key in obj){
+    revive(obj) {
+        for (let key in obj) {
             this[key] = obj[key];
         }
     }
@@ -77,19 +79,26 @@ export class TextStyle {
             'word-spacing': this.wordSpacing + 'px',
             'letter-spacing': this.letterSpacing + 'px',
             'word-break': this.breakWord ? 'break-all' : 'normal',
-            'border-top': this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',
-            'border-right': this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
-            'border-bottom': this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none',
-            'border-left': this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none',
-            'border': this.border.getBorderProperty('showFullBorder') ? this.border.getFullBorderCss() : 'none',
             'border-radius': this.border.getBorderRadiusCss(),
             'margin': this.margin + 'px',
             'padding': this.padding + 'px',
             'display': 'flex',
             'justify-content': this.convertAlignToFlex(this.hAlign),
             'align-items': this.convertAlignToFlex(this.vAlign),
-            'text-shadow': this.textShadow.getShadowCss()
+            'text-shadow': this.textShadow.getShadowCss(),
+            'box-sizing': 'border-box'
         }
+
+        // Border styles had to be seperated because in some UI configurations, 'border:none' would negate the other border styles
+        if (this.border.getBorderProperty('showFullBorder')) {
+            css['border'] = this.border.getFullBorderCss();
+        } else if (!this.border.getBorderProperty('showFullBorder')) {
+            css['border-top'] = this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none';
+            css['border-right'] = this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none';
+            css['border-bottom'] = this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none';
+            css['border-left'] = this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none';
+        }
+
         return css;
     }
 

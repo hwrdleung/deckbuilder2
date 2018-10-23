@@ -59,7 +59,7 @@ export class DataService {
   test() {
     console.log("Test");
     console.log(this.documentSize.height);
-    
+
   }
 
   // FUNCTIONS USED BY ALL COMPONENTS
@@ -112,8 +112,16 @@ export class DataService {
   loadNewProject() {
     let project = new Project();
 
-    project.addTextStyle(new TextStyle());
-    project.addImageStyle(new ImageStyle());
+    let textStyle = new TextStyle();
+    textStyle.setStyleProperty('name', 'Default Text Style');
+    textStyle.setStyleProperty('isDefault', true);
+
+    let imageStyle = new ImageStyle();
+    imageStyle.setStyleProperty('name', 'Default Image Style');
+    imageStyle.setStyleProperty('isDefault', true);
+
+    project.addTextStyle(textStyle);
+    project.addImageStyle(imageStyle);
     project.addSlide(new Slide());
 
     return project;
@@ -279,11 +287,14 @@ export class DataService {
     this.slideRenderMagnification = 100;
     this.currentSlideIndex = 0;
     let slideRender = document.getElementById('slide-render');
+    let originalOverflowSR = slideRender.style.overflow;
+    slideRender.style.overflow = "visible";
+
 
     // Parent container must be set to overflow: visible to capture entire canvas
     let slideRenderArea = document.getElementById('slide-render-area');
     let originalWidth = slideRenderArea.style.width;
-    let originalOverflow = slideRenderArea.style.overflow;
+    let originalOverflowSRA = slideRenderArea.style.overflow;
     slideRenderArea.style.width = "auto";
     slideRenderArea.style.overflow = "visible";
 
@@ -309,8 +320,9 @@ export class DataService {
 
           // Change styleEditor overflow back to original value
           slideRenderArea.style.width = originalWidth;
-          slideRenderArea.style.overflow = originalOverflow;
-          
+          slideRenderArea.style.overflow = originalOverflowSRA;
+          slideRender.style.overflow = originalOverflowSR;
+
           return;
         } else {
           html2canvas(slideRender, {
@@ -336,23 +348,41 @@ export class DataService {
     }
   }
 
-
-
   //  STYLER FUNCTIONS
   deleteTextStyleById(id: number) {
     for (let i = 0; i < this.textStyles.length; i++) {
-      if (this.textStyles[i].getStyleProperty('id') === id && this.textStyles.length > 1) {
-        this.textStyles.splice(i, 1);
+      let thisTextStyleId = this.textStyles[i].getStyleProperty('id');
+
+      // If user wants to delete a style that is currently the selected style,
+      // Change selected style to default (index 0) before proceeding.
+      if (id === this.selectedTextStyleId) {
+        this.selectedTextStyleId = 0;
       }
+
+      // Check if this style is currently being used in a slide
+
+      // Delete style by id
+      if (thisTextStyleId === id)
+        this.textStyles.splice(i, 1);
     }
   }
 
   deleteImageStyleById(id: number) {
     for (let i = 0; i < this.imageStyles.length; i++) {
-      if (this.imageStyles[i].getStyleProperty('id') === id && this.imageStyles.length > 1) {
-        this.imageStyles.splice(i, 1);
+      let thisImageStyleId = this.imageStyles[i].getStyleProperty('id');
 
+      // If user wants to delete a style that is currently the selected style,
+      // Change selected style to default (index 0) before proceeding.
+      if (id === this.selectedImageStyleId) {
+        this.selectedImageStyleId = 0;
       }
+
+      // Check if this style is currently being used in a slide
+
+
+      // Delete style by id
+      if (thisImageStyleId === id)
+        this.imageStyles.splice(i, 1);
     }
   }
 
@@ -374,6 +404,7 @@ export class DataService {
 
     newTextObject.setTextvalue(this.sandboxText);
     newTextObject.setStyleId(this.selectedTextStyleId);
+    console.log(this.selectedTextStyleId)
 
     // !important!  set z index last to ensure proper assignment of z index
     currentSlide.addSlideObject(newTextObject);
@@ -381,21 +412,41 @@ export class DataService {
   }
 
   addImageObjectToSlide() {
+    // Create a new ImageObject using currently selected image and currently selected ImageStyle
     let currentSlide = this.slides[this.currentSlideIndex];
     let currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
     let newImageObject = new ImageObject();
+    let image = this.images[this.selectedImage].url;
 
-    newImageObject.setImagePath(this.images[this.selectedImage].url);
+    // Check if image is larger than document size
+    let imageElement = new Image;
+    imageElement.src = image;
+    let imageWidth;
+    let imageHeight;
+
+    // Scale down if larger than document size
+    if (imageElement.width > this.documentSize.width) {
+      let ratio = imageElement.width / imageElement.height;
+      imageWidth = this.documentSize.width;
+      imageHeight = imageWidth / ratio;
+    }
+
+    // Define properties for newImageObject
+    newImageObject.setImagePath(image);
     newImageObject.setStyleId(this.selectedImageStyleId);
-    console.log(newImageObject);
+    newImageObject.setImageObjectProperty('height', imageHeight);
+    newImageObject.setImageObjectProperty('width', imageWidth);
 
+    // imageElement is no longer needed
+    imageElement = null;
+
+    // Add to current slide
     currentSlide.addSlideObject(newImageObject);
     newImageObject.setZIndex(currentSlideObjects.length - 1);
   }
 
   uploadImage(event) {
     let file = event.srcElement.files[0];
-    console.log(event);
     let reader = new FileReader();
     reader.readAsDataURL(file);
 
@@ -413,10 +464,10 @@ export class DataService {
     this.selectedImage = index;
   }
 
-  deleteImageById(imageId:number) {
+  deleteImageById(imageId: number) {
     console.log(imageId);
-    for(let i = 0; i < this.images.length; i++){
-      if(this.images[i].id === imageId){
+    for (let i = 0; i < this.images.length; i++) {
+      if (this.images[i].id === imageId) {
         this.images.splice(i, 1);
       }
     }

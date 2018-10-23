@@ -1,9 +1,9 @@
 
 
 <div class="style-card-container" *ngIf="this.data.viewTextElements && this.data.textStyles.length > 0">
-  <text-style-card [textStyle]="textStyle" *ngFor="let textStyle of this.data.textStyles.reverse()"></text-style-card>
+  <text-style-card [textStyle]="textStyle" *ngFor="let textStyle of this.data.textStyles"></text-style-card>
 </div>
 
 <div class="style-card-container" *ngIf="this.data.viewImageElements && this.data.imageStyles.length > 0">
-  <image-style-card [imageStyle]="imageStyle" *ngFor="let imageStyle of this.data.imageStyles.reverse()"></image-style-card>
+  <image-style-card [imageStyle]="imageStyle" *ngFor="let imageStyle of this.data.imageStyles"></image-style-card>
 </div>

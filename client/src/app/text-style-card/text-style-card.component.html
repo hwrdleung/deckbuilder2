@@ -2,7 +2,7 @@
 
   <div class="flex-row-between style-card-row">
     <h3 *ngIf="!textStyle.editNameMode">{{textStyle.name}}
-      <fa name="edit" (click)="textStyle.toggleEditNameMode()" class="clickable"></fa>
+      <fa *ngIf="!textStyle.isDefault" name="edit" (click)="textStyle.toggleEditNameMode()" class="clickable"></fa>
     </h3>
 
     <div *ngIf="textStyle.editNameMode">
@@ -10,7 +10,7 @@
       <fa name="save" (click)="textStyle.toggleEditNameMode()" class="clickable"></fa>
     </div>
 
-    <fa name="trash" (click)="this.data.deleteTextStyleById(textStyle.id)"></fa>
+    <fa *ngIf="!textStyle.isDefault" name="trash" (click)="this.data.deleteTextStyleById(textStyle.id)"></fa>
   </div>
 
   <div class="flex-row-between style-card-row">
@@ -154,67 +154,7 @@
       </div>
     </div>
 
-    <!-- BORDER OPTIONS -->
     <div class="flex-row-evenly style-card-row">
-        <h4>Borders: </h4>
-      </div>
-
-    <div class="flex-row-between style-card-row">
-      <i (click)="textStyle.border.toggleBorderProperty('showFullBorder');
-        textStyle.border.setBorderProperty('showTopBorder', false);
-        textStyle.border.setBorderProperty('showRightBorder', false);
-        textStyle.border.setBorderProperty('showBottomBorder', false);
-        textStyle.border.setBorderProperty('showLeftBorder', false);"
-        class="material-icons">border_outer</i>
-
-      <i (click)="textStyle.border.toggleBorderProperty('showLeftBorder');
-        textStyle.border.setBorderProperty('showFullBorder', false);"
-        class="material-icons">border_left</i>
-
-      <i (click)="textStyle.border.toggleBorderProperty('showTopBorder');
-        textStyle.border.setBorderProperty('showFullBorder', false);"
-        class="material-icons">border_top</i>
-
-      <i (click)="textStyle.border.toggleBorderProperty('showRightBorder');
-        textStyle.border.setBorderProperty('showFullBorder', false);"
-        class="material-icons">border_right</i>
-
-      <i (click)="textStyle.border.toggleBorderProperty('showBottomBorder');
-        textStyle.border.setBorderProperty('showFullBorder', false);"
-        class="material-icons">border_bottom</i>
-    </div>
-
-    <!-- Full border settings -->
-    <div *ngIf="textStyle.border.showFullBorder">
-      <div class="flex-row-between style-card-row">
-        <h4>Border: </h4>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h4>Width: </h4>
-        <h4>
-          <input type="number" [(ngModel)]="textStyle.border.fullBorderWidth"> px</h4>
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h4>Color: </h4>
-        <div style="flex: 1">
-            <!--This spacer prevents colorPicker from repositioning the next div--></div>
-        <input class="md-color-selector" [(colorPicker)]="textStyle.border.fullBorderColor" [style.background]="textStyle.border.fullBorderColor"
-          cpOutputFormat="rgba" cpAlphaChannel="enabled" />
-      </div>
-
-      <div class="flex-row-between style-card-row">
-        <h4>Style: </h4>
-        <select [(ngModel)]="textStyle.border.fullBorderStyle">
-          <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
-        </select>
-      </div>
-
-
-      <!--Border radius settings -->
-      
-      <div class="flex-row-between style-card-row">
         <h4>Border Radius: </h4>
       </div>
 
@@ -241,6 +181,67 @@
         <h4>
           <input type="number" [(ngModel)]="textStyle.border.bottomLeftRadius">px</h4>
       </div>
+
+    <!-- BORDER OPTIONS -->
+    <div class="flex-row-evenly style-card-row">
+        <h4>Borders: </h4>
+      </div>
+
+    <div class="flex-row-between style-card-row">
+      <i (click)="textStyle.border.toggleBorderProperty('showFullBorder');
+        textStyle.border.setBorderProperty('showTopBorder', false);
+        textStyle.border.setBorderProperty('showRightBorder', false);
+        textStyle.border.setBorderProperty('showBottomBorder', false);
+        textStyle.border.setBorderProperty('showLeftBorder', false);"
+        class="material-icons">border_outer</i>
+
+      <i (click)="textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showLeftBorder');"
+        class="material-icons">border_left</i>
+
+      <i (click)="textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showTopBorder');"
+        class="material-icons">border_top</i>
+
+      <i (click)="textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showRightBorder');"
+        class="material-icons">border_right</i>
+
+      <i (click)="textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showBottomBorder');"
+        class="material-icons">border_bottom</i>
+    </div>
+
+
+
+    <!-- Full border settings -->
+    <div *ngIf="textStyle.border.showFullBorder">
+      <div class="flex-row-evenly style-card-row">
+        <h4>Full Border: </h4>
+      </div>
+
+      <div class="flex-row-between style-card-row">
+        <h4>Width: </h4>
+        <h4>
+          <input type="number" [(ngModel)]="textStyle.border.fullBorderWidth"> px</h4>
+      </div>
+
+      <div class="flex-row-between style-card-row">
+        <h4>Color: </h4>
+        <div style="flex: 1">
+            <!--This spacer prevents colorPicker from repositioning the next div--></div>
+        <input class="md-color-selector" [(colorPicker)]="textStyle.border.fullBorderColor" [style.background]="textStyle.border.fullBorderColor"
+          cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      </div>
+
+      <div class="flex-row-between style-card-row">
+        <h4>Style: </h4>
+        <select [(ngModel)]="textStyle.border.fullBorderStyle">
+          <option *ngFor="let borderStyle of textStyle.border.borderStyles" [value]="borderStyle">{{borderStyle}}</option>
+        </select>
+      </div>
+    </div>
+
+
+      <!--Border radius settings -->
+      
+
     </div>
 
     <!-- Top border settings -->
@@ -353,6 +354,5 @@
         </select>
       </div>
     </div>
-  </div>
 
 </div>

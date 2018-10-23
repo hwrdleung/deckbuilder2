@@ -20,12 +20,12 @@
 
   <!-- Text styles -->
   <div *ngIf="this.data.viewTextElements">
-    <a *ngFor="let textStyle of this.data.textStyles" (click)="this.data.selectStyle('text', textStyle.id); this.data.setMode('text')" class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(textStyle)">{{textStyle.name}}</a>
+    <a *ngFor="let textStyle of this.data.textStyles" (click)="this.data.selectStyle('text', textStyle.id);" class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(textStyle)">{{textStyle.name}}</a>
   </div>
 
   <!-- Image styles -->
   <div *ngIf="this.data.viewImageElements">
-    <a *ngFor="let imageStyle of this.data.imageStyles" (click)="this.data.selectStyle('image', imageStyle.id); this.data.setMode('image')" class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(imageStyle)">{{imageStyle.name}}</a>
+    <a *ngFor="let imageStyle of this.data.imageStyles" (click)="this.data.selectStyle('image', imageStyle.id);" class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(imageStyle)">{{imageStyle.name}}</a>
   </div>
 
   <!-- Shape styles -->

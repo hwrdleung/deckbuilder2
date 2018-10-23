@@ -7,6 +7,7 @@ export class ImageStyle {
     private id: number;
     private editNameMode: boolean;
     private showExtraOptions: boolean;
+    private isDefault : Boolean;
 
     // Borders
     private border: BorderControl;
@@ -38,7 +39,7 @@ export class ImageStyle {
         this.saturate = 100;
         this.sepia = 0;
         this.border = new BorderControl();
-
+        this.isDefault = false;
     }
 
     revive(obj){
@@ -56,6 +57,7 @@ export class ImageStyle {
             'border': this.border.getBorderProperty('showFullBorder') ? this.border.getFullBorderCss() : 'none',
             'border-radius': this.border.getBorderRadiusCss(),
             'filter' : this.getFilters(),
+            'box-sizing' : 'border-box'
         }
         return css;
     }
