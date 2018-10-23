@@ -27,7 +27,7 @@
   </a>
 </div>
 
-<div id="slide-editor-workspace" class="accent04">
+<div id="slide-editor-workspace">
   <div *ngIf="this.data.slides.length > 0" id="slide-render-area">
     <div id="slide-render" [ngStyle]="this.getSlideRenderCss()">
       <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" 
@@ -83,7 +83,7 @@
     </div>
 
     <div id="heirarchy">
-      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-evenly"
+      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-evenly grayAccent02"
         [style.background]="this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null">
         <div class="flex-row-evenly heirarchy-control-group heirarchy-name">
           <div *ngIf="!slideObject.editNameMode" class="flex-row-evenly">

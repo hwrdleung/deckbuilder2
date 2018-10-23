@@ -104,10 +104,13 @@
     padding: 0;
 }
 
+#import-container {
+    margin: 0 auto;
+}
+
 input[type="file"] {
     text-align: center !important;
     align-items: center !important;
-    margin: 0 auto;
 }
 
 #image-preview {
@@ -119,7 +122,6 @@ input[type="file"] {
 
 
 #gallery {
-    background: rgb(214, 214, 214);
     width: 100%;
     height: auto;
     display: static;

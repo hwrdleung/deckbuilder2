@@ -52,7 +52,6 @@
 }
 
 .slide-object {
-    /* box-sizing: border-box; */
     overflow: hidden;
     user-select: none;
     z-index: -1;

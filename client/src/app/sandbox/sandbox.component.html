@@ -8,7 +8,7 @@
   <a (click)="this.data.setMode('image')" class="flex-row-evenly sandbox-toolbar-btn-group">
     <fa name="image"></fa>
     <p>New image object</p>
-  </a> 
+  </a>
 
   <!-- <a (click)="this.data.setMode('shape')" class="flex-row-evenly sandbox-btn-group">
     <fa name="shapes"></fa>
@@ -18,49 +18,53 @@
 
 <!-- Text sandbox -->
 <div id="text-sandbox" class="grayAccent03" *ngIf="this.data.viewTextElements && this.data.textStyles.length > 0">
-  <div class="flex-col-evenly sandbox-preview-area">
+  <div class="flex-col-evenly sandbox-preview-area accent05">
     <div class="sandbox-preview-container">
       <p [ngStyle]="this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()">{{this.data.sandboxText}}</p>
     </div>
   </div>
 
-    <div class="sandbox-middle-bar flex-row-evenly">
-      <textarea class="sandbox-textarea" [(ngModel)]="this.data.sandboxText">
-      
+  <div class="sandbox-middle-bar flex-row-evenly">
+    <textarea class="sandbox-textarea" [(ngModel)]="this.data.sandboxText">
+
     </textarea>
 
-      <a (click)="this.data.addTextObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
-        <fa name="share"></fa>
-        <p>Add text object <br> to slide</p>
-      </a>
-    </div>
+    <a (click)="this.data.addTextObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
+      <fa name="share"></fa>
+      <p>Add text object <br> to slide</p>
+    </a>
+  </div>
 
-    <textarea class="sandbox-textarea" [(ngModel)]="this.data.textNotes">
+  <textarea class="sandbox-textarea" [(ngModel)]="this.data.textNotes">
     {{this.data.textNotes}}
   </textarea>
-  </div>
+</div>
 
 <!-- Image sandbox -->
 <div id="image-sandbox" class="grayAccent03" *ngIf="this.data.viewImageElements && this.data.imageStyles.length > 0">
-  <div class="flex-col-evenly sandbox-preview-area">
-    <img id="image-preview" *ngIf="this.data.images[this.data.selectedImage]" [src]="this.data.images[this.data.selectedImage].url" [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
+  <div class="flex-col-evenly sandbox-preview-area accent05">
+    <img id="image-preview" *ngIf="this.data.images[this.data.selectedImage]" [src]="this.data.images[this.data.selectedImage].url"
+      [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
   </div>
 
-  <div class="sandbox-middle-bar flex-row-evenly">
-    <input type="file" (change)="this.data.uploadImage($event)">
-
-      <a (click)="this.data.addImageObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
-        <fa name="share"></fa>
-        <p>Add image object to slide</p>
-      </a>
+  <div class="sandbox-middle-bar flex-row-between grayAccent02">
+    <div class="flex-col-evenly" id="import-container">
+      <h3>Import an image:</h3>
+      <input class="" type="file" (change)="this.data.uploadImage($event)">
     </div>
 
-    <div id="gallery">
-      <div *ngFor="let image of this.data.images" class="gallery-img-container">
-        <img src="{{image.url}}" (click)="this.data.selectImage(image.id)" class="clickable gallery-img">
-        <fa name="trash" class="clickable delete-icon flex-row-evenly" (click)="this.data.deleteImageById(image.id)"></fa>
-      </div>
+    <a (click)="this.data.addImageObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
+      <fa name="share"></fa>
+      <p>Add image object to slide</p>
+    </a>
+  </div>
+
+  <div id="gallery" class="accent05">
+    <div *ngFor="let image of this.data.images" class="gallery-img-container">
+      <img src="{{image.url}}" (click)="this.data.selectImage(image.id)" class="clickable gallery-img">
+      <fa name="trash" class="clickable delete-icon flex-row-evenly" (click)="this.data.deleteImageById(image.id)"></fa>
     </div>
+  </div>
 </div>
 
 

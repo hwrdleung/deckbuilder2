@@ -59,7 +59,6 @@ export class DataService {
   test() {
     console.log("Test");
     console.log(this.documentSize.height);
-
   }
 
   // FUNCTIONS USED BY ALL COMPONENTS
@@ -129,7 +128,6 @@ export class DataService {
 
   getSavedProject() {
     let savedProjectData = JSON.parse(localStorage.getItem('deckbuilder2Data'));
-
     let project = new Project();
     project.revive(savedProjectData);
 
