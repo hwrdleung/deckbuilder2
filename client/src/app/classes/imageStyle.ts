@@ -50,15 +50,20 @@ export class ImageStyle {
 
     getCss(){
         let css = {
-            'border-top': this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',
-            'border-right': this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
-            'border-bottom': this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none',
-            'border-left': this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none',
-            'border': this.border.getBorderProperty('showFullBorder') ? this.border.getFullBorderCss() : 'none',
             'border-radius': this.border.getBorderRadiusCss(),
             'filter' : this.getFilters(),
             'box-sizing' : 'border-box'
         }
+
+        if (this.border.getBorderProperty('showFullBorder')) {
+            css['border'] = this.border.getFullBorderCss();
+        } else if (!this.border.getBorderProperty('showFullBorder')) {
+            css['border-top'] = this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none';
+            css['border-right'] = this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none';
+            css['border-bottom'] = this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none';
+            css['border-left'] = this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none';
+        }
+
         return css;
     }
 
