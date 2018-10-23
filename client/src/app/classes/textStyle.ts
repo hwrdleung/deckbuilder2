@@ -141,16 +141,17 @@ export class TextStyle {
         }
 
         if (this.underline) {
-            textDecoration += "underline";
+            textDecoration += "underline ";
         }
 
         if (this.overline) {
-            textDecoration += "overline";
+            textDecoration += "overline ";
         }
 
         if (this.lineThrough) {
-            textDecoration += "line-through";
+            textDecoration += "line-through ";
         }
+
         return textDecoration;
     }
 

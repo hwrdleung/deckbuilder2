@@ -63,6 +63,7 @@
     max-width: 100%;
 }
 
+/*  Styling of slideObjects while being dragged or resized is controlled from within the SlideObjects class */
 .slide-object:hover{
     cursor: move;
     background: rgba(0, 0, 0, 0.3);
