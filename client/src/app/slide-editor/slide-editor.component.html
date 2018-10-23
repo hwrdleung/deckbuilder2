@@ -64,6 +64,9 @@
       <div class="flex-row-evenly">
         <p>{{this.data.documentSize.width}}px X {{this.data.documentSize.height}}px</p>
       </div>
+
+      <fa [name]="this.showRenderOverflow ? 'object-ungroup' : 'object-group'" (click)="this.toggleRenderOverflow()"></fa>
+    
     </div>
 
     <div id="heirarchy">
@@ -101,7 +104,7 @@
 
             <fa (click)="this.data.decreaseOneLayer(slideObject.id)" name="arrow-down"></fa>
 
-            <fa (click)="slideObject.toggleSlideObjectProperty('display')" name="eye"></fa>
+            <fa (click)="slideObject.toggleSlideObjectProperty('display')" [name]="slideObject.getSlideObjectProperty('display') ? 'eye' : 'eye-slash'"></fa>
 
             <fa (click)="this.deleteSlideObjectById(slideObject.id)" name="trash"></fa>
         </div>

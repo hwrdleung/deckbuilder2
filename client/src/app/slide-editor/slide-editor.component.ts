@@ -10,6 +10,7 @@ import { Slide } from '../classes/slide';
 export class SlideEditorComponent implements OnInit {
 
   indexOfSelectedSlideObject: number;
+  showRenderOverflow: boolean = false;
 
   constructor(private data: DataService) { }
 
@@ -182,6 +183,10 @@ export class SlideEditorComponent implements OnInit {
 
   // Slide editor render functions
 
+  toggleRenderOverflow(){
+    this.showRenderOverflow  = !this.showRenderOverflow;
+  }
+
   getSlideRenderCss() {
     let backgroundColor = this.data.slides[this.data.currentSlideIndex].getSlideProperty('backgroundColor');
     let slideRenderWidth = this.data.documentSize['width'];
@@ -201,9 +206,9 @@ export class SlideEditorComponent implements OnInit {
       'width': slideRenderWidth + 'px',
       'transform': 'translate(' + translationX + ') scale(' + this.data.slideRenderMagnification / 100 + ')',
       'position': 'relative',
-      'overflow': 'hidden'
+      'overflow': this.showRenderOverflow ? 'visible' : 'hidden'
+}
 
-    }
     return css;
   }
 
