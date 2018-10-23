@@ -13,12 +13,16 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { StylerComponent } from './styler/styler.component';
 import { SandboxComponent } from './sandbox/sandbox.component';
 import { SlideEditorComponent } from './slide-editor/slide-editor.component';
+import { TextStyleCardComponent } from './text-style-card/text-style-card.component';
+import { ImageStyleCardComponent } from './image-style-card/image-style-card.component';
+
 import { DataService } from './data.service';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularDraggableModule } from 'angular2-draggable';
-import { TextStyleCardComponent } from './text-style-card/text-style-card.component';
-import { ImageStyleCardComponent } from './image-style-card/image-style-card.component';
+import { DialogComponent } from './dialog/dialog.component';
+import { DialogService } from './dialog.service';
+
 
 const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
   // Change this to your Google API key
@@ -33,7 +37,8 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     SandboxComponent,
     SlideEditorComponent,
     TextStyleCardComponent,
-    ImageStyleCardComponent
+    ImageStyleCardComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,7 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     ColorPickerModule,
     AngularDraggableModule
   ],
-  providers: [DataService, {
+  providers: [DataService, DialogService, {
     provide: FONT_PICKER_CONFIG,
     useValue: DEFAULT_FONT_PICKER_CONFIG
   }],

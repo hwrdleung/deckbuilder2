@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Project } from './classes/project';
 
 
 @Component({
@@ -8,7 +7,11 @@ import { Project } from './classes/project';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'client';
+
+  constructor(){
+
+  }
+
 
 
 

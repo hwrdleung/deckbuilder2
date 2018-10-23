@@ -8,17 +8,21 @@ import { TextObject } from "./classes/textObject";
 import * as jsPDF from 'jspdf';
 import * as html2canvas from "html2canvas";
 import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
-// import { caman } from "./caman";
 
 import { ImageObject } from "./classes/imageObject";
 import { BorderControl } from "./classes/borderControl";
 import { ShadowControl } from "./classes/shadowControl";
+import { DialogService } from "./dialog.service";
 
 @Injectable({
   providedIn: "root"
 })
+
 export class DataService {
 
+  constructor(private dialog: DialogService) {
+
+  }
 
   // These variable define the state of the app
   currentProject: Project = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : this.loadNewProject();
@@ -52,13 +56,11 @@ export class DataService {
   documentSize = this.currentProject.getProjectProperty('documentSize');
   slideRenderMagnification: number = this.currentProject.getProjectProperty('slideRenderMagnification');
 
-  constructor(private http: HttpClient) {
 
-  }
+
 
   test() {
     console.log("Test");
-    console.log(this.documentSize.height);
   }
 
   // FUNCTIONS USED BY ALL COMPONENTS
@@ -227,7 +229,7 @@ export class DataService {
     localStorage.setItem('deckbuilder2Data', JSON.stringify(this.currentProject));
     // Send to server and save to database when backend is set up
 
-    alert('Your session has been saved');
+    this.dialog.alert('Your session has been saved.');
 
   }
 
@@ -348,6 +350,9 @@ export class DataService {
 
   //  STYLER FUNCTIONS
   deleteTextStyleById(id: number) {
+
+          // Check if this style is currently being used in a slide
+
     for (let i = 0; i < this.textStyles.length; i++) {
       let thisTextStyleId = this.textStyles[i].getStyleProperty('id');
 
@@ -357,7 +362,6 @@ export class DataService {
         this.selectedTextStyleId = 0;
       }
 
-      // Check if this style is currently being used in a slide
 
       // Delete style by id
       if (thisTextStyleId === id)
@@ -463,12 +467,18 @@ export class DataService {
   }
 
   deleteImageById(imageId: number) {
-    console.log(imageId);
-    for (let i = 0; i < this.images.length; i++) {
-      if (this.images[i].id === imageId) {
-        this.images.splice(i, 1);
+
+    let callback = () => {
+      for (let i = 0; i < this.images.length; i++) {
+        if (this.images[i].id === imageId) {
+          this.images.splice(i, 1);
+        }
       }
     }
+
+    this.dialog.alert("Are you sure you want to delete this image from your project?", callback);
+
+    
   }
 
   //  SLIDE EDITOR FUNCTIONS

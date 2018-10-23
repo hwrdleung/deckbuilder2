@@ -44,7 +44,6 @@
 }
 
 #slide-render-area {
-    position: relative;
     height: 100%;
     width: 41vw;
     overflow: scroll;

@@ -1,0 +1,10 @@
+<div id="overlay" *ngIf="this.dialog.showDialog">
+  <div id="dialog-box" class="grayAccent03">
+    <p id="message">{{this.dialog.message}}</p>
+
+    <div class="flex-row-center">
+        <button (click)="this.dialog.ok()">Ok</button>
+        <button *ngIf="this.dialog.callback" (click)="this.dialog.close()">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,6 @@
     overflow: hidden;
     display: grid;
     grid-template-rows: 8vh 92vh;
-    /* grid-template-columns: 300px minmax(41vw, 1fr) 41vw; */
     grid-template-columns: 300px auto 41vw;
     grid-template-areas:
         "toolbar toolbar toolbar"
@@ -13,14 +12,12 @@
 
 #toolbar {
     grid-area: toolbar;
-    /* overflow: hidden; */
     margin: 0;
     padding: 0;
 }
 
 #styler {
     grid-area: styler;
-    /* overflow-x: hidden; */
     overflow-y: scroll;
     padding-bottom: 300px;
 }
@@ -33,5 +30,4 @@
 #slide-editor {
     grid-area: editor;
     overflow: visible;
-    /* overflow: hidden; */
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Slide } from '../classes/slide';
+import { DialogService } from '../dialog.service';
 
 @Component({
   selector: 'slide-editor',
@@ -12,10 +13,9 @@ export class SlideEditorComponent implements OnInit {
   indexOfSelectedSlideObject: number;
   showRenderOverflow: boolean = false;
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private dialog: DialogService) { }
 
   ngOnInit() {
-
 
   }
 
@@ -164,11 +164,16 @@ export class SlideEditorComponent implements OnInit {
   }
 
   deleteCurrentSlide() {
-    this.data.slides.splice(this.data.currentSlideIndex, 1);
 
-    if (this.data.currentSlideIndex >= this.data.slides.length) {
-      this.data.currentSlideIndex--;
+    let callback = () => {
+      this.data.slides.splice(this.data.currentSlideIndex, 1);
+
+      if (this.data.currentSlideIndex >= this.data.slides.length) {
+        this.data.currentSlideIndex--;
+      }
     }
+
+    this.dialog.alert("Are you sure you want to delete this slide?", callback);
   }
 
   deleteSlideObjectById(id: number) {
