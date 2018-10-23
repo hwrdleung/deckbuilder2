@@ -123,7 +123,7 @@
             <h4>
               <input type="number" [(ngModel)]="imageStyle.border.bottomLeftRadius">px</h4>
           </div>
-        </div>
+      
 
       <!-- Full border settings -->
       <div class="flex-row-evenly style-card-row">
@@ -159,9 +159,13 @@
           <i class="material-icons">border_bottom</i>
         </a>
       </div>
+    </div>
 
       <!-- Full border settings -->
       <div *ngIf="imageStyle.border.showFullBorder">
+          <div class="flex-row-evenly style-card-row">
+              <h4>Full border: </h4>
+            </div>
 
         <div class="flex-row-between style-card-row">
           <h4>Width: </h4>
@@ -190,8 +194,8 @@
 
       <!-- Top border settings -->
       <div *ngIf="imageStyle.border.showTopBorder">
-        <div class="flex-row-between style-card-row">
-          <h4>Top Border: </h4>
+        <div class="flex-row-evenly style-card-row">
+          <h4>Top border: </h4>
         </div>
 
         <div class="flex-row-between style-card-row">
@@ -217,8 +221,8 @@
       </div>
       <!-- Right border settings -->
       <div *ngIf="imageStyle.border.showRightBorder">
-        <div class="flex-row-between style-card-row">
-          <h4>Right Border: </h4>
+        <div class="flex-row-evenly style-card-row">
+          <h4>Right border: </h4>
         </div>
 
         <div class="flex-row-between style-card-row">
@@ -245,8 +249,8 @@
 
       <!-- Bottom border settings -->
       <div *ngIf="imageStyle.border.showBottomBorder">
-        <div class="flex-row-between style-card-row">
-          <h4>Bottom Border: </h4>
+        <div class="flex-row-evenly style-card-row">
+          <h4>Bottom border: </h4>
         </div>
 
 
@@ -274,8 +278,8 @@
 
       <!-- Left border settings -->
       <div *ngIf="imageStyle.border.showLeftBorder">
-        <div class="flex-row-between style-card-row">
-          <h4>Left Border: </h4>
+        <div class="flex-row-evenly style-card-row">
+          <h4>Left border: </h4>
         </div>
 
         <div class="flex-row-between style-card-row">
