@@ -30,12 +30,25 @@
 <div id="slide-editor-workspace" class="accent04">
   <div *ngIf="this.data.slides.length > 0" id="slide-render-area">
     <div id="slide-render" [ngStyle]="this.getSlideRenderCss()">
-      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" class="slide-object" [ngStyle]="slideObject.getCss()"
-        (mousedown)="this.selectObject(slideObject.id)" ngResizable [rzHandles]="'all'" (rzStop)="slideObject.setSize($event)"
-        ngDraggable (endOffset)="slideObject.setTranslation($event)" [position]="slideObject.getTranslation()" [rzAspectRatio]="slideObject.constructor.name==='ImageObject'? true: false">
+      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" 
+      class="slide-object"
+        [ngStyle]="slideObject.getCss()" 
+        (mousedown)="this.selectObject(slideObject.id)" 
+        ngResizable 
+        [rzHandles]="'all'"
+        (rzStart)="slideObject.setSlideObjectProperty('isResizing', true)" 
+        (rzStop)="slideObject.setSize($event); slideObject.setSlideObjectProperty('isResizing', false)"
+        ngDraggable 
+        (started)="slideObject.setSlideObjectProperty('isDragging', true)" 
+        (stopped)="slideObject.setSlideObjectProperty('isDragging', false)"
+        (endOffset)="slideObject.setTranslation($event)" 
+        [position]="slideObject.getTranslation()"
+        [rzAspectRatio]="slideObject.constructor.name==='ImageObject'? true: false">
+
         <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="this.data.getTextStyleById(slideObject.styleId).getCss()">{{slideObject.textValue}}</p>
         <img *ngIf="slideObject.constructor.name==='ImageObject'" [ngStyle]="this.data.getImageStyleById(slideObject.styleId).getCss()"
           [src]="slideObject.imagePath" crossOrigin="anonymous">
+
       </div>
     </div>
   </div>
@@ -46,8 +59,8 @@
     <div id="slide-control-toolbar" class="grayAccent02 flex-row-evenly">
       <div class="flex-row-evenly">
         <p>Set background color: </p>
-        <input class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor" [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor"
-        />
+        <input class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor"
+          [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor" />
       </div>
 
       <div class="flex-row-evenly">
@@ -66,7 +79,7 @@
       </div>
 
       <fa [name]="this.showRenderOverflow ? 'object-ungroup' : 'object-group'" (click)="this.toggleRenderOverflow()"></fa>
-    
+
     </div>
 
     <div id="heirarchy">
@@ -100,13 +113,13 @@
         </div>
 
         <div class="heirarchy-control-group heirarchy-content-misc flex-row-evenly">
-            <fa (click)="this.data.increaseOneLayer(slideObject.id)" name="arrow-up"></fa>
+          <fa (click)="this.data.increaseOneLayer(slideObject.id)" name="arrow-up"></fa>
 
-            <fa (click)="this.data.decreaseOneLayer(slideObject.id)" name="arrow-down"></fa>
+          <fa (click)="this.data.decreaseOneLayer(slideObject.id)" name="arrow-down"></fa>
 
-            <fa (click)="slideObject.toggleSlideObjectProperty('display')" [name]="slideObject.getSlideObjectProperty('display') ? 'eye' : 'eye-slash'"></fa>
+          <fa (click)="slideObject.toggleSlideObjectProperty('display')" [name]="slideObject.getSlideObjectProperty('display') ? 'eye' : 'eye-slash'"></fa>
 
-            <fa (click)="this.deleteSlideObjectById(slideObject.id)" name="trash"></fa>
+          <fa (click)="this.deleteSlideObjectById(slideObject.id)" name="trash"></fa>
         </div>
 
         <div class="heirarchy-control-group heirarchy-dim flex-row-evenly">

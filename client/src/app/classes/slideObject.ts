@@ -15,6 +15,8 @@ export class SlideObject{
     private width: string | number; // Save as percentage
     private display: boolean;
     private zIndex: number;
+    private isResizing: boolean;
+    private isDragging: boolean;
 
     constructor () {
         this.id = SlideObject.slideObjectCounter++;
@@ -27,6 +29,8 @@ export class SlideObject{
         this.width = 'auto';
         this.display = true;
         this.zIndex = 100;
+        this.isResizing = false;
+        this.isDragging = false;
     }
 
     revive(obj){
@@ -83,6 +87,14 @@ export class SlideObject{
             'display' : this.display ? 'block' : 'none',
             'position' : 'absolute'
         }
+
+        if(this.isResizing || this.isDragging) {
+            css['border'] = '2px gray dashed';
+            css['background'] = 'rgba(0, 0, 0, 0.3)';
+            css['margin-top'] = '-2px';
+            css['margin-left'] = '-2px';
+        }
+
         return css;
     }
 
