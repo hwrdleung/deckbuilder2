@@ -134,6 +134,11 @@ input[type="text"]{
     font-size: 0.7rem;
     overflow: hidden;
     padding: 2px 0;
+    font-weight: normal;
+}
+
+.heirarchy-control-group h5 {
+    font-weight: normal;
 }
 
 .heirarchy-control-group fa {
@@ -178,6 +183,7 @@ input[type="text"]{
     padding: 2px 0;
     border-bottom: 3px rgb(81, 133, 81) solid; 
 }
+
 
 
 @media screen and (min-width: 1200px) {

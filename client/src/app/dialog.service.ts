@@ -13,7 +13,6 @@ export class DialogService {
   callback: Function;
 
   alert(message:string, callback?:Function){
-    console.log('test from dialog service')
     this.message = message;
     this.showDialog = true;
 

@@ -26,7 +26,6 @@ export class DataService {
 
   // These variable define the state of the app
   currentProject: Project = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : this.loadNewProject();
-  // currentProject: Project = new Project();
 
   slides: Array<Slide> = this.currentProject.getProjectProperty('slides');
   textStyles: Array<TextStyle> = this.currentProject.getProjectProperty('textStyles');
@@ -55,9 +54,6 @@ export class DataService {
 
   documentSize = this.currentProject.getProjectProperty('documentSize');
   slideRenderMagnification: number = this.currentProject.getProjectProperty('slideRenderMagnification');
-
-
-
 
   test() {
     console.log("Test");
@@ -101,15 +97,6 @@ export class DataService {
     }
   }
 
-  getShapeStyleById(id: number) {
-    for (let i = 0; i < this.shapeStyles.length; i++) {
-      if (this.shapeStyles[i].getStyleProperty('id') === id) {
-        return this.shapeStyles[i];
-      }
-    }
-  }
-
-
   loadNewProject() {
     let project = new Project();
 
@@ -135,49 +122,47 @@ export class DataService {
 
     // Revive Slides
     let slides = [];
-
     for (let i = 0; i < savedProjectData.slides.length; i++) {
-      let slide = new Slide();
-      slide.revive(savedProjectData.slides[i]);
-
       let slideObjects = [];
+      let slide = new Slide();
+      let thisSlide = savedProjectData.slides[i]
+      slide.revive(thisSlide);
 
-      for (let j = 0; j < savedProjectData.slides[i].slideObjects.length; j++) {
-        let currentSlideObject = savedProjectData.slides[i].slideObjects[j];
-        // Revive text objects
-        if (currentSlideObject.hasOwnProperty('textValue')) {
+      for (let j = 0; j < thisSlide.slideObjects.length; j++) {
+        let thisSlideObject = thisSlide.slideObjects[j];
+
+        if (thisSlideObject.hasOwnProperty('textValue')) {
+          // Revive text objects
           let textObject = new TextObject();
-          textObject.revive(currentSlideObject);
+          textObject.revive(thisSlideObject);
           slideObjects.push(textObject);
-        } else if (currentSlideObject.hasOwnProperty('imagePath')) {
+        } else if (thisSlideObject.hasOwnProperty('imagePath')) {
           // Revive image objects
           let imageObject = new ImageObject();
-          imageObject.revive(currentSlideObject);
+          imageObject.revive(thisSlideObject);
           slideObjects.push(imageObject);
         }
-
         slide.setSlideProperty('slideObjects', slideObjects);
       }
       slides.push(slide);
     }
 
     project.setProjectProperty('slides', slides);
-
     // Revive text styles
     let textStyles = []; // REMEMBER TO ADD ME BACK INTO PROJECT
     for (let i = 0; i < savedProjectData.textStyles.length; i++) {
-      let currentTextStyle = savedProjectData.textStyles[i];
+      let thisTextStyle = savedProjectData.textStyles[i];
       let textStyle = new TextStyle();
-      textStyle.revive(currentTextStyle);
+      textStyle.revive(thisTextStyle);
 
       // Revive borders
       let border = new BorderControl();
-      border.revive(currentTextStyle.border);
+      border.revive(thisTextStyle.border);
       textStyle.setStyleProperty('border', border);
 
       // Revive shadows
       let shadow = new ShadowControl();
-      shadow.revive(currentTextStyle.textShadow);
+      shadow.revive(thisTextStyle.textShadow);
       textStyle.setStyleProperty('textShadow', shadow);
 
       textStyles.push(textStyle);
@@ -188,18 +173,17 @@ export class DataService {
     // Revive image styles
     let imageStyles = [];
     for (let i = 0; i < savedProjectData.imageStyles.length; i++) {
-      let currentImageStyle = savedProjectData.imageStyles[i];
+      let thisImageStyle = savedProjectData.imageStyles[i];
       let imageStyle = new ImageStyle();
-      imageStyle.revive(currentImageStyle);
+      imageStyle.revive(thisImageStyle);
 
       // Revive borders
       let border = new BorderControl();
-      border.revive(currentImageStyle.border);
+      border.revive(thisImageStyle.border);
       imageStyle.setStyleProperty('border', border);
 
       imageStyles.push(imageStyle);
     }
-
     project.setProjectProperty('imageStyles', imageStyles);
 
     return project;
@@ -227,10 +211,10 @@ export class DataService {
     this.currentProject.setProjectProperty('images', this.images);
 
     localStorage.setItem('deckbuilder2Data', JSON.stringify(this.currentProject));
+
     // Send to server and save to database when backend is set up
 
     this.dialog.alert('Your session has been saved.');
-
   }
 
   //  TOOLBAR FUNCTIONS
@@ -244,11 +228,6 @@ export class DataService {
     this.imageStyles.push(newImageStyle);
   }
 
-  // createShapeStyle() {
-  //   let newShapeStyle = new ShapeStyle();
-  //   this.shapeStyles.push(newShapeStyle);
-  // }
-
   selectStyle(type: string, id: number) {
     switch (type) {
       case 'text': this.selectedTextStyleId = id; break;
@@ -261,7 +240,6 @@ export class DataService {
     // Parent container must be set to overflow: visible to capture entire canvas
     let slideEditor = document.getElementById('slide-editor');
     slideEditor.style.overflow = "visible";
-
 
     html2canvas(document.getElementById("slide-render"), {
       height: this.documentSize.height,
@@ -280,16 +258,13 @@ export class DataService {
     });
   }
 
-
   exportAsPDF() {
-
     let context = this;
     this.slideRenderMagnification = 100;
     this.currentSlideIndex = 0;
     let slideRender = document.getElementById('slide-render');
     let originalOverflowSR = slideRender.style.overflow;
     slideRender.style.overflow = "visible";
-
 
     // Parent container must be set to overflow: visible to capture entire canvas
     let slideRenderArea = document.getElementById('slide-render-area');
@@ -309,10 +284,10 @@ export class DataService {
 
     // To make the img output size match the pdf size, make sure that:
     // canvas output size * scale factor === pdf document size converted to px
+    addSlides();
 
-    addPages();
-
-    function addPages() {
+    function addSlides() {
+      // Adds slides to jsPdf document recursively and saves when last slide has been added
       setTimeout(function () {
         if (context.currentSlideIndex === context.slides.length) {
           context.currentSlideIndex = 0;
@@ -340,14 +315,12 @@ export class DataService {
             if (context.currentSlideIndex < context.slides.length) {
               doc.addPage();
             }
-
-            addPages();
+            addSlides();
           });
         }
       }, 1000);
     }
   }
-
 
   //  STYLER FUNCTIONS
   deleteTextStyle(textStyle: TextStyle) {
@@ -360,11 +333,9 @@ export class DataService {
 
       for (let j = 0; j < thisSlideObjects.length && !isInUse; j++) {
         let thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
-        let thisSlideObjectStyleType = thisSlideObjects[j].constructor.name;
+        let thisSlideObjectType = thisSlideObjects[j].constructor.name;
 
-        console.log(thisSlideObjectId, thisSlideObjectStyleType);
-
-        if (thisSlideObjectId === id && thisSlideObjectStyleType === "TextObject") {
+        if (thisSlideObjectId === id && thisSlideObjectType === "TextObject") {
           isInUse = true;
           break;
         }
@@ -401,11 +372,9 @@ export class DataService {
 
       for (let j = 0; j < thisSlideObjects.length && !isInUse; j++) {
         let thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
-        let thisSlideObjectStyleType = thisSlideObjects[j].constructor.name;
+        let thisSlideObjectType = thisSlideObjects[j].constructor.name;
 
-        console.log(thisSlideObjectId, thisSlideObjectStyleType);
-
-        if (thisSlideObjectId === id && thisSlideObjectStyleType === "ImageObject") {
+        if (thisSlideObjectId === id && thisSlideObjectType === "ImageObject") {
           isInUse = true;
           break;
         }
@@ -430,17 +399,7 @@ export class DataService {
           this.imageStyles.splice(i, 1);
       }
     }
-}
-
-  // deleteShapeStyleById(id: number) {
-  //   for (let i = 0; i < this.shapeStyles.length; i++) {
-  //     if (this.shapeStyles[i].getStyleProperty('id') === id && this.shapeStyles.length > 1) {
-  //       this.shapeStyles.splice(i, 1);
-  //     }
-  //   }
-  // }
-
-
+  }
 
   //  SANDBOX FUNCTIONS
   addTextObjectToSlide() {
@@ -511,7 +470,6 @@ export class DataService {
   }
 
   deleteImageById(imageId: number) {
-
     let callback = () => {
       for (let i = 0; i < this.images.length; i++) {
         if (this.images[i].id === imageId) {
@@ -521,8 +479,6 @@ export class DataService {
     }
 
     this.dialog.alert("Are you sure you want to delete this image from your project?", callback);
-
-
   }
 
   //  SLIDE EDITOR FUNCTIONS

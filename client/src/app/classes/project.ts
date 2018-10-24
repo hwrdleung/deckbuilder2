@@ -61,7 +61,7 @@ export class Project {
         this.selectedSlideObjectId = 1;
 
         this.sandboxText = "Lorem ipsum";
-        this.textNotes = "Test";
+        this.textNotes = "Add your notes here...";
         this.images = [];
         this.selectedImage = 0;
 

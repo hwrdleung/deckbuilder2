@@ -13,11 +13,9 @@ export class TextStyleCardComponent implements OnInit {
     textStyle: TextStyle;
 
   constructor(private data: DataService) { 
-    console.log(TextStyleCardComponent)
   }
 
   ngOnInit() {
-    console.log(this.textStyle);
   }
 
 }

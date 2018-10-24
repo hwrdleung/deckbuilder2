@@ -59,7 +59,6 @@ export class SlideEditorComponent implements OnInit {
     `;
 
     // Add elements to DOM
-
     document.body.appendChild(fullscreenContainer);
 
     refreshPreview();
@@ -76,10 +75,6 @@ export class SlideEditorComponent implements OnInit {
     document.addEventListener("msfullscreenchange", exitPreviewMode);
 
     function exitPreviewMode(event) {
-
-      console.log(event);
-      console.log(document.fullscreenElement, document.webkitFullscreenElement);
-
       if (document.fullscreenElement || document.webkitFullscreenElement === null) {
         document.body.removeChild(fullscreenContainer);
 
@@ -103,7 +98,6 @@ export class SlideEditorComponent implements OnInit {
     }
 
     function mouseControl(event) {
-      console.log(event.button);
       switch (event.button) {
         case 2: // Right click
           context.previousSlide();
@@ -153,14 +147,12 @@ export class SlideEditorComponent implements OnInit {
     if (this.data.currentSlideIndex > 0) {
       this.data.currentSlideIndex--;
     }
-    console.log('Current slide index:', this.data.currentSlideIndex);
   }
 
   nextSlide() {
     if (this.data.currentSlideIndex < this.data.slides.length - 1) {
       this.data.currentSlideIndex++;
     }
-    console.log('Current slide index:', this.data.currentSlideIndex);
   }
 
   deleteCurrentSlide() {
@@ -224,32 +216,23 @@ export class SlideEditorComponent implements OnInit {
 
   // User clicks zoom in/out
   zoom(direction: string) {
-    console.log('zoom');
     let magnification = this.data.slideRenderMagnification;
-    console.log('starting value: ', magnification);
-
     let increment = 5;
 
     switch (direction) {
       case 'in':
-        console.log('in');
         if (magnification > 200 - increment) {
           magnification = 200;
-          console.log(magnification);
         } else {
           magnification += increment;
-          console.log(magnification);
         }
         this.data.slideRenderMagnification = magnification;
         break;
       case 'out':
-        console.log('out');
         if (magnification < increment) {
           magnification = 0;
-          console.log(magnification);
         } else {
           magnification -= increment;
-          console.log(magnification);
         }
         this.data.slideRenderMagnification = magnification;
         break;
@@ -260,7 +243,6 @@ export class SlideEditorComponent implements OnInit {
   // This controls the image size when user inputs a value in the heirarchy
   maintainRatio(slideObject, dimension, value) {
     // Get original aspect ratio of this slide object
-    console.log(slideObject.width, slideObject.height);
     let ratio: number;
 
     if (slideObject.width || slideObject.height === "auto") {
@@ -269,27 +251,25 @@ export class SlideEditorComponent implements OnInit {
       img.src = slideObject.getSlideObjectProperty('imagePath');
       img.onload = () => {
         ratio = img.width / img.height;
-        calculate();
+        setImageSize();
         img = null;
       }
     } else {
       ratio = slideObject.width / slideObject.height;
-      calculate();
+      setImageSize();
     }
 
-    function calculate() {
+    function setImageSize() {
       switch (dimension) {
         case 'width':
           let newHeight = value / ratio;
           slideObject.width = value;
           slideObject.height = newHeight;
-          console.log(value, newHeight, 'New Ratio', value / newHeight);
           break;
         case 'height':
           let newWidth = value * ratio;
           slideObject.height = value;
           slideObject.width = newWidth;
-          console.log(value, newWidth, 'New Ratio', newWidth / value);
           break;
       }
     }
