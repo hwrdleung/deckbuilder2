@@ -1,32 +1,3 @@
-<div id="slide-editor-toolbar" class="grayAccent02 flex-row-evenly">
-  <a (click)="this.createNewSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
-    <fa name="plus-square"></fa>
-    <p>New slide</p>
-  </a>
-
-  <a (click)="this.preview()" class="flex-row-evenly slide-editor-toolbar-btn-group">
-    <fa name="play"></fa>
-    <p>Preview</p>
-  </a>
-
-  <a (click)="this.previousSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
-    <fa name="step-backward"></fa>
-  </a>
-
-  <div>
-    <h1 style="padding: 10px;" id="slide-number" (click)="this.data.test()">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>
-  </div>
-
-  <a (click)="this.nextSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
-    <fa name="step-forward"></fa>
-  </a>
-
-  <a (click)="this.deleteCurrentSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
-    <fa name="trash"></fa>
-    <p>Delete slide</p>
-  </a>
-</div>
-
 <div id="slide-editor-workspace">
   <div *ngIf="this.data.slides.length > 0" id="slide-render-area">
     <div id="slide-render" [ngStyle]="this.getSlideRenderCss()">

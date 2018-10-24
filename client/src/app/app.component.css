@@ -3,15 +3,23 @@
     height: 100vh;
     overflow: hidden;
     display: grid;
-    grid-template-rows: 8vh 92vh;
+    grid-gap: 0;
+    grid-template-rows: 8vh 6vh 86vh;
     grid-template-columns: 300px auto 41vw;
     grid-template-areas:
         "toolbar toolbar toolbar"
+        "styler toolbar2 toolbar2"
         "styler sandbox editor"
 }
 
 #toolbar {
     grid-area: toolbar;
+    margin: 0;
+    padding: 0;
+}
+
+#toolbar-secondary {
+    grid-area: toolbar2;
     margin: 0;
     padding: 0;
 }

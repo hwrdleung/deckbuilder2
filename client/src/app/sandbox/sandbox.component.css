@@ -1,4 +1,4 @@
-
+/* 
 #sandbox-toolbar {
     height: 6vh;
     margin: 0;
@@ -32,7 +32,7 @@
     margin: 0 10px;
     padding: 0;
     white-space: nowrap;
-}
+} */
 
 .sandbox-preview-area {
     width: 100%;
@@ -91,7 +91,7 @@
 #text-sandbox {
     width: 100%;
     display: grid;
-    grid-template-rows: 51vh 10vh 25vh;
+    grid-template-rows: 43vh 10vh 33vh;
     margin: 0;
     padding: 0;
 }
@@ -99,7 +99,7 @@
 #image-sandbox {
     width: 100%;
     display: grid;
-    grid-template-rows: 51vh 10vh 25vh;
+    grid-template-rows: 43vh 10vh 33vh;
     margin: 0;
     padding: 0;
 }
