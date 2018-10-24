@@ -1,15 +1,16 @@
 #app-container {
     width: 100%;
+    max-width: 100vw;
     height: 100vh;
     overflow: hidden;
     display: grid;
     grid-gap: 0;
     grid-template-rows: 8vh 6vh 86vh;
-    grid-template-columns: 300px auto 10px auto;
+    grid-template-columns: 300px 1fr;
     grid-template-areas:
-        "toolbar toolbar toolbar toolbar"
-        "styler toolbar2 toolbar2 toolbar2"
-        "styler sandbox resizer editor"
+        "toolbar toolbar"
+        "styler toolbar2"
+        "styler workspace"
 }
 
 #toolbar {
@@ -30,17 +31,19 @@
     padding-bottom: 300px;
 }
 
+#workspace{
+    width: 100%;
+    height: 100%;
+    grid-area: workspace;
+    display: flex;
+}
+
 #sandbox {
-    grid-area: sandbox;
+    width: auto;
+    flex-grow: 1;
 }
 
 #slide-editor {
-    grid-area: editor;
+    width: 600px;
 }
 
-#resizer {
-    grid-area: resizer;
-    background: red;
-    height: 100%;
-    width: 100%;
-}
