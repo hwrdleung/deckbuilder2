@@ -87,3 +87,15 @@ select {
     border: 1px white solid;
     box-sizing: border-box;
 }
+
+.md-color-selector {
+    width: 100px;
+    height: 10px;
+    border: 1px #D6F9DD solid;
+}
+
+.md-color-selector:hover {
+    cursor: pointer;
+}
+
+

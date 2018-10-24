@@ -184,8 +184,6 @@ input[type="text"]{
     border-bottom: 3px rgb(81, 133, 81) solid; 
 }
 
-
-
 @media screen and (min-width: 1200px) {
     .slide-editor-toolbar-btn-group p {
        font-size: 0.8rem;

@@ -22,6 +22,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogService } from './dialog.service';
+import { ToolbarSecondaryComponent } from './toolbar-secondary/toolbar-secondary.component';
 
 
 const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
@@ -39,6 +40,7 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     TextStyleCardComponent,
     ImageStyleCardComponent,
     DialogComponent,
+    ToolbarSecondaryComponent,
   ],
   imports: [
     BrowserModule,

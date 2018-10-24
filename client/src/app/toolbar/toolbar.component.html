@@ -9,11 +9,6 @@
     <fa name="image"></fa>
     <p>New image style</p>
   </a>
-
-  <!-- <a (click)="this.data.createShapeStyle(); this.data.setMode('shape')" class="flex-col-evenly">
-    <fa name="shapes"></fa>
-    <p>Create a new shape style</p>
-  </a> -->
 </div>
 
 <div id="toolbar-style-selector" class="greenAccent02">
@@ -27,11 +22,6 @@
   <div *ngIf="this.data.viewImageElements">
     <a *ngFor="let imageStyle of this.data.imageStyles" (click)="this.data.selectStyle('image', imageStyle.id);" class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(imageStyle)">{{imageStyle.name}}</a>
   </div>
-
-  <!-- Shape styles -->
-  <!-- <div *ngIf="this.data.viewShapeElements">
-    <a *ngFor="let shapeStyle of this.data.shapeStyles" (click)="this.data.selectStyle('shape', shapeStyle.id); this.data.setMode('shape')" class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(shapeStyle)">{{shapeStyle.name}}</a>
-  </div> -->
 </div>
 
 

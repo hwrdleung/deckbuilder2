@@ -95,3 +95,15 @@ select {
     cursor: pointer;
     line-height: 1;
 }
+
+.md-color-selector {
+    width: 100px;
+    height: 10px;
+    border: 1px #D6F9DD solid;
+}
+
+.md-color-selector:hover {
+    cursor: pointer;
+}
+
+

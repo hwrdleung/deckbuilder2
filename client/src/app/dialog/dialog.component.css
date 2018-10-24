@@ -4,7 +4,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100;
 }
 
 #dialog-box {
@@ -14,9 +15,10 @@
     left: 50%;
     margin-left: -200px;
     top: 30vh;
-    padding: 25px 50px;
+    padding: 25px 25px 15px 25px;
     border-radius: 8px;
-    box-shadow: 2px 2px 5px rgb(59, 59, 59), -2px -2px 5px rgb(110, 110, 110);
+    background: #FFF;
+    z-index: 101;
 }
 
 #message {
