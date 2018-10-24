@@ -177,14 +177,6 @@ export class ToolbarSecondaryComponent implements OnInit {
       this.dialog.alert("Are you sure you want to delete this slide from your project?", callback);
     }
   
-    deleteSlideObjectById(id: number) {
-      let currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getSlideProperty('slideObjects');
-  
-      for (let i = 0; i < currentSlideObjects.length; i++) {
-        if (currentSlideObjects[i].getSlideObjectProperty('id') === id) {
-          currentSlideObjects.splice(i, 1);
-        }
-      }
-    }
+
 
 }

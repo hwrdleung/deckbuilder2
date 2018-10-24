@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    overflow: hidden;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-rows: 8vh 92vh;\r\n        grid-template-rows: 8vh 92vh;\r\n        -ms-grid-columns: 300px auto 41vw;\r\n        grid-template-columns: 300px auto 41vw;\r\n        grid-template-areas:\r\n        \"toolbar toolbar toolbar\"\r\n        \"styler sandbox editor\"\r\n}\r\n\r\n#toolbar {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    -ms-grid-column-span: 3;\r\n    grid-area: toolbar;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#styler {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 1;\r\n    grid-area: styler;\r\n    overflow-y: scroll;\r\n    padding-bottom: 300px;\r\n}\r\n\r\n#sandbox {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 2;\r\n    grid-area: sandbox;\r\n    overflow: visible;\r\n}\r\n\r\n#slide-editor {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 3;\r\n    grid-area: editor;\r\n    overflow: visible;\r\n}"
+module.exports = "#app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    overflow: hidden;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    grid-gap: 0;\r\n        -ms-grid-rows: 8vh 0 6vh 0 86vh;\r\n        grid-template-rows: 8vh 6vh 86vh;\r\n        -ms-grid-columns: 300px 0 auto 0 41vw;\r\n        grid-template-columns: 300px auto 41vw;\r\n        grid-template-areas:\r\n        \"toolbar toolbar toolbar\"\r\n        \"styler toolbar2 toolbar2\"\r\n        \"styler sandbox editor\"\r\n}\r\n\r\n#toolbar {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    -ms-grid-column-span: 5;\r\n    grid-area: toolbar;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#toolbar-secondary {\r\n    -ms-grid-row: 3;\r\n    -ms-grid-column: 3;\r\n    -ms-grid-column-span: 3;\r\n    grid-area: toolbar2;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#styler {\r\n    -ms-grid-row: 3;\r\n    -ms-grid-row-span: 3;\r\n    -ms-grid-column: 1;\r\n    grid-area: styler;\r\n    overflow-y: scroll;\r\n    padding-bottom: 300px;\r\n}\r\n\r\n#sandbox {\r\n    -ms-grid-row: 5;\r\n    -ms-grid-column: 3;\r\n    grid-area: sandbox;\r\n}\r\n\r\n#slide-editor {\r\n    -ms-grid-row: 5;\r\n    -ms-grid-column: 5;\r\n    grid-area: editor;\r\n}\r\n\r\n#resizer {\r\n    grid-area: resizer;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: red;\r\n}"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "#app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"app-container\" class=\"grayAccent01\">\r\n\r\n  <toolbar id=\"toolbar\" class=\"grayAccent01 flex-row-between\"></toolbar>\r\n\r\n  <styler id=\"styler\" class=\"accent05 flex-col-start\"></styler>\r\n\r\n  <sandbox id=\"sandbox\" class=\"accent05\"></sandbox>\r\n\r\n  <slide-editor id=\"slide-editor\" class=\"accent05 flex-col-evenly\"></slide-editor>\r\n\r\n</div>\r\n<app-dialog></app-dialog>\r\n\r\n\r\n"
+module.exports = "<div id=\"app-container\" class=\"grayAccent01\">\r\n\r\n  <toolbar id=\"toolbar\" class=\"grayAccent01 flex-row-between\"></toolbar>\r\n  <toolbar-secondary id=\"toolbar-secondary\"></toolbar-secondary>\r\n  <styler id=\"styler\" class=\"accent05 flex-col-start\"></styler>\r\n\r\n  <sandbox id=\"sandbox\" class=\"accent05\"></sandbox>\r\n\r\n  <slide-editor id=\"slide-editor\" class=\"accent05 flex-col-evenly\"></slide-editor>\r\n\r\n</div>\r\n<app-dialog></app-dialog>\r\n\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -69,6 +69,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
     }
+    AppComponent.prototype.ngOnInit = function () {
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
@@ -111,12 +113,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var angular2_draggable__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! angular2-draggable */ "./node_modules/angular2-draggable/fesm5/angular2-draggable.js");
 /* harmony import */ var _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./dialog/dialog.component */ "./src/app/dialog/dialog.component.ts");
 /* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./dialog.service */ "./src/app/dialog.service.ts");
+/* harmony import */ var _toolbar_secondary_toolbar_secondary_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./toolbar-secondary/toolbar-secondary.component */ "./src/app/toolbar-secondary/toolbar-secondary.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -153,6 +157,7 @@ var AppModule = /** @class */ (function () {
                 _text_style_card_text_style_card_component__WEBPACK_IMPORTED_MODULE_10__["TextStyleCardComponent"],
                 _image_style_card_image_style_card_component__WEBPACK_IMPORTED_MODULE_11__["ImageStyleCardComponent"],
                 _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_15__["DialogComponent"],
+                _toolbar_secondary_toolbar_secondary_component__WEBPACK_IMPORTED_MODULE_17__["ToolbarSecondaryComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -513,7 +518,7 @@ var Project = /** @class */ (function () {
         this.currentSlideIndex = 0;
         this.selectedSlideObjectId = 1;
         this.sandboxText = "Lorem ipsum";
-        this.textNotes = "Test";
+        this.textNotes = "Add your notes here...";
         this.images = [];
         this.selectedImage = 0;
         this.documentSize = {
@@ -1034,7 +1039,6 @@ var DataService = /** @class */ (function () {
         this.dialog = dialog;
         // These variable define the state of the app
         this.currentProject = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : this.loadNewProject();
-        // currentProject: Project = new Project();
         this.slides = this.currentProject.getProjectProperty('slides');
         this.textStyles = this.currentProject.getProjectProperty('textStyles');
         this.imageStyles = this.currentProject.getProjectProperty('imageStyles');
@@ -1096,13 +1100,6 @@ var DataService = /** @class */ (function () {
             }
         }
     };
-    DataService.prototype.getShapeStyleById = function (id) {
-        for (var i = 0; i < this.shapeStyles.length; i++) {
-            if (this.shapeStyles[i].getStyleProperty('id') === id) {
-                return this.shapeStyles[i];
-            }
-        }
-    };
     DataService.prototype.loadNewProject = function () {
         var project = new _classes_project__WEBPACK_IMPORTED_MODULE_1__["Project"]();
         var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__["TextStyle"]();
@@ -1123,21 +1120,22 @@ var DataService = /** @class */ (function () {
         // Revive Slides
         var slides = [];
         for (var i = 0; i < savedProjectData.slides.length; i++) {
-            var slide = new _classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]();
-            slide.revive(savedProjectData.slides[i]);
             var slideObjects = [];
-            for (var j = 0; j < savedProjectData.slides[i].slideObjects.length; j++) {
-                var currentSlideObject = savedProjectData.slides[i].slideObjects[j];
-                // Revive text objects
-                if (currentSlideObject.hasOwnProperty('textValue')) {
+            var slide = new _classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]();
+            var thisSlide = savedProjectData.slides[i];
+            slide.revive(thisSlide);
+            for (var j = 0; j < thisSlide.slideObjects.length; j++) {
+                var thisSlideObject = thisSlide.slideObjects[j];
+                if (thisSlideObject.hasOwnProperty('textValue')) {
+                    // Revive text objects
                     var textObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_5__["TextObject"]();
-                    textObject.revive(currentSlideObject);
+                    textObject.revive(thisSlideObject);
                     slideObjects.push(textObject);
                 }
-                else if (currentSlideObject.hasOwnProperty('imagePath')) {
+                else if (thisSlideObject.hasOwnProperty('imagePath')) {
                     // Revive image objects
                     var imageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_8__["ImageObject"]();
-                    imageObject.revive(currentSlideObject);
+                    imageObject.revive(thisSlideObject);
                     slideObjects.push(imageObject);
                 }
                 slide.setSlideProperty('slideObjects', slideObjects);
@@ -1148,16 +1146,16 @@ var DataService = /** @class */ (function () {
         // Revive text styles
         var textStyles = []; // REMEMBER TO ADD ME BACK INTO PROJECT
         for (var i = 0; i < savedProjectData.textStyles.length; i++) {
-            var currentTextStyle = savedProjectData.textStyles[i];
+            var thisTextStyle = savedProjectData.textStyles[i];
             var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__["TextStyle"]();
-            textStyle.revive(currentTextStyle);
+            textStyle.revive(thisTextStyle);
             // Revive borders
             var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_9__["BorderControl"]();
-            border.revive(currentTextStyle.border);
+            border.revive(thisTextStyle.border);
             textStyle.setStyleProperty('border', border);
             // Revive shadows
             var shadow = new _classes_shadowControl__WEBPACK_IMPORTED_MODULE_10__["ShadowControl"]();
-            shadow.revive(currentTextStyle.textShadow);
+            shadow.revive(thisTextStyle.textShadow);
             textStyle.setStyleProperty('textShadow', shadow);
             textStyles.push(textStyle);
         }
@@ -1165,12 +1163,12 @@ var DataService = /** @class */ (function () {
         // Revive image styles
         var imageStyles = [];
         for (var i = 0; i < savedProjectData.imageStyles.length; i++) {
-            var currentImageStyle = savedProjectData.imageStyles[i];
+            var thisImageStyle = savedProjectData.imageStyles[i];
             var imageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]();
-            imageStyle.revive(currentImageStyle);
+            imageStyle.revive(thisImageStyle);
             // Revive borders
             var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_9__["BorderControl"]();
-            border.revive(currentImageStyle.border);
+            border.revive(thisImageStyle.border);
             imageStyle.setStyleProperty('border', border);
             imageStyles.push(imageStyle);
         }
@@ -1205,10 +1203,6 @@ var DataService = /** @class */ (function () {
         var newImageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]();
         this.imageStyles.push(newImageStyle);
     };
-    // createShapeStyle() {
-    //   let newShapeStyle = new ShapeStyle();
-    //   this.shapeStyles.push(newShapeStyle);
-    // }
     DataService.prototype.selectStyle = function (type, id) {
         switch (type) {
             case 'text':
@@ -1263,8 +1257,9 @@ var DataService = /** @class */ (function () {
         var pdfHeight = doc.internal.pageSize.height;
         // To make the img output size match the pdf size, make sure that:
         // canvas output size * scale factor === pdf document size converted to px
-        addPages();
-        function addPages() {
+        addSlides();
+        function addSlides() {
+            // Adds slides to jsPdf document recursively and saves when last slide has been added
             setTimeout(function () {
                 if (context.currentSlideIndex === context.slides.length) {
                     context.currentSlideIndex = 0;
@@ -1289,7 +1284,7 @@ var DataService = /** @class */ (function () {
                         if (context.currentSlideIndex < context.slides.length) {
                             doc.addPage();
                         }
-                        addPages();
+                        addSlides();
                     });
                 }
             }, 1000);
@@ -1304,9 +1299,8 @@ var DataService = /** @class */ (function () {
             var thisSlideObjects = this.slides[i].getSlideProperty('slideObjects');
             for (var j = 0; j < thisSlideObjects.length && !isInUse; j++) {
                 var thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
-                var thisSlideObjectStyleType = thisSlideObjects[j].constructor.name;
-                console.log(thisSlideObjectId, thisSlideObjectStyleType);
-                if (thisSlideObjectId === id && thisSlideObjectStyleType === "TextObject") {
+                var thisSlideObjectType = thisSlideObjects[j].constructor.name;
+                if (thisSlideObjectId === id && thisSlideObjectType === "TextObject") {
                     isInUse = true;
                     break;
                 }
@@ -1338,9 +1332,8 @@ var DataService = /** @class */ (function () {
             var thisSlideObjects = this.slides[i].getSlideProperty('slideObjects');
             for (var j = 0; j < thisSlideObjects.length && !isInUse; j++) {
                 var thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
-                var thisSlideObjectStyleType = thisSlideObjects[j].constructor.name;
-                console.log(thisSlideObjectId, thisSlideObjectStyleType);
-                if (thisSlideObjectId === id && thisSlideObjectStyleType === "ImageObject") {
+                var thisSlideObjectType = thisSlideObjects[j].constructor.name;
+                if (thisSlideObjectId === id && thisSlideObjectType === "ImageObject") {
                     isInUse = true;
                     break;
                 }
@@ -1364,13 +1357,6 @@ var DataService = /** @class */ (function () {
             }
         }
     };
-    // deleteShapeStyleById(id: number) {
-    //   for (let i = 0; i < this.shapeStyles.length; i++) {
-    //     if (this.shapeStyles[i].getStyleProperty('id') === id && this.shapeStyles.length > 1) {
-    //       this.shapeStyles.splice(i, 1);
-    //     }
-    //   }
-    // }
     //  SANDBOX FUNCTIONS
     DataService.prototype.addTextObjectToSlide = function () {
         var currentSlide = this.slides[this.currentSlideIndex];
@@ -1515,7 +1501,6 @@ var DialogService = /** @class */ (function () {
         this.showDialog = false;
     }
     DialogService.prototype.alert = function (message, callback) {
-        console.log('test from dialog service');
         this.message = message;
         this.showDialog = true;
         if (callback) {
@@ -1554,7 +1539,7 @@ var DialogService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    background: rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n#dialog-box {\r\n    width: 400px;\r\n    height: auto;\r\n    position: fixed;\r\n    left: 50%;\r\n    margin-left: -200px;\r\n    top: 30vh;\r\n    padding: 25px 50px;\r\n    border-radius: 8px;\r\n    box-shadow: 2px 2px 5px rgb(59, 59, 59), -2px -2px 5px rgb(110, 110, 110);\r\n}\r\n\r\n#message {\r\n    margin-bottom: 35px;\r\n}\r\n\r\nbutton {\r\n    width: 100px;\r\n    height: 25px;\r\n    border: 0;\r\n    border-radius: 5px;\r\n    margin: 5px;\r\n    background: rgb(146, 141, 141);\r\n    color: #FFF;\r\n}\r\n\r\nbutton:hover {\r\n    background: rgb(175, 170, 170);\r\n}"
+module.exports = "#overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    background: rgba(0, 0, 0, 0.6);\r\n    z-index: 100;\r\n}\r\n\r\n#dialog-box {\r\n    width: 400px;\r\n    height: auto;\r\n    position: fixed;\r\n    left: 50%;\r\n    margin-left: -200px;\r\n    top: 30vh;\r\n    padding: 25px 25px 15px 25px;\r\n    border-radius: 8px;\r\n    background: #FFF;\r\n    z-index: 101;\r\n}\r\n\r\n#message {\r\n    margin-bottom: 35px;\r\n}\r\n\r\nbutton {\r\n    width: 100px;\r\n    height: 25px;\r\n    border: 0;\r\n    border-radius: 5px;\r\n    margin: 5px;\r\n    background: rgb(146, 141, 141);\r\n    color: #FFF;\r\n}\r\n\r\nbutton:hover {\r\n    background: rgb(175, 170, 170);\r\n}"
 
 /***/ }),
 
@@ -1565,7 +1550,7 @@ module.exports = "#overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    p
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"overlay\" *ngIf=\"this.dialog.showDialog\">\n  <div id=\"dialog-box\" class=\"grayAccent03\">\n    <p id=\"message\">{{this.dialog.message}}</p>\n\n    <div class=\"flex-row-center\">\n        <button (click)=\"this.dialog.ok()\">Ok</button>\n        <button *ngIf=\"this.dialog.callback\" (click)=\"this.dialog.close()\">Cancel</button>\n    </div>\n  </div>\n</div>"
+module.exports = "<div id=\"overlay\" *ngIf=\"this.dialog.showDialog\">\r\n  <div id=\"dialog-box\">\r\n    <p id=\"message\">{{this.dialog.message}}</p>\r\n\r\n    <div class=\"flex-row-center\">\r\n        <button (click)=\"this.dialog.ok()\">Ok</button>\r\n        <button *ngIf=\"this.dialog.callback\" (click)=\"this.dialog.close()\">Cancel</button>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1620,7 +1605,7 @@ var DialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border-bottom: 3px #FFF solid;\r\n    margin-bottom: 4px;\r\n    height: auto;\r\n}\r\n\r\n.style-card-row {\r\n    width: 100%;\r\n    height: 25px;\r\n    margin: 3px auto;\r\n}\r\n\r\n.style-card-row h3 {\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row a,\r\n.style-card-row h4 {\r\n    font-size: 0.8rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row \r\n.material-icons {\r\n    font-size: 1.2rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa {\r\n    font-size: 0.8rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa:hover,\r\n.style-card-row .material-icons:hover {\r\n    background:rgb(137, 150, 132);\r\n    cursor: pointer;\r\n}\r\n\r\n.style-card-row\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\ninput[type=\"range\"]{\r\n    width: 85px;\r\n}\r\n\r\n.style-card-row\r\nselect {\r\n    border: 1px #D6F9DD solid;\r\n    box-sizing: border-box;\r\n    background: #D6F9DD;\r\n    color: black;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.selected {\r\n    background:rgb(137, 150, 132);\r\n    border: 1px white solid;\r\n    box-sizing: border-box;\r\n}\r\n"
+module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border-bottom: 3px #FFF solid;\r\n    margin-bottom: 4px;\r\n    height: auto;\r\n}\r\n\r\n.style-card-row {\r\n    width: 100%;\r\n    height: 25px;\r\n    margin: 3px auto;\r\n}\r\n\r\n.style-card-row h3 {\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row a,\r\n.style-card-row h4 {\r\n    font-size: 0.8rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row \r\n.material-icons {\r\n    font-size: 1.2rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa {\r\n    font-size: 0.8rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa:hover,\r\n.style-card-row .material-icons:hover {\r\n    background:rgb(137, 150, 132);\r\n    cursor: pointer;\r\n}\r\n\r\n.style-card-row\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\ninput[type=\"range\"]{\r\n    width: 85px;\r\n}\r\n\r\n.style-card-row\r\nselect {\r\n    border: 1px #D6F9DD solid;\r\n    box-sizing: border-box;\r\n    background: #D6F9DD;\r\n    color: black;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.selected {\r\n    background:rgb(137, 150, 132);\r\n    border: 1px white solid;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.md-color-selector {\r\n    width: 100px;\r\n    height: 10px;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.md-color-selector:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1696,7 +1681,7 @@ var ImageStyleCardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n#sandbox-toolbar {\r\n    height: 6vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.sandbox-toolbar-btn-group {\r\n    height: 100%;\r\n    width: 30%;\r\n    max-width: 150px;\r\n    padding: 0 15px;\r\n}\r\n\r\n.sandbox-add-btn-group:hover, \r\n.sandbox-toolbar-btn-group:hover {\r\n    background: rgb(100, 100, 100);\r\n}\r\n\r\n.sandbox-toolbar-btn-group fa {\r\n    font-size: 2vh;\r\n    margin: 0;\r\n    padding: 2px 4px;\r\n    border: 2px dashed;\r\n    border-radius: 2px;\r\n}\r\n\r\n.sandbox-toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    margin: 0 10px;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n.sandbox-preview-area {\r\n    width: 100%;\r\n    background: linear-gradient(to bottom right, rgb(179, 179, 179), rgb(241, 241, 241));\r\n}\r\n\r\n.sandbox-preview-container {\r\n    border: 2px dashed gray;\r\n}\r\n\r\n.sandbox-preview-container p {\r\n    display: inline-block !important;\r\n    max-width: 40vw !important;\r\n    overflow-wrap: break-word;\r\n    word-wrap: break-word;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n}\r\n\r\n.sandbox-middle-bar { \r\n    box-sizing: border-box;\r\n    border-top: 3px rgb(65, 65, 65) solid;\r\n    border-bottom: 3px rgb(65, 65, 65) solid;\r\n    width: 100%;\r\n}\r\n\r\n.sandbox-add-btn-group {\r\n    width: 125px;\r\n    height: 100%;\r\n}\r\n\r\n.sandbox-add-btn-group fa {\r\n    font-size: 3vh;\r\n}\r\n\r\n.sandbox-add-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    max-width: 80%;\r\n}\r\n\r\n.sandbox-textarea {\r\n    height: 100%;\r\n    flex-grow: 1;\r\n    padding: 0;\r\n    font-family: 'Helvetica', sans-serif;\r\n    border: 0;\r\n    resize: none;\r\n    outline: none;\r\n    box-sizing: border-box;\r\n    padding: 10px;\r\n    background: rgb(230, 230, 230);\r\n}\r\n\r\n/*  text sandbox  */\r\n\r\n#text-sandbox {\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 51vh 10vh 25vh;\r\n        grid-template-rows: 51vh 10vh 25vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#image-sandbox {\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 51vh 10vh 25vh;\r\n        grid-template-rows: 51vh 10vh 25vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#import-container {\r\n    margin: 0 auto;\r\n}\r\n\r\ninput[type=\"file\"] {\r\n    text-align: center !important;\r\n    align-items: center !important;\r\n}\r\n\r\n#image-preview {\r\n    max-width: 90%;\r\n    max-height: 90%;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#gallery {\r\n    width: 100%;\r\n    height: auto;\r\n    display: static;\r\n    overflow: auto;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.gallery-img-container {\r\n    background: #000;\r\n    margin: 6px;\r\n    box-shadow: 3px 3px 3px gray;\r\n    height: 75px;\r\n    display: inline-block;\r\n    position: relative;\r\n}\r\n\r\n.gallery-img {\r\n    height: 100%;\r\n    opacity: 0.9;\r\n}\r\n\r\n.gallery-img:hover {\r\n    opacity: 1;\r\n}\r\n\r\n.delete-icon {\r\n    position: absolute;\r\n    bottom: 0;\r\n    right: 0;\r\n    color: #FFF;\r\n    border-radius: 50%;\r\n    height: 12px;\r\n    width: 12px;\r\n    padding: 5px;\r\n    margin: 5px;\r\n    border: 2px #FFF solid;\r\n    opacity: 0.6;\r\n}\r\n\r\n.delete-icon:hover {\r\n    opacity: 0.9;\r\n}\r\n\r\n@media screen and (min-width: 1200px) {\r\n    .sandbox-toolbar-btn-group p,\r\n    .sandbox-add-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n  }\r\n\r\n"
+module.exports = "\r\n.sandbox-preview-area {\r\n    width: 100%;\r\n    background: linear-gradient(to bottom right, rgb(179, 179, 179), rgb(241, 241, 241));\r\n}\r\n\r\n.sandbox-preview-container {\r\n    border: 2px dashed gray;\r\n}\r\n\r\n.sandbox-preview-container p {\r\n    display: inline-block !important;\r\n    max-width: 40vw !important;\r\n    overflow-wrap: break-word;\r\n    word-wrap: break-word;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n}\r\n\r\n.sandbox-middle-bar { \r\n    box-sizing: border-box;\r\n    border-top: 3px rgb(65, 65, 65) solid;\r\n    border-bottom: 3px rgb(65, 65, 65) solid;\r\n    width: 100%;\r\n}\r\n\r\n.sandbox-add-btn-group {\r\n    width: 125px;\r\n    height: 100%;\r\n}\r\n\r\n.sandbox-add-btn-group fa {\r\n    font-size: 3vh;\r\n}\r\n\r\n.sandbox-add-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    max-width: 80%;\r\n}\r\n\r\n.sandbox-textarea {\r\n    height: 100%;\r\n    flex-grow: 1;\r\n    padding: 0;\r\n    font-family: 'Helvetica', sans-serif;\r\n    border: 0;\r\n    resize: none;\r\n    outline: none;\r\n    box-sizing: border-box;\r\n    padding: 10px;\r\n    background: rgb(230, 230, 230);\r\n}\r\n\r\n/*  text sandbox  */\r\n\r\n#text-sandbox {\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 43vh 10vh 33vh;\r\n        grid-template-rows: 43vh 10vh 33vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#image-sandbox {\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 43vh 10vh 33vh;\r\n        grid-template-rows: 43vh 10vh 33vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#import-container {\r\n    margin: 0 auto;\r\n}\r\n\r\ninput[type=\"file\"] {\r\n    text-align: center !important;\r\n    align-items: center !important;\r\n}\r\n\r\n#image-preview {\r\n    max-width: 90%;\r\n    max-height: 90%;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#gallery {\r\n    width: 100%;\r\n    height: auto;\r\n    display: static;\r\n    overflow: auto;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.gallery-img-container {\r\n    background: #000;\r\n    margin: 6px;\r\n    box-shadow: 3px 3px 3px gray;\r\n    height: 75px;\r\n    display: inline-block;\r\n    position: relative;\r\n}\r\n\r\n.gallery-img {\r\n    height: 100%;\r\n    opacity: 0.9;\r\n}\r\n\r\n.gallery-img:hover {\r\n    opacity: 1;\r\n}\r\n\r\n.delete-icon {\r\n    position: absolute;\r\n    bottom: 0;\r\n    right: 0;\r\n    color: #FFF;\r\n    border-radius: 50%;\r\n    height: 12px;\r\n    width: 12px;\r\n    padding: 5px;\r\n    margin: 5px;\r\n    border: 2px #FFF solid;\r\n    opacity: 0.6;\r\n}\r\n\r\n.delete-icon:hover {\r\n    opacity: 0.9;\r\n}\r\n\r\n@media screen and (min-width: 1200px) {\r\n    .sandbox-toolbar-btn-group p,\r\n    .sandbox-add-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n  }\r\n\r\n"
 
 /***/ }),
 
@@ -1707,7 +1692,7 @@ module.exports = "\r\n#sandbox-toolbar {\r\n    height: 6vh;\r\n    margin: 0;\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Sandbox toolbar -->\r\n<div id=\"sandbox-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.data.setMode('text')\" class=\"flex-row-evenly sandbox-toolbar-btn-group\">\r\n    <fa name=\"font\"></fa>\r\n    <p>New text object</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.setMode('image')\" class=\"flex-row-evenly sandbox-toolbar-btn-group\">\r\n    <fa name=\"image\"></fa>\r\n    <p>New image object</p>\r\n  </a>\r\n\r\n  <!-- <a (click)=\"this.data.setMode('shape')\" class=\"flex-row-evenly sandbox-btn-group\">\r\n    <fa name=\"shapes\"></fa>\r\n    <p>New shape object</p>\r\n  </a> -->\r\n</div>\r\n\r\n<!-- Text sandbox -->\r\n<div id=\"text-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewTextElements && this.data.textStyles.length > 0\">\r\n  <div class=\"flex-col-evenly sandbox-preview-area accent05\">\r\n    <div class=\"sandbox-preview-container\">\r\n      <p [ngStyle]=\"this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()\">{{this.data.sandboxText}}</p>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"sandbox-middle-bar flex-row-evenly\">\r\n    <textarea class=\"sandbox-textarea\" [(ngModel)]=\"this.data.sandboxText\">\r\n\r\n    </textarea>\r\n\r\n    <a (click)=\"this.data.addTextObjectToSlide()\" class=\"sandbox-add-btn-group grayAccent02 flex-col-evenly\">\r\n      <fa name=\"share\"></fa>\r\n      <p>Add text object <br> to slide</p>\r\n    </a>\r\n  </div>\r\n\r\n  <textarea class=\"sandbox-textarea\" [(ngModel)]=\"this.data.textNotes\">\r\n    {{this.data.textNotes}}\r\n  </textarea>\r\n</div>\r\n\r\n<!-- Image sandbox -->\r\n<div id=\"image-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewImageElements && this.data.imageStyles.length > 0\">\r\n  <div class=\"flex-col-evenly sandbox-preview-area accent05\">\r\n    <img id=\"image-preview\" *ngIf=\"this.data.images[this.data.selectedImage]\" [src]=\"this.data.images[this.data.selectedImage].url\"\r\n      [ngStyle]=\"this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()\">\r\n  </div>\r\n\r\n  <div class=\"sandbox-middle-bar flex-row-between grayAccent02\">\r\n    <div class=\"flex-col-evenly\" id=\"import-container\">\r\n      <h3>Import an image:</h3>\r\n      <input class=\"\" type=\"file\" (change)=\"this.data.uploadImage($event)\">\r\n    </div>\r\n\r\n    <a (click)=\"this.data.addImageObjectToSlide()\" class=\"sandbox-add-btn-group grayAccent02 flex-col-evenly\">\r\n      <fa name=\"share\"></fa>\r\n      <p>Add image object to slide</p>\r\n    </a>\r\n  </div>\r\n\r\n  <div id=\"gallery\" class=\"accent05\">\r\n    <div *ngFor=\"let image of this.data.images\" class=\"gallery-img-container\">\r\n      <img src=\"{{image.url}}\" (click)=\"this.data.selectImage(image.id)\" class=\"clickable gallery-img\">\r\n      <fa name=\"trash\" class=\"clickable delete-icon flex-row-evenly\" (click)=\"this.data.deleteImageById(image.id)\"></fa>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!-- Shape sandbox -->\r\n<!-- <div id=\"shape-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewShapeElements && this.data.shapeStyles.length > 0\">\r\n\r\n  <h1>Shape sandbox</h1>\r\n\r\n</div> -->"
+module.exports = "<!-- Text sandbox -->\r\n<div id=\"text-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewTextElements && this.data.textStyles.length > 0\">\r\n  <div class=\"flex-col-evenly sandbox-preview-area accent05\">\r\n    <div class=\"sandbox-preview-container\">\r\n      <p [ngStyle]=\"this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()\">{{this.data.sandboxText}}</p>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"sandbox-middle-bar flex-row-evenly\">\r\n    <textarea class=\"sandbox-textarea\" [(ngModel)]=\"this.data.sandboxText\">\r\n\r\n    </textarea>\r\n\r\n    <a (click)=\"this.data.addTextObjectToSlide()\" class=\"sandbox-add-btn-group grayAccent02 flex-col-evenly\">\r\n      <fa name=\"share\"></fa>\r\n      <p>Add text object <br> to slide</p>\r\n    </a>\r\n  </div>\r\n\r\n  <textarea class=\"sandbox-textarea\" [(ngModel)]=\"this.data.textNotes\">\r\n    {{this.data.textNotes}}\r\n  </textarea>\r\n</div>\r\n\r\n<!-- Image sandbox -->\r\n<div id=\"image-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewImageElements && this.data.imageStyles.length > 0\">\r\n  <div class=\"flex-col-evenly sandbox-preview-area accent05\">\r\n    <img id=\"image-preview\" *ngIf=\"this.data.images[this.data.selectedImage]\" [src]=\"this.data.images[this.data.selectedImage].url\"\r\n      [ngStyle]=\"this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()\">\r\n  </div>\r\n\r\n  <div class=\"sandbox-middle-bar flex-row-between grayAccent02\">\r\n    <div class=\"flex-col-evenly\" id=\"import-container\">\r\n      <h3>Import an image:</h3>\r\n      <input class=\"\" type=\"file\" (change)=\"this.data.uploadImage($event)\">\r\n    </div>\r\n\r\n    <a (click)=\"this.data.addImageObjectToSlide()\" class=\"sandbox-add-btn-group grayAccent02 flex-col-evenly\">\r\n      <fa name=\"share\"></fa>\r\n      <p>Add image object to slide</p>\r\n    </a>\r\n  </div>\r\n\r\n  <div id=\"gallery\" class=\"accent05\">\r\n    <div *ngFor=\"let image of this.data.images\" class=\"gallery-img-container\">\r\n      <img src=\"{{image.url}}\" (click)=\"this.data.selectImage(image.id)\" class=\"clickable gallery-img\">\r\n      <fa name=\"trash\" class=\"clickable delete-icon flex-row-evenly\" (click)=\"this.data.deleteImageById(image.id)\"></fa>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1762,7 +1747,7 @@ var SandboxComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#slide-editor-toolbar {\r\n    width: 100%;\r\n    height: 6vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group {\r\n    height: 100%;\r\n    max-width: 150px;\r\n    padding: 0 15px;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group:hover {\r\n    background: rgb(100, 100, 100);\r\n}\r\n\r\n.slide-editor-toolbar-btn-group fa {\r\n    font-size: 2vh;\r\n    margin: 0;\r\n    padding: 2px 4px;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    margin: 0 10px;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n#slide-number {\r\n    font-size: 1.5rem;\r\n    font-size: 1.8vw;\r\n}\r\n\r\n#slide-editor-workspace {\r\n    width: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 43vh 43vh;\r\n        grid-template-rows: 43vh 43vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#slide-render-area {\r\n    height: 100%;\r\n    width: 41vw;\r\n    overflow: scroll;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n}\r\n\r\n.slide-object {\r\n    overflow: hidden;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n    z-index: -1;\r\n}\r\n\r\n.slide-object img {\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n}\r\n\r\n/*  Styling of slideObjects while being dragged or resized is controlled from within the SlideObjects class */\r\n\r\n.slide-object:hover{\r\n    cursor: move;\r\n    background: rgba(0, 0, 0, 0.3);\r\n    border: 2px dashed gray;\r\n    margin-top: -2px;\r\n    margin-left: -2px;\r\n}\r\n\r\n#slide-control {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 4vh 39vh;\r\n        grid-template-rows: 4vh 39vh;\r\n}\r\n\r\n#slide-control-toolbar {\r\n    width: 100%;\r\n    background: rgb(46, 46, 46);\r\n}\r\n\r\n#slide-control-toolbar fa {\r\n    width: 25px;\r\n    height: 25px;\r\n    margin: 0 5px;\r\n    cursor: pointer;\r\n}\r\n\r\n#slide-control-toolbar fa:hover {\r\n    background: rgb(87, 87, 87);\r\n}\r\n\r\n#slide-control-toolbar p {\r\n    font-size: 0.7rem;\r\n    margin: 0 5px;\r\n}\r\n\r\ninput[type=\"range\"]{\r\n    width: 5vw;\r\n}\r\n\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button, \r\ninput[type=number]::-webkit-outer-spin-button { \r\n  -webkit-appearance: none; \r\n  margin: 0; \r\n}\r\n\r\ninput[type=\"text\"]{\r\n    width: 85%;\r\n}\r\n\r\n#heirarchy {\r\n    overflow-x: hidden;\r\n    overflow-y: scroll;\r\n    width: 100%;\r\n}\r\n\r\n.heirarchy-control-group {\r\n    font-size: 0.7rem;\r\n    overflow: hidden;\r\n    padding: 2px 0;\r\n}\r\n\r\n.heirarchy-control-group fa {\r\n    font-size: 0.75rem;\r\n    padding: 5px;\r\n}\r\n\r\n.heirarchy-control-group fa:hover {\r\n    background-color: rgb(100, 100, 100);\r\n    cursor: pointer;\r\n}\r\n\r\n#heirarchy\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n}\r\n\r\n.heirarchy-name {\r\n    width: 100px;\r\n}\r\n\r\n.heirarchy-content {\r\n    width:100px;\r\n}\r\n\r\n.heirarchy-dim {\r\n    width: 250px;\r\n}\r\n\r\n.heirarchy-content-misc {\r\n    width: 150px;\r\n}\r\n\r\n.slide-control-row {\r\n    width: 100%;\r\n    flex-wrap: wrap;\r\n    padding: 2px 0;\r\n    border-bottom: 3px rgb(81, 133, 81) solid; \r\n}\r\n\r\n@media screen and (min-width: 1200px) {\r\n    .slide-editor-toolbar-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n\r\n    #slide-number {\r\n        font-size: 1.5rem;\r\n    }\r\n  }\r\n\r\n\r\n\r\n"
+module.exports = "#slide-editor-workspace {\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 43vh 43vh;\r\n        grid-template-rows: 43vh 43vh;\r\n    margin: 0;\r\n    padding: 0;\r\n} \r\n\r\n#slide-render-area {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: scroll;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n} \r\n\r\n.slide-object {\r\n    overflow: hidden;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n    z-index: -1;\r\n} \r\n\r\n.slide-object img {\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n} \r\n\r\n/*  Styling of slideObjects while being dragged or resized is controlled from within the SlideObjects class */ \r\n\r\n.slide-object:hover{\r\n    cursor: move;\r\n    background: rgba(0, 0, 0, 0.3);\r\n    border: 2px dashed gray;\r\n    margin-top: -2px;\r\n    margin-left: -2px;\r\n} \r\n\r\n#slide-control {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 4vh 39vh;\r\n        grid-template-rows: 4vh 39vh;\r\n} \r\n\r\n#slide-control-toolbar {\r\n    width: 100%;\r\n    background: rgb(46, 46, 46);\r\n} \r\n\r\n#slide-control-toolbar fa {\r\n    width: 25px;\r\n    height: 25px;\r\n    margin: 0 5px;\r\n    cursor: pointer;\r\n} \r\n\r\n#slide-control-toolbar fa:hover {\r\n    background: rgb(87, 87, 87);\r\n} \r\n\r\n#slide-control-toolbar p {\r\n    font-size: 0.7rem;\r\n    margin: 0 5px;\r\n} \r\n\r\ninput[type=\"range\"]{\r\n    width: 5vw;\r\n} \r\n\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n    text-align: center;\r\n} \r\n\r\ninput[type=number]::-webkit-inner-spin-button, \r\ninput[type=number]::-webkit-outer-spin-button { \r\n  -webkit-appearance: none; \r\n  margin: 0; \r\n} \r\n\r\ninput[type=\"text\"]{\r\n    width: 85%;\r\n} \r\n\r\n#heirarchy {\r\n    overflow-x: hidden;\r\n    overflow-y: scroll;\r\n    width: 100%;\r\n} \r\n\r\n.heirarchy-control-group {\r\n    font-size: 0.7rem;\r\n    overflow: hidden;\r\n    padding: 2px 0;\r\n    font-weight: normal;\r\n} \r\n\r\n.heirarchy-control-group h5 {\r\n    font-weight: normal;\r\n} \r\n\r\n.heirarchy-control-group fa {\r\n    font-size: 0.75rem;\r\n    padding: 5px;\r\n} \r\n\r\n.heirarchy-control-group fa:hover {\r\n    background-color: rgb(100, 100, 100);\r\n    cursor: pointer;\r\n} \r\n\r\n#heirarchy\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n} \r\n\r\n.heirarchy-name {\r\n    width: 100px;\r\n} \r\n\r\n.heirarchy-content {\r\n    width:100px;\r\n} \r\n\r\n.heirarchy-dim {\r\n    width: 250px;\r\n} \r\n\r\n.heirarchy-content-misc {\r\n    width: 150px;\r\n} \r\n\r\n.slide-control-row {\r\n    width: 100%;\r\n    flex-wrap: wrap;\r\n    padding: 2px 0;\r\n    border-bottom: 3px rgb(81, 133, 81) solid; \r\n} \r\n\r\n@media screen and (min-width: 1200px) {\r\n    .slide-editor-toolbar-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n\r\n    #slide-number {\r\n        font-size: 1.5rem;\r\n    }\r\n  }\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1773,7 +1758,7 @@ module.exports = "#slide-editor-toolbar {\r\n    width: 100%;\r\n    height: 6vh
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"slide-editor-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.createNewSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"plus-square\"></fa>\r\n    <p>New slide</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.preview()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"play\"></fa>\r\n    <p>Preview</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.previousSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"step-backward\"></fa>\r\n  </a>\r\n\r\n  <div>\r\n    <h1 style=\"padding: 10px;\" id=\"slide-number\" (click)=\"this.data.test()\">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>\r\n  </div>\r\n\r\n  <a (click)=\"this.nextSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"step-forward\"></fa>\r\n  </a>\r\n\r\n  <a (click)=\"this.deleteCurrentSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"trash\"></fa>\r\n    <p>Delete slide</p>\r\n  </a>\r\n</div>\r\n\r\n<div id=\"slide-editor-workspace\">\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-render-area\">\r\n    <div id=\"slide-render\" [ngStyle]=\"this.getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects\" \r\n      class=\"slide-object\"\r\n        [ngStyle]=\"slideObject.getCss()\" \r\n        (mousedown)=\"this.selectObject(slideObject.id)\" \r\n        ngResizable \r\n        [rzHandles]=\"'all'\"\r\n        (rzStart)=\"slideObject.setSlideObjectProperty('isResizing', true)\" \r\n        (rzStop)=\"slideObject.setSize($event); slideObject.setSlideObjectProperty('isResizing', false)\"\r\n        ngDraggable \r\n        (started)=\"slideObject.setSlideObjectProperty('isDragging', true)\" \r\n        (stopped)=\"slideObject.setSlideObjectProperty('isDragging', false)\"\r\n        (endOffset)=\"slideObject.setTranslation($event)\" \r\n        [position]=\"slideObject.getTranslation()\"\r\n        [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"this.data.getTextStyleById(slideObject.styleId).getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"this.data.getImageStyleById(slideObject.styleId).getCss()\"\r\n          [src]=\"slideObject.imagePath\" crossOrigin=\"anonymous\">\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\"\r\n          [style.background]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"this.zoom('out')\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"this.data.slideRenderMagnification\" min=\"0\" max=\"200\">\r\n\r\n        <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"this.zoom('in')\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"this.data.slideRenderMagnification\">%</p>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <p>{{this.data.documentSize.width}}px X {{this.data.documentSize.height}}px</p>\r\n      </div>\r\n\r\n      <fa class=\"flex-row-evenly\" [name]=\"this.showRenderOverflow ? 'object-ungroup' : 'object-group'\" (click)=\"this.toggleRenderOverflow()\"></fa>\r\n\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-evenly grayAccent02\"\r\n        [style.background]=\"this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n          <fa (click)=\"this.data.increaseOneLayer(slideObject.id)\" name=\"arrow-up\"></fa>\r\n\r\n          <fa (click)=\"this.data.decreaseOneLayer(slideObject.id)\" name=\"arrow-down\"></fa>\r\n\r\n          <fa (click)=\"slideObject.toggleSlideObjectProperty('display')\" [name]=\"slideObject.getSlideObjectProperty('display') ? 'eye' : 'eye-slash'\"></fa>\r\n\r\n          <fa (click)=\"this.deleteSlideObjectById(slideObject.id)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"maintainRatio(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"maintainRatio(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div id=\"slide-editor-workspace\">\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-render-area\">\r\n    <div id=\"slide-render\" [ngStyle]=\"this.getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects\" \r\n      class=\"slide-object\"\r\n        [ngStyle]=\"slideObject.getCss()\" \r\n        (mousedown)=\"this.selectObject(slideObject.id)\" \r\n        ngResizable \r\n        [rzHandles]=\"'all'\"\r\n        (rzStart)=\"slideObject.setSlideObjectProperty('isResizing', true)\" \r\n        (rzStop)=\"slideObject.setSize($event); slideObject.setSlideObjectProperty('isResizing', false)\"\r\n        ngDraggable \r\n        (started)=\"slideObject.setSlideObjectProperty('isDragging', true)\" \r\n        (stopped)=\"slideObject.setSlideObjectProperty('isDragging', false)\"\r\n        (endOffset)=\"slideObject.setTranslation($event)\" \r\n        [position]=\"slideObject.getTranslation()\"\r\n        [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"this.data.getTextStyleById(slideObject.styleId).getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"this.data.getImageStyleById(slideObject.styleId).getCss()\"\r\n          [src]=\"slideObject.imagePath\" crossOrigin=\"anonymous\">\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\"\r\n          [style.background]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"this.zoom('out')\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"this.data.slideRenderMagnification\" min=\"0\" max=\"200\">\r\n\r\n        <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"this.zoom('in')\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"this.data.slideRenderMagnification\">%</p>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <p>{{this.data.documentSize.width}}px X {{this.data.documentSize.height}}px</p>\r\n      </div>\r\n\r\n      <fa class=\"flex-row-evenly\" [name]=\"this.showRenderOverflow ? 'object-ungroup' : 'object-group'\" (click)=\"this.toggleRenderOverflow()\"></fa>\r\n\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-evenly grayAccent02\"\r\n        [style.background]=\"this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n          <fa (click)=\"this.data.increaseOneLayer(slideObject.id)\" name=\"arrow-up\"></fa>\r\n\r\n          <fa (click)=\"this.data.decreaseOneLayer(slideObject.id)\" name=\"arrow-down\"></fa>\r\n\r\n          <fa (click)=\"slideObject.toggleSlideObjectProperty('display')\" [name]=\"slideObject.getSlideObjectProperty('display') ? 'eye' : 'eye-slash'\"></fa>\r\n\r\n          <fa (click)=\"this.deleteSlideObjectById(slideObject.id)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"maintainRatio(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"maintainRatio(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1789,8 +1774,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SlideEditorComponent", function() { return SlideEditorComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
-/* harmony import */ var _classes_slide__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../classes/slide */ "./src/app/classes/slide.ts");
-/* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dialog.service */ "./src/app/dialog.service.ts");
+/* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dialog.service */ "./src/app/dialog.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1803,7 +1787,6 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var SlideEditorComponent = /** @class */ (function () {
     function SlideEditorComponent(data, dialog) {
         this.data = data;
@@ -1811,138 +1794,6 @@ var SlideEditorComponent = /** @class */ (function () {
         this.showRenderOverflow = false;
     }
     SlideEditorComponent.prototype.ngOnInit = function () {
-    };
-    // Slide editor Toolbar functions
-    SlideEditorComponent.prototype.createNewSlide = function () {
-        this.data.slides.push(new _classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]());
-        this.data.currentSlideIndex = this.data.slides.length - 1;
-    };
-    SlideEditorComponent.prototype.preview = function () {
-        var context = this;
-        // The 'click' eventListener causes mouseControl to increment currentSlideIndex.
-        // Initializing to -1 allows the slideshow to start at currentSlideIndex = 0
-        this.data.currentSlideIndex = -1;
-        // Create HTML elements to be displayed in fullscreen mode:
-        // Slideshow contents
-        var slideRender = document.getElementById('slide-render');
-        var copy;
-        // Foreground fullscreen transparent overlay to disable draggable contents in fullscreen mode
-        var overlay = document.createElement('div');
-        overlay.style.cssText = "\n      background: transparent;\n      width: 100%;\n      height: 100%;\n      position: absolute;\n      top: 0 ;\n      left: 0;\n      z-index: 100;\n    ";
-        // Fullscreen container 
-        // Putting fullscreen contents in a container allows control over the sizing 
-        // and positioning of elements displayed in fullscreen mode
-        var fullscreenContainer = document.createElement('div');
-        fullscreenContainer.style.cssText = "\n      background\" #000;\n    ";
-        // Add elements to DOM
-        document.body.appendChild(fullscreenContainer);
-        refreshPreview();
-        launchIntoFullscreen(fullscreenContainer);
-        // Enable slideshow navgation
-        document.addEventListener('keyup', keyboardControl);
-        document.addEventListener('click', mouseControl);
-        // Exit preview mode - Remove fullscreen elements and event listeners from DOM
-        document.addEventListener("fullscreenchange", exitPreviewMode);
-        document.addEventListener("mozfullscreenchange", exitPreviewMode);
-        document.addEventListener("webkitfullscreenchange", exitPreviewMode);
-        document.addEventListener("msfullscreenchange", exitPreviewMode);
-        function exitPreviewMode(event) {
-            console.log(event);
-            console.log(document.fullscreenElement, document.webkitFullscreenElement);
-            if (document.fullscreenElement || document.webkitFullscreenElement === null) {
-                document.body.removeChild(fullscreenContainer);
-                // Disable keyboard and mouse navigation
-                document.removeEventListener('keyup', keyboardControl);
-                document.removeEventListener('click', mouseControl);
-            }
-        }
-        function launchIntoFullscreen(element) {
-            if (element.requestFullscreen) {
-                element.requestFullscreen();
-            }
-            else if (element.mozRequestFullScreen) {
-                element.mozRequestFullScreen();
-            }
-            else if (element.webkitRequestFullscreen) {
-                element.webkitRequestFullscreen();
-            }
-            else if (element.msRequestFullscreen) {
-                element.msRequestFullscreen();
-            }
-            element.requestPointerLock();
-        }
-        function mouseControl(event) {
-            console.log(event.button);
-            switch (event.button) {
-                case 2:// Right click
-                    context.previousSlide();
-                    refreshPreview();
-                    break;
-                case 0:// Left click
-                    context.nextSlide();
-                    refreshPreview();
-                    break;
-            }
-        }
-        function keyboardControl(event) {
-            switch (event.key) {
-                case 'ArrowLeft':
-                    context.previousSlide();
-                    refreshPreview();
-                    break;
-                case 'ArrowRight':
-                    context.nextSlide();
-                    refreshPreview();
-                    break;
-            }
-        }
-        function refreshPreview() {
-            setTimeout(function () {
-                copy = slideRender.cloneNode(true);
-                copy.appendChild(overlay);
-                fullscreenContainer.appendChild(copy);
-                // Scale elements to full screen size while maintaining aspect ratio
-                var scaleX = screen.width / copy.clientWidth;
-                var scaleY = screen.height / copy.clientHeight;
-                var scaleFactor = Math.min(scaleX, scaleY).toFixed(1);
-                copy.style.transform = "scale(" + scaleFactor.toString() + ", " + scaleFactor.toString() + ")";
-                copy.style.position = "absolute";
-                copy.style.transformOrigin = "left top";
-                copy.style.top = "0";
-                copy.style.left = "0";
-                copy.style.overflow = "hidden";
-            }, 300);
-        }
-    };
-    SlideEditorComponent.prototype.previousSlide = function () {
-        if (this.data.currentSlideIndex > 0) {
-            this.data.currentSlideIndex--;
-        }
-        console.log('Current slide index:', this.data.currentSlideIndex);
-    };
-    SlideEditorComponent.prototype.nextSlide = function () {
-        if (this.data.currentSlideIndex < this.data.slides.length - 1) {
-            this.data.currentSlideIndex++;
-        }
-        console.log('Current slide index:', this.data.currentSlideIndex);
-    };
-    SlideEditorComponent.prototype.deleteCurrentSlide = function () {
-        var _this = this;
-        var callback = function () {
-            _this.data.slides.splice(_this.data.currentSlideIndex, 1);
-            if (_this.data.currentSlideIndex >= _this.data.slides.length) {
-                _this.data.currentSlideIndex--;
-            }
-        };
-        this.dialog.alert("Are you sure you want to delete this slide from your project?", callback);
-    };
-    SlideEditorComponent.prototype.deleteSlideObjectById = function (id) {
-        var currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getSlideProperty('slideObjects');
-        for (var i = 0; i < currentSlideObjects.length; i++) {
-            if (currentSlideObjects[i].getSlideObjectProperty('id') === id) {
-                currentSlideObjects.splice(i, 1);
-            }
-        }
     };
     // Slide editor render functions
     SlideEditorComponent.prototype.toggleRenderOverflow = function () {
@@ -1976,32 +1827,24 @@ var SlideEditorComponent = /** @class */ (function () {
     };
     // User clicks zoom in/out
     SlideEditorComponent.prototype.zoom = function (direction) {
-        console.log('zoom');
         var magnification = this.data.slideRenderMagnification;
-        console.log('starting value: ', magnification);
         var increment = 5;
         switch (direction) {
             case 'in':
-                console.log('in');
                 if (magnification > 200 - increment) {
                     magnification = 200;
-                    console.log(magnification);
                 }
                 else {
                     magnification += increment;
-                    console.log(magnification);
                 }
                 this.data.slideRenderMagnification = magnification;
                 break;
             case 'out':
-                console.log('out');
                 if (magnification < increment) {
                     magnification = 0;
-                    console.log(magnification);
                 }
                 else {
                     magnification -= increment;
-                    console.log(magnification);
                 }
                 this.data.slideRenderMagnification = magnification;
                 break;
@@ -2010,7 +1853,6 @@ var SlideEditorComponent = /** @class */ (function () {
     // This controls the image size when user inputs a value in the heirarchy
     SlideEditorComponent.prototype.maintainRatio = function (slideObject, dimension, value) {
         // Get original aspect ratio of this slide object
-        console.log(slideObject.width, slideObject.height);
         var ratio;
         if (slideObject.width || slideObject.height === "auto") {
             // Get ratio by some other method
@@ -2018,27 +1860,25 @@ var SlideEditorComponent = /** @class */ (function () {
             img_1.src = slideObject.getSlideObjectProperty('imagePath');
             img_1.onload = function () {
                 ratio = img_1.width / img_1.height;
-                calculate();
+                setImageSize();
                 img_1 = null;
             };
         }
         else {
             ratio = slideObject.width / slideObject.height;
-            calculate();
+            setImageSize();
         }
-        function calculate() {
+        function setImageSize() {
             switch (dimension) {
                 case 'width':
                     var newHeight = value / ratio;
                     slideObject.width = value;
                     slideObject.height = newHeight;
-                    console.log(value, newHeight, 'New Ratio', value / newHeight);
                     break;
                 case 'height':
                     var newWidth = value * ratio;
                     slideObject.height = value;
                     slideObject.width = newWidth;
-                    console.log(value, newWidth, 'New Ratio', newWidth / value);
                     break;
             }
         }
@@ -2049,7 +1889,7 @@ var SlideEditorComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./slide-editor.component.html */ "./src/app/slide-editor/slide-editor.component.html"),
             styles: [__webpack_require__(/*! ./slide-editor.component.css */ "./src/app/slide-editor/slide-editor.component.css")]
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_3__["DialogService"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"]])
     ], SlideEditorComponent);
     return SlideEditorComponent;
 }());
@@ -2134,7 +1974,7 @@ var StylerComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border-bottom: 3px #FFF solid;\r\n    margin-bottom: 4px;\r\n    height: auto;\r\n}\r\n\r\n.style-card-row {\r\n    width: 100%;\r\n    min-height: 25px; \r\n    margin: 3px auto;\r\n}\r\n\r\n.style-card-row h3 {\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row a,\r\n.style-card-row h4 {\r\n    font-size: 0.8rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row \r\n.material-icons {\r\n    font-size: 1.2rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa {\r\n    font-size: 0.8rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa:hover,\r\n.style-card-row .material-icons:hover {\r\n    background:rgb(137, 150, 132);\r\n    cursor: pointer;\r\n}\r\n\r\n.style-card-row\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.style-card-row\r\nselect {\r\n    border: 1px #D6F9DD solid;\r\n    box-sizing: border-box;\r\n    background: #D6F9DD;\r\n    color: black;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.selected {\r\n    background:rgb(137, 150, 132);\r\n    border: 1px white solid;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.icon-group {\r\n    width: 100px;\r\n}\r\n\r\n.google-font-name {\r\n    font-size: 0.7rem;\r\n    border: 1px #D6F9DD solid;\r\n    padding: 2px 4px;\r\n    cursor: pointer;\r\n    line-height: 1;\r\n}\r\n"
+module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border-bottom: 3px #FFF solid;\r\n    margin-bottom: 4px;\r\n    height: auto;\r\n}\r\n\r\n.style-card-row {\r\n    width: 100%;\r\n    min-height: 25px; \r\n    margin: 3px auto;\r\n}\r\n\r\n.style-card-row h3 {\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row a,\r\n.style-card-row h4 {\r\n    font-size: 0.8rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row \r\n.material-icons {\r\n    font-size: 1.2rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa {\r\n    font-size: 0.8rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa:hover,\r\n.style-card-row .material-icons:hover {\r\n    background:rgb(137, 150, 132);\r\n    cursor: pointer;\r\n}\r\n\r\n.style-card-row\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.style-card-row\r\nselect {\r\n    border: 1px #D6F9DD solid;\r\n    box-sizing: border-box;\r\n    background: #D6F9DD;\r\n    color: black;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.selected {\r\n    background:rgb(137, 150, 132);\r\n    border: 1px white solid;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.icon-group {\r\n    width: 100px;\r\n}\r\n\r\n.google-font-name {\r\n    font-size: 0.7rem;\r\n    border: 1px #D6F9DD solid;\r\n    padding: 2px 4px;\r\n    cursor: pointer;\r\n    line-height: 1;\r\n}\r\n\r\n.md-color-selector {\r\n    width: 100px;\r\n    height: 10px;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.md-color-selector:hover {\r\n    cursor: pointer;\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -2177,17 +2017,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var TextStyleCardComponent = /** @class */ (function () {
     function TextStyleCardComponent(data) {
         this.data = data;
-        console.log(TextStyleCardComponent_1);
     }
-    TextStyleCardComponent_1 = TextStyleCardComponent;
     TextStyleCardComponent.prototype.ngOnInit = function () {
-        console.log(this.textStyle);
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", _classes_textStyle__WEBPACK_IMPORTED_MODULE_2__["TextStyle"])
     ], TextStyleCardComponent.prototype, "textStyle", void 0);
-    TextStyleCardComponent = TextStyleCardComponent_1 = __decorate([
+    TextStyleCardComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'text-style-card',
             template: __webpack_require__(/*! ./text-style-card.component.html */ "./src/app/text-style-card/text-style-card.component.html"),
@@ -2196,7 +2033,214 @@ var TextStyleCardComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"]])
     ], TextStyleCardComponent);
     return TextStyleCardComponent;
-    var TextStyleCardComponent_1;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/toolbar-secondary/toolbar-secondary.component.css":
+/*!*******************************************************************!*\
+  !*** ./src/app/toolbar-secondary/toolbar-secondary.component.css ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#toolbar2-container {\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 1fr 1fr;\r\n        grid-template-columns: 1fr 1fr;\r\n}\r\n\r\n#sandbox-toolbar {\r\n    height: 6vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.sandbox-toolbar-btn-group {\r\n    height: 100%;\r\n    width: 30%;\r\n    max-width: 150px;\r\n    padding: 0 15px;\r\n}\r\n\r\n.sandbox-add-btn-group:hover, \r\n.sandbox-toolbar-btn-group:hover {\r\n    background: rgb(100, 100, 100);\r\n}\r\n\r\n.sandbox-toolbar-btn-group fa {\r\n    font-size: 2vh;\r\n    margin: 0;\r\n    padding: 2px 4px;\r\n    border: 2px dashed;\r\n    border-radius: 2px;\r\n}\r\n\r\n.sandbox-toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    /* font-size: 0.9vw; */\r\n    margin: 0 10px;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n#slide-editor-toolbar {\r\n    width: 100%;\r\n    height: 6vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group {\r\n    height: 100%;\r\n    max-width: 150px;\r\n    padding: 0 15px;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group:hover {\r\n    background: rgb(100, 100, 100);\r\n}\r\n\r\n.slide-editor-toolbar-btn-group fa {\r\n    font-size: 2vh;\r\n    margin: 0;\r\n    padding: 2px 4px;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    /* font-size: 0.9vw; */\r\n    margin: 0 10px;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n#slide-number {\r\n    font-size: 1.5rem;\r\n    font-size: 1.5vw;\r\n}\r\n\r\n#slide-editor-workspace {\r\n    width: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 43vh 43vh;\r\n        grid-template-rows: 43vh 43vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/toolbar-secondary/toolbar-secondary.component.html":
+/*!********************************************************************!*\
+  !*** ./src/app/toolbar-secondary/toolbar-secondary.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"toolbar2-container\" class=\"flex-row-evenly\">\r\n\r\n  <div id=\"sandbox-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n    <a (click)=\"this.data.setMode('text')\" class=\"flex-row-evenly sandbox-toolbar-btn-group\">\r\n      <fa name=\"font\"></fa>\r\n      <p>New text object</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.data.setMode('image')\" class=\"flex-row-evenly sandbox-toolbar-btn-group\">\r\n      <fa name=\"image\"></fa>\r\n      <p>New image object</p>\r\n    </a>\r\n  </div>\r\n\r\n  <div id=\"slide-editor-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n    <a (click)=\"this.createNewSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n      <fa name=\"plus-square\"></fa>\r\n      <p>New slide</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.preview()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n      <fa name=\"play\"></fa>\r\n      <p>Preview</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.previousSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n      <fa name=\"step-backward\"></fa>\r\n    </a>\r\n\r\n    <div>\r\n      <h1 style=\"padding: 10px;\" id=\"slide-number\" (click)=\"this.data.test()\">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>\r\n    </div>\r\n\r\n    <a (click)=\"this.nextSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n      <fa name=\"step-forward\"></fa>\r\n    </a>\r\n\r\n    <a (click)=\"this.deleteCurrentSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n      <fa name=\"trash\"></fa>\r\n      <p>Delete slide</p>\r\n    </a>\r\n\r\n  </div>\r\n\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/toolbar-secondary/toolbar-secondary.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/toolbar-secondary/toolbar-secondary.component.ts ***!
+  \******************************************************************/
+/*! exports provided: ToolbarSecondaryComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToolbarSecondaryComponent", function() { return ToolbarSecondaryComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
+/* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dialog.service */ "./src/app/dialog.service.ts");
+/* harmony import */ var _classes_slide__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../classes/slide */ "./src/app/classes/slide.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+// interface FsDocument extends HTMLDocument {
+//   fullscreenElement?: Element;
+//   webkitFullscreenElement?: Element;
+//   mozFullScreenElement?: Element;
+//   msFullscreenElement?: Element;
+// }
+// export function isFullScreen(): boolean {
+//   const fsDoc = <FsDocument> document;
+//   return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement);
+// }
+var ToolbarSecondaryComponent = /** @class */ (function () {
+    function ToolbarSecondaryComponent(data, dialog) {
+        this.data = data;
+        this.dialog = dialog;
+    }
+    ToolbarSecondaryComponent.prototype.ngOnInit = function () {
+    };
+    // Slide editor Toolbar functions
+    ToolbarSecondaryComponent.prototype.createNewSlide = function () {
+        this.data.slides.push(new _classes_slide__WEBPACK_IMPORTED_MODULE_3__["Slide"]());
+        this.data.currentSlideIndex = this.data.slides.length - 1;
+    };
+    ToolbarSecondaryComponent.prototype.preview = function () {
+        var context = this;
+        // The 'click' eventListener causes mouseControl to increment currentSlideIndex.
+        // Initializing to -1 allows the slideshow to start at currentSlideIndex = 0
+        this.data.currentSlideIndex = -1;
+        // Create HTML elements to be displayed in fullscreen mode:
+        // Slideshow contents
+        var slideRender = document.getElementById('slide-render');
+        var copy;
+        // Foreground fullscreen transparent overlay to disable draggable contents in fullscreen mode
+        var overlay = document.createElement('div');
+        overlay.style.cssText = "\n        background: transparent;\n        width: 100%;\n        height: 100%;\n        position: absolute;\n        top: 0 ;\n        left: 0;\n        z-index: 100;\n      ";
+        // Fullscreen container 
+        // Putting fullscreen contents in a container allows control over the sizing 
+        // and positioning of elements displayed in fullscreen mode
+        var fullscreenContainer = document.createElement('div');
+        fullscreenContainer.style.cssText = "\n        background\" #000;\n      ";
+        // Add elements to DOM
+        document.body.appendChild(fullscreenContainer);
+        refreshPreview();
+        launchIntoFullscreen(fullscreenContainer);
+        // Enable slideshow navgation
+        document.addEventListener('keyup', keyboardControl);
+        document.addEventListener('click', mouseControl);
+        // Exit preview mode - Remove fullscreen elements and event listeners from DOM
+        document.addEventListener("fullscreenchange", exitPreviewMode);
+        document.addEventListener("mozfullscreenchange", exitPreviewMode);
+        document.addEventListener("webkitfullscreenchange", exitPreviewMode);
+        document.addEventListener("msfullscreenchange", exitPreviewMode);
+        function exitPreviewMode(event) {
+            if (document.fullscreenElement || document.webkitFullscreenElement !== null) {
+                document.body.removeChild(fullscreenContainer);
+                // Disable keyboard and mouse navigation
+                document.removeEventListener('keyup', keyboardControl);
+                document.removeEventListener('click', mouseControl);
+            }
+        }
+        function launchIntoFullscreen(element) {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            }
+            else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            }
+            else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            }
+            else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
+            element.requestPointerLock();
+        }
+        function mouseControl(event) {
+            switch (event.button) {
+                case 2:// Right click
+                    context.previousSlide();
+                    refreshPreview();
+                    break;
+                case 0:// Left click
+                    context.nextSlide();
+                    refreshPreview();
+                    break;
+            }
+        }
+        function keyboardControl(event) {
+            switch (event.key) {
+                case 'ArrowLeft':
+                    context.previousSlide();
+                    refreshPreview();
+                    break;
+                case 'ArrowRight':
+                    context.nextSlide();
+                    refreshPreview();
+                    break;
+            }
+        }
+        function refreshPreview() {
+            setTimeout(function () {
+                copy = slideRender.cloneNode(true);
+                copy.appendChild(overlay);
+                fullscreenContainer.appendChild(copy);
+                // Scale elements to full screen size while maintaining aspect ratio
+                var scaleX = screen.width / copy.clientWidth;
+                var scaleY = screen.height / copy.clientHeight;
+                var scaleFactor = Math.min(scaleX, scaleY).toFixed(1);
+                copy.style.transform = "scale(" + scaleFactor.toString() + ", " + scaleFactor.toString() + ")";
+                copy.style.position = "absolute";
+                copy.style.transformOrigin = "left top";
+                copy.style.top = "0";
+                copy.style.left = "0";
+                copy.style.overflow = "hidden";
+            }, 300);
+        }
+    };
+    ToolbarSecondaryComponent.prototype.previousSlide = function () {
+        if (this.data.currentSlideIndex > 0) {
+            this.data.currentSlideIndex--;
+        }
+    };
+    ToolbarSecondaryComponent.prototype.nextSlide = function () {
+        if (this.data.currentSlideIndex < this.data.slides.length - 1) {
+            this.data.currentSlideIndex++;
+        }
+    };
+    ToolbarSecondaryComponent.prototype.deleteCurrentSlide = function () {
+        var _this = this;
+        var callback = function () {
+            _this.data.slides.splice(_this.data.currentSlideIndex, 1);
+            if (_this.data.currentSlideIndex >= _this.data.slides.length) {
+                _this.data.currentSlideIndex--;
+            }
+        };
+        this.dialog.alert("Are you sure you want to delete this slide from your project?", callback);
+    };
+    ToolbarSecondaryComponent.prototype.deleteSlideObjectById = function (id) {
+        var currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getSlideProperty('slideObjects');
+        for (var i = 0; i < currentSlideObjects.length; i++) {
+            if (currentSlideObjects[i].getSlideObjectProperty('id') === id) {
+                currentSlideObjects.splice(i, 1);
+            }
+        }
+    };
+    ToolbarSecondaryComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'toolbar-secondary',
+            template: __webpack_require__(/*! ./toolbar-secondary.component.html */ "./src/app/toolbar-secondary/toolbar-secondary.component.html"),
+            styles: [__webpack_require__(/*! ./toolbar-secondary.component.css */ "./src/app/toolbar-secondary/toolbar-secondary.component.css")]
+        }),
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"]])
+    ], ToolbarSecondaryComponent);
+    return ToolbarSecondaryComponent;
 }());
 
 
@@ -2210,7 +2254,7 @@ var TextStyleCardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".toolbar-btn-group {\r\n    width: 75px;\r\n    height: 8vh;\r\n    margin: 0 5px;\r\n    padding: 0 20px;\r\n}\r\n\r\n.toolbar-btn-group:hover {\r\n    background: rgb(80, 80, 80);\r\n}\r\n\r\n.toolbar-btn-group fa {\r\n    font-size: 3vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    margin: 0;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n#toolbar-style-selector {\r\n    box-sizing: border-box;\r\n    height: 90%;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n    padding: 5px;\r\n    flex-grow: 1;\r\n}\r\n\r\n.toolbar-style-btn {\r\n    text-decoration: none;\r\n    width: 150px;\r\n    line-height: 25px;\r\n    border-radius: 5px;\r\n    margin-right: 5px;\r\n    padding: 0 5px;\r\n    text-align: center;\r\n    display: inline-block;\r\n    overflow: hidden;\r\n    font-size: 0.9rem;\r\n}\r\n\r\n.toolbar-style-btn:hover {\r\n    background: rgb(156, 172, 149);\r\n}\r\n\r\n.selected {\r\n    background: rgb(156, 172, 149);\r\n    border: 2px white solid;\r\n    line-height: 21px;\r\n    width: 146px;\r\n}\r\n\r\n@media screen and (min-width: 1200px) {\r\n    .toolbar-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n  }"
+module.exports = ".toolbar-btn-group {\r\n    width: 75px;\r\n    height: 8vh;\r\n    margin: 0 5px;\r\n    padding: 0 20px;\r\n}\r\n\r\n.toolbar-btn-group:hover {\r\n    background: rgb(80, 80, 80);\r\n}\r\n\r\n.toolbar-btn-group fa {\r\n    font-size: 3vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    margin: 0;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n#toolbar-style-selector {\r\n    box-sizing: border-box;\r\n    height: 90%;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n    padding: 5px;\r\n    flex-grow: 1;\r\n}\r\n\r\n.toolbar-style-btn {\r\n    text-decoration: none;\r\n    width: 125px;\r\n    line-height: 25px;\r\n    border-radius: 5px;\r\n    margin-right: 5px;\r\n    padding: 0 5px;\r\n    text-align: center;\r\n    display: inline-block;\r\n    overflow: hidden;\r\n    font-size: 0.9rem;\r\n}\r\n\r\n.toolbar-style-btn:hover {\r\n    background: rgb(156, 172, 149);\r\n}\r\n\r\n.selected {\r\n    background: rgb(156, 172, 149);\r\n    border: 2px white solid;\r\n    line-height: 21px;\r\n    width: 146px;\r\n}\r\n\r\n@media screen and (min-width: 1200px) {\r\n    .toolbar-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n  }"
 
 /***/ }),
 
@@ -2221,7 +2265,7 @@ module.exports = ".toolbar-btn-group {\r\n    width: 75px;\r\n    height: 8vh;\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"flex-row-evenly\">\r\n\r\n  <a (click)=\"this.data.createTextStyle(); this.data.setMode('text')\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"font\"></fa>\r\n    <p>New text style</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.createImageStyle(); this.data.setMode('image')\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"image\"></fa>\r\n    <p>New image style</p>\r\n  </a>\r\n\r\n  <!-- <a (click)=\"this.data.createShapeStyle(); this.data.setMode('shape')\" class=\"flex-col-evenly\">\r\n    <fa name=\"shapes\"></fa>\r\n    <p>Create a new shape style</p>\r\n  </a> -->\r\n</div>\r\n\r\n<div id=\"toolbar-style-selector\" class=\"greenAccent02\">\r\n\r\n  <!-- Text styles -->\r\n  <div *ngIf=\"this.data.viewTextElements\">\r\n    <a *ngFor=\"let textStyle of this.data.textStyles\" (click)=\"this.data.selectStyle('text', textStyle.id);\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(textStyle)\">{{textStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Image styles -->\r\n  <div *ngIf=\"this.data.viewImageElements\">\r\n    <a *ngFor=\"let imageStyle of this.data.imageStyles\" (click)=\"this.data.selectStyle('image', imageStyle.id);\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(imageStyle)\">{{imageStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Shape styles -->\r\n  <!-- <div *ngIf=\"this.data.viewShapeElements\">\r\n    <a *ngFor=\"let shapeStyle of this.data.shapeStyles\" (click)=\"this.data.selectStyle('shape', shapeStyle.id); this.data.setMode('shape')\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(shapeStyle)\">{{shapeStyle.name}}</a>\r\n  </div> -->\r\n</div>\r\n\r\n\r\n\r\n<div class=\"flex-row-evenly\">\r\n  <a (click)=\"this.data.saveAsPng()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"file-image\"></fa>\r\n    <p>Save As PNG</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.exportAsPDF()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"file-pdf\"></fa>\r\n    <p>Export to PDF</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.saveSession()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"save\"></fa>\r\n    <p>Save Session</p>\r\n  </a>\r\n</div>"
+module.exports = "<div class=\"flex-row-evenly\">\r\n\r\n  <a (click)=\"this.data.createTextStyle(); this.data.setMode('text')\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"font\"></fa>\r\n    <p>New text style</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.createImageStyle(); this.data.setMode('image')\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"image\"></fa>\r\n    <p>New image style</p>\r\n  </a>\r\n</div>\r\n\r\n<div id=\"toolbar-style-selector\" class=\"greenAccent02\">\r\n\r\n  <!-- Text styles -->\r\n  <div *ngIf=\"this.data.viewTextElements\">\r\n    <a *ngFor=\"let textStyle of this.data.textStyles\" (click)=\"this.data.selectStyle('text', textStyle.id);\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(textStyle)\">{{textStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Image styles -->\r\n  <div *ngIf=\"this.data.viewImageElements\">\r\n    <a *ngFor=\"let imageStyle of this.data.imageStyles\" (click)=\"this.data.selectStyle('image', imageStyle.id);\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(imageStyle)\">{{imageStyle.name}}</a>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n<div class=\"flex-row-evenly\">\r\n  <a (click)=\"this.data.saveAsPng()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"file-image\"></fa>\r\n    <p>Save As PNG</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.exportAsPDF()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"file-pdf\"></fa>\r\n    <p>Export to PDF</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.saveSession()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"save\"></fa>\r\n    <p>Save Session</p>\r\n  </a>\r\n</div>"
 
 /***/ }),
 

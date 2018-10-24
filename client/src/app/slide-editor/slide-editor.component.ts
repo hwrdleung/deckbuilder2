@@ -115,4 +115,14 @@ export class SlideEditorComponent implements OnInit {
       }
     }
   }
+
+  deleteSlideObjectById(id: number) {
+    let currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getSlideProperty('slideObjects');
+
+    for (let i = 0; i < currentSlideObjects.length; i++) {
+      if (currentSlideObjects[i].getSlideObjectProperty('id') === id) {
+        currentSlideObjects.splice(i, 1);
+      }
+    }
+  }
 }
