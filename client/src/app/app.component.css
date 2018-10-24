@@ -24,10 +24,8 @@
 
 #sandbox {
     grid-area: sandbox;
-    overflow: visible;
 }
 
 #slide-editor {
     grid-area: editor;
-    overflow: visible;
 }

@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    overflow: hidden;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-rows: 8vh 92vh;\r\n        grid-template-rows: 8vh 92vh;\r\n    /* grid-template-columns: 300px minmax(41vw, 1fr) 41vw; */\r\n        -ms-grid-columns: 300px auto 41vw;\r\n        grid-template-columns: 300px auto 41vw;\r\n        grid-template-areas:\r\n        \"toolbar toolbar toolbar\"\r\n        \"styler sandbox editor\"\r\n}\r\n\r\n#toolbar {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    -ms-grid-column-span: 3;\r\n    grid-area: toolbar;\r\n    /* overflow: hidden; */\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#styler {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 1;\r\n    grid-area: styler;\r\n    /* overflow-x: hidden; */\r\n    overflow-y: scroll;\r\n    padding-bottom: 300px;\r\n}\r\n\r\n#sandbox {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 2;\r\n    grid-area: sandbox;\r\n    overflow: visible;\r\n}\r\n\r\n#slide-editor {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 3;\r\n    grid-area: editor;\r\n    overflow: visible;\r\n    /* overflow: hidden; */\r\n}"
+module.exports = "#app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    overflow: hidden;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-rows: 8vh 92vh;\r\n        grid-template-rows: 8vh 92vh;\r\n        -ms-grid-columns: 300px auto 41vw;\r\n        grid-template-columns: 300px auto 41vw;\r\n        grid-template-areas:\r\n        \"toolbar toolbar toolbar\"\r\n        \"styler sandbox editor\"\r\n}\r\n\r\n#toolbar {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    -ms-grid-column-span: 3;\r\n    grid-area: toolbar;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#styler {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 1;\r\n    grid-area: styler;\r\n    overflow-y: scroll;\r\n    padding-bottom: 300px;\r\n}\r\n\r\n#sandbox {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 2;\r\n    grid-area: sandbox;\r\n    overflow: visible;\r\n}\r\n\r\n#slide-editor {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 3;\r\n    grid-area: editor;\r\n    overflow: visible;\r\n}"
 
 /***/ }),
 
@@ -41,7 +41,7 @@ module.exports = "#app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"app-container\" class=\"grayAccent01\">\r\n\r\n  <toolbar id=\"toolbar\" class=\"grayAccent01 flex-row-between\"></toolbar>\r\n\r\n  <styler id=\"styler\" class=\"accent05 flex-col-start\"></styler>\r\n\r\n  <sandbox id=\"sandbox\" class=\"accent05\"></sandbox>\r\n\r\n  <slide-editor id=\"slide-editor\" class=\"accent05 flex-col-evenly\"></slide-editor>\r\n\r\n</div>"
+module.exports = "<div id=\"app-container\" class=\"grayAccent01\">\r\n\r\n  <toolbar id=\"toolbar\" class=\"grayAccent01 flex-row-between\"></toolbar>\r\n\r\n  <styler id=\"styler\" class=\"accent05 flex-col-start\"></styler>\r\n\r\n  <sandbox id=\"sandbox\" class=\"accent05\"></sandbox>\r\n\r\n  <slide-editor id=\"slide-editor\" class=\"accent05 flex-col-evenly\"></slide-editor>\r\n\r\n</div>\r\n<app-dialog></app-dialog>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -62,17 +62,20 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
-        this.title = 'client';
     }
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [])
     ], AppComponent);
     return AppComponent;
 }());
@@ -101,17 +104,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styler_styler_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styler/styler.component */ "./src/app/styler/styler.component.ts");
 /* harmony import */ var _sandbox_sandbox_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./sandbox/sandbox.component */ "./src/app/sandbox/sandbox.component.ts");
 /* harmony import */ var _slide_editor_slide_editor_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./slide-editor/slide-editor.component */ "./src/app/slide-editor/slide-editor.component.ts");
-/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./data.service */ "./src/app/data.service.ts");
-/* harmony import */ var angular_font_awesome__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! angular-font-awesome */ "./node_modules/angular-font-awesome/dist/angular-font-awesome.es5.js");
-/* harmony import */ var angular2_draggable__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! angular2-draggable */ "./node_modules/angular2-draggable/fesm5/angular2-draggable.js");
-/* harmony import */ var _text_style_card_text_style_card_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./text-style-card/text-style-card.component */ "./src/app/text-style-card/text-style-card.component.ts");
-/* harmony import */ var _image_style_card_image_style_card_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./image-style-card/image-style-card.component */ "./src/app/image-style-card/image-style-card.component.ts");
+/* harmony import */ var _text_style_card_text_style_card_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./text-style-card/text-style-card.component */ "./src/app/text-style-card/text-style-card.component.ts");
+/* harmony import */ var _image_style_card_image_style_card_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./image-style-card/image-style-card.component */ "./src/app/image-style-card/image-style-card.component.ts");
+/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./data.service */ "./src/app/data.service.ts");
+/* harmony import */ var angular_font_awesome__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! angular-font-awesome */ "./node_modules/angular-font-awesome/dist/angular-font-awesome.es5.js");
+/* harmony import */ var angular2_draggable__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! angular2-draggable */ "./node_modules/angular2-draggable/fesm5/angular2-draggable.js");
+/* harmony import */ var _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./dialog/dialog.component */ "./src/app/dialog/dialog.component.ts");
+/* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./dialog.service */ "./src/app/dialog.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -143,18 +150,19 @@ var AppModule = /** @class */ (function () {
                 _styler_styler_component__WEBPACK_IMPORTED_MODULE_7__["StylerComponent"],
                 _sandbox_sandbox_component__WEBPACK_IMPORTED_MODULE_8__["SandboxComponent"],
                 _slide_editor_slide_editor_component__WEBPACK_IMPORTED_MODULE_9__["SlideEditorComponent"],
-                _text_style_card_text_style_card_component__WEBPACK_IMPORTED_MODULE_13__["TextStyleCardComponent"],
-                _image_style_card_image_style_card_component__WEBPACK_IMPORTED_MODULE_14__["ImageStyleCardComponent"]
+                _text_style_card_text_style_card_component__WEBPACK_IMPORTED_MODULE_10__["TextStyleCardComponent"],
+                _image_style_card_image_style_card_component__WEBPACK_IMPORTED_MODULE_11__["ImageStyleCardComponent"],
+                _dialog_dialog_component__WEBPACK_IMPORTED_MODULE_15__["DialogComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-                angular_font_awesome__WEBPACK_IMPORTED_MODULE_11__["AngularFontAwesomeModule"],
+                angular_font_awesome__WEBPACK_IMPORTED_MODULE_13__["AngularFontAwesomeModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 ngx_font_picker__WEBPACK_IMPORTED_MODULE_3__["FontPickerModule"],
                 ngx_color_picker__WEBPACK_IMPORTED_MODULE_4__["ColorPickerModule"],
-                angular2_draggable__WEBPACK_IMPORTED_MODULE_12__["AngularDraggableModule"]
+                angular2_draggable__WEBPACK_IMPORTED_MODULE_14__["AngularDraggableModule"]
             ],
-            providers: [_data_service__WEBPACK_IMPORTED_MODULE_10__["DataService"], {
+            providers: [_data_service__WEBPACK_IMPORTED_MODULE_12__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_16__["DialogService"], {
                     provide: ngx_font_picker__WEBPACK_IMPORTED_MODULE_3__["FONT_PICKER_CONFIG"],
                     useValue: DEFAULT_FONT_PICKER_CONFIG
                 }],
@@ -239,12 +247,57 @@ var BorderControl = /** @class */ (function () {
         var cssProperty = this.leftBorderWidth + 'px ' + this.leftBorderColor + ' ' + this.leftBorderStyle;
         return cssProperty;
     };
+    // getBorderStyleCss(){
+    //     // console.log('getBorderStyleCss');
+    //     if(this.showFullBorder){
+    //         return this.fullBorderStyle;
+    //     }
+    //     if(this.showFullBorder === false){
+    //         let borderStyleCss = '';
+    //         let topBorderStyleCss = this.showTopBorder ? this.topBorderStyle : 'none';
+    //         let rightBorderStyleCss = this.showRightBorder ? this.rightBorderStyle : 'none';
+    //         let bottomBorderStyleCss = this.showBottomBorder ? this.bottomBorderStyle : 'none';
+    //         let leftBorderStyleCss = this.showLeftBorder ? this.leftBorderStyle : 'none';
+    //         borderStyleCss = topBorderStyleCss + ' ' + rightBorderStyleCss + ' ' + bottomBorderStyleCss + ' ' + leftBorderStyleCss;
+    //         return borderStyleCss;
+    //     }
+    // }
+    // getBorderWidthCss(){
+    //     // console.log('getBorderWidthCss');
+    //     if(this.showFullBorder){
+    //         return this.fullBorderWidth + 'px';
+    //     }
+    //     if(this.showFullBorder === false){
+    //         let borderWidthCss = '';
+    //         let topBorderWidthCss = this.showTopBorder ? this.topBorderWidth + 'px' : 'none';
+    //         let rightBorderWidthCss = this.showRightBorder ? this.rightBorderWidth + 'px' : 'none';
+    //         let bottomBorderWidthCss = this.showBottomBorder ? this.bottomBorderWidth + 'px' : 'none';
+    //         let leftBorderWidthCss = this.showLeftBorder ? this.leftBorderWidth + 'px' : 'none';
+    //         borderWidthCss = topBorderWidthCss + ' ' + rightBorderWidthCss + ' ' + bottomBorderWidthCss + ' ' + leftBorderWidthCss;
+    //         return borderWidthCss;
+    //     }
+    // }
+    // getBorderColorCss(){
+    //     // console.log('getBorderColorCss');
+    //     if(this.showFullBorder){
+    //         return this.fullBorderColor;
+    //     }
+    //     if(this.showFullBorder === false){
+    //         let borderColorCss = '';
+    //         let topBorderColorCss = this.showTopBorder ? this.topBorderColor : 'none';
+    //         let rightBorderColorCss = this.showRightBorder ? this.rightBorderColor : 'none';
+    //         let bottomBorderColorCss = this.showBottomBorder ? this.bottomBorderColor : 'none';
+    //         let leftBorderColorCss = this.showLeftBorder ? this.leftBorderColor : 'none';
+    //         borderColorCss = topBorderColorCss + ' ' + rightBorderColorCss + ' ' + bottomBorderColorCss + ' ' + leftBorderColorCss;
+    //         return borderColorCss;
+    //     }
+    // }
     BorderControl.prototype.getBorderRadiusCss = function () {
         var borderRadiusCss = '';
-        borderRadiusCss += this.topLeftRadius + 'pt ';
-        borderRadiusCss += this.topRightRadius + 'pt ';
-        borderRadiusCss += this.bottomRightRadius + 'pt ';
-        borderRadiusCss += this.bottomLeftRadius + 'pt';
+        borderRadiusCss += this.topLeftRadius + 'px ';
+        borderRadiusCss += this.topRightRadius + 'px ';
+        borderRadiusCss += this.bottomRightRadius + 'px ';
+        borderRadiusCss += this.bottomLeftRadius + 'px';
         return borderRadiusCss;
     };
     BorderControl.prototype.getBorderProperty = function (propertyName) {
@@ -332,7 +385,7 @@ __webpack_require__.r(__webpack_exports__);
 var ImageStyle = /** @class */ (function () {
     function ImageStyle() {
         this.id = ImageStyle.imageStyleCounter++;
-        this.name = 'ImageStyle' + ImageStyle.imageStyleCounter;
+        this.name = 'ImageStyle' + this.id;
         this.editNameMode = false;
         this.showExtraOptions = false;
         this.opacity = 100;
@@ -345,6 +398,7 @@ var ImageStyle = /** @class */ (function () {
         this.saturate = 100;
         this.sepia = 0;
         this.border = new _borderControl__WEBPACK_IMPORTED_MODULE_0__["BorderControl"]();
+        this.isDefault = false;
     }
     ImageStyle.prototype.revive = function (obj) {
         for (var key in obj) {
@@ -353,14 +407,19 @@ var ImageStyle = /** @class */ (function () {
     };
     ImageStyle.prototype.getCss = function () {
         var css = {
-            'border-top': this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',
-            'border-right': this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
-            'border-bottom': this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none',
-            'border-left': this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none',
-            'border': this.border.getBorderProperty('showFullBorder') ? this.border.getFullBorderCss() : 'none',
             'border-radius': this.border.getBorderRadiusCss(),
             'filter': this.getFilters(),
+            'box-sizing': 'border-box'
         };
+        if (this.border.getBorderProperty('showFullBorder')) {
+            css['border'] = this.border.getFullBorderCss();
+        }
+        else if (!this.border.getBorderProperty('showFullBorder')) {
+            css['border-top'] = this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none';
+            css['border-right'] = this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none';
+            css['border-bottom'] = this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none';
+            css['border-left'] = this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none';
+        }
         return css;
     };
     ImageStyle.prototype.getFilters = function () {
@@ -631,6 +690,8 @@ var SlideObject = /** @class */ (function () {
         this.width = 'auto';
         this.display = true;
         this.zIndex = 100;
+        this.isResizing = false;
+        this.isDragging = false;
     }
     SlideObject.prototype.revive = function (obj) {
         for (var key in obj) {
@@ -678,6 +739,12 @@ var SlideObject = /** @class */ (function () {
             'display': this.display ? 'block' : 'none',
             'position': 'absolute'
         };
+        if (this.isResizing || this.isDragging) {
+            css['border'] = '2px gray dashed';
+            css['background'] = 'rgba(0, 0, 0, 0.3)';
+            css['margin-top'] = '-2px';
+            css['margin-left'] = '-2px';
+        }
         return css;
     };
     SlideObject.prototype.toggleSlideObjectProperty = function (propertyName) {
@@ -775,7 +842,7 @@ __webpack_require__.r(__webpack_exports__);
 var TextStyle = /** @class */ (function () {
     function TextStyle() {
         this.id = TextStyle.textStyleCounter++;
-        this.name = 'TextStyle' + TextStyle.textStyleCounter;
+        this.name = 'TextStyle' + this.id;
         this.editNameMode = false;
         this.showExtraOptions = false;
         this.color = '#000';
@@ -800,6 +867,7 @@ var TextStyle = /** @class */ (function () {
             style: 'regular',
             size: '25px'
         };
+        this.isDefault = false;
     }
     TextStyle.prototype.revive = function (obj) {
         for (var key in obj) {
@@ -821,19 +889,25 @@ var TextStyle = /** @class */ (function () {
             'word-spacing': this.wordSpacing + 'px',
             'letter-spacing': this.letterSpacing + 'px',
             'word-break': this.breakWord ? 'break-all' : 'normal',
-            'border-top': this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none',
-            'border-right': this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none',
-            'border-bottom': this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none',
-            'border-left': this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none',
-            'border': this.border.getBorderProperty('showFullBorder') ? this.border.getFullBorderCss() : 'none',
             'border-radius': this.border.getBorderRadiusCss(),
             'margin': this.margin + 'px',
             'padding': this.padding + 'px',
             'display': 'flex',
             'justify-content': this.convertAlignToFlex(this.hAlign),
             'align-items': this.convertAlignToFlex(this.vAlign),
-            'text-shadow': this.textShadow.getShadowCss()
+            'text-shadow': this.textShadow.getShadowCss(),
+            'box-sizing': 'border-box'
         };
+        // Border styles had to be seperated because in some UI configurations, 'border:none' would negate the other border styles
+        if (this.border.getBorderProperty('showFullBorder')) {
+            css['border'] = this.border.getFullBorderCss();
+        }
+        else if (!this.border.getBorderProperty('showFullBorder')) {
+            css['border-top'] = this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none';
+            css['border-right'] = this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none';
+            css['border-bottom'] = this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none';
+            css['border-left'] = this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none';
+        }
         return css;
     };
     // CSS helper functions
@@ -876,13 +950,13 @@ var TextStyle = /** @class */ (function () {
             return 'none';
         }
         if (this.underline) {
-            textDecoration += "underline";
+            textDecoration += "underline ";
         }
         if (this.overline) {
-            textDecoration += "overline";
+            textDecoration += "overline ";
         }
         if (this.lineThrough) {
-            textDecoration += "line-through";
+            textDecoration += "line-through ";
         }
         return textDecoration;
     };
@@ -930,10 +1004,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(jspdf__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
 /* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _classes_imageObject__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./classes/imageObject */ "./src/app/classes/imageObject.ts");
-/* harmony import */ var _classes_borderControl__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./classes/borderControl */ "./src/app/classes/borderControl.ts");
-/* harmony import */ var _classes_shadowControl__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./classes/shadowControl */ "./src/app/classes/shadowControl.ts");
+/* harmony import */ var _classes_imageObject__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./classes/imageObject */ "./src/app/classes/imageObject.ts");
+/* harmony import */ var _classes_borderControl__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./classes/borderControl */ "./src/app/classes/borderControl.ts");
+/* harmony import */ var _classes_shadowControl__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./classes/shadowControl */ "./src/app/classes/shadowControl.ts");
+/* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./dialog.service */ "./src/app/dialog.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -952,13 +1026,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-// import { caman } from "./caman";
 
 
 
 var DataService = /** @class */ (function () {
-    function DataService(http) {
-        this.http = http;
+    function DataService(dialog) {
+        this.dialog = dialog;
         // These variable define the state of the app
         this.currentProject = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : this.loadNewProject();
         // currentProject: Project = new Project();
@@ -987,7 +1060,6 @@ var DataService = /** @class */ (function () {
     }
     DataService.prototype.test = function () {
         console.log("Test");
-        console.log(this.documentSize.height);
     };
     // FUNCTIONS USED BY ALL COMPONENTS
     // App view mode:  text || image || shape
@@ -1033,8 +1105,14 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.loadNewProject = function () {
         var project = new _classes_project__WEBPACK_IMPORTED_MODULE_1__["Project"]();
-        project.addTextStyle(new _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__["TextStyle"]());
-        project.addImageStyle(new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]());
+        var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__["TextStyle"]();
+        textStyle.setStyleProperty('name', 'Default Text Style');
+        textStyle.setStyleProperty('isDefault', true);
+        var imageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]();
+        imageStyle.setStyleProperty('name', 'Default Image Style');
+        imageStyle.setStyleProperty('isDefault', true);
+        project.addTextStyle(textStyle);
+        project.addImageStyle(imageStyle);
         project.addSlide(new _classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]());
         return project;
     };
@@ -1058,7 +1136,7 @@ var DataService = /** @class */ (function () {
                 }
                 else if (currentSlideObject.hasOwnProperty('imagePath')) {
                     // Revive image objects
-                    var imageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_9__["ImageObject"]();
+                    var imageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_8__["ImageObject"]();
                     imageObject.revive(currentSlideObject);
                     slideObjects.push(imageObject);
                 }
@@ -1074,11 +1152,11 @@ var DataService = /** @class */ (function () {
             var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_3__["TextStyle"]();
             textStyle.revive(currentTextStyle);
             // Revive borders
-            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_10__["BorderControl"]();
+            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_9__["BorderControl"]();
             border.revive(currentTextStyle.border);
             textStyle.setStyleProperty('border', border);
             // Revive shadows
-            var shadow = new _classes_shadowControl__WEBPACK_IMPORTED_MODULE_11__["ShadowControl"]();
+            var shadow = new _classes_shadowControl__WEBPACK_IMPORTED_MODULE_10__["ShadowControl"]();
             shadow.revive(currentTextStyle.textShadow);
             textStyle.setStyleProperty('textShadow', shadow);
             textStyles.push(textStyle);
@@ -1091,7 +1169,7 @@ var DataService = /** @class */ (function () {
             var imageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_4__["ImageStyle"]();
             imageStyle.revive(currentImageStyle);
             // Revive borders
-            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_10__["BorderControl"]();
+            var border = new _classes_borderControl__WEBPACK_IMPORTED_MODULE_9__["BorderControl"]();
             border.revive(currentImageStyle.border);
             imageStyle.setStyleProperty('border', border);
             imageStyles.push(imageStyle);
@@ -1116,7 +1194,7 @@ var DataService = /** @class */ (function () {
         this.currentProject.setProjectProperty('images', this.images);
         localStorage.setItem('deckbuilder2Data', JSON.stringify(this.currentProject));
         // Send to server and save to database when backend is set up
-        alert('Your session has been saved');
+        this.dialog.alert('Your session has been saved.');
     };
     //  TOOLBAR FUNCTIONS
     DataService.prototype.createTextStyle = function () {
@@ -1168,10 +1246,12 @@ var DataService = /** @class */ (function () {
         this.slideRenderMagnification = 100;
         this.currentSlideIndex = 0;
         var slideRender = document.getElementById('slide-render');
+        var originalOverflowSR = slideRender.style.overflow;
+        slideRender.style.overflow = "visible";
         // Parent container must be set to overflow: visible to capture entire canvas
         var slideRenderArea = document.getElementById('slide-render-area');
         var originalWidth = slideRenderArea.style.width;
-        var originalOverflow = slideRenderArea.style.overflow;
+        var originalOverflowSRA = slideRenderArea.style.overflow;
         slideRenderArea.style.width = "auto";
         slideRenderArea.style.overflow = "visible";
         var doc = new jspdf__WEBPACK_IMPORTED_MODULE_6__({
@@ -1191,7 +1271,8 @@ var DataService = /** @class */ (function () {
                     doc.save("a4.pdf");
                     // Change styleEditor overflow back to original value
                     slideRenderArea.style.width = originalWidth;
-                    slideRenderArea.style.overflow = originalOverflow;
+                    slideRenderArea.style.overflow = originalOverflowSRA;
+                    slideRender.style.overflow = originalOverflowSR;
                     return;
                 }
                 else {
@@ -1215,17 +1296,71 @@ var DataService = /** @class */ (function () {
         }
     };
     //  STYLER FUNCTIONS
-    DataService.prototype.deleteTextStyleById = function (id) {
-        for (var i = 0; i < this.textStyles.length; i++) {
-            if (this.textStyles[i].getStyleProperty('id') === id && this.textStyles.length > 1) {
-                this.textStyles.splice(i, 1);
+    DataService.prototype.deleteTextStyle = function (textStyle) {
+        var id = textStyle.getStyleProperty('id');
+        var isInUse = false;
+        // Check if this style is currently being used in a slide
+        for (var i = 0; i < this.slides.length && !isInUse; i++) {
+            var thisSlideObjects = this.slides[i].getSlideProperty('slideObjects');
+            for (var j = 0; j < thisSlideObjects.length && !isInUse; j++) {
+                var thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
+                var thisSlideObjectStyleType = thisSlideObjects[j].constructor.name;
+                console.log(thisSlideObjectId, thisSlideObjectStyleType);
+                if (thisSlideObjectId === id && thisSlideObjectStyleType === "TextObject") {
+                    isInUse = true;
+                    break;
+                }
+            }
+        }
+        if (isInUse) {
+            var textStyleName = textStyle.getStyleProperty('name');
+            this.dialog.alert('Unable to delete.  ' + textStyleName + ' is currently being used.');
+        }
+        else if (!isInUse) {
+            for (var i = 0; i < this.textStyles.length; i++) {
+                var thisTextStyleId = this.textStyles[i].getStyleProperty('id');
+                // If user wants to delete a style that is currently the selected style,
+                // Change selected style to default (index 0) before proceeding.
+                if (id === this.selectedTextStyleId) {
+                    this.selectedTextStyleId = 0;
+                }
+                // Delete style by id
+                if (thisTextStyleId === id)
+                    this.textStyles.splice(i, 1);
             }
         }
     };
-    DataService.prototype.deleteImageStyleById = function (id) {
-        for (var i = 0; i < this.imageStyles.length; i++) {
-            if (this.imageStyles[i].getStyleProperty('id') === id && this.imageStyles.length > 1) {
-                this.imageStyles.splice(i, 1);
+    DataService.prototype.deleteImageStyle = function (imageStyle) {
+        var id = imageStyle.getStyleProperty('id');
+        var isInUse = false;
+        // Check if this style is currently being used in a slide
+        for (var i = 0; i < this.slides.length && !isInUse; i++) {
+            var thisSlideObjects = this.slides[i].getSlideProperty('slideObjects');
+            for (var j = 0; j < thisSlideObjects.length && !isInUse; j++) {
+                var thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
+                var thisSlideObjectStyleType = thisSlideObjects[j].constructor.name;
+                console.log(thisSlideObjectId, thisSlideObjectStyleType);
+                if (thisSlideObjectId === id && thisSlideObjectStyleType === "ImageObject") {
+                    isInUse = true;
+                    break;
+                }
+            }
+        }
+        if (isInUse) {
+            var imageStyleName = imageStyle.getStyleProperty('name');
+            this.dialog.alert('Unable to delete.  ' + imageStyleName + ' is currently being used.');
+        }
+        else if (!isInUse) {
+            for (var i = 0; i < this.imageStyles.length; i++) {
+                var thisImageStyleId = this.imageStyles[i].getStyleProperty('id');
+                // If user wants to delete a style that is currently the selected style,
+                // Change selected style to default (index 0) before proceeding.
+                if (id === this.selectedImageStyleId) {
+                    this.selectedImageStyleId = 0;
+                }
+                // Delete style by id
+                if (thisImageStyleId === id)
+                    this.imageStyles.splice(i, 1);
             }
         }
     };
@@ -1243,24 +1378,42 @@ var DataService = /** @class */ (function () {
         var newTextObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_5__["TextObject"]();
         newTextObject.setTextvalue(this.sandboxText);
         newTextObject.setStyleId(this.selectedTextStyleId);
+        console.log(this.selectedTextStyleId);
         // !important!  set z index last to ensure proper assignment of z index
         currentSlide.addSlideObject(newTextObject);
         newTextObject.setZIndex(currentSlideObjects.length - 1);
     };
     DataService.prototype.addImageObjectToSlide = function () {
+        // Create a new ImageObject using currently selected image and currently selected ImageStyle
         var currentSlide = this.slides[this.currentSlideIndex];
         var currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
-        var newImageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_9__["ImageObject"]();
-        newImageObject.setImagePath(this.images[this.selectedImage].url);
+        var newImageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_8__["ImageObject"]();
+        var image = this.images[this.selectedImage].url;
+        // Check if image is larger than document size
+        var imageElement = new Image;
+        imageElement.src = image;
+        var imageWidth;
+        var imageHeight;
+        // Scale down if larger than document size
+        if (imageElement.width > this.documentSize.width) {
+            var ratio = imageElement.width / imageElement.height;
+            imageWidth = this.documentSize.width;
+            imageHeight = imageWidth / ratio;
+        }
+        // Define properties for newImageObject
+        newImageObject.setImagePath(image);
         newImageObject.setStyleId(this.selectedImageStyleId);
-        console.log(newImageObject);
+        newImageObject.setImageObjectProperty('height', imageHeight);
+        newImageObject.setImageObjectProperty('width', imageWidth);
+        // imageElement is no longer needed
+        imageElement = null;
+        // Add to current slide
         currentSlide.addSlideObject(newImageObject);
         newImageObject.setZIndex(currentSlideObjects.length - 1);
     };
     DataService.prototype.uploadImage = function (event) {
         var _this = this;
         var file = event.srcElement.files[0];
-        console.log(event);
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function (e) {
@@ -1276,12 +1429,15 @@ var DataService = /** @class */ (function () {
         this.selectedImage = index;
     };
     DataService.prototype.deleteImageById = function (imageId) {
-        console.log(imageId);
-        for (var i = 0; i < this.images.length; i++) {
-            if (this.images[i].id === imageId) {
-                this.images.splice(i, 1);
+        var _this = this;
+        var callback = function () {
+            for (var i = 0; i < _this.images.length; i++) {
+                if (_this.images[i].id === imageId) {
+                    _this.images.splice(i, 1);
+                }
             }
-        }
+        };
+        this.dialog.alert("Are you sure you want to delete this image from your project?", callback);
     };
     //  SLIDE EDITOR FUNCTIONS
     DataService.prototype.increaseOneLayer = function (objectId) {
@@ -1323,9 +1479,134 @@ var DataService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: "root"
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClient"]])
+        __metadata("design:paramtypes", [_dialog_service__WEBPACK_IMPORTED_MODULE_11__["DialogService"]])
     ], DataService);
     return DataService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dialog.service.ts":
+/*!***********************************!*\
+  !*** ./src/app/dialog.service.ts ***!
+  \***********************************/
+/*! exports provided: DialogService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DialogService", function() { return DialogService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var DialogService = /** @class */ (function () {
+    function DialogService() {
+        this.message = "";
+        this.showDialog = false;
+    }
+    DialogService.prototype.alert = function (message, callback) {
+        console.log('test from dialog service');
+        this.message = message;
+        this.showDialog = true;
+        if (callback) {
+            this.callback = callback;
+        }
+        if (!callback) {
+            this.callback = null;
+        }
+    };
+    DialogService.prototype.ok = function () {
+        if (this.callback) {
+            this.callback();
+        }
+        this.close();
+    };
+    DialogService.prototype.close = function () {
+        this.showDialog = false;
+    };
+    DialogService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], DialogService);
+    return DialogService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dialog/dialog.component.css":
+/*!*********************************************!*\
+  !*** ./src/app/dialog/dialog.component.css ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    background: rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n#dialog-box {\r\n    width: 400px;\r\n    height: auto;\r\n    position: fixed;\r\n    left: 50%;\r\n    margin-left: -200px;\r\n    top: 30vh;\r\n    padding: 25px 50px;\r\n    border-radius: 8px;\r\n    box-shadow: 2px 2px 5px rgb(59, 59, 59), -2px -2px 5px rgb(110, 110, 110);\r\n}\r\n\r\n#message {\r\n    margin-bottom: 35px;\r\n}\r\n\r\nbutton {\r\n    width: 100px;\r\n    height: 25px;\r\n    border: 0;\r\n    border-radius: 5px;\r\n    margin: 5px;\r\n    background: rgb(146, 141, 141);\r\n    color: #FFF;\r\n}\r\n\r\nbutton:hover {\r\n    background: rgb(175, 170, 170);\r\n}"
+
+/***/ }),
+
+/***/ "./src/app/dialog/dialog.component.html":
+/*!**********************************************!*\
+  !*** ./src/app/dialog/dialog.component.html ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"overlay\" *ngIf=\"this.dialog.showDialog\">\n  <div id=\"dialog-box\" class=\"grayAccent03\">\n    <p id=\"message\">{{this.dialog.message}}</p>\n\n    <div class=\"flex-row-center\">\n        <button (click)=\"this.dialog.ok()\">Ok</button>\n        <button *ngIf=\"this.dialog.callback\" (click)=\"this.dialog.close()\">Cancel</button>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/dialog/dialog.component.ts":
+/*!********************************************!*\
+  !*** ./src/app/dialog/dialog.component.ts ***!
+  \********************************************/
+/*! exports provided: DialogComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DialogComponent", function() { return DialogComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dialog.service */ "./src/app/dialog.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var DialogComponent = /** @class */ (function () {
+    function DialogComponent(dialog) {
+        this.dialog = dialog;
+    }
+    DialogComponent.prototype.ngOnInit = function () {
+    };
+    DialogComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-dialog',
+            template: __webpack_require__(/*! ./dialog.component.html */ "./src/app/dialog/dialog.component.html"),
+            styles: [__webpack_require__(/*! ./dialog.component.css */ "./src/app/dialog/dialog.component.css")]
+        }),
+        __metadata("design:paramtypes", [_dialog_service__WEBPACK_IMPORTED_MODULE_1__["DialogService"]])
+    ], DialogComponent);
+    return DialogComponent;
 }());
 
 
@@ -1339,7 +1620,7 @@ var DataService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border-bottom: 3px #FFF solid;\r\n    margin-bottom: 4px;\r\n    height: auto;\r\n}\r\n\r\n.style-card-row {\r\n    width: 100%;\r\n    height: 25px;\r\n    margin: 3px auto;\r\n}\r\n\r\n.style-card-row h3 {\r\n    font-size: 1rem;\r\n}\r\n\r\n.style-card-row a,\r\n.style-card-row h4 {\r\n    font-size: 0.8rem;\r\n}\r\n\r\n.style-card-row \r\n.material-icons {\r\n    font-size: 1.2rem;\r\n    padding: 7px;\r\n}\r\n\r\n.style-card-row fa {\r\n    font-size: 0.8rem;\r\n    padding: 7px;\r\n}\r\n\r\n.style-card-row fa:hover,\r\n.style-card-row .material-icons:hover {\r\n    background:rgb(137, 150, 132);\r\n    cursor: pointer;\r\n}\r\n\r\n.style-card-row\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=\"range\"]{\r\n    width: 85px;\r\n}\r\n\r\n.google-font-name {\r\n    font-size: 0.7rem;\r\n    border: 1px #D6F9DD solid;\r\n    padding: 2px 4px;\r\n    cursor: pointer;\r\n    line-height: 1;\r\n}\r\n"
+module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border-bottom: 3px #FFF solid;\r\n    margin-bottom: 4px;\r\n    height: auto;\r\n}\r\n\r\n.style-card-row {\r\n    width: 100%;\r\n    height: 25px;\r\n    margin: 3px auto;\r\n}\r\n\r\n.style-card-row h3 {\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row a,\r\n.style-card-row h4 {\r\n    font-size: 0.8rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row \r\n.material-icons {\r\n    font-size: 1.2rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa {\r\n    font-size: 0.8rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa:hover,\r\n.style-card-row .material-icons:hover {\r\n    background:rgb(137, 150, 132);\r\n    cursor: pointer;\r\n}\r\n\r\n.style-card-row\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\ninput[type=\"range\"]{\r\n    width: 85px;\r\n}\r\n\r\n.style-card-row\r\nselect {\r\n    border: 1px #D6F9DD solid;\r\n    box-sizing: border-box;\r\n    background: #D6F9DD;\r\n    color: black;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.selected {\r\n    background:rgb(137, 150, 132);\r\n    border: 1px white solid;\r\n    box-sizing: border-box;\r\n}\r\n"
 
 /***/ }),
 
@@ -1350,7 +1631,7 @@ module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"style-card-container greenAccent01\">\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h3>{{imageStyle.name}}\r\n        <fa name=\"edit\"></fa>\r\n      </h3>\r\n      <a (click)=\"this.data.deleteImageStyleById(imageStyle.id)\">\r\n        <fa class=\"clickable\" name=\"trash\"></fa>\r\n      </a>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Opacity:</h4>\r\n      <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.opacity\" min=\"0\" max=\"100\">\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.opacity\">%&nbsp;&nbsp;&nbsp;</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Grayscale:</h4>\r\n      <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.grayscale\" min=\"0\" max=\"100\">\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.grayscale\">%&nbsp;&nbsp;&nbsp;</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Blur:</h4>\r\n      <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.blur\" min=\"0\" max=\"25\">\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.blur\">px&nbsp;&nbsp;</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Brightness:</h4>\r\n      <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.brightness\" min=\"0\" max=\"200\">\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.brightness\">%&nbsp;&nbsp;&nbsp;</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Contrast:</h4>\r\n      <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.contrast\" min=\"0\" max=\"200\">\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.contrast\">%&nbsp;&nbsp;&nbsp;</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Invert:</h4>\r\n      <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.invert\" min=\"0\" max=\"200\">\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.invert\">%&nbsp;&nbsp;&nbsp;</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Saturate:</h4>\r\n      <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.saturate\" min=\"0\" max=\"200\">\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.saturate\">%&nbsp;&nbsp;&nbsp;</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Sepia:</h4>\r\n      <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.sepia\" min=\"0\" max=\"200\">\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.sepia\">%&nbsp;&nbsp;&nbsp;</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Hue rotate:</h4>\r\n      <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.hueRotate\" min=\"0\" max=\"360\">\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.hueRotate\">deg</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <a (click)=\"imageStyle.toggleExtraOptions()\" class=\"flex-row-evenly\" *ngIf=\"!imageStyle.showExtraOptions\">\r\n        <fa name=\"angle-double-down\"></fa>\r\n        <a>Show extra options</a>\r\n        <fa name=\"angle-double-down\"></fa>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.toggleExtraOptions()\" class=\"flex-row-evenly\" *ngIf=\"imageStyle.showExtraOptions\">\r\n        <fa name=\"angle-double-down\"></fa>\r\n        <a>Hide extra options</a>\r\n        <fa name=\"angle-double-down\"></fa>\r\n      </a>\r\n    </div>\r\n\r\n    <div *ngIf=\"imageStyle.showExtraOptions\">\r\n      <!-- Full border settings -->\r\n      <div class=\"flex-row-evenly style-card-row\">\r\n          <h4>Borders: </h4>\r\n        </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showFullBorder');\r\n          imageStyle.border.setBorderProperty('showTopBorder', false);\r\n          imageStyle.border.setBorderProperty('showRightBorder', false);\r\n          imageStyle.border.setBorderProperty('showBottomBorder', false);\r\n          imageStyle.border.setBorderProperty('showLeftBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_outer</i>\r\n        </a>\r\n\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showLeftBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_left</i>\r\n        </a>\r\n\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showTopBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_top</i>\r\n        </a>\r\n\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showRightBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_right</i>\r\n        </a>\r\n\r\n        <a (click)=\"imageStyle.border.toggleBorderProperty('showBottomBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\" class=\"style-card-btn\">\r\n          <i class=\"material-icons\">border_bottom</i>\r\n        </a>\r\n      </div>\r\n\r\n      <!-- Full border settings -->\r\n      <div *ngIf=\"imageStyle.border.showFullBorder\">\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Width: </h4>\r\n          <h4>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.fullBorderWidth\"> px</h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Color: </h4>\r\n          <div style=\"flex: 1\">\r\n              <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.fullBorderColor\" [style.background]=\"imageStyle.border.fullBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Style: </h4>\r\n          <select [(ngModel)]=\"imageStyle.border.fullBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n\r\n\r\n        <!--Border radius settings -->\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n        <h4>Border radius: </h4>\r\n      </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Top left radius: </h4>\r\n          <h4>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.topLeftRadius\">px</h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Top right radius: </h4>\r\n          <h4>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.topRightRadius\">px</h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Bottom right radius: </h4>\r\n          <h4>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomRightRadius\">px</h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Bottom left radius: </h4>\r\n          <h4>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomLeftRadius\">px</h4>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- Top border settings -->\r\n      <div *ngIf=\"imageStyle.border.showTopBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Top Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Width: </h4>\r\n          <h4>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.topBorderWidth\"> px</h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Color: </h4><div style=\"flex: 1\">\r\n              <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.topBorderColor\" [style.background]=\"imageStyle.border.topBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Style: </h4>\r\n          <select [(ngModel)]=\"imageStyle.border.topBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n      <!-- Right border settings -->\r\n      <div *ngIf=\"imageStyle.border.showRightBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Right Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Width: </h4>\r\n          <h4>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.rightBorderWidth\"> px</h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Color: </h4>\r\n          <div style=\"flex: 1\">\r\n              <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.rightBorderColor\" [style.background]=\"imageStyle.border.rightBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Style: </h4>\r\n          <select [(ngModel)]=\"imageStyle.border.rightBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- Bottom border settings -->\r\n      <div *ngIf=\"imageStyle.border.showBottomBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Bottom Border: </h4>\r\n        </div>\r\n\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Width: </h4>\r\n          <h4>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomBorderWidth\"> px</h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Color: </h4>\r\n          <div style=\"flex: 1\">\r\n              <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.bottomBorderColor\" [style.background]=\"imageStyle.border.bottomBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Style: </h4>\r\n          <select [(ngModel)]=\"imageStyle.border.bottomBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n\r\n      <!-- Left border settings -->\r\n      <div *ngIf=\"imageStyle.border.showLeftBorder\">\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Left Border: </h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Width: </h4>\r\n          <h4>\r\n            <input type=\"number\" [(ngModel)]=\"imageStyle.border.leftBorderWidth\"> px</h4>\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Color: </h4>\r\n          <div style=\"flex: 1\">\r\n              <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n          <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.leftBorderColor\" [style.background]=\"imageStyle.border.leftBorderColor\"\r\n            cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n        </div>\r\n\r\n        <div class=\"flex-row-between style-card-row\">\r\n          <h4>Style: </h4>\r\n          <select [(ngModel)]=\"imageStyle.border.leftBorderStyle\">\r\n            <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n          </select>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n\r\n\r\n\r\n"
+module.exports = "<div class=\"style-card-container greenAccent01\">\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <div *ngIf=\"!imageStyle.editNameMode\" class=\"flex-row-between\">\r\n      <h3 *ngIf=\"!imageStyle.editNameMode\">{{imageStyle.name}}</h3>\r\n      <fa *ngIf=\"!imageStyle.isDefault\" (click)=\"imageStyle.toggleEditNameMode()\" name=\"edit\"></fa>\r\n    </div>\r\n\r\n    <div *ngIf=\"imageStyle.editNameMode\" class=\"flex-row-between\">\r\n      <input type=\"text\" [(ngModel)]=\"imageStyle.name\" placeholder=\"imageStyle.name\">\r\n      <fa name=\"save\" (click)=\"imageStyle.toggleEditNameMode()\" class=\"clickable\"></fa>\r\n    </div>\r\n\r\n    <a *ngIf=\"!imageStyle.isDefault\" (click)=\"this.data.deleteImageStyle(imageStyle)\">\r\n      <fa class=\"clickable\" name=\"trash\"></fa>\r\n    </a>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Opacity:</h4>\r\n\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.opacity\" min=\"0\" max=\"100\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.opacity\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Grayscale:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.grayscale\" min=\"0\" max=\"100\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.grayscale\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Blur:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.blur\" min=\"0\" max=\"25\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.blur\">px&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Brightness:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.brightness\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.brightness\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Contrast:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.contrast\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.contrast\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Invert:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.invert\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.invert\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Saturate:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.saturate\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.saturate\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Sepia:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.sepia\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.sepia\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Hue rotate:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.hueRotate\" min=\"0\" max=\"360\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.hueRotate\">deg</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly style-card-row\">\r\n    <a (click)=\"imageStyle.toggleExtraOptions()\" class=\"flex-row-evenly\" *ngIf=\"!imageStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-down\"></fa>\r\n      <a>Show extra options</a>\r\n      <fa name=\"angle-double-down\"></fa>\r\n    </a>\r\n\r\n    <a (click)=\"imageStyle.toggleExtraOptions()\" class=\"flex-row-evenly\" *ngIf=\"imageStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-down\"></fa>\r\n      <a>Hide extra options</a>\r\n      <fa name=\"angle-double-down\"></fa>\r\n    </a>\r\n  </div>\r\n\r\n  <div *ngIf=\"imageStyle.showExtraOptions\">\r\n\r\n    <!--Border radius settings -->\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Border radius: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Top left radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.topLeftRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Top right radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.topRightRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Bottom right radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomRightRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Bottom left radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomLeftRadius\">px</h4>\r\n    </div>\r\n\r\n\r\n    <!-- Full border settings -->\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Borders: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <a (click)=\"imageStyle.border.toggleBorderProperty('showFullBorder');\r\n          imageStyle.border.setBorderProperty('showTopBorder', false);\r\n          imageStyle.border.setBorderProperty('showRightBorder', false);\r\n          imageStyle.border.setBorderProperty('showBottomBorder', false);\r\n          imageStyle.border.setBorderProperty('showLeftBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getBorderProperty('showFullBorder')\">\r\n        <i class=\"material-icons\">border_outer</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleBorderProperty('showLeftBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getBorderProperty('showLeftBorder')\">\r\n        <i class=\"material-icons\">border_left</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleBorderProperty('showTopBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getBorderProperty('showTopBorder')\">\r\n        <i class=\"material-icons\">border_top</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleBorderProperty('showRightBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getBorderProperty('showRightBorder')\">\r\n        <i class=\"material-icons\">border_right</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleBorderProperty('showBottomBorder');\r\n          imageStyle.border.setBorderProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getBorderProperty('showBottomBorder')\">\r\n        <i class=\"material-icons\">border_bottom</i>\r\n      </a>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Full border settings -->\r\n  <div *ngIf=\"imageStyle.border.showFullBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Full border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.fullBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.fullBorderColor\" [style.background]=\"imageStyle.border.fullBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.fullBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n\r\n\r\n\r\n  <!-- Top border settings -->\r\n  <div *ngIf=\"imageStyle.border.showTopBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Top border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.topBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.topBorderColor\" [style.background]=\"imageStyle.border.topBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.topBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <!-- Right border settings -->\r\n  <div *ngIf=\"imageStyle.border.showRightBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Right border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.rightBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.rightBorderColor\" [style.background]=\"imageStyle.border.rightBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.rightBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Bottom border settings -->\r\n  <div *ngIf=\"imageStyle.border.showBottomBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Bottom border: </h4>\r\n    </div>\r\n\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.bottomBorderColor\" [style.background]=\"imageStyle.border.bottomBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.bottomBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Left border settings -->\r\n  <div *ngIf=\"imageStyle.border.showLeftBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Left border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.leftBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.leftBorderColor\" [style.background]=\"imageStyle.border.leftBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.leftBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1415,7 +1696,7 @@ var ImageStyleCardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n#sandbox-toolbar {\r\n    height: 6vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.sandbox-toolbar-btn-group {\r\n    height: 100%;\r\n    width: 30%;\r\n    max-width: 150px;\r\n    padding: 0 15px;\r\n}\r\n\r\n.sandbox-add-btn-group:hover, \r\n.sandbox-toolbar-btn-group:hover {\r\n    background: rgb(100, 100, 100);\r\n}\r\n\r\n.sandbox-toolbar-btn-group fa {\r\n    font-size: 2vh;\r\n    margin: 0;\r\n    padding: 2px 4px;\r\n    border: 2px dashed;\r\n    border-radius: 2px;\r\n}\r\n\r\n.sandbox-toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    margin: 0 10px;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n.sandbox-preview-area {\r\n    width: 100%;\r\n    background: linear-gradient(to bottom right, rgb(179, 179, 179), rgb(241, 241, 241));\r\n}\r\n\r\n.sandbox-preview-container {\r\n    border: 2px dashed gray;\r\n}\r\n\r\n.sandbox-preview-container p {\r\n    display: inline-block !important;\r\n    max-width: 40vw !important;\r\n    overflow-wrap: break-word;\r\n    word-wrap: break-word;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n}\r\n\r\n.sandbox-middle-bar { \r\n    box-sizing: border-box;\r\n    border-top: 3px rgb(65, 65, 65) solid;\r\n    border-bottom: 3px rgb(65, 65, 65) solid;\r\n    width: 100%;\r\n}\r\n\r\n.sandbox-add-btn-group {\r\n    width: 125px;\r\n    height: 100%;\r\n}\r\n\r\n.sandbox-add-btn-group fa {\r\n    font-size: 3vh;\r\n}\r\n\r\n.sandbox-add-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    max-width: 80%;\r\n}\r\n\r\n.sandbox-textarea {\r\n    height: 100%;\r\n    flex-grow: 1;\r\n    padding: 0;\r\n    font-family: 'Helvetica', sans-serif;\r\n    border: 0;\r\n    resize: none;\r\n    outline: none;\r\n    box-sizing: border-box;\r\n    padding: 10px;\r\n}\r\n\r\n/*  text sandbox  */\r\n\r\n#text-sandbox {\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 51vh 10vh 25vh;\r\n        grid-template-rows: 51vh 10vh 25vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#image-sandbox {\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 51vh 10vh 25vh;\r\n        grid-template-rows: 51vh 10vh 25vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\ninput[type=\"file\"] {\r\n    text-align: center !important;\r\n    align-items: center !important;\r\n    margin: 0 auto;\r\n}\r\n\r\n#image-preview {\r\n    max-width: 90%;\r\n    max-height: 90%;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#gallery {\r\n    background: rgb(214, 214, 214);\r\n    width: 100%;\r\n    height: auto;\r\n    display: static;\r\n    overflow: auto;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.gallery-img-container {\r\n    background: #000;\r\n    margin: 6px;\r\n    box-shadow: 3px 3px 3px gray;\r\n    height: 75px;\r\n    display: inline-block;\r\n    position: relative;\r\n}\r\n\r\n.gallery-img {\r\n    height: 100%;\r\n    opacity: 0.9;\r\n}\r\n\r\n.gallery-img:hover {\r\n    opacity: 1;\r\n}\r\n\r\n.delete-icon {\r\n    position: absolute;\r\n    bottom: 0;\r\n    right: 0;\r\n    color: #FFF;\r\n    border-radius: 50%;\r\n    height: 12px;\r\n    width: 12px;\r\n    padding: 5px;\r\n    margin: 5px;\r\n    border: 2px #FFF solid;\r\n    opacity: 0.6;\r\n}\r\n\r\n.delete-icon:hover {\r\n    opacity: 0.9;\r\n}\r\n\r\n@media screen and (min-width: 1200px) {\r\n    .sandbox-toolbar-btn-group p,\r\n    .sandbox-add-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n  }\r\n\r\n"
+module.exports = "\r\n#sandbox-toolbar {\r\n    height: 6vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.sandbox-toolbar-btn-group {\r\n    height: 100%;\r\n    width: 30%;\r\n    max-width: 150px;\r\n    padding: 0 15px;\r\n}\r\n\r\n.sandbox-add-btn-group:hover, \r\n.sandbox-toolbar-btn-group:hover {\r\n    background: rgb(100, 100, 100);\r\n}\r\n\r\n.sandbox-toolbar-btn-group fa {\r\n    font-size: 2vh;\r\n    margin: 0;\r\n    padding: 2px 4px;\r\n    border: 2px dashed;\r\n    border-radius: 2px;\r\n}\r\n\r\n.sandbox-toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    margin: 0 10px;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n.sandbox-preview-area {\r\n    width: 100%;\r\n    background: linear-gradient(to bottom right, rgb(179, 179, 179), rgb(241, 241, 241));\r\n}\r\n\r\n.sandbox-preview-container {\r\n    border: 2px dashed gray;\r\n}\r\n\r\n.sandbox-preview-container p {\r\n    display: inline-block !important;\r\n    max-width: 40vw !important;\r\n    overflow-wrap: break-word;\r\n    word-wrap: break-word;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n}\r\n\r\n.sandbox-middle-bar { \r\n    box-sizing: border-box;\r\n    border-top: 3px rgb(65, 65, 65) solid;\r\n    border-bottom: 3px rgb(65, 65, 65) solid;\r\n    width: 100%;\r\n}\r\n\r\n.sandbox-add-btn-group {\r\n    width: 125px;\r\n    height: 100%;\r\n}\r\n\r\n.sandbox-add-btn-group fa {\r\n    font-size: 3vh;\r\n}\r\n\r\n.sandbox-add-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    max-width: 80%;\r\n}\r\n\r\n.sandbox-textarea {\r\n    height: 100%;\r\n    flex-grow: 1;\r\n    padding: 0;\r\n    font-family: 'Helvetica', sans-serif;\r\n    border: 0;\r\n    resize: none;\r\n    outline: none;\r\n    box-sizing: border-box;\r\n    padding: 10px;\r\n    background: rgb(230, 230, 230);\r\n}\r\n\r\n/*  text sandbox  */\r\n\r\n#text-sandbox {\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 51vh 10vh 25vh;\r\n        grid-template-rows: 51vh 10vh 25vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#image-sandbox {\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 51vh 10vh 25vh;\r\n        grid-template-rows: 51vh 10vh 25vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#import-container {\r\n    margin: 0 auto;\r\n}\r\n\r\ninput[type=\"file\"] {\r\n    text-align: center !important;\r\n    align-items: center !important;\r\n}\r\n\r\n#image-preview {\r\n    max-width: 90%;\r\n    max-height: 90%;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#gallery {\r\n    width: 100%;\r\n    height: auto;\r\n    display: static;\r\n    overflow: auto;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.gallery-img-container {\r\n    background: #000;\r\n    margin: 6px;\r\n    box-shadow: 3px 3px 3px gray;\r\n    height: 75px;\r\n    display: inline-block;\r\n    position: relative;\r\n}\r\n\r\n.gallery-img {\r\n    height: 100%;\r\n    opacity: 0.9;\r\n}\r\n\r\n.gallery-img:hover {\r\n    opacity: 1;\r\n}\r\n\r\n.delete-icon {\r\n    position: absolute;\r\n    bottom: 0;\r\n    right: 0;\r\n    color: #FFF;\r\n    border-radius: 50%;\r\n    height: 12px;\r\n    width: 12px;\r\n    padding: 5px;\r\n    margin: 5px;\r\n    border: 2px #FFF solid;\r\n    opacity: 0.6;\r\n}\r\n\r\n.delete-icon:hover {\r\n    opacity: 0.9;\r\n}\r\n\r\n@media screen and (min-width: 1200px) {\r\n    .sandbox-toolbar-btn-group p,\r\n    .sandbox-add-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n  }\r\n\r\n"
 
 /***/ }),
 
@@ -1426,7 +1707,7 @@ module.exports = "\r\n#sandbox-toolbar {\r\n    height: 6vh;\r\n    margin: 0;\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- Sandbox toolbar -->\r\n<div id=\"sandbox-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.data.setMode('text')\" class=\"flex-row-evenly sandbox-toolbar-btn-group\">\r\n    <fa name=\"font\"></fa>\r\n    <p>New text object</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.setMode('image')\" class=\"flex-row-evenly sandbox-toolbar-btn-group\">\r\n    <fa name=\"image\"></fa>\r\n    <p>New image object</p>\r\n  </a> \r\n\r\n  <!-- <a (click)=\"this.data.setMode('shape')\" class=\"flex-row-evenly sandbox-btn-group\">\r\n    <fa name=\"shapes\"></fa>\r\n    <p>New shape object</p>\r\n  </a> -->\r\n</div>\r\n\r\n<!-- Text sandbox -->\r\n<div id=\"text-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewTextElements && this.data.textStyles.length > 0\">\r\n  <div class=\"flex-col-evenly sandbox-preview-area\">\r\n    <div class=\"sandbox-preview-container\">\r\n      <p [ngStyle]=\"this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()\">{{this.data.sandboxText}}</p>\r\n    </div>\r\n  </div>\r\n\r\n    <div class=\"sandbox-middle-bar flex-row-evenly\">\r\n      <textarea class=\"sandbox-textarea\" [(ngModel)]=\"this.data.sandboxText\">\r\n      \r\n    </textarea>\r\n\r\n      <a (click)=\"this.data.addTextObjectToSlide()\" class=\"sandbox-add-btn-group grayAccent02 flex-col-evenly\">\r\n        <fa name=\"share\"></fa>\r\n        <p>Add text object <br> to slide</p>\r\n      </a>\r\n    </div>\r\n\r\n    <textarea class=\"sandbox-textarea\" [(ngModel)]=\"this.data.textNotes\">\r\n    {{this.data.textNotes}}\r\n  </textarea>\r\n  </div>\r\n\r\n<!-- Image sandbox -->\r\n<div id=\"image-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewImageElements && this.data.imageStyles.length > 0\">\r\n  <div class=\"flex-col-evenly sandbox-preview-area\">\r\n    <img id=\"image-preview\" *ngIf=\"this.data.images[this.data.selectedImage]\" [src]=\"this.data.images[this.data.selectedImage].url\" [ngStyle]=\"this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()\">\r\n  </div>\r\n\r\n  <div class=\"sandbox-middle-bar flex-row-evenly\">\r\n    <input type=\"file\" (change)=\"this.data.uploadImage($event)\">\r\n\r\n      <a (click)=\"this.data.addImageObjectToSlide()\" class=\"sandbox-add-btn-group grayAccent02 flex-col-evenly\">\r\n        <fa name=\"share\"></fa>\r\n        <p>Add image object to slide</p>\r\n      </a>\r\n    </div>\r\n\r\n    <div id=\"gallery\">\r\n      <div *ngFor=\"let image of this.data.images\" class=\"gallery-img-container\">\r\n        <img src=\"{{image.url}}\" (click)=\"this.data.selectImage(image.id)\" class=\"clickable gallery-img\">\r\n        <fa name=\"trash\" class=\"clickable delete-icon flex-row-evenly\" (click)=\"this.data.deleteImageById(image.id)\"></fa>\r\n      </div>\r\n    </div>\r\n</div>\r\n\r\n\r\n<!-- Shape sandbox -->\r\n<!-- <div id=\"shape-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewShapeElements && this.data.shapeStyles.length > 0\">\r\n\r\n  <h1>Shape sandbox</h1>\r\n\r\n</div> -->"
+module.exports = "<!-- Sandbox toolbar -->\r\n<div id=\"sandbox-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.data.setMode('text')\" class=\"flex-row-evenly sandbox-toolbar-btn-group\">\r\n    <fa name=\"font\"></fa>\r\n    <p>New text object</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.setMode('image')\" class=\"flex-row-evenly sandbox-toolbar-btn-group\">\r\n    <fa name=\"image\"></fa>\r\n    <p>New image object</p>\r\n  </a>\r\n\r\n  <!-- <a (click)=\"this.data.setMode('shape')\" class=\"flex-row-evenly sandbox-btn-group\">\r\n    <fa name=\"shapes\"></fa>\r\n    <p>New shape object</p>\r\n  </a> -->\r\n</div>\r\n\r\n<!-- Text sandbox -->\r\n<div id=\"text-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewTextElements && this.data.textStyles.length > 0\">\r\n  <div class=\"flex-col-evenly sandbox-preview-area accent05\">\r\n    <div class=\"sandbox-preview-container\">\r\n      <p [ngStyle]=\"this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()\">{{this.data.sandboxText}}</p>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"sandbox-middle-bar flex-row-evenly\">\r\n    <textarea class=\"sandbox-textarea\" [(ngModel)]=\"this.data.sandboxText\">\r\n\r\n    </textarea>\r\n\r\n    <a (click)=\"this.data.addTextObjectToSlide()\" class=\"sandbox-add-btn-group grayAccent02 flex-col-evenly\">\r\n      <fa name=\"share\"></fa>\r\n      <p>Add text object <br> to slide</p>\r\n    </a>\r\n  </div>\r\n\r\n  <textarea class=\"sandbox-textarea\" [(ngModel)]=\"this.data.textNotes\">\r\n    {{this.data.textNotes}}\r\n  </textarea>\r\n</div>\r\n\r\n<!-- Image sandbox -->\r\n<div id=\"image-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewImageElements && this.data.imageStyles.length > 0\">\r\n  <div class=\"flex-col-evenly sandbox-preview-area accent05\">\r\n    <img id=\"image-preview\" *ngIf=\"this.data.images[this.data.selectedImage]\" [src]=\"this.data.images[this.data.selectedImage].url\"\r\n      [ngStyle]=\"this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()\">\r\n  </div>\r\n\r\n  <div class=\"sandbox-middle-bar flex-row-between grayAccent02\">\r\n    <div class=\"flex-col-evenly\" id=\"import-container\">\r\n      <h3>Import an image:</h3>\r\n      <input class=\"\" type=\"file\" (change)=\"this.data.uploadImage($event)\">\r\n    </div>\r\n\r\n    <a (click)=\"this.data.addImageObjectToSlide()\" class=\"sandbox-add-btn-group grayAccent02 flex-col-evenly\">\r\n      <fa name=\"share\"></fa>\r\n      <p>Add image object to slide</p>\r\n    </a>\r\n  </div>\r\n\r\n  <div id=\"gallery\" class=\"accent05\">\r\n    <div *ngFor=\"let image of this.data.images\" class=\"gallery-img-container\">\r\n      <img src=\"{{image.url}}\" (click)=\"this.data.selectImage(image.id)\" class=\"clickable gallery-img\">\r\n      <fa name=\"trash\" class=\"clickable delete-icon flex-row-evenly\" (click)=\"this.data.deleteImageById(image.id)\"></fa>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!-- Shape sandbox -->\r\n<!-- <div id=\"shape-sandbox\" class=\"grayAccent03\" *ngIf=\"this.data.viewShapeElements && this.data.shapeStyles.length > 0\">\r\n\r\n  <h1>Shape sandbox</h1>\r\n\r\n</div> -->"
 
 /***/ }),
 
@@ -1481,7 +1762,7 @@ var SandboxComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#slide-editor-toolbar {\r\n    width: 100%;\r\n    height: 6vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group {\r\n    height: 100%;\r\n    max-width: 150px;\r\n    padding: 0 15px;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group:hover {\r\n    background: rgb(100, 100, 100);\r\n}\r\n\r\n.slide-editor-toolbar-btn-group fa {\r\n    font-size: 2vh;\r\n    margin: 0;\r\n    padding: 2px 4px;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    margin: 0 10px;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n#slide-number {\r\n    font-size: 1.5rem;\r\n    font-size: 1.8vw;\r\n}\r\n\r\n#slide-editor-workspace {\r\n    width: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 43vh 43vh;\r\n        grid-template-rows: 43vh 43vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#slide-render-area {\r\n    position: relative;\r\n    height: 100%;\r\n    width: 41vw;\r\n    overflow: scroll;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n}\r\n\r\n.slide-object {\r\n    box-sizing: border-box;\r\n    overflow: hidden;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n    z-index: -1;\r\n}\r\n\r\n.slide-object img {\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n}\r\n\r\n.slide-object:hover{\r\n    cursor: move;\r\n    background: rgba(0, 0, 0, 0.3);\r\n    border: 2px dashed silver;\r\n}\r\n\r\n#slide-control {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 3vh 40vh;\r\n        grid-template-rows: 3vh 40vh;\r\n}\r\n\r\n#slide-control-toolbar {\r\n    width: 100%;\r\n}\r\n\r\n#slide-control-toolbar fa,\r\n#slide-control-toolbar p {\r\n    font-size: 0.7rem;\r\n    margin: 0 5px;\r\n}\r\n\r\ninput[type=\"range\"]{\r\n    width: 5vw;\r\n}\r\n\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button, \r\ninput[type=number]::-webkit-outer-spin-button { \r\n  -webkit-appearance: none; \r\n  margin: 0; \r\n}\r\n\r\ninput[type=\"text\"]{\r\n    width: 85%;\r\n}\r\n\r\n#heirarchy {\r\n    overflow-x: hidden;\r\n    overflow-y: scroll;\r\n    width: 100%;\r\n}\r\n\r\n.heirarchy-control-group {\r\n    font-size: 0.7rem;\r\n    overflow: hidden;\r\n    padding: 2px 0;\r\n}\r\n\r\n.heirarchy-control-group fa {\r\n    font-size: 0.75rem;\r\n    padding: 5px;\r\n}\r\n\r\n.heirarchy-control-group fa:hover {\r\n    background-color: rgb(100, 100, 100);\r\n    cursor: pointer;\r\n}\r\n\r\n.heirarchy-name {\r\n    width: 100px;\r\n}\r\n\r\n.heirarchy-content {\r\n    width:100px;\r\n}\r\n\r\n.heirarchy-dim {\r\n    width: 250px;\r\n}\r\n\r\n.heirarchy-content-misc {\r\n    width: 150px;\r\n}\r\n\r\n.slide-control-row {\r\n    width: 100%;\r\n    flex-wrap: wrap;\r\n    padding: 2px 0;\r\n    border-bottom: 3px rgb(81, 133, 81) solid; \r\n}\r\n\r\n@media screen and (min-width: 1200px) {\r\n    .slide-editor-toolbar-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n\r\n    #slide-number {\r\n        font-size: 1.5rem;\r\n    }\r\n  }\r\n\r\n\r\n\r\n"
+module.exports = "#slide-editor-toolbar {\r\n    width: 100%;\r\n    height: 6vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group {\r\n    height: 100%;\r\n    max-width: 150px;\r\n    padding: 0 15px;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group:hover {\r\n    background: rgb(100, 100, 100);\r\n}\r\n\r\n.slide-editor-toolbar-btn-group fa {\r\n    font-size: 2vh;\r\n    margin: 0;\r\n    padding: 2px 4px;\r\n}\r\n\r\n.slide-editor-toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    font-size: 0.9vw;\r\n    margin: 0 10px;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n#slide-number {\r\n    font-size: 1.5rem;\r\n    font-size: 1.8vw;\r\n}\r\n\r\n#slide-editor-workspace {\r\n    width: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 43vh 43vh;\r\n        grid-template-rows: 43vh 43vh;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n#slide-render-area {\r\n    height: 100%;\r\n    width: 41vw;\r\n    overflow: scroll;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n}\r\n\r\n.slide-object {\r\n    overflow: hidden;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n    z-index: -1;\r\n}\r\n\r\n.slide-object img {\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n}\r\n\r\n/*  Styling of slideObjects while being dragged or resized is controlled from within the SlideObjects class */\r\n\r\n.slide-object:hover{\r\n    cursor: move;\r\n    background: rgba(0, 0, 0, 0.3);\r\n    border: 2px dashed gray;\r\n    margin-top: -2px;\r\n    margin-left: -2px;\r\n}\r\n\r\n#slide-control {\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: 4vh 39vh;\r\n        grid-template-rows: 4vh 39vh;\r\n}\r\n\r\n#slide-control-toolbar {\r\n    width: 100%;\r\n    background: rgb(46, 46, 46);\r\n}\r\n\r\n#slide-control-toolbar fa {\r\n    width: 25px;\r\n    height: 25px;\r\n    margin: 0 5px;\r\n    cursor: pointer;\r\n}\r\n\r\n#slide-control-toolbar fa:hover {\r\n    background: rgb(87, 87, 87);\r\n}\r\n\r\n#slide-control-toolbar p {\r\n    font-size: 0.7rem;\r\n    margin: 0 5px;\r\n}\r\n\r\ninput[type=\"range\"]{\r\n    width: 5vw;\r\n}\r\n\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=number]::-webkit-inner-spin-button, \r\ninput[type=number]::-webkit-outer-spin-button { \r\n  -webkit-appearance: none; \r\n  margin: 0; \r\n}\r\n\r\ninput[type=\"text\"]{\r\n    width: 85%;\r\n}\r\n\r\n#heirarchy {\r\n    overflow-x: hidden;\r\n    overflow-y: scroll;\r\n    width: 100%;\r\n}\r\n\r\n.heirarchy-control-group {\r\n    font-size: 0.7rem;\r\n    overflow: hidden;\r\n    padding: 2px 0;\r\n}\r\n\r\n.heirarchy-control-group fa {\r\n    font-size: 0.75rem;\r\n    padding: 5px;\r\n}\r\n\r\n.heirarchy-control-group fa:hover {\r\n    background-color: rgb(100, 100, 100);\r\n    cursor: pointer;\r\n}\r\n\r\n#heirarchy\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n}\r\n\r\n.heirarchy-name {\r\n    width: 100px;\r\n}\r\n\r\n.heirarchy-content {\r\n    width:100px;\r\n}\r\n\r\n.heirarchy-dim {\r\n    width: 250px;\r\n}\r\n\r\n.heirarchy-content-misc {\r\n    width: 150px;\r\n}\r\n\r\n.slide-control-row {\r\n    width: 100%;\r\n    flex-wrap: wrap;\r\n    padding: 2px 0;\r\n    border-bottom: 3px rgb(81, 133, 81) solid; \r\n}\r\n\r\n@media screen and (min-width: 1200px) {\r\n    .slide-editor-toolbar-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n\r\n    #slide-number {\r\n        font-size: 1.5rem;\r\n    }\r\n  }\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1492,7 +1773,7 @@ module.exports = "#slide-editor-toolbar {\r\n    width: 100%;\r\n    height: 6vh
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"slide-editor-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.createNewSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"plus-square\"></fa>\r\n    <p>New slide</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.preview()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"play\"></fa>\r\n    <p>Preview</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.previousSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"step-backward\"></fa>\r\n  </a>\r\n\r\n  <div>\r\n    <h1 style=\"padding: 10px;\" id=\"slide-number\" (click)=\"this.data.test()\">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>\r\n  </div>\r\n\r\n  <a (click)=\"this.nextSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"step-forward\"></fa>\r\n  </a>\r\n\r\n  <a (click)=\"this.deleteCurrentSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"trash\"></fa>\r\n    <p>Delete slide</p>\r\n  </a>\r\n</div>\r\n\r\n<div id=\"slide-editor-workspace\" class=\"accent04\">\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-render-area\">\r\n    <div id=\"slide-render\" [ngStyle]=\"this.getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"this.selectObject(slideObject.id)\" ngResizable [rzHandles]=\"'all'\" (rzStop)=\"slideObject.setSize($event)\"\r\n        ngDraggable (endOffset)=\"slideObject.setTranslation($event)\" [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"this.data.getTextStyleById(slideObject.styleId).getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"this.data.getImageStyleById(slideObject.styleId).getCss()\"\r\n          [src]=\"slideObject.imagePath\" crossOrigin=\"anonymous\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\" [style.background]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\"\r\n        />\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"this.data.slideRenderMagnification\" min=\"0\" max=\"200\">\r\n\r\n        <fa name=\"search-plus\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"this.data.slideRenderMagnification\">%</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-evenly\"\r\n        [style.background]=\"this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n            <fa (click)=\"this.data.increaseOneLayer(slideObject.id)\" name=\"arrow-up\"></fa>\r\n\r\n            <fa (click)=\"this.data.decreaseOneLayer(slideObject.id)\" name=\"arrow-down\"></fa>\r\n\r\n            <fa (click)=\"slideObject.toggleSlideObjectProperty('display')\" name=\"eye\"></fa>\r\n\r\n            <fa (click)=\"this.deleteSlideObjectById(slideObject.id)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"maintainRatio(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"maintainRatio(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div id=\"slide-editor-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n  <a (click)=\"this.createNewSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"plus-square\"></fa>\r\n    <p>New slide</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.preview()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"play\"></fa>\r\n    <p>Preview</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.previousSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"step-backward\"></fa>\r\n  </a>\r\n\r\n  <div>\r\n    <h1 style=\"padding: 10px;\" id=\"slide-number\" (click)=\"this.data.test()\">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>\r\n  </div>\r\n\r\n  <a (click)=\"this.nextSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"step-forward\"></fa>\r\n  </a>\r\n\r\n  <a (click)=\"this.deleteCurrentSlide()\" class=\"flex-row-evenly slide-editor-toolbar-btn-group\">\r\n    <fa name=\"trash\"></fa>\r\n    <p>Delete slide</p>\r\n  </a>\r\n</div>\r\n\r\n<div id=\"slide-editor-workspace\">\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-render-area\">\r\n    <div id=\"slide-render\" [ngStyle]=\"this.getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects\" \r\n      class=\"slide-object\"\r\n        [ngStyle]=\"slideObject.getCss()\" \r\n        (mousedown)=\"this.selectObject(slideObject.id)\" \r\n        ngResizable \r\n        [rzHandles]=\"'all'\"\r\n        (rzStart)=\"slideObject.setSlideObjectProperty('isResizing', true)\" \r\n        (rzStop)=\"slideObject.setSize($event); slideObject.setSlideObjectProperty('isResizing', false)\"\r\n        ngDraggable \r\n        (started)=\"slideObject.setSlideObjectProperty('isDragging', true)\" \r\n        (stopped)=\"slideObject.setSlideObjectProperty('isDragging', false)\"\r\n        (endOffset)=\"slideObject.setTranslation($event)\" \r\n        [position]=\"slideObject.getTranslation()\"\r\n        [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"this.data.getTextStyleById(slideObject.styleId).getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"this.data.getImageStyleById(slideObject.styleId).getCss()\"\r\n          [src]=\"slideObject.imagePath\" crossOrigin=\"anonymous\">\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n  <div *ngIf=\"this.data.slides.length > 0\" id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" class=\"grayAccent02 flex-row-evenly\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\"\r\n          [style.background]=\"this.data.slides[this.data.currentSlideIndex].backgroundColor\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"this.zoom('out')\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"this.data.slideRenderMagnification\" min=\"0\" max=\"200\">\r\n\r\n        <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"this.zoom('in')\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"this.data.slideRenderMagnification\">%</p>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <p>{{this.data.documentSize.width}}px X {{this.data.documentSize.height}}px</p>\r\n      </div>\r\n\r\n      <fa class=\"flex-row-evenly\" [name]=\"this.showRenderOverflow ? 'object-ungroup' : 'object-group'\" (click)=\"this.toggleRenderOverflow()\"></fa>\r\n\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-evenly grayAccent02\"\r\n        [style.background]=\"this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleEditNameMode()\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleEditTextMode()\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n          <fa (click)=\"this.data.increaseOneLayer(slideObject.id)\" name=\"arrow-up\"></fa>\r\n\r\n          <fa (click)=\"this.data.decreaseOneLayer(slideObject.id)\" name=\"arrow-down\"></fa>\r\n\r\n          <fa (click)=\"slideObject.toggleSlideObjectProperty('display')\" [name]=\"slideObject.getSlideObjectProperty('display') ? 'eye' : 'eye-slash'\"></fa>\r\n\r\n          <fa (click)=\"this.deleteSlideObjectById(slideObject.id)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"maintainRatio(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"maintainRatio(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1509,6 +1790,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
 /* harmony import */ var _classes_slide__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../classes/slide */ "./src/app/classes/slide.ts");
+/* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dialog.service */ "./src/app/dialog.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1521,9 +1803,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SlideEditorComponent = /** @class */ (function () {
-    function SlideEditorComponent(data) {
+    function SlideEditorComponent(data, dialog) {
         this.data = data;
+        this.dialog = dialog;
+        this.showRenderOverflow = false;
     }
     SlideEditorComponent.prototype.ngOnInit = function () {
     };
@@ -1642,10 +1927,14 @@ var SlideEditorComponent = /** @class */ (function () {
         console.log('Current slide index:', this.data.currentSlideIndex);
     };
     SlideEditorComponent.prototype.deleteCurrentSlide = function () {
-        this.data.slides.splice(this.data.currentSlideIndex, 1);
-        if (this.data.currentSlideIndex >= this.data.slides.length) {
-            this.data.currentSlideIndex--;
-        }
+        var _this = this;
+        var callback = function () {
+            _this.data.slides.splice(_this.data.currentSlideIndex, 1);
+            if (_this.data.currentSlideIndex >= _this.data.slides.length) {
+                _this.data.currentSlideIndex--;
+            }
+        };
+        this.dialog.alert("Are you sure you want to delete this slide from your project?", callback);
     };
     SlideEditorComponent.prototype.deleteSlideObjectById = function (id) {
         var currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getSlideProperty('slideObjects');
@@ -1656,6 +1945,9 @@ var SlideEditorComponent = /** @class */ (function () {
         }
     };
     // Slide editor render functions
+    SlideEditorComponent.prototype.toggleRenderOverflow = function () {
+        this.showRenderOverflow = !this.showRenderOverflow;
+    };
     SlideEditorComponent.prototype.getSlideRenderCss = function () {
         var backgroundColor = this.data.slides[this.data.currentSlideIndex].getSlideProperty('backgroundColor');
         var slideRenderWidth = this.data.documentSize['width'];
@@ -1674,6 +1966,7 @@ var SlideEditorComponent = /** @class */ (function () {
             'width': slideRenderWidth + 'px',
             'transform': 'translate(' + translationX + ') scale(' + this.data.slideRenderMagnification / 100 + ')',
             'position': 'relative',
+            'overflow': this.showRenderOverflow ? 'visible' : 'hidden'
         };
         return css;
     };
@@ -1681,6 +1974,40 @@ var SlideEditorComponent = /** @class */ (function () {
     SlideEditorComponent.prototype.selectObject = function (objectId) {
         this.indexOfSelectedSlideObject = objectId;
     };
+    // User clicks zoom in/out
+    SlideEditorComponent.prototype.zoom = function (direction) {
+        console.log('zoom');
+        var magnification = this.data.slideRenderMagnification;
+        console.log('starting value: ', magnification);
+        var increment = 5;
+        switch (direction) {
+            case 'in':
+                console.log('in');
+                if (magnification > 200 - increment) {
+                    magnification = 200;
+                    console.log(magnification);
+                }
+                else {
+                    magnification += increment;
+                    console.log(magnification);
+                }
+                this.data.slideRenderMagnification = magnification;
+                break;
+            case 'out':
+                console.log('out');
+                if (magnification < increment) {
+                    magnification = 0;
+                    console.log(magnification);
+                }
+                else {
+                    magnification -= increment;
+                    console.log(magnification);
+                }
+                this.data.slideRenderMagnification = magnification;
+                break;
+        }
+    };
+    // This controls the image size when user inputs a value in the heirarchy
     SlideEditorComponent.prototype.maintainRatio = function (slideObject, dimension, value) {
         // Get original aspect ratio of this slide object
         console.log(slideObject.width, slideObject.height);
@@ -1722,7 +2049,7 @@ var SlideEditorComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./slide-editor.component.html */ "./src/app/slide-editor/slide-editor.component.html"),
             styles: [__webpack_require__(/*! ./slide-editor.component.css */ "./src/app/slide-editor/slide-editor.component.css")]
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_3__["DialogService"]])
     ], SlideEditorComponent);
     return SlideEditorComponent;
 }());
@@ -1749,7 +2076,7 @@ module.exports = ".style-card-container {\r\n    width: 100%;\r\n}\r\n\r\n\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n<div class=\"style-card-container\" *ngIf=\"this.data.viewTextElements && this.data.textStyles.length > 0\">\r\n  <text-style-card [textStyle]=\"textStyle\" *ngFor=\"let textStyle of this.data.textStyles.reverse()\"></text-style-card>\r\n</div>\r\n\r\n<div class=\"style-card-container\" *ngIf=\"this.data.viewImageElements && this.data.imageStyles.length > 0\">\r\n  <image-style-card [imageStyle]=\"imageStyle\" *ngFor=\"let imageStyle of this.data.imageStyles.reverse()\"></image-style-card>\r\n</div>"
+module.exports = "\r\n<div class=\"style-card-container\" *ngIf=\"this.data.viewTextElements\">\r\n  <text-style-card [textStyle]=\"textStyle\" *ngFor=\"let textStyle of this.data.textStyles\"></text-style-card>\r\n</div>\r\n\r\n<div class=\"style-card-container\" *ngIf=\"this.data.viewImageElements\">\r\n  <image-style-card [imageStyle]=\"imageStyle\" *ngFor=\"let imageStyle of this.data.imageStyles\"></image-style-card>\r\n</div>\r\n\r\n "
 
 /***/ }),
 
@@ -1783,7 +2110,6 @@ var StylerComponent = /** @class */ (function () {
     StylerComponent.prototype.ngOnInit = function () {
     };
     StylerComponent.prototype.getCpPosition = function () {
-        // 
         return "right";
     };
     StylerComponent = __decorate([
@@ -1808,7 +2134,7 @@ var StylerComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border-bottom: 3px #FFF solid;\r\n    margin-bottom: 4px;\r\n    height: auto;\r\n}\r\n\r\n.style-card-row {\r\n    width: 100%;\r\n    height: 25px;\r\n    margin: 3px auto;\r\n}\r\n\r\n.style-card-row h3 {\r\n    font-size: 1rem;\r\n}\r\n\r\n.style-card-row a,\r\n.style-card-row h4 {\r\n    font-size: 0.8rem;\r\n}\r\n\r\n.style-card-row \r\n.material-icons {\r\n    font-size: 1.2rem;\r\n    padding: 7px;\r\n}\r\n\r\n.style-card-row fa {\r\n    font-size: 0.8rem;\r\n    padding: 7px;\r\n}\r\n\r\n.style-card-row fa:hover,\r\n.style-card-row .material-icons:hover {\r\n    background:rgb(137, 150, 132);\r\n    cursor: pointer;\r\n}\r\n\r\n.style-card-row\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n    text-align: center;\r\n}\r\n\r\n.google-font-name {\r\n    font-size: 0.7rem;\r\n    border: 1px #D6F9DD solid;\r\n    padding: 2px 4px;\r\n    cursor: pointer;\r\n    line-height: 1;\r\n}\r\n"
+module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border-bottom: 3px #FFF solid;\r\n    margin-bottom: 4px;\r\n    height: auto;\r\n}\r\n\r\n.style-card-row {\r\n    width: 100%;\r\n    min-height: 25px; \r\n    margin: 3px auto;\r\n}\r\n\r\n.style-card-row h3 {\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row a,\r\n.style-card-row h4 {\r\n    font-size: 0.8rem;\r\n    font-weight: normal;\r\n}\r\n\r\n.style-card-row \r\n.material-icons {\r\n    font-size: 1.2rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa {\r\n    font-size: 0.8rem;\r\n    width: 25px;\r\n    height: 25px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n}\r\n\r\n.style-card-row fa:hover,\r\n.style-card-row .material-icons:hover {\r\n    background:rgb(137, 150, 132);\r\n    cursor: pointer;\r\n}\r\n\r\n.style-card-row\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n    text-align: center;\r\n}\r\n\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #D6F9DD;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.style-card-row\r\nselect {\r\n    border: 1px #D6F9DD solid;\r\n    box-sizing: border-box;\r\n    background: #D6F9DD;\r\n    color: black;\r\n    border: 1px #D6F9DD solid;\r\n}\r\n\r\n.selected {\r\n    background:rgb(137, 150, 132);\r\n    border: 1px white solid;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.icon-group {\r\n    width: 100px;\r\n}\r\n\r\n.google-font-name {\r\n    font-size: 0.7rem;\r\n    border: 1px #D6F9DD solid;\r\n    padding: 2px 4px;\r\n    cursor: pointer;\r\n    line-height: 1;\r\n}\r\n"
 
 /***/ }),
 
@@ -1819,7 +2145,7 @@ module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"style-card-container greenAccent01\">\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h3 *ngIf=\"!textStyle.editNameMode\">{{textStyle.name}}\r\n      <fa name=\"edit\" (click)=\"textStyle.toggleEditNameMode()\" class=\"clickable\"></fa>\r\n    </h3>\r\n\r\n    <div *ngIf=\"textStyle.editNameMode\">\r\n      <input type=\"text\" [(ngModel)]=\"textStyle.name\" placeholder=\"textStyle.name\">\r\n      <fa name=\"save\" (click)=\"textStyle.toggleEditNameMode()\" class=\"clickable\"></fa>\r\n    </div>\r\n\r\n    <fa name=\"trash\" (click)=\"this.data.deleteTextStyleById(textStyle.id)\"></fa>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Font family:</h4>\r\n    <div style=\"flex: 1\">\r\n    <!--This spacer prevents fontPicker from repositioning the next div--></div>\r\n    <div [(fontPicker)]=\"textStyle.fontPickerData\" [fpWidth]=\"'320px'\" [fpPosition]=\"'right'\"\r\n      [fpSizeSelect]=\"true\" [fpStyleSelect]=\"true\">\r\n      <p class=\"google-font-name\">{{textStyle.fontPickerData['family']}} {{textStyle.fontPickerData['style']}}\r\n        {{textStyle.fontPickerData['size']}}\r\n      </p>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Font color:</h4>\r\n    <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n    <input class=\"md-color-selector clickable\" [(colorPicker)]=\"textStyle.color\" [style.background]=\"textStyle.color\"\r\n      cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n  </div>\r\n\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Background color:</h4>\r\n    <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n    <input class=\"md-color-selector clickable\" [(colorPicker)]=\"textStyle.backgroundColor\" [style.background]=\"textStyle.backgroundColor\"\r\n      cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <div class=\"flex-row-evenly\">\r\n      <i (click)=\"textStyle.setStyleProperty('hAlign', 'left')\" class=\"material-icons\">format_align_left</i>\r\n      <i (click)=\"textStyle.setStyleProperty('hAlign', 'center')\" class=\"material-icons\">format_align_center</i>\r\n      <i (click)=\"textStyle.setStyleProperty('hAlign', 'right')\" class=\"material-icons\">format_align_right</i>\r\n    </div>\r\n\r\n    <div class=\"flex-row-evenly\">\r\n      <i (click)=\"textStyle.setStyleProperty('vAlign', 'top')\" class=\"material-icons\">vertical_align_top</i>\r\n      <i (click)=\"textStyle.setStyleProperty('vAlign', 'center')\" class=\"material-icons\">vertical_align_center</i>\r\n      <i (click)=\"textStyle.setStyleProperty('vAlign', 'bottom')\" class=\"material-icons\">vertical_align_bottom</i>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <div class=\"flex-row-evenly\">\r\n      <fa (click)=\"textStyle.toggleStyleProperty('underline')\" name=\"underline\"></fa>\r\n      <fa (click)=\"textStyle.toggleStyleProperty('lineThrough')\" name=\"strikethrough\"></fa>\r\n      <h4 (click)=\"textStyle.toggleStyleProperty('overline')\" style=\"text-decoration: overline; font-family: Arial; font-size: 1rem;\" class=\"material-icons\">O</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-evenly\">\r\n      <i (click)=\"textStyle.toggleStyleProperty('breakWord')\" class=\"material-icons\">wrap_text</i>\r\n      <i (click)=\"textStyle.toggleStyleProperty('uppercase'); textStyle.setStyleProperty('lowercase', false)\" class=\"material-icons\">format_size</i>\r\n      <i (click)=\"textStyle.toggleStyleProperty('lowercase'); textStyle.setStyleProperty('uppercase', false)\" class=\"material-icons\">text_fields</i>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly style-card-row\">\r\n    <a (click)=\"textStyle.toggleExtraOptions()\" class=\"flex-row-evenly\" *ngIf=\"!textStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-down\"></fa>\r\n      Show extra options\r\n      <fa name=\"angle-double-down\"></fa>\r\n    </a>\r\n\r\n    <a (click)=\"textStyle.toggleExtraOptions()\" class=\"flex-row-evenly\" *ngIf=\"textStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-down\"></fa>\r\n      Hide extra options\r\n      <fa name=\"angle-double-down\"></fa>\r\n    </a>\r\n  </div>\r\n\r\n  <!-- EXTRA TEXT STYLE OPTIONS -->\r\n  <div *ngIf=\"textStyle.showExtraOptions\">\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Margin:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.margin\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Padding:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.padding\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Word spacing:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.wordSpacing\">px\r\n      </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Line height:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.lineHeight\">x&nbsp;&nbsp;\r\n      </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Letter spacing:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.letterSpacing\">px\r\n      </h4>\r\n    </div>\r\n\r\n    <!-- Text shadow settings -->\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Text shadow: </h4>\r\n      <input type=\"checkbox\" [(ngModel)]=\"textStyle.textShadow.showShadow\">\r\n    </div>\r\n\r\n    <div *ngIf=\"textStyle.textShadow.showShadow\">\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Color: </h4>\r\n        <div style=\"flex: 1\">\r\n            <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.textShadow.color\" [style.background]=\"textStyle.textShadow.color\"\r\n          cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Horizontal shadow: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.xValue\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Vertical shadow: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.yValue\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Blur: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.blurValue\"> px</h4>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- BORDER OPTIONS -->\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n        <h4>Borders: </h4>\r\n      </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <i (click)=\"textStyle.border.toggleBorderProperty('showFullBorder');\r\n        textStyle.border.setBorderProperty('showTopBorder', false);\r\n        textStyle.border.setBorderProperty('showRightBorder', false);\r\n        textStyle.border.setBorderProperty('showBottomBorder', false);\r\n        textStyle.border.setBorderProperty('showLeftBorder', false);\"\r\n        class=\"material-icons\">border_outer</i>\r\n\r\n      <i (click)=\"textStyle.border.toggleBorderProperty('showLeftBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\"\r\n        class=\"material-icons\">border_left</i>\r\n\r\n      <i (click)=\"textStyle.border.toggleBorderProperty('showTopBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\"\r\n        class=\"material-icons\">border_top</i>\r\n\r\n      <i (click)=\"textStyle.border.toggleBorderProperty('showRightBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\"\r\n        class=\"material-icons\">border_right</i>\r\n\r\n      <i (click)=\"textStyle.border.toggleBorderProperty('showBottomBorder');\r\n        textStyle.border.setBorderProperty('showFullBorder', false);\"\r\n        class=\"material-icons\">border_bottom</i>\r\n    </div>\r\n\r\n    <!-- Full border settings -->\r\n    <div *ngIf=\"textStyle.border.showFullBorder\">\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Border: </h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Width: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.fullBorderWidth\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Color: </h4>\r\n        <div style=\"flex: 1\">\r\n            <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.fullBorderColor\" [style.background]=\"textStyle.border.fullBorderColor\"\r\n          cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Style: </h4>\r\n        <select [(ngModel)]=\"textStyle.border.fullBorderStyle\">\r\n          <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n        </select>\r\n      </div>\r\n\r\n\r\n      <!--Border radius settings -->\r\n      \r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Border Radius: </h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Top left radius: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.topLeftRadius\">px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Top right radius: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.topRightRadius\">px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Bottom right radius: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomRightRadius\">px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Bottom left radius: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomLeftRadius\">px</h4>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Top border settings -->\r\n    <div *ngIf=\"textStyle.border.showTopBorder\">\r\n      <div class=\"flex-row-evenly style-card-row\">\r\n        <h4>Top Border: </h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Width: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.topBorderWidth\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Color: </h4>\r\n        <div style=\"flex: 1\">\r\n            <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.topBorderColor\" [style.background]=\"textStyle.border.topBorderColor\"\r\n          cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Style: </h4>\r\n        <select [(ngModel)]=\"textStyle.border.topBorderStyle\">\r\n          <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n    <!-- Right border settings -->\r\n    <div *ngIf=\"textStyle.border.showRightBorder\">\r\n      <div class=\"flex-row-evenly style-card-row\">\r\n        <h4>Right Border: </h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Width: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.rightBorderWidth\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Color: </h4>\r\n        <div style=\"flex: 1\">\r\n            <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.rightBorderColor\" [style.background]=\"textStyle.border.rightBorderColor\"\r\n          cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Style: </h4>\r\n        <select [(ngModel)]=\"textStyle.border.rightBorderStyle\">\r\n          <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Bottom border settings -->\r\n    <div *ngIf=\"textStyle.border.showBottomBorder\">\r\n      <div class=\"flex-row-evenly style-card-row\">\r\n        <h4>Bottom Border: </h4>\r\n      </div>\r\n\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Width: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomBorderWidth\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Color: </h4>\r\n        <div style=\"flex: 1\">\r\n            <!--This spacer prevents colorPicker from repositioning the next div--></div>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.bottomBorderColor\" [style.background]=\"textStyle.border.bottomBorderColor\"\r\n          cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Style: </h4>\r\n        <select [(ngModel)]=\"textStyle.border.bottomBorderStyle\">\r\n          <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n\r\n    <!-- Left border settings -->\r\n    <div *ngIf=\"textStyle.border.showLeftBorder\">\r\n      <div class=\"flex-row-evenly style-card-row\">\r\n        <h4>Left Border: </h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Width: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.leftBorderWidth\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Color: </h4>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.leftBorderColor\" [style.background]=\"textStyle.border.leftBorderColor\"\r\n          cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Style: </h4>\r\n        <select [(ngModel)]=\"textStyle.border.leftBorderStyle\">\r\n          <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n</div>"
+module.exports = "<div class=\"style-card-container greenAccent01\">\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <div *ngIf=\"!textStyle.editNameMode\" class=\"flex-row-between\">\r\n      <h3>{{textStyle.name}}</h3>\r\n      <fa *ngIf=\"!textStyle.isDefault\" name=\"edit\" (click)=\"textStyle.toggleEditNameMode()\"></fa>\r\n    </div>\r\n\r\n\r\n    <div *ngIf=\"textStyle.editNameMode\" class=\"flex-row-between\">\r\n      <input type=\"text\" [(ngModel)]=\"textStyle.name\" placeholder=\"textStyle.name\">\r\n      <fa name=\"save\" (click)=\"textStyle.toggleEditNameMode()\"></fa>\r\n    </div>\r\n\r\n    <fa *ngIf=\"!textStyle.isDefault\" name=\"trash\" (click)=\"this.data.deleteTextStyle(textStyle)\"></fa>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Font family:</h4>\r\n    <div style=\"flex: 1\">\r\n      <!--This spacer prevents fontPicker from repositioning the next div-->\r\n    </div>\r\n    <div [(fontPicker)]=\"textStyle.fontPickerData\" [fpWidth]=\"'320px'\" [fpPosition]=\"'right'\" [fpSizeSelect]=\"true\"\r\n      [fpStyleSelect]=\"true\">\r\n      <p class=\"google-font-name\">{{textStyle.fontPickerData['family']}} {{textStyle.fontPickerData['style']}}\r\n        {{textStyle.fontPickerData['size']}}\r\n      </p>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Font color:</h4>\r\n    <div style=\"flex: 1\">\r\n      <!--This spacer prevents colorPicker from repositioning the next div-->\r\n    </div>\r\n    <input class=\"md-color-selector clickable\" [(colorPicker)]=\"textStyle.color\" [style.background]=\"textStyle.color\"\r\n      cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n  </div>\r\n\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Background color:</h4>\r\n    <div style=\"flex: 1\">\r\n      <!--This spacer prevents colorPicker from repositioning the next div-->\r\n    </div>\r\n    <input class=\"md-color-selector clickable\" [(colorPicker)]=\"textStyle.backgroundColor\" [style.background]=\"textStyle.backgroundColor\"\r\n      cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <div class=\"flex-row-evenly icon-group\">\r\n      <i (click)=\"textStyle.setStyleProperty('hAlign', 'left')\" class=\"material-icons\" [class.selected]=\"textStyle.getStyleProperty('hAlign') === 'left'\">format_align_left</i>\r\n      <i (click)=\"textStyle.setStyleProperty('hAlign', 'center')\" class=\"material-icons\" [class.selected]=\"textStyle.getStyleProperty('hAlign') === 'center'\">format_align_center</i>\r\n      <i (click)=\"textStyle.setStyleProperty('hAlign', 'right')\" class=\"material-icons\" [class.selected]=\"textStyle.getStyleProperty('hAlign') === 'right'\">format_align_right</i>\r\n    </div>\r\n\r\n    <div class=\"flex-row-evenly icon-group\">\r\n      <i (click)=\"textStyle.setStyleProperty('vAlign', 'top')\" class=\"material-icons\" [class.selected]=\"textStyle.getStyleProperty('vAlign') === 'top'\">vertical_align_top</i>\r\n      <i (click)=\"textStyle.setStyleProperty('vAlign', 'center')\" class=\"material-icons\" [class.selected]=\"textStyle.getStyleProperty('vAlign') === 'center'\">vertical_align_center</i>\r\n      <i (click)=\"textStyle.setStyleProperty('vAlign', 'bottom')\" class=\"material-icons\" [class.selected]=\"textStyle.getStyleProperty('vAlign') === 'bottom'\">vertical_align_bottom</i>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <div class=\"flex-row-evenly icon-group\">\r\n      <fa (click)=\"textStyle.toggleStyleProperty('underline')\" name=\"underline\" [class.selected]=\"textStyle.getStyleProperty('underline')\"></fa>\r\n      <fa (click)=\"textStyle.toggleStyleProperty('lineThrough')\" name=\"strikethrough\" [class.selected]=\"textStyle.getStyleProperty('lineThrough')\"></fa>\r\n      <h4 (click)=\"textStyle.toggleStyleProperty('overline')\" style=\"text-decoration: overline; font-family: Arial; font-size: 1rem;\"\r\n        class=\"material-icons\" [class.selected]=\"textStyle.getStyleProperty('overline')\">O</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-evenly icon-group\">\r\n      <i (click)=\"textStyle.toggleStyleProperty('breakWord')\" class=\"material-icons\" [class.selected]=\"textStyle.getStyleProperty('breakWord')\">wrap_text</i>\r\n      <i (click)=\"textStyle.toggleStyleProperty('uppercase'); textStyle.setStyleProperty('lowercase', false)\" class=\"material-icons\"\r\n        [class.selected]=\"textStyle.getStyleProperty('uppercase')\">format_size</i>\r\n      <i (click)=\"textStyle.toggleStyleProperty('lowercase'); textStyle.setStyleProperty('uppercase', false)\" class=\"material-icons\"\r\n        [class.selected]=\"textStyle.getStyleProperty('lowercase')\">text_fields</i>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly style-card-row\">\r\n    <a (click)=\"textStyle.toggleExtraOptions()\" class=\"flex-row-evenly\" *ngIf=\"!textStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-down\"></fa>\r\n      Show extra options\r\n      <fa name=\"angle-double-down\"></fa>\r\n    </a>\r\n\r\n    <a (click)=\"textStyle.toggleExtraOptions()\" class=\"flex-row-evenly\" *ngIf=\"textStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-down\"></fa>\r\n      Hide extra options\r\n      <fa name=\"angle-double-down\"></fa>\r\n    </a>\r\n  </div>\r\n\r\n  <!-- EXTRA TEXT STYLE OPTIONS -->\r\n  <div *ngIf=\"textStyle.showExtraOptions\">\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Margin:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.margin\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Padding:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.padding\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Word spacing:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.wordSpacing\">px\r\n      </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Line height:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.lineHeight\">x&nbsp;&nbsp;\r\n      </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Letter spacing:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.letterSpacing\">px\r\n      </h4>\r\n    </div>\r\n\r\n    <!-- Text shadow settings -->\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Text shadow: </h4>\r\n      <input type=\"checkbox\" [(ngModel)]=\"textStyle.textShadow.showShadow\">\r\n    </div>\r\n\r\n    <div *ngIf=\"textStyle.textShadow.showShadow\">\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Color: </h4>\r\n        <div style=\"flex: 1\">\r\n          <!--This spacer prevents colorPicker from repositioning the next div-->\r\n        </div>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.textShadow.color\" [style.background]=\"textStyle.textShadow.color\"\r\n          cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Horizontal shadow: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.xValue\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Vertical shadow: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.yValue\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Blur: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.textShadow.blurValue\"> px</h4>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Border Radius: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Top left radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.border.topLeftRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Top right radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.border.topRightRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Bottom right radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomRightRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Bottom left radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomLeftRadius\">px</h4>\r\n    </div>\r\n\r\n    <!-- BORDER OPTIONS -->\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Borders: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <i (click)=\"textStyle.border.toggleBorderProperty('showFullBorder');\r\n        textStyle.border.setBorderProperty('showTopBorder', false);\r\n        textStyle.border.setBorderProperty('showRightBorder', false);\r\n        textStyle.border.setBorderProperty('showBottomBorder', false);\r\n        textStyle.border.setBorderProperty('showLeftBorder', false);\"\r\n        class=\"material-icons\" [class.selected]=\"textStyle.border.getBorderProperty('showFullBorder')\">border_outer</i>\r\n\r\n      <i (click)=\"textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showLeftBorder');\"\r\n        class=\"material-icons\" [class.selected]=\"textStyle.border.getBorderProperty('showLeftBorder')\">border_left</i>\r\n\r\n      <i (click)=\"textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showTopBorder');\"\r\n        class=\"material-icons\" [class.selected]=\"textStyle.border.getBorderProperty('showTopBorder')\">border_top</i>\r\n\r\n      <i (click)=\"textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showRightBorder');\"\r\n        class=\"material-icons\" [class.selected]=\"textStyle.border.getBorderProperty('showRightBorder')\">border_right</i>\r\n\r\n      <i (click)=\"textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showBottomBorder');\"\r\n        class=\"material-icons\" [class.selected]=\"textStyle.border.getBorderProperty('showBottomBorder')\">border_bottom</i>\r\n    </div>\r\n\r\n\r\n\r\n    <!-- Full border settings -->\r\n    <div *ngIf=\"textStyle.border.showFullBorder\">\r\n      <div class=\"flex-row-evenly style-card-row\">\r\n        <h4>Full Border: </h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Width: </h4>\r\n        <h4>\r\n          <input type=\"number\" [(ngModel)]=\"textStyle.border.fullBorderWidth\"> px</h4>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Color: </h4>\r\n        <div style=\"flex: 1\">\r\n          <!--This spacer prevents colorPicker from repositioning the next div-->\r\n        </div>\r\n        <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.fullBorderColor\" [style.background]=\"textStyle.border.fullBorderColor\"\r\n          cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n      </div>\r\n\r\n      <div class=\"flex-row-between style-card-row\">\r\n        <h4>Style: </h4>\r\n        <select [(ngModel)]=\"textStyle.border.fullBorderStyle\">\r\n          <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <!--Border radius settings -->\r\n\r\n\r\n  </div>\r\n\r\n  <!-- Top border settings -->\r\n  <div *ngIf=\"textStyle.border.showTopBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Top Border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.border.topBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.topBorderColor\" [style.background]=\"textStyle.border.topBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"textStyle.border.topBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <!-- Right border settings -->\r\n  <div *ngIf=\"textStyle.border.showRightBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Right Border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.border.rightBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.rightBorderColor\" [style.background]=\"textStyle.border.rightBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"textStyle.border.rightBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Bottom border settings -->\r\n  <div *ngIf=\"textStyle.border.showBottomBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Bottom Border: </h4>\r\n    </div>\r\n\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.border.bottomBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.bottomBorderColor\" [style.background]=\"textStyle.border.bottomBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"textStyle.border.bottomBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Left border settings -->\r\n  <div *ngIf=\"textStyle.border.showLeftBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Left Border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"textStyle.border.leftBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <input class=\"md-color-selector\" [(colorPicker)]=\"textStyle.border.leftBorderColor\" [style.background]=\"textStyle.border.leftBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\" />\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"textStyle.border.leftBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of textStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -1895,7 +2221,7 @@ module.exports = ".toolbar-btn-group {\r\n    width: 75px;\r\n    height: 8vh;\r
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"flex-row-evenly\">\r\n\r\n  <a (click)=\"this.data.createTextStyle(); this.data.setMode('text')\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"font\"></fa>\r\n    <p>New text style</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.createImageStyle(); this.data.setMode('image')\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"image\"></fa>\r\n    <p>New image style</p>\r\n  </a>\r\n\r\n  <!-- <a (click)=\"this.data.createShapeStyle(); this.data.setMode('shape')\" class=\"flex-col-evenly\">\r\n    <fa name=\"shapes\"></fa>\r\n    <p>Create a new shape style</p>\r\n  </a> -->\r\n</div>\r\n\r\n<div id=\"toolbar-style-selector\" class=\"greenAccent02\">\r\n\r\n  <!-- Text styles -->\r\n  <div *ngIf=\"this.data.viewTextElements\">\r\n    <a *ngFor=\"let textStyle of this.data.textStyles\" (click)=\"this.data.selectStyle('text', textStyle.id); this.data.setMode('text')\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(textStyle)\">{{textStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Image styles -->\r\n  <div *ngIf=\"this.data.viewImageElements\">\r\n    <a *ngFor=\"let imageStyle of this.data.imageStyles\" (click)=\"this.data.selectStyle('image', imageStyle.id); this.data.setMode('image')\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(imageStyle)\">{{imageStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Shape styles -->\r\n  <!-- <div *ngIf=\"this.data.viewShapeElements\">\r\n    <a *ngFor=\"let shapeStyle of this.data.shapeStyles\" (click)=\"this.data.selectStyle('shape', shapeStyle.id); this.data.setMode('shape')\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(shapeStyle)\">{{shapeStyle.name}}</a>\r\n  </div> -->\r\n</div>\r\n\r\n\r\n\r\n<div class=\"flex-row-evenly\">\r\n  <a (click)=\"this.data.saveAsPng()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"file-image\"></fa>\r\n    <p>Save As PNG</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.exportAsPDF()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"file-pdf\"></fa>\r\n    <p>Export to PDF</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.saveSession()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"save\"></fa>\r\n    <p>Save Session</p>\r\n  </a>\r\n</div>"
+module.exports = "<div class=\"flex-row-evenly\">\r\n\r\n  <a (click)=\"this.data.createTextStyle(); this.data.setMode('text')\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"font\"></fa>\r\n    <p>New text style</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.createImageStyle(); this.data.setMode('image')\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"image\"></fa>\r\n    <p>New image style</p>\r\n  </a>\r\n\r\n  <!-- <a (click)=\"this.data.createShapeStyle(); this.data.setMode('shape')\" class=\"flex-col-evenly\">\r\n    <fa name=\"shapes\"></fa>\r\n    <p>Create a new shape style</p>\r\n  </a> -->\r\n</div>\r\n\r\n<div id=\"toolbar-style-selector\" class=\"greenAccent02\">\r\n\r\n  <!-- Text styles -->\r\n  <div *ngIf=\"this.data.viewTextElements\">\r\n    <a *ngFor=\"let textStyle of this.data.textStyles\" (click)=\"this.data.selectStyle('text', textStyle.id);\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(textStyle)\">{{textStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Image styles -->\r\n  <div *ngIf=\"this.data.viewImageElements\">\r\n    <a *ngFor=\"let imageStyle of this.data.imageStyles\" (click)=\"this.data.selectStyle('image', imageStyle.id);\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(imageStyle)\">{{imageStyle.name}}</a>\r\n  </div>\r\n\r\n  <!-- Shape styles -->\r\n  <!-- <div *ngIf=\"this.data.viewShapeElements\">\r\n    <a *ngFor=\"let shapeStyle of this.data.shapeStyles\" (click)=\"this.data.selectStyle('shape', shapeStyle.id); this.data.setMode('shape')\" class=\"greenAccent01 toolbar-style-btn\" [class.selected]=\"isSelected(shapeStyle)\">{{shapeStyle.name}}</a>\r\n  </div> -->\r\n</div>\r\n\r\n\r\n\r\n<div class=\"flex-row-evenly\">\r\n  <a (click)=\"this.data.saveAsPng()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"file-image\"></fa>\r\n    <p>Save As PNG</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.exportAsPDF()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"file-pdf\"></fa>\r\n    <p>Export to PDF</p>\r\n  </a>\r\n\r\n  <a (click)=\"this.data.saveSession()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n    <fa name=\"save\"></fa>\r\n    <p>Save Session</p>\r\n  </a>\r\n</div>"
 
 /***/ }),
 
@@ -1939,6 +2265,7 @@ var ToolbarComponent = /** @class */ (function () {
                 else {
                     response = false;
                 }
+                break;
             case 'TextStyle':
                 if (style.id === this.data.selectedTextStyleId) {
                     response = true;
