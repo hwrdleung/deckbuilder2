@@ -3,11 +3,27 @@ import { DataService } from '../data.service';
 import { Slide } from '../classes/slide';
 import { DialogService } from '../dialog.service';
 
+
+
+interface FsDocument extends HTMLDocument {
+  fullscreenElement?: Element;
+  webkitFullscreenElement?: Element;
+  mozFullScreenElement?: Element;
+  msFullscreenElement?: Element;
+}
+
+export function isFullScreen(): boolean {
+  const fsDoc = <FsDocument> document;
+
+  return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement);
+}
+
 @Component({
   selector: 'slide-editor',
   templateUrl: './slide-editor.component.html',
   styleUrls: ['./slide-editor.component.css']
 })
+
 export class SlideEditorComponent implements OnInit {
 
   indexOfSelectedSlideObject: number;
@@ -18,6 +34,8 @@ export class SlideEditorComponent implements OnInit {
   ngOnInit() {
 
   }
+
+
 
   // Slide editor Toolbar functions
 
@@ -75,7 +93,7 @@ export class SlideEditorComponent implements OnInit {
     document.addEventListener("msfullscreenchange", exitPreviewMode);
 
     function exitPreviewMode(event) {
-      if (document.fullscreenElement || document.webkitFullscreenElement === null) {
+      if (!isFullScreen()) {
         document.body.removeChild(fullscreenContainer);
 
         // Disable keyboard and mouse navigation
