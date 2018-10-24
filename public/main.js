@@ -1883,6 +1883,14 @@ var SlideEditorComponent = /** @class */ (function () {
             }
         }
     };
+    SlideEditorComponent.prototype.deleteSlideObjectById = function (id) {
+        var currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getSlideProperty('slideObjects');
+        for (var i = 0; i < currentSlideObjects.length; i++) {
+            if (currentSlideObjects[i].getSlideObjectProperty('id') === id) {
+                currentSlideObjects.splice(i, 1);
+            }
+        }
+    };
     SlideEditorComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'slide-editor',
@@ -2223,14 +2231,6 @@ var ToolbarSecondaryComponent = /** @class */ (function () {
             }
         };
         this.dialog.alert("Are you sure you want to delete this slide from your project?", callback);
-    };
-    ToolbarSecondaryComponent.prototype.deleteSlideObjectById = function (id) {
-        var currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getSlideProperty('slideObjects');
-        for (var i = 0; i < currentSlideObjects.length; i++) {
-            if (currentSlideObjects[i].getSlideObjectProperty('id') === id) {
-                currentSlideObjects.splice(i, 1);
-            }
-        }
     };
     ToolbarSecondaryComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
