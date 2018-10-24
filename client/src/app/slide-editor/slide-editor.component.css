@@ -1,5 +1,5 @@
 #slide-editor-workspace {
-    width: 100%;
+    width: 41vw;
     display: grid;
     grid-template-rows: 43vh 43vh;
     margin: 0;
@@ -8,7 +8,7 @@
 
 #slide-render-area {
     height: 100%;
-    width: 100%;
+    width: 41vw;
     overflow: scroll;
     background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));
 }
@@ -16,7 +16,6 @@
 .slide-object {
     overflow: hidden;
     user-select: none;
-    z-index: -1;
 }
 
 .slide-object img {
@@ -36,14 +35,13 @@
 #slide-control {
     height: 100%;
     width: 100%;
-    overflow: auto;
-    display: grid;
-    grid-template-rows: 4vh 39vh;
 }
 
 #slide-control-toolbar {
     width: 100%;
+    padding: 5px;
     background: rgb(46, 46, 46);
+    flex-wrap: wrap;
 }
 
 #slide-control-toolbar fa {

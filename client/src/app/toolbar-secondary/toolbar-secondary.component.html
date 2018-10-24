@@ -1,29 +1,26 @@
-<div id="toolbar2-container" class="flex-row-evenly">
-
-  <div id="sandbox-toolbar" class="grayAccent02 flex-row-evenly">
-    <a (click)="this.data.setMode('text')" class="flex-row-evenly sandbox-toolbar-btn-group">
-      <fa name="font"></fa>
+  <div id="toolbar2" class="grayAccent02 flex-row-evenly">
+    <a (click)="this.data.setMode('text')" class="flex-row-evenly toolbar2-btn-group">
+      <fa name="font" class="dashed-border"></fa>
       <p>New text object</p>
     </a>
 
-    <a (click)="this.data.setMode('image')" class="flex-row-evenly sandbox-toolbar-btn-group">
-      <fa name="image"></fa>
+    <a (click)="this.data.setMode('image')" class="flex-row-evenly toolbar2-btn-group">
+      <fa name="image" class="dashed-border"></fa>
       <p>New image object</p>
     </a>
-  </div>
 
-  <div id="slide-editor-toolbar" class="grayAccent02 flex-row-evenly">
-    <a (click)="this.createNewSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <a (click)="this.createNewSlide()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="plus-square"></fa>
       <p>New slide</p>
     </a>
 
-    <a (click)="this.preview()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <a (click)="this.preview()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="play"></fa>
       <p>Preview</p>
     </a>
 
-    <a (click)="this.previousSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <div class="flex-row-evenly" id="slide-nav-group">
+    <a (click)="this.previousSlide()" class="flex-row-evenly">
       <fa name="step-backward"></fa>
     </a>
 
@@ -31,15 +28,14 @@
       <h1 style="padding: 10px;" id="slide-number">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>
     </div>
 
-    <a (click)="this.nextSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <a (click)="this.nextSlide()" class="flex-row-evenly">
       <fa name="step-forward"></fa>
     </a>
+  </div>
 
-    <a (click)="this.deleteCurrentSlide()" class="flex-row-evenly slide-editor-toolbar-btn-group">
+    <a (click)="this.deleteCurrentSlide()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="trash"></fa>
       <p>Delete slide</p>
     </a>
-
   </div>
 
-</div>

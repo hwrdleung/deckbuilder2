@@ -1,84 +1,61 @@
-#toolbar2-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
 
-#sandbox-toolbar {
-    height: 6vh;
+#toolbar2 {
+    height: auto;
     margin: 0;
     padding: 0;
 }
 
-.sandbox-toolbar-btn-group {
+.toolbar2-btn-group {
     height: 100%;
-    width: 30%;
-    max-width: 150px;
-    padding: 0 15px;
+    width: auto;
+    padding: 10px 15px;
 }
 
-.sandbox-add-btn-group:hover, 
-.sandbox-toolbar-btn-group:hover {
+#slide-nav-group fa:hover,
+.toolbar2-btn-group:hover {
     background: rgb(100, 100, 100);
 }
 
-.sandbox-toolbar-btn-group fa {
+.toolbar2-btn-group fa {
     font-size: 2vh;
     margin: 0;
     padding: 2px 4px;
+}
+
+.dashed-border {
     border: 2px dashed;
     border-radius: 2px;
 }
 
-.sandbox-toolbar-btn-group p {
+.toolbar2-btn-group p {
     text-align: center;
     font-size: 0.7rem;
-    /* font-size: 0.9vw; */
     margin: 0 10px;
-    padding: 0;
     white-space: nowrap;
 }
 
-#slide-editor-toolbar {
-    width: 100%;
-    height: 6vh;
-    margin: 0;
-    padding: 0;
-}
-
-.slide-editor-toolbar-btn-group {
-    height: 100%;
-    max-width: 150px;
-    padding: 0 15px;
-}
-
-.slide-editor-toolbar-btn-group:hover {
-    background: rgb(100, 100, 100);
-}
-
-.slide-editor-toolbar-btn-group fa {
-    font-size: 2vh;
-    margin: 0;
-    padding: 2px 4px;
-}
-
-.slide-editor-toolbar-btn-group p {
-    text-align: center;
-    font-size: 0.7rem;
-    /* font-size: 0.9vw; */
-    margin: 0 10px;
-    padding: 0;
-    white-space: nowrap;
+#slide-nav-group fa {
+    font-size:2vh;
+    padding: 15px;
 }
 
 #slide-number {
     font-size: 1.5rem;
-    font-size: 1.5vw;
 }
 
-#slide-editor-workspace {
-    width: auto;
-    display: grid;
-    grid-template-rows: 43vh 43vh;
-    margin: 0;
-    padding: 0;
+@media only screen and (max-width: 1199px) {
+    .toolbar2-btn-group {
+        flex-direction: column;
+        padding: 7px;
+    }
+
+    .toolbar2-btn-group p {
+        padding-top: 5px;
+    }
+}
+
+@media only screen and (max-width: 999px) {
+    .toolbar2-btn-group p {
+        display: none;
+    }
 }
