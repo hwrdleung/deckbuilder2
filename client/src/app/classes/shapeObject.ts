@@ -8,7 +8,6 @@ export class ShapeObject extends SlideObject{
     constructor () {
         super();
     }
-
     
     setShapeProperties(shapeProperties:object){
         this.shapeProperties = shapeProperties;

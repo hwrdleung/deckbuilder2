@@ -11,10 +11,12 @@ export class DialogService {
   message: string = "";
   showDialog: boolean = false;
   callback: Function;
+  type: String = 'success'|| 'danger';
 
-  alert(message:string, callback?:Function){
+  alert(message:string, type:string, callback?:Function){
     this.message = message;
     this.showDialog = true;
+    this.type = type;
 
     if(callback){
       this.callback = callback;

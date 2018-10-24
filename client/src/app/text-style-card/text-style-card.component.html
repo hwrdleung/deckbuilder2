@@ -2,7 +2,7 @@
 
   <div class="flex-row-between style-card-row">
     <div *ngIf="!textStyle.editNameMode" class="flex-row-between">
-      <h3>{{textStyle.name}}</h3>
+      <h3>{{textStyle.name.substring(0, 20)}}</h3>
       <fa *ngIf="!textStyle.isDefault" name="edit" (click)="textStyle.toggleEditNameMode()"></fa>
     </div>
 
@@ -33,48 +33,47 @@
     <div style="flex: 1">
       <!--This spacer prevents colorPicker from repositioning the next div-->
     </div>
-    <input class="md-color-selector clickable" [(colorPicker)]="textStyle.color" [style.background]="textStyle.color"
-      cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+    <div class="md-color-selector" [(colorPicker)]="textStyle.color" [style.background]="textStyle.color"
+      cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
   </div>
-
 
   <div class="flex-row-between style-card-row">
     <h4>Background color:</h4>
     <div style="flex: 1">
       <!--This spacer prevents colorPicker from repositioning the next div-->
     </div>
-    <input class="md-color-selector clickable" [(colorPicker)]="textStyle.backgroundColor" [style.background]="textStyle.backgroundColor"
-      cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+    <div class="md-color-selector" [(colorPicker)]="textStyle.backgroundColor" [style.background]="textStyle.backgroundColor"
+      cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
   </div>
 
   <div class="flex-row-between style-card-row">
     <div class="flex-row-evenly icon-group">
-      <i (click)="textStyle.setStyleProperty('hAlign', 'left')" class="material-icons" [class.selected]="textStyle.getStyleProperty('hAlign') === 'left'">format_align_left</i>
-      <i (click)="textStyle.setStyleProperty('hAlign', 'center')" class="material-icons" [class.selected]="textStyle.getStyleProperty('hAlign') === 'center'">format_align_center</i>
-      <i (click)="textStyle.setStyleProperty('hAlign', 'right')" class="material-icons" [class.selected]="textStyle.getStyleProperty('hAlign') === 'right'">format_align_right</i>
+      <i (click)="textStyle.setStyleProperty('hAlign', 'left')" class="material-icons" [class.selected]="textStyle.hAlign === 'left'">format_align_left</i>
+      <i (click)="textStyle.setStyleProperty('hAlign', 'center')" class="material-icons" [class.selected]="textStyle.hAlign === 'center'">format_align_center</i>
+      <i (click)="textStyle.setStyleProperty('hAlign', 'right')" class="material-icons" [class.selected]="textStyle.hAlign === 'right'">format_align_right</i>
     </div>
 
     <div class="flex-row-evenly icon-group">
-      <i (click)="textStyle.setStyleProperty('vAlign', 'top')" class="material-icons" [class.selected]="textStyle.getStyleProperty('vAlign') === 'top'">vertical_align_top</i>
-      <i (click)="textStyle.setStyleProperty('vAlign', 'center')" class="material-icons" [class.selected]="textStyle.getStyleProperty('vAlign') === 'center'">vertical_align_center</i>
-      <i (click)="textStyle.setStyleProperty('vAlign', 'bottom')" class="material-icons" [class.selected]="textStyle.getStyleProperty('vAlign') === 'bottom'">vertical_align_bottom</i>
+      <i (click)="textStyle.setStyleProperty('vAlign', 'top')" class="material-icons" [class.selected]="textStyle.vAlign === 'top'">vertical_align_top</i>
+      <i (click)="textStyle.setStyleProperty('vAlign', 'center')" class="material-icons" [class.selected]="textStyle.vAlign === 'center'">vertical_align_center</i>
+      <i (click)="textStyle.setStyleProperty('vAlign', 'bottom')" class="material-icons" [class.selected]="textStyle.vAlign === 'bottom'">vertical_align_bottom</i>
     </div>
   </div>
 
   <div class="flex-row-between style-card-row">
     <div class="flex-row-evenly icon-group">
-      <fa (click)="textStyle.toggleStyleProperty('underline')" name="underline" [class.selected]="textStyle.getStyleProperty('underline')"></fa>
-      <fa (click)="textStyle.toggleStyleProperty('lineThrough')" name="strikethrough" [class.selected]="textStyle.getStyleProperty('lineThrough')"></fa>
+      <fa (click)="textStyle.toggleStyleProperty('underline')" name="underline" [class.selected]="textStyle.underline"></fa>
+      <fa (click)="textStyle.toggleStyleProperty('lineThrough')" name="strikethrough" [class.selected]="textStyle.lineThrough"></fa>
       <h4 (click)="textStyle.toggleStyleProperty('overline')" style="text-decoration: overline; font-family: Arial; font-size: 1rem;"
-        class="material-icons" [class.selected]="textStyle.getStyleProperty('overline')">O</h4>
+        class="material-icons" [class.selected]="textStyle.overline">O</h4>
     </div>
 
     <div class="flex-row-evenly icon-group">
-      <i (click)="textStyle.toggleStyleProperty('breakWord')" class="material-icons" [class.selected]="textStyle.getStyleProperty('breakWord')">wrap_text</i>
+      <i (click)="textStyle.toggleStyleProperty('breakWord')" class="material-icons" [class.selected]="textStyle.breakWord">wrap_text</i>
       <i (click)="textStyle.toggleStyleProperty('uppercase'); textStyle.setStyleProperty('lowercase', false)" class="material-icons"
-        [class.selected]="textStyle.getStyleProperty('uppercase')">format_size</i>
+        [class.selected]="textStyle.uppercase">format_size</i>
       <i (click)="textStyle.toggleStyleProperty('lowercase'); textStyle.setStyleProperty('uppercase', false)" class="material-icons"
-        [class.selected]="textStyle.getStyleProperty('lowercase')">text_fields</i>
+        [class.selected]="textStyle.lowercase">text_fields</i>
     </div>
   </div>
 
@@ -86,9 +85,9 @@
     </a>
 
     <a (click)="textStyle.toggleExtraOptions()" class="flex-row-evenly" *ngIf="textStyle.showExtraOptions">
-      <fa name="angle-double-down"></fa>
+      <fa name="angle-double-up"></fa>
       Hide extra options
-      <fa name="angle-double-down"></fa>
+      <fa name="angle-double-up"></fa>
     </a>
   </div>
 
@@ -140,8 +139,8 @@
         <div style="flex: 1">
           <!--This spacer prevents colorPicker from repositioning the next div-->
         </div>
-        <input class="md-color-selector" [(colorPicker)]="textStyle.textShadow.color" [style.background]="textStyle.textShadow.color"
-          cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+        <div class="md-color-selector" [(colorPicker)]="textStyle.textShadow.color" [style.background]="textStyle.textShadow.color"
+          cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
       </div>
 
       <div class="flex-row-between style-card-row">
@@ -236,8 +235,8 @@
         <div style="flex: 1">
           <!--This spacer prevents colorPicker from repositioning the next div-->
         </div>
-        <input class="md-color-selector" [(colorPicker)]="textStyle.border.fullBorderColor" [style.background]="textStyle.border.fullBorderColor"
-          cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+        <div class="md-color-selector" [(colorPicker)]="textStyle.border.fullBorderColor" [style.background]="textStyle.border.fullBorderColor"
+          cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
       </div>
 
       <div class="flex-row-between style-card-row">
@@ -271,8 +270,8 @@
       <div style="flex: 1">
         <!--This spacer prevents colorPicker from repositioning the next div-->
       </div>
-      <input class="md-color-selector" [(colorPicker)]="textStyle.border.topBorderColor" [style.background]="textStyle.border.topBorderColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      <div class="md-color-selector" [(colorPicker)]="textStyle.border.topBorderColor" [style.background]="textStyle.border.topBorderColor"
+        cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
 
     </div>
 
@@ -300,8 +299,8 @@
       <div style="flex: 1">
         <!--This spacer prevents colorPicker from repositioning the next div-->
       </div>
-      <input class="md-color-selector" [(colorPicker)]="textStyle.border.rightBorderColor" [style.background]="textStyle.border.rightBorderColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      <div class="md-color-selector" [(colorPicker)]="textStyle.border.rightBorderColor" [style.background]="textStyle.border.rightBorderColor"
+        cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
     </div>
 
     <div class="flex-row-between style-card-row">
@@ -330,8 +329,8 @@
       <div style="flex: 1">
         <!--This spacer prevents colorPicker from repositioning the next div-->
       </div>
-      <input class="md-color-selector" [(colorPicker)]="textStyle.border.bottomBorderColor" [style.background]="textStyle.border.bottomBorderColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      <div class="md-color-selector" [(colorPicker)]="textStyle.border.bottomBorderColor" [style.background]="textStyle.border.bottomBorderColor"
+        cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
     </div>
 
     <div class="flex-row-between style-card-row">
@@ -356,8 +355,11 @@
 
     <div class="flex-row-between style-card-row">
       <h4>Color: </h4>
-      <input class="md-color-selector" [(colorPicker)]="textStyle.border.leftBorderColor" [style.background]="textStyle.border.leftBorderColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      <div style="flex: 1">
+          <!--This spacer prevents colorPicker from repositioning the next div-->
+        </div>
+      <div class="md-color-selector" [(colorPicker)]="textStyle.border.leftBorderColor" [style.background]="textStyle.border.leftBorderColor"
+        cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
     </div>
 
     <div class="flex-row-between style-card-row">

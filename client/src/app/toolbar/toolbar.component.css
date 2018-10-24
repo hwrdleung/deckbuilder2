@@ -34,15 +34,20 @@
 
 .toolbar-style-btn {
     text-decoration: none;
-    width: 125px;
-    line-height: 25px;
+    width: 150px;
+    height: 25px;
     border-radius: 5px;
-    margin-right: 5px;
-    padding: 0 5px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    padding-top: 3px;
     text-align: center;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
     font-size: 0.9rem;
+    border: 2px transparent solid;
+    outline: none;
 }
 
 .toolbar-style-btn:hover {
@@ -52,8 +57,7 @@
 .selected {
     background: rgb(156, 172, 149);
     border: 2px white solid;
-    line-height: 21px;
-    width: 146px;
+    width: 150px;
 }
 
 @media screen and (min-width: 1200px) {

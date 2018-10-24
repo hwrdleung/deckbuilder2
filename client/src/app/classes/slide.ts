@@ -11,7 +11,6 @@ export class Slide {
 
     constructor () {
         this.id = Slide.slideCounter++;
-        this.backgroundImage = "";
         this.backgroundColor = "#FFF";
         this.slideObjects = [];
     }

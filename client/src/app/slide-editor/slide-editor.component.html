@@ -30,8 +30,8 @@
     <div id="slide-control-toolbar" class="grayAccent02 flex-row-evenly">
       <div class="flex-row-evenly">
         <p>Set background color: </p>
-        <input class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor"
-          [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor" />
+        <div class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor"
+          [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor"></div>
       </div>
 
       <div class="flex-row-evenly">
@@ -88,7 +88,7 @@
 
           <fa (click)="this.data.decreaseOneLayer(slideObject.id)" name="arrow-down"></fa>
 
-          <fa (click)="slideObject.toggleSlideObjectProperty('display')" [name]="slideObject.getSlideObjectProperty('display') ? 'eye' : 'eye-slash'"></fa>
+          <fa (click)="slideObject.toggleSlideObjectProperty('display')" [name]="slideObject.display ? 'eye' : 'eye-slash'"></fa>
 
           <fa (click)="this.deleteSlideObjectById(slideObject.id)" name="trash"></fa>
         </div>

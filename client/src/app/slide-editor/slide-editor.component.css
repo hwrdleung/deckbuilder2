@@ -147,6 +147,18 @@ input[type="text"]{
     border-bottom: 3px rgb(81, 133, 81) solid; 
 }
 
+.md-color-selector {
+    width: 100px;
+    height: 10px;
+    border: 1px #D6F9DD solid;
+    outline: none;
+}
+
+.md-color-selector:hover {
+    cursor: pointer;
+}
+
+
 @media screen and (min-width: 1200px) {
     .slide-editor-toolbar-btn-group p {
        font-size: 0.8rem;

@@ -1,11 +1,4 @@
-import { Project } from "./project";
-
 export class BorderControl{
-
-    private borderStyles: Array<string> = [
-        'solid', 'dashed', 'dotted', 'double'
-    ];
-
     private showFullBorder: boolean;
     private showTopBorder: boolean;
     private showRightBorder: boolean;
@@ -112,62 +105,6 @@ export class BorderControl{
         let cssProperty = this.leftBorderWidth + 'px ' + this.leftBorderColor + ' ' + this.leftBorderStyle;
         return cssProperty;
     }
-
-    // getBorderStyleCss(){
-    //     // console.log('getBorderStyleCss');
-    //     if(this.showFullBorder){
-    //         return this.fullBorderStyle;
-    //     }
-
-    //     if(this.showFullBorder === false){
-    //         let borderStyleCss = '';
-    //         let topBorderStyleCss = this.showTopBorder ? this.topBorderStyle : 'none';
-    //         let rightBorderStyleCss = this.showRightBorder ? this.rightBorderStyle : 'none';
-    //         let bottomBorderStyleCss = this.showBottomBorder ? this.bottomBorderStyle : 'none';
-    //         let leftBorderStyleCss = this.showLeftBorder ? this.leftBorderStyle : 'none';
-
-    //         borderStyleCss = topBorderStyleCss + ' ' + rightBorderStyleCss + ' ' + bottomBorderStyleCss + ' ' + leftBorderStyleCss;
-    //         return borderStyleCss;
-    //     }
-    // }
-
-    // getBorderWidthCss(){
-    //     // console.log('getBorderWidthCss');
-
-    //     if(this.showFullBorder){
-    //         return this.fullBorderWidth + 'px';
-    //     }
-
-    //     if(this.showFullBorder === false){
-    //         let borderWidthCss = '';
-    //         let topBorderWidthCss = this.showTopBorder ? this.topBorderWidth + 'px' : 'none';
-    //         let rightBorderWidthCss = this.showRightBorder ? this.rightBorderWidth + 'px' : 'none';
-    //         let bottomBorderWidthCss = this.showBottomBorder ? this.bottomBorderWidth + 'px' : 'none';
-    //         let leftBorderWidthCss = this.showLeftBorder ? this.leftBorderWidth + 'px' : 'none';
-
-    //         borderWidthCss = topBorderWidthCss + ' ' + rightBorderWidthCss + ' ' + bottomBorderWidthCss + ' ' + leftBorderWidthCss;
-    //         return borderWidthCss;
-    //     }
-    // }
-
-    // getBorderColorCss(){
-    //     // console.log('getBorderColorCss');
-
-    //     if(this.showFullBorder){
-    //         return this.fullBorderColor;
-    //     }
-
-    //     if(this.showFullBorder === false){
-    //         let borderColorCss = '';
-    //         let topBorderColorCss = this.showTopBorder ? this.topBorderColor : 'none';
-    //         let rightBorderColorCss = this.showRightBorder ? this.rightBorderColor : 'none';
-    //         let bottomBorderColorCss = this.showBottomBorder ? this.bottomBorderColor : 'none';
-    //         let leftBorderColorCss = this.showLeftBorder ? this.leftBorderColor : 'none';
-
-    //         borderColorCss = topBorderColorCss + ' ' + rightBorderColorCss + ' ' + bottomBorderColorCss + ' ' + leftBorderColorCss;
-    //         return borderColorCss;
-    //     }
-    // }
 
     getBorderRadiusCss(){
         let borderRadiusCss = '';

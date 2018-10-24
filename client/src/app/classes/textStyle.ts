@@ -1,5 +1,6 @@
 import { BorderControl } from "./borderControl";
 import { ShadowControl } from "./shadowControl";
+import { text } from "@angular/core/src/render3/instructions";
 
 export class TextStyle {
 
@@ -98,7 +99,6 @@ export class TextStyle {
             css['border-bottom'] = this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none';
             css['border-left'] = this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none';
         }
-
         return css;
     }
 
@@ -113,32 +113,21 @@ export class TextStyle {
             case 'top': flexAlignment = 'flex-start'; break;
             case 'bottom': flexAlignment = 'flex-end'; break;
         }
-
         return flexAlignment;
     }
 
     getTextTransform() {
-        let textTransform = "";
-
-        if (!this.uppercase && !this.lowercase) {
-            return 'none';
-        }
-
-        if (this.uppercase) {
+        if (this.uppercase){
             return 'uppercase';
-        }
-
-        if (this.lowercase) {
+        } else if (this.lowercase){
             return 'lowercase';
+        } else {
+            return 'none';
         }
     }
 
     getTextDecoration() {
         let textDecoration = "";
-
-        if (!this.underline && !this.overline && !this.lineThrough) {
-            return 'none';
-        }
 
         if (this.underline) {
             textDecoration += "underline ";
@@ -152,7 +141,7 @@ export class TextStyle {
             textDecoration += "line-through ";
         }
 
-        return textDecoration;
+        return textDecoration ? textDecoration : 'none';
     }
 
     // Getters, setters, togglers
@@ -165,7 +154,9 @@ export class TextStyle {
     }
 
     toggleStyleProperty(propertyName: string) {
-        this[propertyName] = !this[propertyName];
+        if(typeof this[propertyName] === 'boolean'){
+            this[propertyName] = !this[propertyName];
+        }
     }
 
     toggleEditNameMode() {

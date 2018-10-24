@@ -7,7 +7,6 @@ import { ShapeStyle } from "./classes/shapeStyle";
 import { TextObject } from "./classes/textObject";
 import * as jsPDF from 'jspdf';
 import * as html2canvas from "html2canvas";
-import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
 
 import { ImageObject } from "./classes/imageObject";
 import { BorderControl } from "./classes/borderControl";
@@ -54,10 +53,6 @@ export class DataService {
 
   documentSize = this.currentProject.getProjectProperty('documentSize');
   slideRenderMagnification: number = this.currentProject.getProjectProperty('slideRenderMagnification');
-
-  test() {
-    console.log("Test");
-  }
 
   // FUNCTIONS USED BY ALL COMPONENTS
   // App view mode:  text || image || shape
@@ -116,6 +111,7 @@ export class DataService {
   }
 
   getSavedProject() {
+    // Convert JSON object to Project Object
     let savedProjectData = JSON.parse(localStorage.getItem('deckbuilder2Data'));
     let project = new Project();
     project.revive(savedProjectData);
@@ -194,19 +190,14 @@ export class DataService {
     this.currentProject.setProjectProperty('textStyles', this.textStyles);
     this.currentProject.setProjectProperty('imageStyles', this.imageStyles);
     this.currentProject.setProjectProperty('shapeStyles', this.shapeStyles);
-
     this.currentProject.setProjectProperty('selectedTextStyleId', this.selectedTextStyleId);
     this.currentProject.setProjectProperty('selectedImageStyleId', this.selectedImageStyleId);
     this.currentProject.setProjectProperty('selectedShapeStyleId', this.selectedShapeStyleId);
-
     this.currentProject.setProjectProperty('currentSlideIndex', this.currentSlideIndex);
     this.currentProject.setProjectProperty('selectedSlideObjectId', this.selectedSlideObjectId);
-
     this.currentProject.setProjectProperty('sandboxText', this.sandboxText);
-
     this.currentProject.setProjectProperty('documentSize', this.documentSize);
     this.currentProject.setProjectProperty('slideRenderMagnification', this.slideRenderMagnification);
-
     this.currentProject.setProjectProperty('textNotes', this.textNotes);
     this.currentProject.setProjectProperty('images', this.images);
 
@@ -214,7 +205,7 @@ export class DataService {
 
     // Send to server and save to database when backend is set up
 
-    this.dialog.alert('Your session has been saved.');
+    this.dialog.alert('Your session has been saved!', 'success');
   }
 
   //  TOOLBAR FUNCTIONS
@@ -344,7 +335,7 @@ export class DataService {
 
     if (isInUse) {
       let textStyleName = textStyle.getStyleProperty('name');
-      this.dialog.alert('Unable to delete.  ' + textStyleName + ' is currently being used.');
+      this.dialog.alert('Unable to delete ' + textStyleName + '.  It is currently in use.', 'danger');
     } else if (!isInUse) {
       for (let i = 0; i < this.textStyles.length; i++) {
         let thisTextStyleId = this.textStyles[i].getStyleProperty('id');
@@ -383,7 +374,7 @@ export class DataService {
 
     if (isInUse) {
       let imageStyleName = imageStyle.getStyleProperty('name');
-      this.dialog.alert('Unable to delete.  ' + imageStyleName + ' is currently being used.');
+      this.dialog.alert('Unable to delete.  ' + imageStyleName + ' is currently being used.', 'danger');
     } else if (!isInUse) {
       for (let i = 0; i < this.imageStyles.length; i++) {
         let thisImageStyleId = this.imageStyles[i].getStyleProperty('id');
@@ -409,7 +400,6 @@ export class DataService {
 
     newTextObject.setTextvalue(this.sandboxText);
     newTextObject.setStyleId(this.selectedTextStyleId);
-    console.log(this.selectedTextStyleId)
 
     // !important!  set z index last to ensure proper assignment of z index
     currentSlide.addSlideObject(newTextObject);
@@ -478,7 +468,7 @@ export class DataService {
       }
     }
 
-    this.dialog.alert("Are you sure you want to delete this image from your project?", callback);
+    this.dialog.alert("Are you sure you want to delete this image from your project?", 'danger', callback);
   }
 
   //  SLIDE EDITOR FUNCTIONS

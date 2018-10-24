@@ -1,5 +1,8 @@
 <div id="overlay" *ngIf="this.dialog.showDialog">
-  <div id="dialog-box">
+  <div id="dialog-box" class="flex-col-evenly">
+    <fa name="check-circle" *ngIf="this.dialog.type === 'success'" id="success-icon"></fa>
+    <fa name="exclamation-triangle" *ngIf="this.dialog.type === 'danger'" id="danger-icon"></fa>
+
     <p id="message">{{this.dialog.message}}</p>
 
     <div class="flex-row-center">

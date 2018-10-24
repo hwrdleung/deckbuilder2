@@ -105,27 +105,4 @@ export class Project {
     setProjectProperty(propertyName, propertyValue){
         this[propertyName] = propertyValue;
     }
-
-    save(project:Project){
-        this.title = project.title;
-        this.slideObjectIdCounter = project.slideObjectIdCounter;
-        this.styleIdCounter = project.styleIdCounter;
-        this.slideIdCounter = project.slideIdCounter;
-
-        this.slides = project.slides;
-        this.textStyles = project.textStyles;
-        this.imageStyles = project.imageStyles;
-        this.shapeStyles = project.shapeStyles;
-
-        this.selectedTextStyleId = project.selectedTextStyleId;
-        this.selectedImageStyleId = project.selectedImageStyleId;
-        this.selectedShapeStyleId = project.selectedShapeStyleId;
-
-        this.currentSlideIndex = project.currentSlideIndex;
-        this.selectedSlideObjectId = project.selectedSlideObjectId;
-
-        this.sandboxText = project.sandboxText;
-        this.sandboxImage = project.sandboxImage;
-        this.sandboxShape = project.sandboxShape;
-    }
 }

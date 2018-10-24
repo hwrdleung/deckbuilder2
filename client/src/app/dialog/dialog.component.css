@@ -21,8 +21,22 @@
     z-index: 101;
 }
 
+#danger-icon, 
+#success-icon {
+    text-align: center;
+    font-size: 3rem;
+}
+
+#danger-icon{
+    color: red;
+}
+
+#success-icon {
+    color: green;
+}
+
 #message {
-    margin-bottom: 35px;
+    margin: 35px 25px;
 }
 
 button {

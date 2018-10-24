@@ -2,17 +2,17 @@
 
   <div class="flex-row-between style-card-row">
     <div *ngIf="!imageStyle.editNameMode" class="flex-row-between">
-      <h3 *ngIf="!imageStyle.editNameMode">{{imageStyle.name}}</h3>
+      <h3 *ngIf="!imageStyle.editNameMode">{{imageStyle.name.substring(0, 20)}}</h3>
       <fa *ngIf="!imageStyle.isDefault" (click)="imageStyle.toggleEditNameMode()" name="edit"></fa>
     </div>
 
     <div *ngIf="imageStyle.editNameMode" class="flex-row-between">
       <input type="text" [(ngModel)]="imageStyle.name" placeholder="imageStyle.name">
-      <fa name="save" (click)="imageStyle.toggleEditNameMode()" class="clickable"></fa>
+      <fa name="save" (click)="imageStyle.toggleEditNameMode()"></fa>
     </div>
 
     <a *ngIf="!imageStyle.isDefault" (click)="this.data.deleteImageStyle(imageStyle)">
-      <fa class="clickable" name="trash"></fa>
+      <fa name="trash"></fa>
     </a>
   </div>
 
@@ -88,9 +88,9 @@
     </a>
 
     <a (click)="imageStyle.toggleExtraOptions()" class="flex-row-evenly" *ngIf="imageStyle.showExtraOptions">
-      <fa name="angle-double-down"></fa>
+      <fa name="angle-double-up"></fa>
       <a>Hide extra options</a>
-      <fa name="angle-double-down"></fa>
+      <fa name="angle-double-up"></fa>
     </a>
   </div>
 
@@ -189,8 +189,8 @@
       <div style="flex: 1">
         <!--This spacer prevents colorPicker from repositioning the next div-->
       </div>
-      <input class="md-color-selector" [(colorPicker)]="imageStyle.border.fullBorderColor" [style.background]="imageStyle.border.fullBorderColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      <div class="md-color-selector" [(colorPicker)]="imageStyle.border.fullBorderColor" [style.background]="imageStyle.border.fullBorderColor"
+        cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
     </div>
 
     <div class="flex-row-between style-card-row">
@@ -221,8 +221,8 @@
       <div style="flex: 1">
         <!--This spacer prevents colorPicker from repositioning the next div-->
       </div>
-      <input class="md-color-selector" [(colorPicker)]="imageStyle.border.topBorderColor" [style.background]="imageStyle.border.topBorderColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      <div class="md-color-selector" [(colorPicker)]="imageStyle.border.topBorderColor" [style.background]="imageStyle.border.topBorderColor"
+        cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
 
     </div>
 
@@ -250,8 +250,8 @@
       <div style="flex: 1">
         <!--This spacer prevents colorPicker from repositioning the next div-->
       </div>
-      <input class="md-color-selector" [(colorPicker)]="imageStyle.border.rightBorderColor" [style.background]="imageStyle.border.rightBorderColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      <div class="md-color-selector" [(colorPicker)]="imageStyle.border.rightBorderColor" [style.background]="imageStyle.border.rightBorderColor"
+        cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
     </div>
 
     <div class="flex-row-between style-card-row">
@@ -280,8 +280,8 @@
       <div style="flex: 1">
         <!--This spacer prevents colorPicker from repositioning the next div-->
       </div>
-      <input class="md-color-selector" [(colorPicker)]="imageStyle.border.bottomBorderColor" [style.background]="imageStyle.border.bottomBorderColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      <div class="md-color-selector" [(colorPicker)]="imageStyle.border.bottomBorderColor" [style.background]="imageStyle.border.bottomBorderColor"
+        cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
     </div>
 
     <div class="flex-row-between style-card-row">
@@ -309,8 +309,8 @@
       <div style="flex: 1">
         <!--This spacer prevents colorPicker from repositioning the next div-->
       </div>
-      <input class="md-color-selector" [(colorPicker)]="imageStyle.border.leftBorderColor" [style.background]="imageStyle.border.leftBorderColor"
-        cpOutputFormat="rgba" cpAlphaChannel="enabled" />
+      <div class="md-color-selector" [(colorPicker)]="imageStyle.border.leftBorderColor" [style.background]="imageStyle.border.leftBorderColor"
+        cpOutputFormat="rgba" cpAlphaChannel="enabled"></div>
     </div>
 
     <div class="flex-row-between style-card-row">

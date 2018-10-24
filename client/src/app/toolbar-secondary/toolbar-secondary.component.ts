@@ -84,7 +84,7 @@ export class ToolbarSecondaryComponent implements OnInit {
       document.addEventListener("msfullscreenchange", exitPreviewMode);
   
       function exitPreviewMode(event) {
-        if (document.fullscreenElement || document.webkitFullscreenElement !== null) {
+        if (document.fullscreenElement || document.webkitFullscreenElement === null) {
           document.body.removeChild(fullscreenContainer);
   
           // Disable keyboard and mouse navigation
@@ -174,7 +174,7 @@ export class ToolbarSecondaryComponent implements OnInit {
         }
       }
   
-      this.dialog.alert("Are you sure you want to delete this slide from your project?", callback);
+      this.dialog.alert("Are you sure you want to delete this slide from your project?", 'danger', callback);
     }
   
 

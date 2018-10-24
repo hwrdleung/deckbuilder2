@@ -92,6 +92,7 @@ select {
     width: 100px;
     height: 10px;
     border: 1px #D6F9DD solid;
+    outline: none;
 }
 
 .md-color-selector:hover {
