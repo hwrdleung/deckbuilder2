@@ -173,7 +173,7 @@ export class SlideEditorComponent implements OnInit {
       }
     }
 
-    this.dialog.alert("Are you sure you want to delete this slide?", callback);
+    this.dialog.alert("Are you sure you want to delete this slide from your project?", callback);
   }
 
   deleteSlideObjectById(id: number) {

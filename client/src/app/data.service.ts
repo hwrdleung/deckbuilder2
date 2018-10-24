@@ -348,45 +348,89 @@ export class DataService {
     }
   }
 
+
   //  STYLER FUNCTIONS
-  deleteTextStyleById(id: number) {
+  deleteTextStyle(textStyle: TextStyle) {
+    let id = textStyle.getStyleProperty('id');
+    let isInUse = false;
 
-          // Check if this style is currently being used in a slide
+    // Check if this style is currently being used in a slide
+    for (let i = 0; i < this.slides.length && !isInUse; i++) {
+      let thisSlideObjects = this.slides[i].getSlideProperty('slideObjects');
 
-    for (let i = 0; i < this.textStyles.length; i++) {
-      let thisTextStyleId = this.textStyles[i].getStyleProperty('id');
+      for (let j = 0; j < thisSlideObjects.length && !isInUse; j++) {
+        let thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
+        let thisSlideObjectStyleType = thisSlideObjects[j].constructor.name;
 
-      // If user wants to delete a style that is currently the selected style,
-      // Change selected style to default (index 0) before proceeding.
-      if (id === this.selectedTextStyleId) {
-        this.selectedTextStyleId = 0;
+        console.log(thisSlideObjectId, thisSlideObjectStyleType);
+
+        if (thisSlideObjectId === id && thisSlideObjectStyleType === "TextObject") {
+          isInUse = true;
+          break;
+        }
       }
+    }
 
+    if (isInUse) {
+      let textStyleName = textStyle.getStyleProperty('name');
+      this.dialog.alert('Unable to delete.  ' + textStyleName + ' is currently being used.');
+    } else if (!isInUse) {
+      for (let i = 0; i < this.textStyles.length; i++) {
+        let thisTextStyleId = this.textStyles[i].getStyleProperty('id');
 
-      // Delete style by id
-      if (thisTextStyleId === id)
-        this.textStyles.splice(i, 1);
+        // If user wants to delete a style that is currently the selected style,
+        // Change selected style to default (index 0) before proceeding.
+        if (id === this.selectedTextStyleId) {
+          this.selectedTextStyleId = 0;
+        }
+
+        // Delete style by id
+        if (thisTextStyleId === id)
+          this.textStyles.splice(i, 1);
+      }
     }
   }
 
-  deleteImageStyleById(id: number) {
-    for (let i = 0; i < this.imageStyles.length; i++) {
-      let thisImageStyleId = this.imageStyles[i].getStyleProperty('id');
+  deleteImageStyle(imageStyle: ImageStyle) {
+    let id = imageStyle.getStyleProperty('id');
+    let isInUse = false;
 
-      // If user wants to delete a style that is currently the selected style,
-      // Change selected style to default (index 0) before proceeding.
-      if (id === this.selectedImageStyleId) {
-        this.selectedImageStyleId = 0;
+    // Check if this style is currently being used in a slide
+    for (let i = 0; i < this.slides.length && !isInUse; i++) {
+      let thisSlideObjects = this.slides[i].getSlideProperty('slideObjects');
+
+      for (let j = 0; j < thisSlideObjects.length && !isInUse; j++) {
+        let thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
+        let thisSlideObjectStyleType = thisSlideObjects[j].constructor.name;
+
+        console.log(thisSlideObjectId, thisSlideObjectStyleType);
+
+        if (thisSlideObjectId === id && thisSlideObjectStyleType === "ImageObject") {
+          isInUse = true;
+          break;
+        }
       }
-
-      // Check if this style is currently being used in a slide
-
-
-      // Delete style by id
-      if (thisImageStyleId === id)
-        this.imageStyles.splice(i, 1);
     }
-  }
+
+    if (isInUse) {
+      let imageStyleName = imageStyle.getStyleProperty('name');
+      this.dialog.alert('Unable to delete.  ' + imageStyleName + ' is currently being used.');
+    } else if (!isInUse) {
+      for (let i = 0; i < this.imageStyles.length; i++) {
+        let thisImageStyleId = this.imageStyles[i].getStyleProperty('id');
+
+        // If user wants to delete a style that is currently the selected style,
+        // Change selected style to default (index 0) before proceeding.
+        if (id === this.selectedImageStyleId) {
+          this.selectedImageStyleId = 0;
+        }
+
+        // Delete style by id
+        if (thisImageStyleId === id)
+          this.imageStyles.splice(i, 1);
+      }
+    }
+}
 
   // deleteShapeStyleById(id: number) {
   //   for (let i = 0; i < this.shapeStyles.length; i++) {
@@ -478,7 +522,7 @@ export class DataService {
 
     this.dialog.alert("Are you sure you want to delete this image from your project?", callback);
 
-    
+
   }
 
   //  SLIDE EDITOR FUNCTIONS

@@ -11,7 +11,7 @@
       <fa name="save" (click)="imageStyle.toggleEditNameMode()" class="clickable"></fa>
     </div>
 
-    <a *ngIf="!imageStyle.isDefault" (click)="this.data.deleteImageStyleById(imageStyle.id)">
+    <a *ngIf="!imageStyle.isDefault" (click)="this.data.deleteImageStyle(imageStyle)">
       <fa class="clickable" name="trash"></fa>
     </a>
   </div>

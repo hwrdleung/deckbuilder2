@@ -12,7 +12,7 @@
       <fa name="save" (click)="textStyle.toggleEditNameMode()"></fa>
     </div>
 
-    <fa *ngIf="!textStyle.isDefault" name="trash" (click)="this.data.deleteTextStyleById(textStyle.id)"></fa>
+    <fa *ngIf="!textStyle.isDefault" name="trash" (click)="this.data.deleteTextStyle(textStyle)"></fa>
   </div>
 
   <div class="flex-row-between style-card-row">
