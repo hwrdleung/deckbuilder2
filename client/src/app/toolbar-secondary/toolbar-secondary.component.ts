@@ -3,18 +3,18 @@ import { DataService } from '../data.service';
 import { DialogService } from '../dialog.service';
 import { Slide } from '../classes/slide';
 
-interface FsDocument extends HTMLDocument {
-  fullscreenElement?: Element;
-  webkitFullscreenElement?: Element;
-  mozFullScreenElement?: Element;
-  msFullscreenElement?: Element;
-}
+// interface FsDocument extends HTMLDocument {
+//   fullscreenElement?: Element;
+//   webkitFullscreenElement?: Element;
+//   mozFullScreenElement?: Element;
+//   msFullscreenElement?: Element;
+// }
 
-export function isFullScreen(): boolean {
-  const fsDoc = <FsDocument> document;
+// export function isFullScreen(): boolean {
+//   const fsDoc = <FsDocument> document;
 
-  return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement);
-}
+//   return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement);
+// }
 
 @Component({
   selector: 'toolbar-secondary',
@@ -84,7 +84,7 @@ export class ToolbarSecondaryComponent implements OnInit {
       document.addEventListener("msfullscreenchange", exitPreviewMode);
   
       function exitPreviewMode(event) {
-        if (!isFullScreen()) {
+        if (document.fullscreenElement || document.webkitFullscreenElement !== null) {
           document.body.removeChild(fullscreenContainer);
   
           // Disable keyboard and mouse navigation

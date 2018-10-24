@@ -1,38 +1,3 @@
-/* 
-#sandbox-toolbar {
-    height: 6vh;
-    margin: 0;
-    padding: 0;
-}
-
-.sandbox-toolbar-btn-group {
-    height: 100%;
-    width: 30%;
-    max-width: 150px;
-    padding: 0 15px;
-}
-
-.sandbox-add-btn-group:hover, 
-.sandbox-toolbar-btn-group:hover {
-    background: rgb(100, 100, 100);
-}
-
-.sandbox-toolbar-btn-group fa {
-    font-size: 2vh;
-    margin: 0;
-    padding: 2px 4px;
-    border: 2px dashed;
-    border-radius: 2px;
-}
-
-.sandbox-toolbar-btn-group p {
-    text-align: center;
-    font-size: 0.7rem;
-    font-size: 0.9vw;
-    margin: 0 10px;
-    padding: 0;
-    white-space: nowrap;
-} */
 
 .sandbox-preview-area {
     width: 100%;
