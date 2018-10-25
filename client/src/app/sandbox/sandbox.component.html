@@ -1,12 +1,22 @@
 
 <!-- Text sandbox -->
-<div id="text-sandbox" class="grayAccent03" *ngIf="this.data.viewTextElements && this.data.textStyles.length > 0">
-  <div class="flex-col-evenly sandbox-preview-area accent05">
+<div id="sandbox-container" class="grayAccent03">
+  <div class="flex-col-evenly sandbox-preview-area accent05" *ngIf="this.data.viewTextElements">
     <div class="sandbox-preview-container">
       <p [ngStyle]="this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()">{{this.data.sandboxText}}</p>
     </div>
   </div>
 
+  <div class="flex-col-evenly sandbox-preview-area accent05" *ngIf="this.data.viewImageElements">
+    <img id="image-preview" *ngIf="this.data.images[this.data.selectedImage]" [src]="this.data.images[this.data.selectedImage].url"
+      [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
+  </div>
+
+<div id="sandbox-resizer">
+
+</div>
+
+<div id="text-input-container" *ngIf="this.data.viewTextElements">
   <div class="sandbox-middle-bar flex-row-evenly">
     <textarea id="sandbox-textarea" [(ngModel)]="this.data.sandboxText">
 
@@ -21,31 +31,26 @@
   <textarea id="notes-textarea" [(ngModel)]="this.data.textNotes">
     {{this.data.textNotes}}
   </textarea>
-</div>
-
-<!-- Image sandbox -->
-<div id="image-sandbox" class="grayAccent03" *ngIf="this.data.viewImageElements && this.data.imageStyles.length > 0">
-  <div class="flex-col-evenly sandbox-preview-area accent05">
-    <img id="image-preview" *ngIf="this.data.images[this.data.selectedImage]" [src]="this.data.images[this.data.selectedImage].url"
-      [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
   </div>
 
+  <div id="image-input-container" *ngIf="this.data.viewImageElements">
   <div class="sandbox-middle-bar flex-row-between grayAccent02">
-    <div class="flex-col-evenly" id="import-container">
-      <h3>Import an image:</h3>
-      <input class="" type="file" (change)="this.data.uploadImage($event)">
+      <div class="flex-col-evenly" id="import-container">
+        <h3>Import an image:</h3>
+        <input class="" type="file" (change)="this.data.uploadImage($event)">
+      </div>
+  
+      <a (click)="this.data.addImageObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
+        <fa name="share"></fa>
+        <p>Add image object to slide</p>
+      </a>
     </div>
-
-    <a (click)="this.data.addImageObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
-      <fa name="share"></fa>
-      <p>Add image object to slide</p>
-    </a>
-  </div>
-
-  <div id="gallery" class="accent05">
-    <div *ngFor="let image of this.data.images" class="gallery-img-container">
-      <img src="{{image.url}}" (click)="this.data.selectImage(image.id)" class="clickable gallery-img">
-      <fa name="trash" class="clickable delete-icon flex-row-evenly" (click)="this.data.deleteImageById(image.id)"></fa>
+  
+    <div id="gallery" class="accent05">
+      <div *ngFor="let image of this.data.images" class="gallery-img-container">
+        <img src="{{image.url}}" (click)="this.data.selectImage(image.id)" class="clickable gallery-img">
+        <fa name="trash" class="clickable delete-icon flex-row-evenly" (click)="this.data.deleteImageById(image.id)"></fa>
+      </div>
     </div>
   </div>
 </div>
