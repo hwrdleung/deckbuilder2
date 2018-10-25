@@ -31,6 +31,7 @@
     width: 100%;
     height: 100%;
     background: gray;
+    position: relative;
 }
 
 #sandbox-resizer:hover{
@@ -89,6 +90,10 @@
     min-width: 100px;
     width: 100px;
     height: 100%;
+}
+
+.sandbox-add-btn-group:hover {
+    background: rgb(139, 139, 139);
 }
 
 .sandbox-add-btn-group fa {

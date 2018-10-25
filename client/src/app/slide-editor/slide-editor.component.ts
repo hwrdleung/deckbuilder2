@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { DataService } from '../data.service';
 import { DialogService } from '../dialog.service';
+import { ViewChild } from '@angular/core'
+
 
 @Component({
   selector: 'slide-editor',
@@ -12,6 +14,10 @@ export class SlideEditorComponent implements OnInit {
 
   indexOfSelectedSlideObject: number;
   showRenderOverflow: boolean = false;
+
+  @ViewChild('resizer') resizer: ElementRef<any>;
+  @ViewChild('workspace') workspace: ElementRef<any>;
+
 
   constructor(private data: DataService, private dialog: DialogService) { }
 
@@ -30,22 +36,21 @@ export class SlideEditorComponent implements OnInit {
       document.removeEventListener('mouseup', stopResize);
     }
 
-    let resizer = document.getElementById('slide-editor-resizer');
+    let resizer = this.resizer.nativeElement;
     resizer.addEventListener('mousedown', startResize);
   }
 
   resizeGrid = (e) => {
-    let slideEditorWorkspace = document.getElementById('slide-editor-workspace');
-    let resizer = document.getElementById('slide-editor-resizer');
+    let slideEditorWorkspace = this.workspace.nativeElement;
+    let resizer = this.resizer.nativeElement;
 
     let viewportHeight = document.documentElement.clientHeight;
     let offset = viewportHeight - slideEditorWorkspace.clientHeight;
 
-    console.log(e.pageY);
     let renderAreaHeight = e.pageY - offset - resizer.clientHeight / 2;
     let slideControlHeight = viewportHeight - e.pageY - resizer.clientHeight / 2;
 
-    slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'px ' + resizer.clientHeight + 'px ' + slideControlHeight + 'px ';
+    slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'fr ' + resizer.clientHeight + 'px ' + slideControlHeight + 'fr ';
 
   }
 

@@ -4,7 +4,7 @@
     display: grid;
     grid-gap: 0;
     grid-template-rows: auto auto 1fr;
-    grid-template-columns: 250px auto 10px 41vw;
+    grid-template-columns: 250px 1fr 10px 1fr;
     grid-template-areas:
         "toolbar toolbar toolbar toolbar"
         "styler toolbar2 toolbar2 toolbar2"

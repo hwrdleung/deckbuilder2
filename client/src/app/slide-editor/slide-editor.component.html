@@ -1,4 +1,4 @@
-<div id="slide-editor-workspace">
+<div id="slide-editor-workspace" #workspace>
   <div *ngIf="this.data.slides.length > 0" id="slide-render-area">
     <div id="slide-render" [ngStyle]="this.getSlideRenderCss()">
       <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" 
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div id="slide-editor-resizer">
+  <div id="slide-editor-resizer" #resizer>
     
   </div>
 

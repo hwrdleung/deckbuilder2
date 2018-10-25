@@ -1,6 +1,6 @@
 
 <!-- Text sandbox -->
-<div id="sandbox-container" class="grayAccent03">
+<div #container id="sandbox-container" class="grayAccent03">
   <div class="flex-col-evenly sandbox-preview-area accent05" *ngIf="this.data.viewTextElements">
     <div class="sandbox-preview-container">
       <p [ngStyle]="this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()">{{this.data.sandboxText}}</p>
@@ -12,12 +12,12 @@
       [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
   </div>
 
-<div id="sandbox-resizer">
+<div #resizer id="sandbox-resizer">
 
 </div>
 
 <div id="text-input-container" *ngIf="this.data.viewTextElements">
-  <div class="sandbox-middle-bar flex-row-evenly">
+  <div #middlebar class="sandbox-middle-bar flex-row-evenly">
     <textarea id="sandbox-textarea" [(ngModel)]="this.data.sandboxText">
 
     </textarea>
@@ -34,7 +34,7 @@
   </div>
 
   <div id="image-input-container" *ngIf="this.data.viewImageElements">
-  <div class="sandbox-middle-bar flex-row-between grayAccent02">
+  <div #middlebar class="sandbox-middle-bar flex-row-between grayAccent02">
       <div class="flex-col-evenly" id="import-container">
         <h3>Import an image:</h3>
         <input class="" type="file" (change)="this.data.uploadImage($event)">

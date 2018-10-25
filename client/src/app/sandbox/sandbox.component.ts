@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { DataService } from '../data.service';
+import { ViewChild } from '@angular/core'
 
 @Component({
   selector: 'sandbox',
@@ -7,6 +8,11 @@ import { DataService } from '../data.service';
   styleUrls: ['./sandbox.component.css']
 })
 export class SandboxComponent implements OnInit {
+
+  @ViewChild('resizer') resizer: ElementRef<any>;
+  @ViewChild('middlebar') middlebar: ElementRef<any>;
+  @ViewChild('container') container: ElementRef<any>;
+
 
   constructor(private data: DataService) { }
 
@@ -26,16 +32,16 @@ export class SandboxComponent implements OnInit {
       document.removeEventListener('mouseup', stopResize);
     }
 
-    let resizer = document.getElementById('sandbox-resizer');
+    let resizer = this.resizer.nativeElement;
     if (resizer) {
       resizer.addEventListener('mousedown', startResize);
     }
   }
 
   resizeGrid = (e) => {
-    let sandboxContainer = document.getElementById('sandbox-container');
-    let resizer = document.getElementById('sandbox-resizer');
-    let middleBarHeight = document.getElementsByClassName('sandbox-middle-bar')[0].clientHeight;
+    let sandboxContainer = this.container.nativeElement;
+    let middleBarHeight = this.middlebar.nativeElement.clientHeight;
+    let resizer = this.resizer.nativeElement;
 
     let viewportHeight = document.documentElement.clientHeight;
     let offset = viewportHeight - sandboxContainer.clientHeight;
@@ -44,7 +50,7 @@ export class SandboxComponent implements OnInit {
     let bottomHeight = viewportHeight - e.pageY - resizer.clientHeight / 2;
 
     if (e.pageY < viewportHeight - middleBarHeight - resizer.clientHeight / 2) {
-      sandboxContainer.style.gridTemplateRows = topHeight + 'px ' + resizer.clientHeight + 'px ' + bottomHeight + 'px ';
+      sandboxContainer.style.gridTemplateRows = topHeight + 'fr ' + resizer.clientHeight + 'px ' + bottomHeight + 'fr ';
     }
   }
 
