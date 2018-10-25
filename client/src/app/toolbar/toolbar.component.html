@@ -1,46 +1,48 @@
-<div class="flex-row-evenly">
+<div id="toolbar-container">
 
-  <a (click)="this.data.createTextStyle(); this.data.setMode('text')" class="flex-col-evenly toolbar-btn-group">
-    <fa name="font"></fa>
-    <p>New text style</p>
-  </a>
+  <div class="flex-row-evenly toolbar-button-group-container">
+    <a (click)="this.data.createTextStyle(); this.data.setMode('text')" class="flex-col-evenly toolbar-btn-group">
+      <fa name="font"></fa>
+      <p>New text style</p>
+    </a>
 
-  <a (click)="this.data.createImageStyle(); this.data.setMode('image')" class="flex-col-evenly toolbar-btn-group">
-    <fa name="image"></fa>
-    <p>New image style</p>
-  </a>
-</div>
-
-<div id="toolbar-style-selector" class="greenAccent02">
-
-  <!-- Text styles -->
-  <div *ngIf="this.data.viewTextElements">
-      <button *ngFor="let textStyle of this.data.textStyles" (click)="this.data.selectStyle('text', textStyle.id);" class="greenAccent01 toolbar-style-btn"
-        [class.selected]="isSelected(textStyle)">{{textStyle.name.substring(0, 20)}}</button>
+    <a (click)="this.data.createImageStyle(); this.data.setMode('image')" class="flex-col-evenly toolbar-btn-group">
+      <fa name="image"></fa>
+      <p>New image style</p>
+    </a>
   </div>
 
-  <!-- Image styles -->
-  <div *ngIf="this.data.viewImageElements">
-    <button *ngFor="let imageStyle of this.data.imageStyles" (click)="this.data.selectStyle('image', imageStyle.id);" class="greenAccent01 toolbar-style-btn"
-      [class.selected]="isSelected(imageStyle)">{{imageStyle.name.substring(0, 20)}}</button>
+  <div id="toolbar-style-selector" class="greenAccent02">
+    <!-- Text styles -->
+    <div *ngIf="this.data.viewTextElements">
+      <button *ngFor="let textStyle of this.data.textStyles" (click)="this.data.selectStyle('text', textStyle.id);"
+        class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(textStyle)">{{textStyle.name.substring(0,
+        20)}}</button>
+    </div>
+
+    <!-- Image styles -->
+    <div *ngIf="this.data.viewImageElements">
+      <button *ngFor="let imageStyle of this.data.imageStyles" (click)="this.data.selectStyle('image', imageStyle.id);"
+        class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(imageStyle)">{{imageStyle.name.substring(0,
+        20)}}</button>
+    </div>
   </div>
-</div>
 
+  <div class="flex-row-evenly toolbar-button-group-container">
+    <a (click)="this.data.saveAsPng()" class="flex-col-evenly toolbar-btn-group">
+      <fa name="file-image"></fa>
+      <p>Save As PNG</p>
+    </a>
 
+    <a (click)="this.data.exportAsPDF()" class="flex-col-evenly toolbar-btn-group">
+      <fa name="file-pdf"></fa>
+      <p>Export to PDF</p>
+    </a>
 
-<div class="flex-row-evenly">
-  <a (click)="this.data.saveAsPng()" class="flex-col-evenly toolbar-btn-group">
-    <fa name="file-image"></fa>
-    <p>Save As PNG</p>
-  </a>
+    <a (click)="this.data.saveSession()" class="flex-col-evenly toolbar-btn-group">
+      <fa name="save"></fa>
+      <p>Save Session</p>
+    </a>
+  </div>
 
-  <a (click)="this.data.exportAsPDF()" class="flex-col-evenly toolbar-btn-group">
-    <fa name="file-pdf"></fa>
-    <p>Export to PDF</p>
-  </a>
-
-  <a (click)="this.data.saveSession()" class="flex-col-evenly toolbar-btn-group">
-    <fa name="save"></fa>
-    <p>Save Session</p>
-  </a>
 </div>

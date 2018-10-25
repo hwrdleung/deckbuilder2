@@ -1,3 +1,4 @@
+
 <!-- Text sandbox -->
 <div id="text-sandbox" class="grayAccent03" *ngIf="this.data.viewTextElements && this.data.textStyles.length > 0">
   <div class="flex-col-evenly sandbox-preview-area accent05">
@@ -7,17 +8,17 @@
   </div>
 
   <div class="sandbox-middle-bar flex-row-evenly">
-    <textarea class="sandbox-textarea" [(ngModel)]="this.data.sandboxText">
+    <textarea id="sandbox-textarea" [(ngModel)]="this.data.sandboxText">
 
     </textarea>
 
-    <!-- <a (click)="this.data.addTextObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
+    <a (click)="this.data.addTextObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
       <fa name="share"></fa>
       <p>Add text object <br> to slide</p>
-    </a> -->
+    </a>
   </div>
 
-  <textarea class="sandbox-textarea" [(ngModel)]="this.data.textNotes">
+  <textarea id="notes-textarea" [(ngModel)]="this.data.textNotes">
     {{this.data.textNotes}}
   </textarea>
 </div>

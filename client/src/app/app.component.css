@@ -3,12 +3,12 @@
     height: 100vh;
     display: grid;
     grid-gap: 0;
-    grid-template-rows: 8vh auto 1fr;
-    grid-template-columns: 250px auto 41vw;
+    grid-template-rows: minmax(8vh, auto) auto 1fr;
+    grid-template-columns: 250px auto 10px 41vw;
     grid-template-areas:
-        "toolbar toolbar toolbar"
-        "styler toolbar2 toolbar2"
-        "styler sandbox editor"
+        "toolbar toolbar toolbar toolbar"
+        "styler toolbar2 toolbar2 toolbar2"
+        "styler sandbox resizer editor"
 }
 
 #toolbar {
@@ -26,7 +26,8 @@
 #styler {
     grid-area: styler;
     overflow-y: scroll;
-    padding-bottom: 300px;
+    width: 100%;
+    height: 100%;
 }
 
 #sandbox {
@@ -41,4 +42,17 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+}
+
+#resizer {
+    grid-area: resizer;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: silver;
+}
+
+#resizer:hover {
+    cursor: col-resize;
 }

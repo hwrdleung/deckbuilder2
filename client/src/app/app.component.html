@@ -1,10 +1,27 @@
-<div id="app-container" class="grayAccent01">
+<div id="app-container" #appContainer class="grayAccent01">
 
-  <toolbar id="toolbar" class="grayAccent01 flex-row-between"></toolbar>
-  <toolbar-secondary id="toolbar-secondary"></toolbar-secondary>
-  <styler id="styler" class="accent05 flex-col-start"></styler>
-  <sandbox id="sandbox" class="accent05"></sandbox>
-  <slide-editor id="slide-editor" class="accent05"></slide-editor>
+  
+  <div id="toolbar" #toolbar>
+  <toolbar class="grayAccent01 flex-row-between"></toolbar>
+  </div>
+
+  <div id="toolbar-secondary">
+  <toolbar-secondary ></toolbar-secondary>
+  </div>
+
+  <div id="styler" #styler>
+  <styler class="accent05 flex-col-start"></styler>
+  </div>
+
+  <div id="sandbox" #sandbox>
+  <sandbox class="accent05"></sandbox>
+  </div>
+
+  <div id="resizer" #resizer></div>
+  
+  <div id="slide-editor" #slideEditor>
+  <slide-editor class="accent05"></slide-editor>
+</div>
 
 </div>
 <app-dialog></app-dialog>

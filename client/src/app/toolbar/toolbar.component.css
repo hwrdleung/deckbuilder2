@@ -1,5 +1,17 @@
+#toolbar-container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 50vw 1fr;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.toolbar-button-group-container {
+    width: 100%;
+}
+
 .toolbar-btn-group {
-    width: auto;
     height: 100%;
     margin: 0 auto;
     padding: 15px;
