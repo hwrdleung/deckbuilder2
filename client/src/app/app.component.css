@@ -3,7 +3,7 @@
     height: 100vh;
     display: grid;
     grid-gap: 0;
-    grid-template-rows: minmax(8vh, auto) auto 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: 250px auto 10px 41vw;
     grid-template-areas:
         "toolbar toolbar toolbar toolbar"
@@ -25,7 +25,6 @@
 
 #styler {
     grid-area: styler;
-    overflow-y: scroll;
     width: 100%;
     height: 100%;
 }

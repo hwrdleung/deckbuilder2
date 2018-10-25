@@ -1,6 +1,6 @@
 <div id="slide-editor-workspace">
   <div *ngIf="this.data.slides.length > 0" id="slide-render-area">
-    <!-- <div id="slide-render" [ngStyle]="this.getSlideRenderCss()">
+    <div id="slide-render" [ngStyle]="this.getSlideRenderCss()">
       <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" 
       class="slide-object"
         [ngStyle]="slideObject.getCss()" 
@@ -21,7 +21,7 @@
           [src]="slideObject.imagePath" crossOrigin="anonymous">
 
       </div>
-    </div> -->
+    </div>
   </div>
 
 
@@ -37,7 +37,7 @@
       <div class="flex-row-evenly">
         <fa name="search-minus" class="flex-row-evenly" (click)="this.zoom('out')"></fa>
 
-        <input type='range' [(ngModel)]="this.data.slideRenderMagnification" min="0" max="200">
+        <input type='range' [(ngModel)]="this.data.slideRenderMagnification" min="0" max="200" (ngModelChange)="this.renderZoomController()">
 
         <fa name="search-plus" class="flex-row-evenly" (click)="this.zoom('in')"></fa>
 

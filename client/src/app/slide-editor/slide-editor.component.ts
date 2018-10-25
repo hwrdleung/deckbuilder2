@@ -25,26 +25,54 @@ export class SlideEditorComponent implements OnInit {
     this.showRenderOverflow = !this.showRenderOverflow;
   }
 
+  renderZoomController(){
+    let render = document.getElementById('slide-render');
+    let renderHeight = render.clientHeight * this.data.slideRenderMagnification /100;
+    let renderWidth = render.clientWidth * this.data.slideRenderMagnification /100;
+
+    let renderArea = document.getElementById('slide-render-area');
+    let renderAreaHeight = renderArea.clientHeight;
+    let renderAreaWidth = renderArea.clientWidth;
+
+    if(renderHeight >= renderAreaHeight) {
+      renderArea.scrollTop = (renderHeight - renderAreaHeight) / 2;
+    }
+
+    if(renderWidth >= renderAreaWidth) {
+      renderArea.scrollLeft = (renderWidth - renderAreaWidth) / 2
+    }
+    
+  }
+
   getSlideRenderCss() {
     let backgroundColor = this.data.slides[this.data.currentSlideIndex].getSlideProperty('backgroundColor');
-    let slideRenderWidth = this.data.documentSize['width'];
-    let slideRenderHeight = this.data.documentSize['height'];
-    let renderContainerWidth = document.getElementById('slide-render-area').clientWidth;
-    let translationX;
+    let width = this.data.documentSize['width'];
+    let height = this.data.documentSize['height'];
 
-    if (slideRenderWidth > renderContainerWidth) {
-      translationX = '-' + (slideRenderWidth - renderContainerWidth) / 2 + 'px';
-    } else {
-      translationX = '0px';
-    }
+    let render = document.getElementById('slide-render');
+    let renderHeight = render.clientHeight * this.data.slideRenderMagnification /100;
+    let renderWidth = render.clientWidth * this.data.slideRenderMagnification /100;
+
+    let renderArea = document.getElementById('slide-render-area');
+    let renderAreaHeight = renderArea.clientHeight;
+    let renderAreaWidth = renderArea.clientWidth;
 
     let css = {
       'background': backgroundColor,
-      'height': slideRenderHeight + 'px',
-      'width': slideRenderWidth + 'px',
-      'transform': 'translate(' + translationX + ') scale(' + this.data.slideRenderMagnification / 100 + ')',
-      'position': 'relative',
+      'height': height + 'px',
+      'width': width + 'px',
+      'transform-origin' : '0 0',
+      'transform': 'scale(' + this.data.slideRenderMagnification / 100 + ')',
+      'position': 'absolute',
       'overflow': this.showRenderOverflow ? 'visible' : 'hidden'
+    }
+
+    if(renderHeight < renderAreaHeight) {
+      css['top'] = (renderAreaHeight - renderHeight) / 2 + 'px';
+    }
+
+    if(renderWidth < renderAreaWidth) {
+      css['left'] = (renderAreaWidth - renderWidth) / 2 + 'px';
     }
 
     return css;
