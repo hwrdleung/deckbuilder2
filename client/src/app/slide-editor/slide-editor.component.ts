@@ -16,6 +16,36 @@ export class SlideEditorComponent implements OnInit {
   constructor(private data: DataService, private dialog: DialogService) { }
 
   ngOnInit() {
+    this.enableSlideEditorResizer();
+  }
+
+  enableSlideEditorResizer(){
+    let startResize = () => {
+      document.addEventListener('mousemove', this.resizeGrid);
+      document.addEventListener('mouseup', stopResize);
+    }
+
+    let stopResize = () => {
+      document.removeEventListener('mousemove', this.resizeGrid);
+      document.removeEventListener('mouseup', stopResize);
+    }
+
+    let resizer = document.getElementById('slide-editor-resizer');
+    resizer.addEventListener('mousedown', startResize);
+  }
+
+  resizeGrid = (e) => {
+    let slideEditorWorkspace = document.getElementById('slide-editor-workspace');
+    let resizer = document.getElementById('slide-editor-resizer');
+
+    let viewportHeight = document.documentElement.clientHeight;
+    let offset = viewportHeight - slideEditorWorkspace.clientHeight;
+
+    console.log(e.pageY);
+    let renderAreaHeight = e.pageY - offset - resizer.clientHeight / 2;
+    let slideControlHeight = viewportHeight - e.pageY - resizer.clientHeight / 2;
+
+    slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'px ' + resizer.clientHeight + 'px ' + slideControlHeight + 'px ';
 
   }
 
