@@ -34,23 +34,34 @@ export class SandboxComponent implements OnInit {
 
     let resizer = this.resizer.nativeElement;
     if (resizer) {
+      // Resizer is rendered based on *ngIf condition
+      // Wrapping in an IF statement prevents the following line
+      // from running before the resizer has rendered.
       resizer.addEventListener('mousedown', startResize);
     }
   }
 
   resizeGrid = (e) => {
     let sandboxContainer = this.container.nativeElement;
-    let middleBarHeight = this.middlebar.nativeElement.clientHeight;
+    let middlebar = this.middlebar.nativeElement;
     let resizer = this.resizer.nativeElement;
 
-    let viewportHeight = document.documentElement.clientHeight;
-    let offset = viewportHeight - sandboxContainer.clientHeight;
+    let viewportHeight = document.documentElement.offsetHeight;
+    let offset = viewportHeight - sandboxContainer.offsetHeight;
 
-    let topHeight = e.pageY - offset - resizer.clientHeight / 2;
-    let bottomHeight = viewportHeight - e.pageY - resizer.clientHeight / 2;
+    let topHeight = e.pageY - offset - resizer.offsetHeight / 2;
+    let bottomHeight = viewportHeight - e.pageY - resizer.offsetHeight / 2;
 
-    if (e.pageY < viewportHeight - middleBarHeight - resizer.clientHeight / 2) {
-      sandboxContainer.style.gridTemplateRows = topHeight + 'fr ' + resizer.clientHeight + 'px ' + bottomHeight + 'fr ';
+    sandboxContainer.style.gridTemplateRows = topHeight + 'fr ' + resizer.offsetHeight + 'px ' + bottomHeight + 'fr';
+  
+    // Upper boundary 
+    if(e.pageY < offset + resizer.offsetHeight / 2){
+      sandboxContainer.style.gridTemplateRows = '0px ' + resizer.offsetHeight + 'px ' + '1fr';
+    }
+
+    // Lower boundary
+    if(e.pageY >= viewportHeight - resizer.offsetHeight/2 -  middlebar.offsetHeight){
+      sandboxContainer.style.gridTemplateRows = '1fr ' + resizer.offsetHeight + 'px ' + middlebar.offsetHeight + 'px';
     }
   }
 

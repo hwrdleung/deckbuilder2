@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core'
 
 @Component({
@@ -24,15 +24,11 @@ export class AppComponent {
 
   enableResizer = () => {
     let startResize = (e) => {
-      console.log(e);
       document.addEventListener('mousemove', this.resizeGrid);
       document.addEventListener('mouseup', stopResize); // Stop resizer
-
-      // console.log(this.stylerWidth, this.sandboxWidth, this.resizerWidth, this.slideEditorWidth);
     }
 
     let stopResize = (e) => {
-      console.log(e);
       document.removeEventListener('mousemove', this.resizeGrid);
       document.removeEventListener('mouseup', stopResize); // Stop resizer
     }
@@ -41,23 +37,26 @@ export class AppComponent {
   }
 
   resizeGrid = (e) => {
+    let appContainer = this.appContainer.nativeElement;
     let viewportWidth = document.documentElement.clientWidth;
-    let mousePositionX = e.pageX;
-    let stylerWidth = this.styler.nativeElement.getBoundingClientRect().width;
-    let resizerWidth = this.resizer.nativeElement.getBoundingClientRect().width;
-    let sandboxWidth = mousePositionX - stylerWidth - resizerWidth/2;
-    let slideEditorWidth = viewportWidth - mousePositionX - resizerWidth/2;
 
-    if(mousePositionX < stylerWidth){
+    let styler = this.styler.nativeElement;
+    let resizer = this.resizer.nativeElement;
+
+    let sandboxWidth = e.pageX - styler.offsetWidth - resizer.offsetWidth/2;
+    let slideEditorWidth = viewportWidth - e.pageX - resizer.offsetWidth/2;
+
+    // Left boundary
+    if(e.pageX <= styler.offsetWidth + resizer.offsetWidth){
       sandboxWidth = 0;
     }
 
-    if(mousePositionX > viewportWidth) {
+    // Right boundary
+    if(e.pageX >= viewportWidth - resizer.offsetWidth) {
       slideEditorWidth = 0;
     }
 
-    let gridTemplateColumns = stylerWidth + "px " + sandboxWidth + "fr " + resizerWidth + "px " + slideEditorWidth + "fr";
-    this.appContainer.nativeElement.style.gridTemplateColumns = gridTemplateColumns;
+    appContainer.style.gridTemplateColumns = styler.offsetWidth + "px " + sandboxWidth + "fr " + resizer.offsetWidth + "px " + slideEditorWidth + "fr";
   }
 
 

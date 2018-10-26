@@ -19,27 +19,17 @@ export class TextObject extends SlideObject {
         }
     }
 
-    toggleEditTextMode(){
-        this.editTextMode = !this.editTextMode;
+    // Getter, setter, toggler
+    getProperty(propertyName) {
+        return this[propertyName];
     }
 
-    setTextvalue(textValue:string){
-        this.textValue = textValue;
-    }
-
-    getTextValue(){
-        return this.textValue;
-    }
-
-    setStyleId(styleId:number){
-        this.styleId = styleId;
-    }
-
-    setTextObjectProperty(propertyName, propertyValue){
+    setProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
     }
 
-    getStyleId(){
-        return this.styleId;
+    toggleProperty(propertyName:string){
+        if(typeof this[propertyName] === 'boolean')
+        this[propertyName] = !this[propertyName];
     }
 }

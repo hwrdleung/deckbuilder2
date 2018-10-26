@@ -7,11 +7,11 @@
         (mousedown)="this.selectObject(slideObject.id)" 
         ngResizable 
         [rzHandles]="'all'"
-        (rzStart)="slideObject.setSlideObjectProperty('isResizing', true)" 
-        (rzStop)="slideObject.setSize($event); slideObject.setSlideObjectProperty('isResizing', false)"
+        (rzStart)="slideObject.setProperty('isResizing', true)" 
+        (rzStop)="slideObject.setSize($event); slideObject.setProperty('isResizing', false)"
         ngDraggable 
-        (started)="slideObject.setSlideObjectProperty('isDragging', true)" 
-        (stopped)="slideObject.setSlideObjectProperty('isDragging', false)"
+        (started)="slideObject.setProperty('isDragging', true)" 
+        (stopped)="slideObject.setProperty('isDragging', false)"
         (endOffset)="slideObject.setTranslation($event)" 
         [position]="slideObject.getTranslation()"
         [rzAspectRatio]="slideObject.constructor.name==='ImageObject'? true: false">
@@ -31,7 +31,7 @@
 
   <div *ngIf="this.data.slides.length > 0" id="slide-control" class="grayAccent02">
 
-    <div id="slide-control-toolbar" class="grayAccent02 flex-row-evenly">
+    <div id="slide-control-toolbar" #controlToolbar class="grayAccent02 flex-row-evenly">
       <div class="flex-row-evenly">
         <p>Set background color: </p>
         <div class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor"
@@ -63,23 +63,23 @@
         <div class="flex-row-evenly heirarchy-control-group heirarchy-name">
           <div *ngIf="!slideObject.editNameMode" class="flex-row-evenly">
             <h5>{{slideObject.name}}</h5>
-            <fa name="edit" (click)="slideObject.toggleEditNameMode()"></fa>
+            <fa name="edit" (click)="slideObject.toggleProperty('editNameMode')"></fa>
           </div>
           <div *ngIf="slideObject.editNameMode" class="flex-row-evenly">
             <input type="text" [(ngModel)]="slideObject.name" (placeholder)="slideObject.name">
-            <fa name="save" (click)="slideObject.toggleEditNameMode()"></fa>
+            <fa name="save" (click)="slideObject.toggleProperty('editNameMode')"></fa>
           </div>
         </div>
 
         <div *ngIf="slideObject.constructor.name==='TextObject'" class="flex-row-evenly heirarchy-content heirarchy-control-group">
           <div *ngIf="!slideObject.editTextMode" class="flex-row-evenly">
             <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>
-            <fa name="edit" (click)="slideObject.toggleEditTextMode()"></fa>
+            <fa name="edit" (click)="slideObject.toggleProperty('editTextMode')"></fa>
           </div>
 
           <div *ngIf="slideObject.editTextMode" class="flex-row-evenly">
             <input type="text" [(ngModel)]="slideObject.textValue" (placeholder)="slideObject.textValue">
-            <fa name="save" (click)="slideObject.toggleEditTextMode()"></fa>
+            <fa name="save" (click)="slideObject.toggleProperty('editTextMode')"></fa>
           </div>
         </div>
 
@@ -92,7 +92,7 @@
 
           <fa (click)="this.data.decreaseOneLayer(slideObject.id)" name="arrow-down"></fa>
 
-          <fa (click)="slideObject.toggleSlideObjectProperty('display')" [name]="slideObject.display ? 'eye' : 'eye-slash'"></fa>
+          <fa (click)="slideObject.toggleProperty('display')" [name]="slideObject.display ? 'eye' : 'eye-slash'"></fa>
 
           <fa (click)="this.deleteSlideObjectById(slideObject.id)" name="trash"></fa>
         </div>

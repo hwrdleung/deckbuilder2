@@ -3,18 +3,24 @@
   <div class="flex-row-between style-card-row">
     <div *ngIf="!imageStyle.editNameMode" class="flex-row-between">
       <h3 *ngIf="!imageStyle.editNameMode">{{imageStyle.name.substring(0, 20)}}</h3>
-      <fa *ngIf="!imageStyle.isDefault" (click)="imageStyle.toggleEditNameMode()" name="edit"></fa>
+      <fa *ngIf="!imageStyle.isDefault" (click)="imageStyle.toggleProperty('editNameMode')" name="edit"></fa>
     </div>
 
     <div *ngIf="imageStyle.editNameMode" class="flex-row-between">
       <input type="text" [(ngModel)]="imageStyle.name" placeholder="imageStyle.name">
-      <fa name="save" (click)="imageStyle.toggleEditNameMode()"></fa>
+      <fa name="save" (click)="imageStyle.toggleProperty('editNameMode')"></fa>
     </div>
 
-    <a *ngIf="!imageStyle.isDefault" (click)="this.data.deleteImageStyle(imageStyle)">
+    <a *ngIf="!imageStyle.isDefault" (click)="this.data.deleteStyle(imageStyle)">
       <fa name="trash"></fa>
     </a>
   </div>
+
+    <div class="flex-row-between style-card-row">
+      <h4>Padding:</h4>
+      <h4>
+        <input type="number" [(ngModel)]="imageStyle.padding">px</h4>
+    </div>
 
   <div class="flex-row-between style-card-row">
     <h4>Opacity:</h4>
@@ -81,13 +87,13 @@
   </div>
 
   <div class="flex-row-evenly style-card-row">
-    <a (click)="imageStyle.toggleExtraOptions()" class="flex-row-evenly" *ngIf="!imageStyle.showExtraOptions">
+    <a (click)="imageStyle.toggleProperty('showExtraOptions')" class="flex-row-evenly" *ngIf="!imageStyle.showExtraOptions">
       <fa name="angle-double-down"></fa>
       <a>Show extra options</a>
       <fa name="angle-double-down"></fa>
     </a>
 
-    <a (click)="imageStyle.toggleExtraOptions()" class="flex-row-evenly" *ngIf="imageStyle.showExtraOptions">
+    <a (click)="imageStyle.toggleProperty('showExtraOptions')" class="flex-row-evenly" *ngIf="imageStyle.showExtraOptions">
       <fa name="angle-double-up"></fa>
       <a>Hide extra options</a>
       <fa name="angle-double-up"></fa>
@@ -132,41 +138,41 @@
     </div>
 
     <div class="flex-row-between style-card-row">
-      <a (click)="imageStyle.border.toggleBorderProperty('showFullBorder');
-          imageStyle.border.setBorderProperty('showTopBorder', false);
-          imageStyle.border.setBorderProperty('showRightBorder', false);
-          imageStyle.border.setBorderProperty('showBottomBorder', false);
-          imageStyle.border.setBorderProperty('showLeftBorder', false);"
+      <a (click)="imageStyle.border.toggleProperty('showFullBorder');
+          imageStyle.border.setProperty('showTopBorder', false);
+          imageStyle.border.setProperty('showRightBorder', false);
+          imageStyle.border.setProperty('showBottomBorder', false);
+          imageStyle.border.setProperty('showLeftBorder', false);"
         class="style-card-btn" 
-        [class.selected]="imageStyle.border.getBorderProperty('showFullBorder')">
+        [class.selected]="imageStyle.border.getProperty('showFullBorder')">
         <i class="material-icons">border_outer</i>
       </a>
 
-      <a (click)="imageStyle.border.toggleBorderProperty('showLeftBorder');
-          imageStyle.border.setBorderProperty('showFullBorder', false);"
+      <a (click)="imageStyle.border.toggleProperty('showLeftBorder');
+          imageStyle.border.setProperty('showFullBorder', false);"
         class="style-card-btn" 
-        [class.selected]="imageStyle.border.getBorderProperty('showLeftBorder')">
+        [class.selected]="imageStyle.border.getProperty('showLeftBorder')">
         <i class="material-icons">border_left</i>
       </a>
 
-      <a (click)="imageStyle.border.toggleBorderProperty('showTopBorder');
-          imageStyle.border.setBorderProperty('showFullBorder', false);"
+      <a (click)="imageStyle.border.toggleProperty('showTopBorder');
+          imageStyle.border.setProperty('showFullBorder', false);"
         class="style-card-btn" 
-        [class.selected]="imageStyle.border.getBorderProperty('showTopBorder')">
+        [class.selected]="imageStyle.border.getProperty('showTopBorder')">
         <i class="material-icons">border_top</i>
       </a>
 
-      <a (click)="imageStyle.border.toggleBorderProperty('showRightBorder');
-          imageStyle.border.setBorderProperty('showFullBorder', false);"
+      <a (click)="imageStyle.border.toggleProperty('showRightBorder');
+          imageStyle.border.setProperty('showFullBorder', false);"
         class="style-card-btn" 
-        [class.selected]="imageStyle.border.getBorderProperty('showRightBorder')">
+        [class.selected]="imageStyle.border.getProperty('showRightBorder')">
         <i class="material-icons">border_right</i>
       </a>
 
-      <a (click)="imageStyle.border.toggleBorderProperty('showBottomBorder');
-          imageStyle.border.setBorderProperty('showFullBorder', false);"
+      <a (click)="imageStyle.border.toggleProperty('showBottomBorder');
+          imageStyle.border.setProperty('showFullBorder', false);"
         class="style-card-btn" 
-        [class.selected]="imageStyle.border.getBorderProperty('showBottomBorder')">
+        [class.selected]="imageStyle.border.getProperty('showBottomBorder')">
         <i class="material-icons">border_bottom</i>
       </a>
     </div>

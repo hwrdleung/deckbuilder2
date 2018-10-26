@@ -1324,7 +1324,7 @@ var DataService = /** @class */ (function () {
         }
         if (isInUse) {
             var imageStyleName = imageStyle.getStyleProperty('name');
-            this.dialog.alert('Unable to delete.  ' + imageStyleName + ' is currently being used.', 'danger');
+            this.dialog.alert('Unable to delete ' + imageStyleName + '.  It is currently in use.', 'danger');
         }
         else if (!isInUse) {
             for (var i = 0; i < this.imageStyles.length; i++) {

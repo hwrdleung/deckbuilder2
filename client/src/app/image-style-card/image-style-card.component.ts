@@ -13,11 +13,10 @@ export class ImageStyleCardComponent implements OnInit {
   imageStyle: ImageStyle;
 
   constructor(private data: DataService) { 
-    console.log(ImageStyleCardComponent)
+
   }
 
   ngOnInit() {
-    console.log(this.imageStyle);
   }
 
 }

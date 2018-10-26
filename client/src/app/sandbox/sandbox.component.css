@@ -49,7 +49,9 @@
     height: 100%;
     width: 100%;
     grid-area: bottom;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 #image-input-container {
@@ -61,7 +63,9 @@
     height: 100%;
     width: 100%;
     grid-area: bottom;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .sandbox-middle-bar { 
@@ -136,10 +140,7 @@
     box-sizing: border-box;
     padding: 10px;
     background: rgb(230, 230, 230);
-    position: absolute;
-    top: 0;
-    left: 0;
-
+    position: relative;
 }
 
 #import-container {
@@ -186,6 +187,7 @@ input[type="file"] {
 
 .gallery-img:hover {
     opacity: 1;
+    cursor: pointer;
 }
 
 .delete-icon {
@@ -204,6 +206,7 @@ input[type="file"] {
 
 .delete-icon:hover {
     opacity: 0.9;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 1200px) {

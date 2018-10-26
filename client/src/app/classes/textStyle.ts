@@ -22,7 +22,6 @@ export class TextStyle {
     private lineHeight: number;
     private wordSpacing: number;
     private letterSpacing: number;
-    private margin: number;
     private padding: number;
     private breakWord: boolean;
     private border: BorderControl;
@@ -44,7 +43,6 @@ export class TextStyle {
         this.uppercase = false;
         this.lowercase = false;
         this.lineHeight = 1;
-        this.margin = 0;
         this.padding = 0;
         this.wordSpacing = 0;
         this.letterSpacing = 0;
@@ -81,7 +79,6 @@ export class TextStyle {
             'letter-spacing': this.letterSpacing + 'px',
             'word-break': this.breakWord ? 'break-all' : 'normal',
             'border-radius': this.border.getBorderRadiusCss(),
-            'margin': this.margin + 'px',
             'padding': this.padding + 'px',
             'display': 'flex',
             'justify-content': this.convertAlignToFlex(this.hAlign),
@@ -91,13 +88,13 @@ export class TextStyle {
         }
 
         // Border styles had to be seperated because in some UI configurations, 'border:none' would negate the other border styles
-        if (this.border.getBorderProperty('showFullBorder')) {
+        if (this.border.getProperty('showFullBorder')) {
             css['border'] = this.border.getFullBorderCss();
-        } else if (!this.border.getBorderProperty('showFullBorder')) {
-            css['border-top'] = this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none';
-            css['border-right'] = this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none';
-            css['border-bottom'] = this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none';
-            css['border-left'] = this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none';
+        } else if (!this.border.getProperty('showFullBorder')) {
+            css['border-top'] = this.border.getProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none';
+            css['border-right'] = this.border.getProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none';
+            css['border-bottom'] = this.border.getProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none';
+            css['border-left'] = this.border.getProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none';
         }
         return css;
     }
@@ -144,26 +141,17 @@ export class TextStyle {
         return textDecoration ? textDecoration : 'none';
     }
 
-    // Getters, setters, togglers
-    getStyleProperty(propertyName) {
+    // Getter, setter, toggler
+    getProperty(propertyName) {
         return this[propertyName];
     }
 
-    setStyleProperty(propertyName: string, propertyValue: any) {
+    setProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
     }
 
-    toggleStyleProperty(propertyName: string) {
-        if(typeof this[propertyName] === 'boolean'){
-            this[propertyName] = !this[propertyName];
-        }
-    }
-
-    toggleEditNameMode() {
-        this.editNameMode = !this.editNameMode;
-    }
-
-    toggleExtraOptions() {
-        this.showExtraOptions = !this.showExtraOptions;
+    toggleProperty(propertyName:string){
+        if(typeof this[propertyName] === 'boolean')
+        this[propertyName] = !this[propertyName];
     }
 }

@@ -30,12 +30,18 @@ export class ShadowControl {
         }
         return cssProperty;
     }
-
-    getShadowProperty(propertyName){
+    
+    // Getter, setter, toggler
+    getProperty(propertyName) {
         return this[propertyName];
     }
 
-    setShadowProperty(propertyName, propertyValue){
+    setProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
+    }
+
+    toggleProperty(propertyName:string){
+        if(typeof this[propertyName] === 'boolean')
+        this[propertyName] = !this[propertyName];
     }
 }

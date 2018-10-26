@@ -26,33 +26,33 @@ export class DataService {
   // These variable define the state of the app
   currentProject: Project = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : this.loadNewProject();
 
-  slides: Array<Slide> = this.currentProject.getProjectProperty('slides');
-  textStyles: Array<TextStyle> = this.currentProject.getProjectProperty('textStyles');
-  imageStyles: Array<ImageStyle> = this.currentProject.getProjectProperty('imageStyles');
-  shapeStyles: Array<ShapeStyle> = this.currentProject.getProjectProperty('shapeStyles');
+  slides: Array<Slide> = this.currentProject.getProperty('slides');
+  textStyles: Array<TextStyle> = this.currentProject.getProperty('textStyles');
+  imageStyles: Array<ImageStyle> = this.currentProject.getProperty('imageStyles');
+  shapeStyles: Array<ShapeStyle> = this.currentProject.getProperty('shapeStyles');
 
   // Toolbar variables
-  selectedTextStyleId: number = this.currentProject.getProjectProperty('selectedTextStyleId');
-  selectedImageStyleId: number = this.currentProject.getProjectProperty('selectedImageStyleId');
-  selectedShapeStyleId: number = this.currentProject.getProjectProperty('selectedShapeStyleId');
+  selectedTextStyleId: number = this.currentProject.getProperty('selectedTextStyleId');
+  selectedImageStyleId: number = this.currentProject.getProperty('selectedImageStyleId');
+  selectedShapeStyleId: number = this.currentProject.getProperty('selectedShapeStyleId');
 
   // Slide editor variables
-  currentSlideIndex: number = this.currentProject.getProjectProperty('currentSlideIndex');
-  selectedSlideObjectId: number = this.currentProject.getProjectProperty('selectedSlideObjectId');
+  currentSlideIndex: number = this.currentProject.getProperty('currentSlideIndex');
+  selectedSlideObjectId: number = this.currentProject.getProperty('selectedSlideObjectId');
 
   // Sandbox variables
-  sandboxText: string = this.currentProject.getProjectProperty('sandboxText');
-  textNotes: string = this.currentProject.getProjectProperty('textNotes');
-  images = this.currentProject.getProjectProperty('images');
-  selectedImage: number = this.currentProject.getProjectProperty('selectedImage');
+  sandboxText: string = this.currentProject.getProperty('sandboxText');
+  textNotes: string = this.currentProject.getProperty('textNotes');
+  images = this.currentProject.getProperty('images');
+  selectedImage: number = this.currentProject.getProperty('selectedImage');
 
   // UI Logic variables
-  viewTextElements: boolean = this.currentProject.getProjectProperty('viewTextElements');
-  viewImageElements: boolean = this.currentProject.getProjectProperty('viewImageElements');
-  viewShapeElements: boolean = this.currentProject.getProjectProperty('viewShapeElements');
+  viewTextElements: boolean = this.currentProject.getProperty('viewTextElements');
+  viewImageElements: boolean = this.currentProject.getProperty('viewImageElements');
+  viewShapeElements: boolean = this.currentProject.getProperty('viewShapeElements');
 
-  documentSize = this.currentProject.getProjectProperty('documentSize');
-  slideRenderMagnification: number = this.currentProject.getProjectProperty('slideRenderMagnification');
+  documentSize = this.currentProject.getProperty('documentSize');
+  slideRenderMagnification: number = this.currentProject.getProperty('slideRenderMagnification');
 
   // FUNCTIONS USED BY ALL COMPONENTS
   // App view mode:  text || image || shape
@@ -78,7 +78,7 @@ export class DataService {
 
   getTextStyleById(id: number) {
     for (let i = 0; i < this.textStyles.length; i++) {
-      if (this.textStyles[i].getStyleProperty('id') === id) {
+      if (this.textStyles[i].getProperty('id') === id) {
         return this.textStyles[i];
       }
     }
@@ -86,7 +86,7 @@ export class DataService {
 
   getImageStyleById(id: number) {
     for (let i = 0; i < this.imageStyles.length; i++) {
-      if (this.imageStyles[i].getStyleProperty('id') === id) {
+      if (this.imageStyles[i].getProperty('id') === id) {
         return this.imageStyles[i];
       }
     }
@@ -95,17 +95,20 @@ export class DataService {
   loadNewProject() {
     let project = new Project();
 
+    // Create default text style
     let textStyle = new TextStyle();
-    textStyle.setStyleProperty('name', 'Default Text Style');
-    textStyle.setStyleProperty('isDefault', true);
+    textStyle.setProperty('name', 'Default Text Style');
+    textStyle.setProperty('isDefault', true);
 
+    // Create default image style
     let imageStyle = new ImageStyle();
-    imageStyle.setStyleProperty('name', 'Default Image Style');
-    imageStyle.setStyleProperty('isDefault', true);
+    imageStyle.setProperty('name', 'Default Image Style');
+    imageStyle.setProperty('isDefault', true);
 
+    // Add to new project
+    project.addSlide(new Slide());
     project.addTextStyle(textStyle);
     project.addImageStyle(imageStyle);
-    project.addSlide(new Slide());
 
     return project;
   }
@@ -138,12 +141,12 @@ export class DataService {
           imageObject.revive(thisSlideObject);
           slideObjects.push(imageObject);
         }
-        slide.setSlideProperty('slideObjects', slideObjects);
+        slide.setProperty('slideObjects', slideObjects);
       }
       slides.push(slide);
     }
 
-    project.setProjectProperty('slides', slides);
+    project.setProperty('slides', slides);
     // Revive text styles
     let textStyles = []; // REMEMBER TO ADD ME BACK INTO PROJECT
     for (let i = 0; i < savedProjectData.textStyles.length; i++) {
@@ -154,17 +157,17 @@ export class DataService {
       // Revive borders
       let border = new BorderControl();
       border.revive(thisTextStyle.border);
-      textStyle.setStyleProperty('border', border);
+      textStyle.setProperty('border', border);
 
       // Revive shadows
       let shadow = new ShadowControl();
       shadow.revive(thisTextStyle.textShadow);
-      textStyle.setStyleProperty('textShadow', shadow);
+      textStyle.setProperty('textShadow', shadow);
 
       textStyles.push(textStyle);
     }
 
-    project.setProjectProperty('textStyles', textStyles);
+    project.setProperty('textStyles', textStyles);
 
     // Revive image styles
     let imageStyles = [];
@@ -176,30 +179,30 @@ export class DataService {
       // Revive borders
       let border = new BorderControl();
       border.revive(thisImageStyle.border);
-      imageStyle.setStyleProperty('border', border);
+      imageStyle.setProperty('border', border);
 
       imageStyles.push(imageStyle);
     }
-    project.setProjectProperty('imageStyles', imageStyles);
+    project.setProperty('imageStyles', imageStyles);
 
     return project;
   }
 
   saveSession() {
-    this.currentProject.setProjectProperty('slides', this.slides);
-    this.currentProject.setProjectProperty('textStyles', this.textStyles);
-    this.currentProject.setProjectProperty('imageStyles', this.imageStyles);
-    this.currentProject.setProjectProperty('shapeStyles', this.shapeStyles);
-    this.currentProject.setProjectProperty('selectedTextStyleId', this.selectedTextStyleId);
-    this.currentProject.setProjectProperty('selectedImageStyleId', this.selectedImageStyleId);
-    this.currentProject.setProjectProperty('selectedShapeStyleId', this.selectedShapeStyleId);
-    this.currentProject.setProjectProperty('currentSlideIndex', this.currentSlideIndex);
-    this.currentProject.setProjectProperty('selectedSlideObjectId', this.selectedSlideObjectId);
-    this.currentProject.setProjectProperty('sandboxText', this.sandboxText);
-    this.currentProject.setProjectProperty('documentSize', this.documentSize);
-    this.currentProject.setProjectProperty('slideRenderMagnification', this.slideRenderMagnification);
-    this.currentProject.setProjectProperty('textNotes', this.textNotes);
-    this.currentProject.setProjectProperty('images', this.images);
+    this.currentProject.setProperty('slides', this.slides);
+    this.currentProject.setProperty('textStyles', this.textStyles);
+    this.currentProject.setProperty('imageStyles', this.imageStyles);
+    this.currentProject.setProperty('shapeStyles', this.shapeStyles);
+    this.currentProject.setProperty('selectedTextStyleId', this.selectedTextStyleId);
+    this.currentProject.setProperty('selectedImageStyleId', this.selectedImageStyleId);
+    this.currentProject.setProperty('selectedShapeStyleId', this.selectedShapeStyleId);
+    this.currentProject.setProperty('currentSlideIndex', this.currentSlideIndex);
+    this.currentProject.setProperty('selectedSlideObjectId', this.selectedSlideObjectId);
+    this.currentProject.setProperty('sandboxText', this.sandboxText);
+    this.currentProject.setProperty('documentSize', this.documentSize);
+    this.currentProject.setProperty('slideRenderMagnification', this.slideRenderMagnification);
+    this.currentProject.setProperty('textNotes', this.textNotes);
+    this.currentProject.setProperty('images', this.images);
 
     localStorage.setItem('deckbuilder2Data', JSON.stringify(this.currentProject));
 
@@ -314,102 +317,85 @@ export class DataService {
   }
 
   //  STYLER FUNCTIONS
-  deleteTextStyle(textStyle: TextStyle) {
-    let id = textStyle.getStyleProperty('id');
-    let isInUse = false;
+  isStyleInUse = (style: TextStyle | ImageStyle) => {
+    let id = style.getProperty('id');
+    let styleType = style.constructor.name;
 
-    // Check if this style is currently being used in a slide
-    for (let i = 0; i < this.slides.length && !isInUse; i++) {
-      let thisSlideObjects = this.slides[i].getSlideProperty('slideObjects');
+    // Iterate through all slideOjects in all slides
+    // Return true if style is in use
+    for (let i = 0; i < this.slides.length; i++) {
+      let thisSlideObjects = this.slides[i].getProperty('slideObjects');
 
-      for (let j = 0; j < thisSlideObjects.length && !isInUse; j++) {
-        let thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
-        let thisSlideObjectType = thisSlideObjects[j].constructor.name;
+      for (let j = 0; j < thisSlideObjects.length; j++) {
+        let slideObjectId = thisSlideObjects[j].getProperty('styleId');
+        let slideObjectType = thisSlideObjects[j].constructor.name;
 
-        if (thisSlideObjectId === id && thisSlideObjectType === "TextObject") {
-          isInUse = true;
-          break;
+        if (slideObjectId === id) {
+          switch (styleType) {
+            case 'TextStyle':
+              if (slideObjectType === "TextObject") return true;
+              break;
+            case 'ImageStyle':
+              if (slideObjectType === "ImageObject") return true;
+              break;
+          }
         }
       }
     }
-
-    if (isInUse) {
-      let textStyleName = textStyle.getStyleProperty('name');
-      this.dialog.alert('Unable to delete ' + textStyleName + '.  It is currently in use.', 'danger');
-    } else if (!isInUse) {
-      for (let i = 0; i < this.textStyles.length; i++) {
-        let thisTextStyleId = this.textStyles[i].getStyleProperty('id');
-
-        // If user wants to delete a style that is currently the selected style,
-        // Change selected style to default (index 0) before proceeding.
-        if (id === this.selectedTextStyleId) {
-          this.selectedTextStyleId = 0;
-        }
-
-        // Delete style by id
-        if (thisTextStyleId === id)
-          this.textStyles.splice(i, 1);
-      }
-    }
+    return false;
   }
 
-  deleteImageStyle(imageStyle: ImageStyle) {
-    let id = imageStyle.getStyleProperty('id');
-    let isInUse = false;
+  deleteStyle(style: TextStyle | ImageStyle) {
+    let id = style.getProperty('id');
+    let styleName = style.getProperty('name');
+    let styleType = style.constructor.name;
 
-    // Check if this style is currently being used in a slide
-    for (let i = 0; i < this.slides.length && !isInUse; i++) {
-      let thisSlideObjects = this.slides[i].getSlideProperty('slideObjects');
+    switch (this.isStyleInUse(style)) {
+      case true:
+        // Prevent delete and display alert message
+        let message = 'Unable to delete ' + styleName + '.  It is currently in use.';
+        this.dialog.alert(message, 'danger');
+        break;
 
-      for (let j = 0; j < thisSlideObjects.length && !isInUse; j++) {
-        let thisSlideObjectId = thisSlideObjects[j].getSlideObjectProperty('styleId');
-        let thisSlideObjectType = thisSlideObjects[j].constructor.name;
+      case false:
+        this.dialog.alert("Delete " + styleName + "?", 'danger', () => {
+          if (styleType === "TextStyle") {
+            for (let i = 0; i < this.textStyles.length; i++) {
+              let thisId = this.textStyles[i].getProperty('id');
+              if (this.selectedTextStyleId === id) this.selectedTextStyleId = 0;
+              if (thisId === id) this.textStyles.splice(i, 1);
+            }
+          } else if (styleType === "ImageStyle") {
+            for (let i = 0; i < this.imageStyles.length; i++) {
+              let thisId = this.imageStyles[i].getProperty('id');
+              if (this.selectedTextStyleId === id) this.selectedTextStyleId = 0;
+              if (thisId === id) this.imageStyles.splice(i, 1);
+            }
+          }
+        });
+        break;
 
-        if (thisSlideObjectId === id && thisSlideObjectType === "ImageObject") {
-          isInUse = true;
-          break;
-        }
-      }
-    }
-
-    if (isInUse) {
-      let imageStyleName = imageStyle.getStyleProperty('name');
-      this.dialog.alert('Unable to delete.  ' + imageStyleName + ' is currently being used.', 'danger');
-    } else if (!isInUse) {
-      for (let i = 0; i < this.imageStyles.length; i++) {
-        let thisImageStyleId = this.imageStyles[i].getStyleProperty('id');
-
-        // If user wants to delete a style that is currently the selected style,
-        // Change selected style to default (index 0) before proceeding.
-        if (id === this.selectedImageStyleId) {
-          this.selectedImageStyleId = 0;
-        }
-
-        // Delete style by id
-        if (thisImageStyleId === id)
-          this.imageStyles.splice(i, 1);
-      }
     }
   }
 
   //  SANDBOX FUNCTIONS
   addTextObjectToSlide() {
     let currentSlide = this.slides[this.currentSlideIndex];
-    let currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
+    let currentSlideObjects = currentSlide.getProperty('slideObjects');
     let newTextObject = new TextObject();
 
-    newTextObject.setTextvalue(this.sandboxText);
-    newTextObject.setStyleId(this.selectedTextStyleId);
+    newTextObject.setProperty('textValue', this.sandboxText);
+    newTextObject.setProperty('styleId', this.selectedTextStyleId);
 
     // !important!  set z index last to ensure proper assignment of z index
     currentSlide.addSlideObject(newTextObject);
-    newTextObject.setZIndex(currentSlideObjects.length - 1);
+    newTextObject.setProperty('zIndex', currentSlideObjects.length - 1);
   }
 
   addImageObjectToSlide() {
     // Create a new ImageObject using currently selected image and currently selected ImageStyle
     let currentSlide = this.slides[this.currentSlideIndex];
-    let currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
+    let currentSlideObjects = currentSlide.getProperty('slideObjects');
     let newImageObject = new ImageObject();
     let image = this.images[this.selectedImage].url;
 
@@ -427,17 +413,17 @@ export class DataService {
     }
 
     // Define properties for newImageObject
-    newImageObject.setImagePath(image);
-    newImageObject.setStyleId(this.selectedImageStyleId);
-    newImageObject.setImageObjectProperty('height', imageHeight);
-    newImageObject.setImageObjectProperty('width', imageWidth);
+    newImageObject.setProperty('imagePath', image);
+    newImageObject.setProperty('styleId', this.selectedImageStyleId);
+    newImageObject.setProperty('height', imageHeight);
+    newImageObject.setProperty('width', imageWidth);
 
     // imageElement is no longer needed
     imageElement = null;
 
     // Add to current slide
     currentSlide.addSlideObject(newImageObject);
-    newImageObject.setZIndex(currentSlideObjects.length - 1);
+    newImageObject.setProperty('zIndex', currentSlideObjects.length - 1);
   }
 
   uploadImage(event) {
@@ -475,7 +461,7 @@ export class DataService {
   increaseOneLayer(objectId: number) {
     // Locate object in currentSlideObjects
     let currentSlide = this.slides[this.currentSlideIndex];
-    let currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
+    let currentSlideObjects = currentSlide.getProperty('slideObjects');
 
     for (let i = 0; i < currentSlideObjects.length; i++) {
       if (currentSlideObjects[i].id === objectId) {
@@ -495,7 +481,7 @@ export class DataService {
   decreaseOneLayer(objectId: number) {
     // Locate object in currentSlideObjects
     let currentSlide = this.slides[this.currentSlideIndex];
-    let currentSlideObjects = currentSlide.getSlideProperty('slideObjects');
+    let currentSlideObjects = currentSlide.getProperty('slideObjects');
 
     for (let i = 0; i < currentSlideObjects.length; i++) {
       if (currentSlideObjects[i].id === objectId) {

@@ -23,6 +23,7 @@ export class ImageStyle {
     private invert: number; // %
     private saturate: number; // %
     private sepia: number; // %
+    private padding: number;
 
     constructor () {
         this.id = ImageStyle.imageStyleCounter++;
@@ -39,6 +40,7 @@ export class ImageStyle {
         this.saturate = 100;
         this.sepia = 0;
         this.border = new BorderControl();
+        this.padding = 0;
         this.isDefault = false;
     }
 
@@ -52,16 +54,17 @@ export class ImageStyle {
         let css = {
             'border-radius': this.border.getBorderRadiusCss(),
             'filter' : this.getFilters(),
-            'box-sizing' : 'border-box'
+            'box-sizing' : 'border-box',
+            'padding' : this.padding + 'px'
         }
 
-        if (this.border.getBorderProperty('showFullBorder')) {
+        if (this.border.getProperty('showFullBorder')) {
             css['border'] = this.border.getFullBorderCss();
-        } else if (!this.border.getBorderProperty('showFullBorder')) {
-            css['border-top'] = this.border.getBorderProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none';
-            css['border-right'] = this.border.getBorderProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none';
-            css['border-bottom'] = this.border.getBorderProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none';
-            css['border-left'] = this.border.getBorderProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none';
+        } else if (!this.border.getProperty('showFullBorder')) {
+            css['border-top'] = this.border.getProperty('showTopBorder') ? this.border.getTopBorderCss() : 'none';
+            css['border-right'] = this.border.getProperty('showRightBorder') ? this.border.getRightBorderCss() : 'none';
+            css['border-bottom'] = this.border.getProperty('showBottomBorder') ? this.border.getBottomBorderCss() : 'none';
+            css['border-left'] = this.border.getProperty('showLeftBorder') ? this.border.getLeftBorderCss() : 'none';
         }
 
         return css;
@@ -123,21 +126,17 @@ export class ImageStyle {
         return cssFilters;
     }
 
-    getStyleProperty(propertyName){
+    // Setter, getter, toggler
+    getProperty(propertyName) {
         return this[propertyName];
     }
 
-    setStyleProperty(propertyName:string, propertyValue:any){
+    setProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
     }
 
-    toggleEditNameMode(){
-        this.editNameMode = !this.editNameMode;
+    toggleProperty(propertyName:string){
+        if(typeof this[propertyName] === 'boolean')
+        this[propertyName] = !this[propertyName];
     }
-
-    toggleExtraOptions(){
-        this.showExtraOptions = !this.showExtraOptions;
-    }
-
-
 }

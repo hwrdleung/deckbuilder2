@@ -13,19 +13,17 @@ export class ShapeStyle {
         this.showExtraOptions = false;
     }
 
-    getStyleProperty(propertyName){
+    // Getter, setter, toggler
+    getProperty(propertyName) {
         return this[propertyName];
     }
 
-    setStyleProperty(propertyName:string, propertyValue:any){
+    setProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
     }
 
-    toggleEditNameMode(){
-        this.editNameMode = !this.editNameMode;
-    }
-
-    toggleExtraOptions(){
-        this.showExtraOptions = !this.showExtraOptions;
+    toggleProperty(propertyName:string){
+        if(typeof this[propertyName] === 'boolean')
+        this[propertyName] = !this[propertyName];
     }
 }

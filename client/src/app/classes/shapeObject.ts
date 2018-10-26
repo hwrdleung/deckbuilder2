@@ -9,19 +9,17 @@ export class ShapeObject extends SlideObject{
         super();
     }
     
-    setShapeProperties(shapeProperties:object){
-        this.shapeProperties = shapeProperties;
+    // Getter, setter, toggler
+    getProperty(propertyName) {
+        return this[propertyName];
     }
 
-    getShapeProperties(){
-        return this.shapeProperties;
+    setProperty(propertyName, propertyValue) {
+        this[propertyName] = propertyValue;
     }
 
-    setStyleId(styleId:number){
-        this.styleId = styleId;
-    }
-
-    getStyleId(){
-        return this.styleId;
+    toggleProperty(propertyName:string){
+        if(typeof this[propertyName] === 'boolean')
+        this[propertyName] = !this[propertyName];
     }
 }

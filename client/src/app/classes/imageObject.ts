@@ -15,23 +15,12 @@ export class ImageObject extends SlideObject {
         }
     }
 
-    setImagePath(imagePath:string){
-        this.imagePath = imagePath;
-    }
-
-    getImagePath(){
-        return this.imagePath;
-    }
-
-    setStyleId(styleId:number){
-        this.styleId = styleId;
-    }
-
-    getStyleId(){
-        return this.styleId;
-    }
-
-    setImageObjectProperty(propertyName, propertyValue){
+    // Setter, getter
+    setProperty(propertyName, propertyValue){
         this[propertyName] = propertyValue;
+    }
+    
+    getProperty(propertyName) {
+        return this[propertyName];
     }
 }

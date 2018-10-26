@@ -3,16 +3,16 @@
   <div class="flex-row-between style-card-row">
     <div *ngIf="!textStyle.editNameMode" class="flex-row-between">
       <h3>{{textStyle.name.substring(0, 20)}}</h3>
-      <fa *ngIf="!textStyle.isDefault" name="edit" (click)="textStyle.toggleEditNameMode()"></fa>
+      <fa *ngIf="!textStyle.isDefault" name="edit" (click)="textStyle.toggleProperty('editNameMode')"></fa>
     </div>
 
 
     <div *ngIf="textStyle.editNameMode" class="flex-row-between">
       <input type="text" [(ngModel)]="textStyle.name" placeholder="textStyle.name">
-      <fa name="save" (click)="textStyle.toggleEditNameMode()"></fa>
+      <fa name="save" (click)="textStyle.toggleProperty('editNameMode')"></fa>
     </div>
 
-    <fa *ngIf="!textStyle.isDefault" name="trash" (click)="this.data.deleteTextStyle(textStyle)"></fa>
+    <fa *ngIf="!textStyle.isDefault" name="trash" (click)="this.data.deleteStyle(textStyle)"></fa>
   </div>
 
   <div class="flex-row-between style-card-row">
@@ -48,43 +48,43 @@
 
   <div class="flex-row-between style-card-row">
     <div class="flex-row-evenly icon-group">
-      <i (click)="textStyle.setStyleProperty('hAlign', 'left')" class="material-icons" [class.selected]="textStyle.hAlign === 'left'">format_align_left</i>
-      <i (click)="textStyle.setStyleProperty('hAlign', 'center')" class="material-icons" [class.selected]="textStyle.hAlign === 'center'">format_align_center</i>
-      <i (click)="textStyle.setStyleProperty('hAlign', 'right')" class="material-icons" [class.selected]="textStyle.hAlign === 'right'">format_align_right</i>
+      <i (click)="textStyle.setProperty('hAlign', 'left')" class="material-icons" [class.selected]="textStyle.hAlign === 'left'">format_align_left</i>
+      <i (click)="textStyle.setProperty('hAlign', 'center')" class="material-icons" [class.selected]="textStyle.hAlign === 'center'">format_align_center</i>
+      <i (click)="textStyle.setProperty('hAlign', 'right')" class="material-icons" [class.selected]="textStyle.hAlign === 'right'">format_align_right</i>
     </div>
 
     <div class="flex-row-evenly icon-group">
-      <i (click)="textStyle.setStyleProperty('vAlign', 'top')" class="material-icons" [class.selected]="textStyle.vAlign === 'top'">vertical_align_top</i>
-      <i (click)="textStyle.setStyleProperty('vAlign', 'center')" class="material-icons" [class.selected]="textStyle.vAlign === 'center'">vertical_align_center</i>
-      <i (click)="textStyle.setStyleProperty('vAlign', 'bottom')" class="material-icons" [class.selected]="textStyle.vAlign === 'bottom'">vertical_align_bottom</i>
+      <i (click)="textStyle.setProperty('vAlign', 'top')" class="material-icons" [class.selected]="textStyle.vAlign === 'top'">vertical_align_top</i>
+      <i (click)="textStyle.setProperty('vAlign', 'center')" class="material-icons" [class.selected]="textStyle.vAlign === 'center'">vertical_align_center</i>
+      <i (click)="textStyle.setProperty('vAlign', 'bottom')" class="material-icons" [class.selected]="textStyle.vAlign === 'bottom'">vertical_align_bottom</i>
     </div>
   </div>
 
   <div class="flex-row-between style-card-row">
     <div class="flex-row-evenly icon-group">
-      <fa (click)="textStyle.toggleStyleProperty('underline')" name="underline" [class.selected]="textStyle.underline"></fa>
-      <fa (click)="textStyle.toggleStyleProperty('lineThrough')" name="strikethrough" [class.selected]="textStyle.lineThrough"></fa>
-      <h4 (click)="textStyle.toggleStyleProperty('overline')" style="text-decoration: overline; font-family: Arial; font-size: 1rem;"
+      <fa (click)="textStyle.toggleProperty('underline')" name="underline" [class.selected]="textStyle.underline"></fa>
+      <fa (click)="textStyle.toggleProperty('lineThrough')" name="strikethrough" [class.selected]="textStyle.lineThrough"></fa>
+      <h4 (click)="textStyle.toggleProperty('overline')" style="text-decoration: overline; font-family: Arial; font-size: 1rem;"
         class="material-icons" [class.selected]="textStyle.overline">O</h4>
     </div>
 
     <div class="flex-row-evenly icon-group">
-      <i (click)="textStyle.toggleStyleProperty('breakWord')" class="material-icons" [class.selected]="textStyle.breakWord">wrap_text</i>
-      <i (click)="textStyle.toggleStyleProperty('uppercase'); textStyle.setStyleProperty('lowercase', false)" class="material-icons"
+      <i (click)="textStyle.toggleProperty('breakWord')" class="material-icons" [class.selected]="textStyle.breakWord">wrap_text</i>
+      <i (click)="textStyle.toggleProperty('uppercase'); textStyle.setProperty('lowercase', false)" class="material-icons"
         [class.selected]="textStyle.uppercase">format_size</i>
-      <i (click)="textStyle.toggleStyleProperty('lowercase'); textStyle.setStyleProperty('uppercase', false)" class="material-icons"
+      <i (click)="textStyle.toggleProperty('lowercase'); textStyle.setProperty('uppercase', false)" class="material-icons"
         [class.selected]="textStyle.lowercase">text_fields</i>
     </div>
   </div>
 
   <div class="flex-row-evenly style-card-row">
-    <a (click)="textStyle.toggleExtraOptions()" class="flex-row-evenly" *ngIf="!textStyle.showExtraOptions">
+    <a (click)="textStyle.toggleProperty('showExtraOptions')" class="flex-row-evenly" *ngIf="!textStyle.showExtraOptions">
       <fa name="angle-double-down"></fa>
       Show extra options
       <fa name="angle-double-down"></fa>
     </a>
 
-    <a (click)="textStyle.toggleExtraOptions()" class="flex-row-evenly" *ngIf="textStyle.showExtraOptions">
+    <a (click)="textStyle.toggleProperty('showExtraOptions')" class="flex-row-evenly" *ngIf="textStyle.showExtraOptions">
       <fa name="angle-double-up"></fa>
       Hide extra options
       <fa name="angle-double-up"></fa>
@@ -93,12 +93,6 @@
 
   <!-- EXTRA TEXT STYLE OPTIONS -->
   <div *ngIf="textStyle.showExtraOptions">
-
-    <div class="flex-row-between style-card-row">
-      <h4>Margin:</h4>
-      <h4>
-        <input type="number" [(ngModel)]="textStyle.margin">px</h4>
-    </div>
 
     <div class="flex-row-between style-card-row">
       <h4>Padding:</h4>
@@ -135,7 +129,7 @@
 
     <div *ngIf="textStyle.textShadow.showShadow">
       <div class="flex-row-between style-card-row">
-        <h4>Color: </h4>
+        <h4>Shadow color: </h4>
         <div style="flex: 1">
           <!--This spacer prevents colorPicker from repositioning the next div-->
         </div>
@@ -144,13 +138,13 @@
       </div>
 
       <div class="flex-row-between style-card-row">
-        <h4>Horizontal shadow: </h4>
+        <h4>H-shadow: </h4>
         <h4>
           <input type="number" [(ngModel)]="textStyle.textShadow.xValue"> px</h4>
       </div>
 
       <div class="flex-row-between style-card-row">
-        <h4>Vertical shadow: </h4>
+        <h4>V-hadow: </h4>
         <h4>
           <input type="number" [(ngModel)]="textStyle.textShadow.yValue"> px</h4>
       </div>
@@ -196,24 +190,24 @@
     </div>
 
     <div class="flex-row-between style-card-row">
-      <i (click)="textStyle.border.toggleBorderProperty('showFullBorder');
-        textStyle.border.setBorderProperty('showTopBorder', false);
-        textStyle.border.setBorderProperty('showRightBorder', false);
-        textStyle.border.setBorderProperty('showBottomBorder', false);
-        textStyle.border.setBorderProperty('showLeftBorder', false);"
-        class="material-icons" [class.selected]="textStyle.border.getBorderProperty('showFullBorder')">border_outer</i>
+      <i (click)="textStyle.border.toggleProperty('showFullBorder');
+        textStyle.border.setProperty('showTopBorder', false);
+        textStyle.border.setProperty('showRightBorder', false);
+        textStyle.border.setProperty('showBottomBorder', false);
+        textStyle.border.setProperty('showLeftBorder', false);"
+        class="material-icons" [class.selected]="textStyle.border.getProperty('showFullBorder')">border_outer</i>
 
-      <i (click)="textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showLeftBorder');"
-        class="material-icons" [class.selected]="textStyle.border.getBorderProperty('showLeftBorder')">border_left</i>
+      <i (click)="textStyle.border.setProperty('showFullBorder', false); textStyle.border.toggleProperty('showLeftBorder');"
+        class="material-icons" [class.selected]="textStyle.border.getProperty('showLeftBorder')">border_left</i>
 
-      <i (click)="textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showTopBorder');"
-        class="material-icons" [class.selected]="textStyle.border.getBorderProperty('showTopBorder')">border_top</i>
+      <i (click)="textStyle.border.setProperty('showFullBorder', false); textStyle.border.toggleProperty('showTopBorder');"
+        class="material-icons" [class.selected]="textStyle.border.getProperty('showTopBorder')">border_top</i>
 
-      <i (click)="textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showRightBorder');"
-        class="material-icons" [class.selected]="textStyle.border.getBorderProperty('showRightBorder')">border_right</i>
+      <i (click)="textStyle.border.setProperty('showFullBorder', false); textStyle.border.toggleProperty('showRightBorder');"
+        class="material-icons" [class.selected]="textStyle.border.getProperty('showRightBorder')">border_right</i>
 
-      <i (click)="textStyle.border.setBorderProperty('showFullBorder', false); textStyle.border.toggleBorderProperty('showBottomBorder');"
-        class="material-icons" [class.selected]="textStyle.border.getBorderProperty('showBottomBorder')">border_bottom</i>
+      <i (click)="textStyle.border.setProperty('showFullBorder', false); textStyle.border.toggleProperty('showBottomBorder');"
+        class="material-icons" [class.selected]="textStyle.border.getProperty('showBottomBorder')">border_bottom</i>
     </div>
 
 

@@ -79,13 +79,6 @@ export class Project {
         }
     }
 
-    clearContents(){
-        this.slides = [];
-        this.textStyles = [];
-        this.imageStyles = [];
-        this.shapeStyles = [];
-    }
-
     addSlide(slide:Slide){
         this.slides.push(slide);
     }
@@ -98,11 +91,11 @@ export class Project {
         this.imageStyles.push(imageStyle);
     }
 
-    getProjectProperty(propertyName){
+    getProperty(propertyName){
         return this[propertyName];
     }
 
-    setProjectProperty(propertyName, propertyValue){
+    setProperty(propertyName, propertyValue){
         this[propertyName] = propertyValue;
     }
 }

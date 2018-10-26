@@ -21,27 +21,24 @@ export class Slide {
         }
     }
 
-    getSlideProperty(propertyName){
-        return this[propertyName];
-    }
-
-    setSlideProperty(propertyName, propertyValue){
-        this[propertyName] = propertyValue;
-    }
-
     addSlideObject(slideObject: SlideObject){
         this.slideObjects.push(slideObject);
     }
 
-    clearSlideObjects(){
-        this.slideObjects = [];
+    // deleteSlideObjectById(id){
+    //     for(let i=0; i<this.slideObjects.length; i++){
+    //         if(this.slideObjects[i].getProperty('id') === id){
+    //             this.slideObjects.splice(i, 1);
+    //         }
+    //     }
+    // }
+
+    // Getter, setter
+    getProperty(propertyName) {
+        return this[propertyName];
     }
 
-    deleteSlideObjectById(id){
-        for(let i=0; i<this.slideObjects.length; i++){
-            if(this.slideObjects[i].getSlideObjectProperty('id') === id){
-                this.slideObjects.splice(i, 1);
-            }
-        }
+    setProperty(propertyName, propertyValue) {
+        this[propertyName] = propertyValue;
     }
 }

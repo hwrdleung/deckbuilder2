@@ -4,6 +4,7 @@ export class BorderControl{
     private showRightBorder: boolean;
     private showBottomBorder: boolean;
     private showLeftBorder: boolean;
+    private borderStyles: Array<string>;
 
     // Full border settings
     private fullBorderWidth: number;
@@ -42,6 +43,13 @@ export class BorderControl{
         this.showRightBorder = false;
         this.showBottomBorder = false;
         this.showLeftBorder = false;
+        this.borderStyles = [
+            "Solid",
+            "Dashed",
+            "Dotted",
+            "Groove",
+            "Double"
+        ];
     
         // Full border settings
         this.fullBorderWidth = 1;
@@ -117,15 +125,17 @@ export class BorderControl{
         return borderRadiusCss;
     }
 
-    getBorderProperty(propertyName) {
+    // Getter, setter, toggler
+    getProperty(propertyName) {
         return this[propertyName];
     }
 
-    setBorderProperty(propertyName, propertyValue) {
+    setProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
     }
 
-    toggleBorderProperty(propertyName:string){
+    toggleProperty(propertyName:string){
+        if(typeof this[propertyName] === 'boolean')
         this[propertyName] = !this[propertyName];
     }
 }

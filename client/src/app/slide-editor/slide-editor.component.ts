@@ -17,6 +17,8 @@ export class SlideEditorComponent implements OnInit {
 
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('workspace') workspace: ElementRef<any>;
+  @ViewChild('controlToolbar') controlToolbar: ElementRef<any>;
+
 
 
   constructor(private data: DataService, private dialog: DialogService) { }
@@ -43,14 +45,25 @@ export class SlideEditorComponent implements OnInit {
   resizeGrid = (e) => {
     let slideEditorWorkspace = this.workspace.nativeElement;
     let resizer = this.resizer.nativeElement;
+    let controlToolbar = this.controlToolbar.nativeElement;
 
-    let viewportHeight = document.documentElement.clientHeight;
-    let offset = viewportHeight - slideEditorWorkspace.clientHeight;
+    let viewportHeight = document.documentElement.offsetHeight;
+    let offset = viewportHeight - slideEditorWorkspace.offsetHeight;
 
-    let renderAreaHeight = e.pageY - offset - resizer.clientHeight / 2;
-    let slideControlHeight = viewportHeight - e.pageY - resizer.clientHeight / 2;
+    let renderAreaHeight = e.pageY - offset - resizer.offsetHeight / 2;
+    let slideControlHeight = viewportHeight - e.pageY - resizer.offsetHeight / 2;
 
-    slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'fr ' + resizer.clientHeight + 'px ' + slideControlHeight + 'fr ';
+    slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'fr ' + resizer.offsetHeight + 'px ' + slideControlHeight + 'fr';
+
+    // Upper boundary
+    if(e.pageY < offset + resizer.offsetHeight / 2){
+      slideEditorWorkspace.style.gridTemplateRows = '0px ' + resizer.offsetHeight + 'px ' + '1fr';
+    }
+
+    // Lower boundary
+    if(e.pageY >= viewportHeight - controlToolbar.offsetHeight - resizer.offsetHeight/2) {
+      slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'fr ' + resizer.offsetHeight + 'px ' + controlToolbar.offsetHeight + 'px';
+    }
 
   }
 
@@ -62,11 +75,11 @@ export class SlideEditorComponent implements OnInit {
 
   renderZoomController(){
     let render = document.getElementById('slide-render');
-    let renderHeight = render.clientHeight * this.data.slideRenderMagnification /100;
+    let renderHeight = render.offsetHeight * this.data.slideRenderMagnification /100;
     let renderWidth = render.clientWidth * this.data.slideRenderMagnification /100;
 
     let renderArea = document.getElementById('slide-render-area');
-    let renderAreaHeight = renderArea.clientHeight;
+    let renderAreaHeight = renderArea.offsetHeight;
     let renderAreaWidth = renderArea.clientWidth;
 
     if(renderHeight >= renderAreaHeight) {
@@ -80,16 +93,16 @@ export class SlideEditorComponent implements OnInit {
   }
 
   getSlideRenderCss() {
-    let backgroundColor = this.data.slides[this.data.currentSlideIndex].getSlideProperty('backgroundColor');
+    let backgroundColor = this.data.slides[this.data.currentSlideIndex].getProperty('backgroundColor');
     let width = this.data.documentSize['width'];
     let height = this.data.documentSize['height'];
 
     let render = document.getElementById('slide-render');
-    let renderHeight = render.clientHeight * this.data.slideRenderMagnification /100;
+    let renderHeight = render.offsetHeight * this.data.slideRenderMagnification /100;
     let renderWidth = render.clientWidth * this.data.slideRenderMagnification /100;
 
     let renderArea = document.getElementById('slide-render-area');
-    let renderAreaHeight = renderArea.clientHeight;
+    let renderAreaHeight = renderArea.offsetHeight;
     let renderAreaWidth = renderArea.clientWidth;
 
     let css = {
@@ -152,7 +165,7 @@ export class SlideEditorComponent implements OnInit {
     if (slideObject.width || slideObject.height === "auto") {
       // Get ratio by some other method
       let img = new Image;
-      img.src = slideObject.getSlideObjectProperty('imagePath');
+      img.src = slideObject.getProperty('imagePath');
       img.onload = () => {
         ratio = img.width / img.height;
         setImageSize();
@@ -180,10 +193,10 @@ export class SlideEditorComponent implements OnInit {
   }
 
   deleteSlideObjectById(id: number) {
-    let currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getSlideProperty('slideObjects');
+    let currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getProperty('slideObjects');
 
     for (let i = 0; i < currentSlideObjects.length; i++) {
-      if (currentSlideObjects[i].getSlideObjectProperty('id') === id) {
+      if (currentSlideObjects[i].getProperty('id') === id) {
         currentSlideObjects.splice(i, 1);
       }
     }

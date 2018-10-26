@@ -21,6 +21,7 @@ export class SlideObject{
     constructor () {
         this.id = SlideObject.slideObjectCounter++;
         this.name = 'SlideObject' + this.id;
+        this.editNameMode = false;
         this.top = 0;
         this.left = 0;
         this.xTranslation = 0;
@@ -37,14 +38,6 @@ export class SlideObject{
         for(let key in obj){
             this[key] = obj[key];
         }
-    }
-
-    toggleEditNameMode(){
-        this.editNameMode = !this.editNameMode;
-    }
-
-    setZIndex(zIndex){
-        this.zIndex = zIndex;
     }
 
     // (rzStop) emits an event
@@ -98,15 +91,17 @@ export class SlideObject{
         return css;
     }
 
-    toggleSlideObjectProperty(propertyName:string){
-        this[propertyName] = !this[propertyName];
-    }
-
-    getSlideObjectProperty(propertyName){
+    // Getter, setter, toggler
+    getProperty(propertyName) {
         return this[propertyName];
     }
 
-    setSlideObjectProperty(propertyName, propertyValue){
+    setProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
+    }
+
+    toggleProperty(propertyName:string){
+        if(typeof this[propertyName] === 'boolean')
+        this[propertyName] = !this[propertyName];
     }
 }
