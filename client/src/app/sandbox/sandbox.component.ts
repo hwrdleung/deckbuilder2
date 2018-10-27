@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { DataService } from '../data.service';
 import { ViewChild } from '@angular/core'
+import { GalleryImage } from "../classes/galleryImage";
+
 
 @Component({
   selector: 'sandbox',
@@ -12,13 +14,21 @@ export class SandboxComponent implements OnInit {
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('middlebar') middlebar: ElementRef<any>;
   @ViewChild('container') container: ElementRef<any>;
-
+  isGalleryMode: boolean = true;
 
   constructor(private data: DataService) { }
 
 
   ngOnInit() {
     this.enableSandboxResizer();
+  }
+
+  showGallery(){
+    this.isGalleryMode = true;
+  }
+
+  showSearchResults(){
+    this.isGalleryMode = false;
   }
 
   enableSandboxResizer() {

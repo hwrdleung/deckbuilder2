@@ -3,7 +3,6 @@ import { Project } from "./classes/project";
 import { Slide } from "./classes/slide";
 import { TextStyle } from "./classes/textStyle";
 import { ImageStyle } from "./classes/imageStyle";
-import { ShapeStyle } from "./classes/shapeStyle";
 import { TextObject } from "./classes/textObject";
 import * as jsPDF from 'jspdf';
 import * as html2canvas from "html2canvas";
@@ -12,6 +11,9 @@ import { ImageObject } from "./classes/imageObject";
 import { BorderControl } from "./classes/borderControl";
 import { ShadowControl } from "./classes/shadowControl";
 import { DialogService } from "./dialog.service";
+import { GalleryImage } from "./classes/galleryImage";
+
+import { HttpClient  } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
@@ -19,22 +21,23 @@ import { DialogService } from "./dialog.service";
 
 export class DataService {
 
-  constructor(private dialog: DialogService) {
+
+  constructor(private dialog: DialogService, private http: HttpClient) {
 
   }
 
+
+
   // These variable define the state of the app
-  currentProject: Project = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : this.loadNewProject();
+  currentProject: Project = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : new Project();
 
   slides: Array<Slide> = this.currentProject.getProperty('slides');
   textStyles: Array<TextStyle> = this.currentProject.getProperty('textStyles');
   imageStyles: Array<ImageStyle> = this.currentProject.getProperty('imageStyles');
-  shapeStyles: Array<ShapeStyle> = this.currentProject.getProperty('shapeStyles');
 
   // Toolbar variables
   selectedTextStyleId: number = this.currentProject.getProperty('selectedTextStyleId');
   selectedImageStyleId: number = this.currentProject.getProperty('selectedImageStyleId');
-  selectedShapeStyleId: number = this.currentProject.getProperty('selectedShapeStyleId');
 
   // Slide editor variables
   currentSlideIndex: number = this.currentProject.getProperty('currentSlideIndex');
@@ -43,7 +46,7 @@ export class DataService {
   // Sandbox variables
   sandboxText: string = this.currentProject.getProperty('sandboxText');
   textNotes: string = this.currentProject.getProperty('textNotes');
-  images = this.currentProject.getProperty('images');
+  images: Array<GalleryImage> = this.currentProject.getProperty('images');
   selectedImage: number = this.currentProject.getProperty('selectedImage');
 
   // UI Logic variables
@@ -53,6 +56,26 @@ export class DataService {
 
   documentSize = this.currentProject.getProperty('documentSize');
   slideRenderMagnification: number = this.currentProject.getProperty('slideRenderMagnification');
+
+  imageSearchQuery: string = "";
+  imageSearchResults;
+
+  pixabayToGallery(url: string){
+    console.log(url);
+    let image = new GalleryImage();
+    image.setProperty('url', url);
+    image.setProperty('id', this.images.length);
+    this.images.push(image);
+  }
+
+  searchPixabay() {
+    let url = 'https://pixabay.com/api/?'
+    let apiKey = '7780146-3f3faea2d00a0e8da80a92f14';
+    this.http.get(url + 'key='+ apiKey + '&q=' + this.imageSearchQuery).subscribe((res)=>{
+      this.imageSearchResults = res['hits'];
+      console.log(this.imageSearchResults);
+    });
+  }
 
   // FUNCTIONS USED BY ALL COMPONENTS
   // App view mode:  text || image || shape
@@ -90,27 +113,6 @@ export class DataService {
         return this.imageStyles[i];
       }
     }
-  }
-
-  loadNewProject() {
-    let project = new Project();
-
-    // Create default text style
-    let textStyle = new TextStyle();
-    textStyle.setProperty('name', 'Default Text Style');
-    textStyle.setProperty('isDefault', true);
-
-    // Create default image style
-    let imageStyle = new ImageStyle();
-    imageStyle.setProperty('name', 'Default Image Style');
-    imageStyle.setProperty('isDefault', true);
-
-    // Add to new project
-    project.addSlide(new Slide());
-    project.addTextStyle(textStyle);
-    project.addImageStyle(imageStyle);
-
-    return project;
   }
 
   getSavedProject() {
@@ -192,10 +194,8 @@ export class DataService {
     this.currentProject.setProperty('slides', this.slides);
     this.currentProject.setProperty('textStyles', this.textStyles);
     this.currentProject.setProperty('imageStyles', this.imageStyles);
-    this.currentProject.setProperty('shapeStyles', this.shapeStyles);
     this.currentProject.setProperty('selectedTextStyleId', this.selectedTextStyleId);
     this.currentProject.setProperty('selectedImageStyleId', this.selectedImageStyleId);
-    this.currentProject.setProperty('selectedShapeStyleId', this.selectedShapeStyleId);
     this.currentProject.setProperty('currentSlideIndex', this.currentSlideIndex);
     this.currentProject.setProperty('selectedSlideObjectId', this.selectedSlideObjectId);
     this.currentProject.setProperty('sandboxText', this.sandboxText);
@@ -226,7 +226,6 @@ export class DataService {
     switch (type) {
       case 'text': this.selectedTextStyleId = id; break;
       case 'image': this.selectedImageStyleId = id; break;
-      case 'shape': this.selectedShapeStyleId = id; break;
     }
   }
 
@@ -433,10 +432,14 @@ export class DataService {
 
     reader.onload = (e) => {
       let url = (<FileReader>e.target).result;
-      let image = {
-        url: url,
-        id: this.images.length
-      }
+
+      let image = new GalleryImage();
+      image.setProperty('url', url);
+      image.setProperty('id', this.images.length);
+      // let image = {
+      //   url: url,
+      //   id: this.images.length
+      // }
       this.images.push(image);
     }
   }

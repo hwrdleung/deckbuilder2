@@ -1,8 +1,7 @@
-
 <!-- Text sandbox -->
 <div #container id="sandbox-container" class="grayAccent03">
   <div class="flex-col-evenly sandbox-preview-area accent05" *ngIf="this.data.viewTextElements">
-    <div class="sandbox-preview-container">
+    <div id="text-preview-container">
       <p [ngStyle]="this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()">{{this.data.sandboxText}}</p>
     </div>
   </div>
@@ -12,48 +11,71 @@
       [ngStyle]="this.data.getImageStyleById(this.data.selectedImageStyleId).getCss()">
   </div>
 
-<div #resizer id="sandbox-resizer">
+  <div #resizer id="sandbox-resizer">
 
-</div>
+  </div>
 
-<div id="text-input-container" *ngIf="this.data.viewTextElements">
-  <div #middlebar class="sandbox-middle-bar flex-row-evenly">
-    <textarea id="sandbox-textarea" [(ngModel)]="this.data.sandboxText">
+  <div id="text-input-container" *ngIf="this.data.viewTextElements">
+    <div #middlebar id="text-middle-bar">
+      <textarea id="sandbox-textarea" [(ngModel)]="this.data.sandboxText">
 
     </textarea>
 
-    <a (click)="this.data.addTextObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
-      <fa name="share"></fa>
-      <p>Add text object <br> to slide</p>
-    </a>
-  </div>
+      <a (click)="this.data.addTextObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
+        <fa name="share"></fa>
+        <p>Add text object <br> to slide</p>
+      </a>
+    </div>
 
-  <textarea id="notes-textarea" [(ngModel)]="this.data.textNotes">
+    <textarea id="notes-textarea" [(ngModel)]="this.data.textNotes">
     {{this.data.textNotes}}
   </textarea>
   </div>
 
   <div id="image-input-container" *ngIf="this.data.viewImageElements">
-  <div #middlebar class="sandbox-middle-bar flex-row-between grayAccent02">
+    <div #middlebar id="image-middle-bar" class="flex-row-between">
       <div class="flex-col-evenly" id="import-container">
-        <h3>Import an image:</h3>
-        <input class="" type="file" (change)="this.data.uploadImage($event)">
+        <p>Import an image:</p>
+
+        <input type="file" (change)="this.data.uploadImage($event)">
       </div>
-  
+
+      <div class="flex-col-evenly" id="search-container">
+          <p>Search for an image:</p>
+
+          <div class="flex-row-center">
+          <input type="text" [(ngModel)]="this.data.imageSearchQuery">
+          <button type="submit" (click)="this.showSearchResults(); this.data.searchPixabay()">Search</button>
+        </div>
+
+      </div>
+
+      <a class="middlebar-menu-tab flex-row-center" (click)="this.showGallery()" [class.tab-selected]="this.isGalleryMode">Gallery<fa name="th-large"></fa></a>
+
+      <div class="middlebar-menu-tab flex-row-center" [class.tab-selected]="!this.isGalleryMode">
+          <img id="pixabay-logo" src="https://pixabay.com/static/img/logo.svg" (click)="this.showSearchResults()">
+        </div>
+
       <a (click)="this.data.addImageObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
         <fa name="share"></fa>
         <p>Add image object to slide</p>
       </a>
     </div>
-  
-    <div id="gallery" class="accent05">
+
+    <div *ngIf="this.isGalleryMode" id="gallery">
       <div *ngFor="let image of this.data.images" class="gallery-img-container">
         <img src="{{image.url}}" (click)="this.data.selectImage(image.id)" class="clickable gallery-img">
-        <fa name="trash" class="clickable delete-icon flex-row-evenly" (click)="this.data.deleteImageById(image.id)"></fa>
+        <fa name="trash" class="delete-icon flex-row-evenly" (click)="this.data.deleteImageById(image.id)"></fa>
       </div>
     </div>
+
+
+    <div *ngIf="!this.isGalleryMode" id="search-results">
+      <div *ngFor="let image of this.data.imageSearchResults" class="gallery-img-container">
+        <img src="{{image.previewURL}}" class="gallery-img">
+        <fa name="plus-circle" class="delete-icon flex-row-evenly" (click)="this.data.pixabayToGallery(image.largeImageURL)"></fa>
+      </div>
+    </div>
+
   </div>
 </div>
-
-
-

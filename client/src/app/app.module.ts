@@ -24,6 +24,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { DialogService } from './dialog.service';
 import { ToolbarSecondaryComponent } from './toolbar-secondary/toolbar-secondary.component';
 
+import { HttpClientModule } from '@angular/common/http';
 
 const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
   // Change this to your Google API key
@@ -48,7 +49,8 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     FormsModule,
     FontPickerModule,
     ColorPickerModule,
-    AngularDraggableModule
+    AngularDraggableModule,
+    HttpClientModule
   ],
   providers: [DataService, DialogService, {
     provide: FONT_PICKER_CONFIG,

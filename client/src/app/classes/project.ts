@@ -27,7 +27,7 @@ export class Project {
     private sandboxImage: string;
     private sandboxShape: Object;
 
-    
+
     private viewTextElements: boolean;
     private viewImageElements: boolean;
     private viewShapeElements: boolean;
@@ -38,16 +38,15 @@ export class Project {
     private documentSize: object;
     private slideRenderMagnification;
 
-    constructor () {
+    constructor() {
         this.title = 'New Project';
         this.slideObjectIdCounter = 0;
         this.styleIdCounter = 0;
         this.slideIdCounter = 0;
 
-        this.slides = [];
-        this.textStyles = [];
-        this.imageStyles = [];
-        this.shapeStyles = [];
+        this.slides = [new Slide()];
+        this.textStyles = [this.createDefaultTextStyle()];
+        this.imageStyles = [this.createDefaultImageStyle()];
 
         this.selectedTextStyleId = 0;
         this.selectedImageStyleId = 0;
@@ -73,29 +72,47 @@ export class Project {
         this.slideRenderMagnification = 50;
     }
 
-    revive(obj){
-        for(let key in obj){
+    createDefaultTextStyle () {
+        let textStyle = new TextStyle();
+        textStyle.setProperty('name', 'Default Text Style');
+        textStyle.setProperty('isDefault', true);
+        return textStyle;
+    }
+
+    createDefaultImageStyle () {
+        let imageStyle = new ImageStyle();
+        imageStyle.setProperty('name', 'Default Image Style');
+        imageStyle.setProperty('isDefault', true);
+        return imageStyle;
+    }
+
+    reviveFullProject (JSON: object) {
+
+    }
+
+    revive(obj) {
+        for (let key in obj) {
             this[key] = obj[key];
         }
     }
 
-    addSlide(slide:Slide){
+    addSlide(slide: Slide) {
         this.slides.push(slide);
     }
 
-    addTextStyle(textStyle: TextStyle){
+    addTextStyle(textStyle: TextStyle) {
         this.textStyles.push(textStyle);
     }
 
-    addImageStyle(imageStyle: ImageStyle){
+    addImageStyle(imageStyle: ImageStyle) {
         this.imageStyles.push(imageStyle);
     }
 
-    getProperty(propertyName){
+    getProperty(propertyName) {
         return this[propertyName];
     }
 
-    setProperty(propertyName, propertyValue){
+    setProperty(propertyName, propertyValue) {
         this[propertyName] = propertyValue;
     }
 }
