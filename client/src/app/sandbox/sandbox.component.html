@@ -71,9 +71,13 @@
 
 
     <div *ngIf="!this.isGalleryMode" id="search-results">
+      <div id="pixabay-credits">
+      <h5>Image search powered by: <a href="https://pixabay.com/" target="__blank">Pixabay</a></h5>
+    </div>
+      
       <div *ngFor="let image of this.data.imageSearchResults" class="gallery-img-container">
         <img src="{{image.previewURL}}" class="gallery-img">
-        <fa name="plus-circle" class="delete-icon flex-row-evenly" (click)="this.data.pixabayToGallery(image.largeImageURL)"></fa>
+        <fa name="plus" class="delete-icon flex-row-evenly" (click)="this.data.pixabayToGallery(image.largeImageURL)"></fa>
       </div>
     </div>
 

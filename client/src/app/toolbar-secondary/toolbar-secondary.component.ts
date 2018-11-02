@@ -3,19 +3,6 @@ import { DataService } from '../data.service';
 import { DialogService } from '../dialog.service';
 import { Slide } from '../classes/slide';
 
-// interface FsDocument extends HTMLDocument {
-//   fullscreenElement?: Element;
-//   webkitFullscreenElement?: Element;
-//   mozFullScreenElement?: Element;
-//   msFullscreenElement?: Element;
-// }
-
-// export function isFullScreen(): boolean {
-//   const fsDoc = <FsDocument> document;
-
-//   return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement);
-// }
-
 @Component({
   selector: 'toolbar-secondary',
   templateUrl: './toolbar-secondary.component.html',

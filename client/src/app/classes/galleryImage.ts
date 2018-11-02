@@ -9,6 +9,12 @@ export class GalleryImage {
         this.id = 0;
     }
 
+    revive(obj){
+        for(let key in obj){
+            this[key] = obj[key];
+        }
+    }
+
     getProperty(propertyName) {
         return this[propertyName];
     }

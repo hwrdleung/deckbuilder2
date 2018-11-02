@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild, ElementRef } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -6,10 +6,13 @@ import { Injectable } from '@angular/core';
 
 export class DialogService {
 
+  @ViewChild('toastContainer') toastContainer: ElementRef<any>;
+
   constructor() { }
 
   message: string = "";
   showDialog: boolean = false;
+  showToast: boolean = false;
   callback: Function;
   type: String = 'success'|| 'danger';
 
@@ -36,5 +39,15 @@ export class DialogService {
   close(){
     this.showDialog = false;
   }
+
+  toast(message: string){
+    this.message = message;
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+    }, 1250)
+  }
+
+ 
 
 }

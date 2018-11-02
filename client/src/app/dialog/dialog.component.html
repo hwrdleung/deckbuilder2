@@ -11,3 +11,8 @@
     </div>
   </div>
 </div>
+
+<div #toastContainer id="toast-container" *ngIf="this.dialog.showToast" class="flex-row-evenly">
+    <fa name="check-circle"></fa>
+  <p>{{ this.dialog.message }}</p>
+</div>

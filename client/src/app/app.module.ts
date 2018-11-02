@@ -17,11 +17,12 @@ import { TextStyleCardComponent } from './text-style-card/text-style-card.compon
 import { ImageStyleCardComponent } from './image-style-card/image-style-card.component';
 
 import { DataService } from './data.service';
+import { DialogService } from './dialog.service';
+import { AppLogicService } from './app-logic.service'
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { DialogComponent } from './dialog/dialog.component';
-import { DialogService } from './dialog.service';
 import { ToolbarSecondaryComponent } from './toolbar-secondary/toolbar-secondary.component';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -52,7 +53,7 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     AngularDraggableModule,
     HttpClientModule
   ],
-  providers: [DataService, DialogService, {
+  providers: [AppLogicService, DataService, DialogService, {
     provide: FONT_PICKER_CONFIG,
     useValue: DEFAULT_FONT_PICKER_CONFIG
   }],

@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { DataService } from '../data.service';
 import { ViewChild } from '@angular/core'
 import { GalleryImage } from "../classes/galleryImage";
+import { DialogService } from '../dialog.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class SandboxComponent implements OnInit {
   @ViewChild('container') container: ElementRef<any>;
   isGalleryMode: boolean = true;
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private dialog: DialogService) { }
 
 
   ngOnInit() {

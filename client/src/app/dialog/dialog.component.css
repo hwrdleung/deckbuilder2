@@ -21,6 +21,7 @@
     z-index: 101;
 }
 
+
 #danger-icon, 
 #success-icon {
     text-align: center;
@@ -51,4 +52,21 @@ button {
 
 button:hover {
     background: rgb(175, 170, 170);
+}
+
+#toast-container {
+    position: fixed;
+    bottom: 15px;
+    right: 50px;
+    height: auto;
+    width: auto;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+}
+
+#toast-container fa {
+    color: green;
+    font-size: 1rem;
+    padding-right: 10px;
 }

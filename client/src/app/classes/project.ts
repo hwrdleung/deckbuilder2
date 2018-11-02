@@ -2,6 +2,12 @@ import { Slide } from './slide';
 import { TextStyle } from './textStyle';
 import { ImageStyle } from './imageStyle';
 import { ShapeStyle } from './shapeStyle';
+import { TextObject } from './textObject';
+import { ImageObject } from './imageObject';
+import { BorderControl } from './borderControl';
+import { ShadowControl } from './shadowControl';
+import { GalleryImage } from './galleryImage';
+
 
 export class Project {
 
@@ -11,9 +17,9 @@ export class Project {
     private slideIdCounter: number;
 
     private slides: Array<Slide>;
-    private textStyles: Array<TextStyle>;
-    private imageStyles: Array<ImageStyle>;
-    private shapeStyles: Array<ShapeStyle>;
+    private textStyles: TextStyle[];
+    private imageStyles: ImageStyle[];
+    private shapeStyles: ShapeStyle[];
 
     private selectedTextStyleId: number;
     private selectedImageStyleId: number;
@@ -21,7 +27,7 @@ export class Project {
 
     private currentSlideIndex: number;
     private selectedSlideObjectId: number;
-    private images: Array<object>;
+    private images: GalleryImage[];
 
     private sandboxText: string;
     private sandboxImage: string;
@@ -36,7 +42,7 @@ export class Project {
     private selectedImage: number;
 
     private documentSize: object;
-    private slideRenderMagnification;
+    private slideRenderMagnification: number;
 
     constructor() {
         this.title = 'New Project';
@@ -72,27 +78,118 @@ export class Project {
         this.slideRenderMagnification = 50;
     }
 
-    createDefaultTextStyle () {
+    createDefaultTextStyle() {
         let textStyle = new TextStyle();
         textStyle.setProperty('name', 'Default Text Style');
         textStyle.setProperty('isDefault', true);
         return textStyle;
     }
 
-    createDefaultImageStyle () {
+    createDefaultImageStyle() {
         let imageStyle = new ImageStyle();
         imageStyle.setProperty('name', 'Default Image Style');
         imageStyle.setProperty('isDefault', true);
         return imageStyle;
     }
 
-    reviveFullProject (JSON: object) {
+    reviveFullProject(JSON: object) {
 
     }
 
-    revive(obj) {
-        for (let key in obj) {
-            this[key] = obj[key];
+    revive(jsonData) {
+        let savedProjectData = JSON.parse(jsonData);
+
+        for (let key in savedProjectData) {
+            this[key] = savedProjectData[key];
+        }
+
+        this.reviveGalleryImages(jsonData);
+        this.reviveSlides(jsonData);
+        this.reviveTextStyles(jsonData);
+        this.reviveImageStyles(jsonData);
+    }
+
+    reviveSlides(jsonData) {
+        let savedProjectData = JSON.parse(jsonData);
+
+        this.slides = [];
+        for (let i = 0; i < savedProjectData.slides.length; i++) {
+            let thisSlide = savedProjectData.slides[i]
+            let slide = new Slide();
+            slide.revive(thisSlide);
+
+            let slideObjects = [];
+            for (let j = 0; j < thisSlide.slideObjects.length; j++) {
+                let thisSlideObject = thisSlide.slideObjects[j];
+
+                if (thisSlideObject.hasOwnProperty('textValue')) {
+                    // Revive text object
+                    let textObject = new TextObject();
+                    textObject.revive(thisSlideObject);
+                    slideObjects.push(textObject);
+                } else if (thisSlideObject.hasOwnProperty('imagePath')) {
+                    // Revive image object
+                    let imageObject = new ImageObject();
+                    imageObject.revive(thisSlideObject);
+                    slideObjects.push(imageObject);
+                }
+                slide.setProperty('slideObjects', slideObjects);
+            }
+            this.slides.push(slide);
+        }
+    }
+
+    reviveTextStyles(jsonData) {
+        let savedProjectData = JSON.parse(jsonData);
+        this.textStyles = [];
+
+        // Revive text styles
+        for (let i = 0; i < savedProjectData.textStyles.length; i++) {
+            let thisTextStyle = savedProjectData.textStyles[i];
+            let textStyle = new TextStyle();
+            textStyle.revive(thisTextStyle);
+
+            // Revive borders
+            let border = new BorderControl();
+            border.revive(thisTextStyle.border);
+            textStyle.setProperty('border', border);
+
+            // Revive shadows
+            let shadow = new ShadowControl();
+            shadow.revive(thisTextStyle.textShadow);
+            textStyle.setProperty('textShadow', shadow);
+
+            this.textStyles.push(textStyle);
+        }
+    }
+
+    reviveGalleryImages(jsonData){
+        let savedProjectData = JSON.parse(jsonData);
+        this.images = [];
+        
+        for(let i = 0;i < savedProjectData.images.length; i++){
+            let thisImage = savedProjectData.images[i];
+            let galleryImage = new GalleryImage;
+            galleryImage.revive(thisImage);
+            this.images.push(galleryImage);
+        }
+    }
+
+    reviveImageStyles(jsonData) {
+        let savedProjectData = JSON.parse(jsonData);
+        this.imageStyles = [];
+
+        for (let i = 0; i < savedProjectData.imageStyles.length; i++) {
+            let thisImageStyle = savedProjectData.imageStyles[i];
+            let imageStyle = new ImageStyle();
+            imageStyle.revive(thisImageStyle);
+
+            // Revive borders
+            let border = new BorderControl();
+            border.revive(thisImageStyle.border);
+            imageStyle.setProperty('border', border);
+
+            this.imageStyles.push(imageStyle);
         }
     }
 

@@ -219,6 +219,12 @@ input[type="file"] {
     fill: #FFF;
 }
 
+#pixabay-credits {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
 #search-results,
 #gallery {
     grid-area: gallery;
@@ -266,6 +272,7 @@ input[type="file"] {
     margin: 5px;
     border: 2px #FFF solid;
     opacity: 0.6;
+    font-size: 0.8rem
 }
 
 .delete-icon:hover {

@@ -3,7 +3,6 @@ import { DataService } from '../data.service';
 import { DialogService } from '../dialog.service';
 import { ViewChild } from '@angular/core'
 
-
 @Component({
   selector: 'slide-editor',
   templateUrl: './slide-editor.component.html',
@@ -18,8 +17,6 @@ export class SlideEditorComponent implements OnInit {
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('workspace') workspace: ElementRef<any>;
   @ViewChild('controlToolbar') controlToolbar: ElementRef<any>;
-
-
 
   constructor(private data: DataService, private dialog: DialogService) { }
 
@@ -122,7 +119,6 @@ export class SlideEditorComponent implements OnInit {
     if(renderWidth < renderAreaWidth) {
       css['left'] = (renderAreaWidth - renderWidth) / 2 + 'px';
     }
-
     return css;
   }
 

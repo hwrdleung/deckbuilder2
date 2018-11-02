@@ -6,14 +6,10 @@ import { ImageStyle } from "./classes/imageStyle";
 import { TextObject } from "./classes/textObject";
 import * as jsPDF from 'jspdf';
 import * as html2canvas from "html2canvas";
-
 import { ImageObject } from "./classes/imageObject";
-import { BorderControl } from "./classes/borderControl";
-import { ShadowControl } from "./classes/shadowControl";
 import { DialogService } from "./dialog.service";
 import { GalleryImage } from "./classes/galleryImage";
-
-import { HttpClient  } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
@@ -21,15 +17,12 @@ import { HttpClient  } from "@angular/common/http";
 
 export class DataService {
 
-
   constructor(private dialog: DialogService, private http: HttpClient) {
 
   }
 
-
-
   // These variable define the state of the app
-  currentProject: Project = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject() : new Project();
+  currentProject: Project = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject(localStorage.getItem('deckbuilder2Data')) : new Project();
 
   slides: Array<Slide> = this.currentProject.getProperty('slides');
   textStyles: Array<TextStyle> = this.currentProject.getProperty('textStyles');
@@ -46,7 +39,7 @@ export class DataService {
   // Sandbox variables
   sandboxText: string = this.currentProject.getProperty('sandboxText');
   textNotes: string = this.currentProject.getProperty('textNotes');
-  images: Array<GalleryImage> = this.currentProject.getProperty('images');
+  images: GalleryImage[] = this.currentProject.getProperty('images');
   selectedImage: number = this.currentProject.getProperty('selectedImage');
 
   // UI Logic variables
@@ -60,20 +53,19 @@ export class DataService {
   imageSearchQuery: string = "";
   imageSearchResults;
 
-  pixabayToGallery(url: string){
-    console.log(url);
+  pixabayToGallery(url: string) {
     let image = new GalleryImage();
     image.setProperty('url', url);
     image.setProperty('id', this.images.length);
     this.images.push(image);
+    this.dialog.toast('Added to gallery.');
   }
 
   searchPixabay() {
     let url = 'https://pixabay.com/api/?'
     let apiKey = '7780146-3f3faea2d00a0e8da80a92f14';
-    this.http.get(url + 'key='+ apiKey + '&q=' + this.imageSearchQuery).subscribe((res)=>{
+    this.http.get(url + 'key=' + apiKey + '&q=' + this.imageSearchQuery).subscribe((res) => {
       this.imageSearchResults = res['hits'];
-      console.log(this.imageSearchResults);
     });
   }
 
@@ -115,78 +107,9 @@ export class DataService {
     }
   }
 
-  getSavedProject() {
-    // Convert JSON object to Project Object
-    let savedProjectData = JSON.parse(localStorage.getItem('deckbuilder2Data'));
+  getSavedProject(jsonData) {
     let project = new Project();
-    project.revive(savedProjectData);
-
-    // Revive Slides
-    let slides = [];
-    for (let i = 0; i < savedProjectData.slides.length; i++) {
-      let slideObjects = [];
-      let slide = new Slide();
-      let thisSlide = savedProjectData.slides[i]
-      slide.revive(thisSlide);
-
-      for (let j = 0; j < thisSlide.slideObjects.length; j++) {
-        let thisSlideObject = thisSlide.slideObjects[j];
-
-        if (thisSlideObject.hasOwnProperty('textValue')) {
-          // Revive text objects
-          let textObject = new TextObject();
-          textObject.revive(thisSlideObject);
-          slideObjects.push(textObject);
-        } else if (thisSlideObject.hasOwnProperty('imagePath')) {
-          // Revive image objects
-          let imageObject = new ImageObject();
-          imageObject.revive(thisSlideObject);
-          slideObjects.push(imageObject);
-        }
-        slide.setProperty('slideObjects', slideObjects);
-      }
-      slides.push(slide);
-    }
-
-    project.setProperty('slides', slides);
-    // Revive text styles
-    let textStyles = []; // REMEMBER TO ADD ME BACK INTO PROJECT
-    for (let i = 0; i < savedProjectData.textStyles.length; i++) {
-      let thisTextStyle = savedProjectData.textStyles[i];
-      let textStyle = new TextStyle();
-      textStyle.revive(thisTextStyle);
-
-      // Revive borders
-      let border = new BorderControl();
-      border.revive(thisTextStyle.border);
-      textStyle.setProperty('border', border);
-
-      // Revive shadows
-      let shadow = new ShadowControl();
-      shadow.revive(thisTextStyle.textShadow);
-      textStyle.setProperty('textShadow', shadow);
-
-      textStyles.push(textStyle);
-    }
-
-    project.setProperty('textStyles', textStyles);
-
-    // Revive image styles
-    let imageStyles = [];
-    for (let i = 0; i < savedProjectData.imageStyles.length; i++) {
-      let thisImageStyle = savedProjectData.imageStyles[i];
-      let imageStyle = new ImageStyle();
-      imageStyle.revive(thisImageStyle);
-
-      // Revive borders
-      let border = new BorderControl();
-      border.revive(thisImageStyle.border);
-      imageStyle.setProperty('border', border);
-
-      imageStyles.push(imageStyle);
-    }
-    project.setProperty('imageStyles', imageStyles);
-
+    project.revive(jsonData);
     return project;
   }
 
@@ -326,10 +249,10 @@ export class DataService {
       let thisSlideObjects = this.slides[i].getProperty('slideObjects');
 
       for (let j = 0; j < thisSlideObjects.length; j++) {
-        let slideObjectId = thisSlideObjects[j].getProperty('styleId');
+        let slideObjectStyleId = thisSlideObjects[j].getProperty('styleId');
         let slideObjectType = thisSlideObjects[j].constructor.name;
 
-        if (slideObjectId === id) {
+        if (slideObjectStyleId === id) {
           switch (styleType) {
             case 'TextStyle':
               if (slideObjectType === "TextObject") return true;
@@ -349,31 +272,62 @@ export class DataService {
     let styleName = style.getProperty('name');
     let styleType = style.constructor.name;
 
+    // Remove style from project
+    let confirmedDelete = () => {
+      if (styleType === "TextStyle") {
+        for (let i = 0; i < this.textStyles.length; i++) {
+          let thisId = this.textStyles[i].getProperty('id');
+          if (this.selectedTextStyleId === id) this.selectedTextStyleId = 0;
+          if (thisId === id) this.textStyles.splice(i, 1);
+        }
+      } else if (styleType === "ImageStyle") {
+        for (let i = 0; i < this.imageStyles.length; i++) {
+          let thisId = this.imageStyles[i].getProperty('id');
+          if (this.selectedImageStyleId === id) this.selectedImageStyleId = 0;
+          if (thisId === id) this.imageStyles.splice(i, 1);
+        }
+      }
+    }
+
+    // If style is in use, 
+    // revert slide object style id to default before removing style from project
+    let revertObjectsToDefaultStyle = () => {
+      for (let i = 0; i < this.slides.length; i++) {
+        let thisSlideObjects = this.slides[i].getProperty('slideObjects');
+
+        for (let j = 0; j < thisSlideObjects.length; j++) {
+          let slideObjectStyleId = thisSlideObjects[j].getProperty('styleId');
+          let slideObjectType = thisSlideObjects[j].constructor.name;
+
+          switch (styleType) {
+            case 'TextStyle':
+              if (slideObjectType === "TextObject" && slideObjectStyleId === id) {
+                thisSlideObjects[j].setProperty('styleId', 0);
+              }
+              break;
+            case 'ImageStyle':
+              if (slideObjectType === "ImageObject" && slideObjectStyleId === id) {
+                thisSlideObjects[j].setProperty('styleId', 0);
+              }
+              break;
+          }
+        }
+      }
+    }
+
     switch (this.isStyleInUse(style)) {
       case true:
         // Prevent delete and display alert message
-        let message = 'Unable to delete ' + styleName + '.  It is currently in use.';
-        this.dialog.alert(message, 'danger');
-        break;
-
-      case false:
-        this.dialog.alert("Delete " + styleName + "?", 'danger', () => {
-          if (styleType === "TextStyle") {
-            for (let i = 0; i < this.textStyles.length; i++) {
-              let thisId = this.textStyles[i].getProperty('id');
-              if (this.selectedTextStyleId === id) this.selectedTextStyleId = 0;
-              if (thisId === id) this.textStyles.splice(i, 1);
-            }
-          } else if (styleType === "ImageStyle") {
-            for (let i = 0; i < this.imageStyles.length; i++) {
-              let thisId = this.imageStyles[i].getProperty('id');
-              if (this.selectedTextStyleId === id) this.selectedTextStyleId = 0;
-              if (thisId === id) this.imageStyles.splice(i, 1);
-            }
-          }
+        let message = `${styleName} is currently in use.  ${styleType === 'TextStyle' ? 'Text objects' : 'Image objects'} that use this style will be reverted to the default style.  Do you wish to proceed?`;
+        this.dialog.alert(message, 'danger', () => {
+          revertObjectsToDefaultStyle();
+          confirmedDelete();
         });
         break;
 
+      case false:
+        this.dialog.alert("Delete " + styleName + "?", 'danger', confirmedDelete);
+        break;
     }
   }
 
@@ -386,7 +340,7 @@ export class DataService {
     newTextObject.setProperty('textValue', this.sandboxText);
     newTextObject.setProperty('styleId', this.selectedTextStyleId);
 
-    // !important!  set z index last to ensure proper assignment of z index
+    // !important!  set z index after slideObject has been added to the project to ensure proper assignment of z index
     currentSlide.addSlideObject(newTextObject);
     newTextObject.setProperty('zIndex', currentSlideObjects.length - 1);
   }
@@ -396,7 +350,7 @@ export class DataService {
     let currentSlide = this.slides[this.currentSlideIndex];
     let currentSlideObjects = currentSlide.getProperty('slideObjects');
     let newImageObject = new ImageObject();
-    let image = this.images[this.selectedImage].url;
+    let image = this.images[this.selectedImage].getProperty('url');
 
     // Check if image is larger than document size
     let imageElement = new Image;
@@ -428,18 +382,14 @@ export class DataService {
   uploadImage(event) {
     let file = event.srcElement.files[0];
     let reader = new FileReader();
-    reader.readAsDataURL(file);
 
+    reader.readAsDataURL(file);
     reader.onload = (e) => {
       let url = (<FileReader>e.target).result;
-
       let image = new GalleryImage();
+
       image.setProperty('url', url);
       image.setProperty('id', this.images.length);
-      // let image = {
-      //   url: url,
-      //   id: this.images.length
-      // }
       this.images.push(image);
     }
   }
@@ -451,12 +401,12 @@ export class DataService {
   deleteImageById(imageId: number) {
     let callback = () => {
       for (let i = 0; i < this.images.length; i++) {
-        if (this.images[i].id === imageId) {
+        if (this.images[i].getProperty('id') === imageId) {
           this.images.splice(i, 1);
+          this.dialog.toast('Image has been deleted.');
         }
       }
     }
-
     this.dialog.alert("Are you sure you want to delete this image from your project?", 'danger', callback);
   }
 
@@ -467,16 +417,14 @@ export class DataService {
     let currentSlideObjects = currentSlide.getProperty('slideObjects');
 
     for (let i = 0; i < currentSlideObjects.length; i++) {
-      if (currentSlideObjects[i].id === objectId) {
-        if (currentSlideObjects[i].zIndex < currentSlideObjects.length - 1) {
-          currentSlideObjects[i].zIndex++; // Increment zIndex of currentSlideObjects[i]
-          currentSlideObjects[i + 1].zIndex--; // Derement zIndex of currentSlideObjects[i+1]
-          // Switch positions of [i] and [i+1]
-          let tempStorage = currentSlideObjects[i];
-          currentSlideObjects[i] = currentSlideObjects[i + 1];
-          currentSlideObjects[i + 1] = tempStorage;
-          i++; // Increment i to prevent the code from entering the if statement on the next iteration
-        }
+      if (currentSlideObjects[i].id === objectId && currentSlideObjects[i].zIndex < currentSlideObjects.length - 1) {
+        currentSlideObjects[i].zIndex++; // Increment zIndex of currentSlideObjects[i]
+        currentSlideObjects[i + 1].zIndex--; // Derement zIndex of currentSlideObjects[i+1]
+        // Switch positions of [i] and [i+1]
+        let tempStorage = currentSlideObjects[i];
+        currentSlideObjects[i] = currentSlideObjects[i + 1];
+        currentSlideObjects[i + 1] = tempStorage;
+        i++; // Increment i to prevent the code from entering the if statement on the next iteration
       }
     }
   }
@@ -487,15 +435,13 @@ export class DataService {
     let currentSlideObjects = currentSlide.getProperty('slideObjects');
 
     for (let i = 0; i < currentSlideObjects.length; i++) {
-      if (currentSlideObjects[i].id === objectId) {
-        if (currentSlideObjects[i].zIndex > 0) {
-          currentSlideObjects[i].zIndex--; // Increment zIndex of currentSlideObjects[i]
-          currentSlideObjects[i - 1].zIndex++; // Derement zIndex of currentSlideObjects[i+1]
-          // Switch positions of [i] and [i+1]
-          let tempStorage = currentSlideObjects[i];
-          currentSlideObjects[i] = currentSlideObjects[i - 1];
-          currentSlideObjects[i - 1] = tempStorage;
-        }
+      if (currentSlideObjects[i].id === objectId && currentSlideObjects[i].zIndex > 0) {
+        currentSlideObjects[i].zIndex--; // Increment zIndex of currentSlideObjects[i]
+        currentSlideObjects[i - 1].zIndex++; // Derement zIndex of currentSlideObjects[i+1]
+        // Switch positions of [i] and [i+1]
+        let tempStorage = currentSlideObjects[i];
+        currentSlideObjects[i] = currentSlideObjects[i - 1];
+        currentSlideObjects[i - 1] = tempStorage;
       }
     }
   }

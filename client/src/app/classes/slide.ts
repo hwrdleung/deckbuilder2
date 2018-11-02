@@ -24,15 +24,7 @@ export class Slide {
     addSlideObject(slideObject: SlideObject){
         this.slideObjects.push(slideObject);
     }
-
-    // deleteSlideObjectById(id){
-    //     for(let i=0; i<this.slideObjects.length; i++){
-    //         if(this.slideObjects[i].getProperty('id') === id){
-    //             this.slideObjects.splice(i, 1);
-    //         }
-    //     }
-    // }
-
+    
     // Getter, setter
     getProperty(propertyName) {
         return this[propertyName];
