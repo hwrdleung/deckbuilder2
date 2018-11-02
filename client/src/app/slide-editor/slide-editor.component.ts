@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { DataService } from '../data.service';
 import { DialogService } from '../dialog.service';
 import { ViewChild } from '@angular/core'
+import { SlideEditorAppLogicService } from '../slide-editor-app-logic.service';
 
 @Component({
   selector: 'slide-editor',
@@ -18,7 +19,7 @@ export class SlideEditorComponent implements OnInit {
   @ViewChild('workspace') workspace: ElementRef<any>;
   @ViewChild('controlToolbar') controlToolbar: ElementRef<any>;
 
-  constructor(private data: DataService, private dialog: DialogService) { }
+  constructor(private data: DataService, private dialog: DialogService, private slideEditor: SlideEditorAppLogicService) { }
 
   ngOnInit() {
     this.enableSlideEditorResizer();

@@ -18,7 +18,12 @@ import { ImageStyleCardComponent } from './image-style-card/image-style-card.com
 
 import { DataService } from './data.service';
 import { DialogService } from './dialog.service';
-import { AppLogicService } from './app-logic.service'
+import { ToolbarAppLogicService } from './toolbar-app-logic.service'
+import { Toolbar2AppLogicService } from './toolbar2-app-logic.service'
+import { StylerAppLogicService } from './styler-app-logic.service'
+import { SandboxAppLogicService } from './sandbox-app-logic.service'
+import { SlideEditorAppLogicService } from './slide-editor-app-logic.service'
+
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularDraggableModule } from 'angular2-draggable';
@@ -53,7 +58,7 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
     AngularDraggableModule,
     HttpClientModule
   ],
-  providers: [AppLogicService, DataService, DialogService, {
+  providers: [ToolbarAppLogicService, Toolbar2AppLogicService, StylerAppLogicService, SandboxAppLogicService, SlideEditorAppLogicService, DataService, DialogService, {
     provide: FONT_PICKER_CONFIG,
     useValue: DEFAULT_FONT_PICKER_CONFIG
   }],

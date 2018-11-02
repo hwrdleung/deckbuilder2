@@ -88,9 +88,9 @@
         </div>
 
         <div class="heirarchy-control-group heirarchy-content-misc flex-row-evenly">
-          <fa (click)="this.data.increaseOneLayer(slideObject.id)" name="arrow-up"></fa>
+          <fa (click)="this.slideEditor.increaseOneLayer(slideObject.id)" name="arrow-up"></fa>
 
-          <fa (click)="this.data.decreaseOneLayer(slideObject.id)" name="arrow-down"></fa>
+          <fa (click)="this.slideEditor.decreaseOneLayer(slideObject.id)" name="arrow-down"></fa>
 
           <fa (click)="slideObject.toggleProperty('display')" [name]="slideObject.display ? 'eye' : 'eye-slash'"></fa>
 

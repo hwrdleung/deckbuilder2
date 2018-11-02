@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { ToolbarAppLogicService } from '../toolbar-app-logic.service';
 
 @Component({
   selector: 'toolbar',
@@ -8,7 +9,7 @@ import { DataService } from '../data.service';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private toolbar:ToolbarAppLogicService) { }
 
   ngOnInit() {
 

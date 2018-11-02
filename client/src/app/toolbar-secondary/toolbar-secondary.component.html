@@ -9,18 +9,18 @@
       <p>New image object</p>
     </a>
 
-    <a (click)="this.createNewSlide()" class="flex-row-evenly toolbar2-btn-group">
+    <a (click)="this.toolbar2.createNewSlide()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="plus-square"></fa>
       <p>New slide</p>
     </a>
 
-    <a (click)="this.preview()" class="flex-row-evenly toolbar2-btn-group">
+    <a (click)="this.toolbar2.preview()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="play"></fa>
       <p>Preview</p>
     </a>
 
     <div class="flex-row-evenly" id="slide-nav-group">
-    <a (click)="this.previousSlide()" class="flex-row-evenly">
+    <a (click)="this.toolbar2.previousSlide()" class="flex-row-evenly">
       <fa name="step-backward"></fa>
     </a>
 
@@ -28,12 +28,12 @@
       <h1 style="padding: 10px;" (click)="this.dialog.toast('toast works')" id="slide-number">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>
     </div>
 
-    <a (click)="this.nextSlide()" class="flex-row-evenly">
+    <a (click)="this.toolbar2.nextSlide()" class="flex-row-evenly">
       <fa name="step-forward"></fa>
     </a>
   </div>
 
-    <a (click)="this.deleteCurrentSlide()" class="flex-row-evenly toolbar2-btn-group">
+    <a (click)="this.toolbar2.deleteCurrentSlide()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="trash"></fa>
       <p>Delete slide</p>
     </a>

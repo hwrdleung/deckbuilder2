@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../data.service';
 import { TextStyle } from '../classes/textStyle';
+import { StylerAppLogicService } from '../styler-app-logic.service';
 
 @Component({
   selector: 'text-style-card',
@@ -12,7 +13,7 @@ export class TextStyleCardComponent implements OnInit {
   @Input()
     textStyle: TextStyle;
 
-  constructor(private data: DataService) { 
+  constructor(private data: DataService, private styler: StylerAppLogicService) { 
   }
 
   ngOnInit() {

@@ -1,12 +1,12 @@
 <div id="toolbar-container">
 
   <div class="flex-row-evenly toolbar-button-group-container">
-    <a (click)="this.data.createTextStyle(); this.data.setMode('text')" class="flex-col-evenly toolbar-btn-group">
+    <a (click)="this.toolbar.createTextStyle(); this.data.setMode('text')" class="flex-col-evenly toolbar-btn-group">
       <fa name="font"></fa>
       <p>New text style</p>
     </a>
 
-    <a (click)="this.data.createImageStyle(); this.data.setMode('image')" class="flex-col-evenly toolbar-btn-group">
+    <a (click)="this.toolbar.createImageStyle(); this.data.setMode('image')" class="flex-col-evenly toolbar-btn-group">
       <fa name="image"></fa>
       <p>New image style</p>
     </a>
@@ -15,31 +15,31 @@
   <div id="toolbar-style-selector" class="greenAccent02">
     <!-- Text styles -->
     <div *ngIf="this.data.viewTextElements">
-      <button *ngFor="let textStyle of this.data.textStyles" (click)="this.data.selectStyle('text', textStyle.id);"
+      <button *ngFor="let textStyle of this.data.textStyles" (click)="this.toolbar.selectStyle('text', textStyle.id);"
         class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(textStyle)"><p>{{textStyle.name.substring(0,
         20)}}</p></button>
     </div>
 
     <!-- Image styles -->
     <div *ngIf="this.data.viewImageElements">
-      <button *ngFor="let imageStyle of this.data.imageStyles" (click)="this.data.selectStyle('image', imageStyle.id);"
+      <button *ngFor="let imageStyle of this.data.imageStyles" (click)="this.toolbar.selectStyle('image', imageStyle.id);"
         class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(imageStyle)"><p>{{imageStyle.name.substring(0,
         20)}}</p></button>
     </div>
   </div>
 
   <div class="flex-row-evenly toolbar-button-group-container">
-    <a (click)="this.data.saveAsPng()" class="flex-col-evenly toolbar-btn-group">
+    <a (click)="this.toolbar.saveAsPng()" class="flex-col-evenly toolbar-btn-group">
       <fa name="file-image"></fa>
       <p>Save As PNG</p>
     </a>
 
-    <a (click)="this.data.exportAsPDF()" class="flex-col-evenly toolbar-btn-group">
+    <a (click)="this.toolbar.exportAsPDF()" class="flex-col-evenly toolbar-btn-group">
       <fa name="file-pdf"></fa>
       <p>Export to PDF</p>
     </a>
 
-    <a (click)="this.data.saveSession()" class="flex-col-evenly toolbar-btn-group">
+    <a (click)="this.toolbar.saveSession()" class="flex-col-evenly toolbar-btn-group">
       <fa name="save"></fa>
       <p>Save Session</p>
     </a>

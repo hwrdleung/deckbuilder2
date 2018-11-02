@@ -21,7 +21,7 @@
 
     </textarea>
 
-      <a (click)="this.data.addTextObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
+      <a (click)="this.sandbox.addTextObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
         <fa name="share"></fa>
         <p>Add text object <br> to slide</p>
       </a>
@@ -44,8 +44,8 @@
           <p>Search for an image:</p>
 
           <div class="flex-row-center">
-          <input type="text" [(ngModel)]="this.data.imageSearchQuery">
-          <button type="submit" (click)="this.showSearchResults(); this.data.searchPixabay()">Search</button>
+          <input type="text" [(ngModel)]="this.sandbox.imageSearchQuery">
+          <button type="submit" (click)="this.showSearchResults(); this.sandbox.searchPixabay()">Search</button>
         </div>
 
       </div>
@@ -56,7 +56,7 @@
           <img id="pixabay-logo" src="https://pixabay.com/static/img/logo.svg" (click)="this.showSearchResults()">
         </div>
 
-      <a (click)="this.data.addImageObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
+      <a (click)="this.sandbox.addImageObjectToSlide()" class="sandbox-add-btn-group grayAccent02 flex-col-evenly">
         <fa name="share"></fa>
         <p>Add image object to slide</p>
       </a>
@@ -64,8 +64,8 @@
 
     <div *ngIf="this.isGalleryMode" id="gallery">
       <div *ngFor="let image of this.data.images" class="gallery-img-container">
-        <img src="{{image.url}}" (click)="this.data.selectImage(image.id)" class="clickable gallery-img">
-        <fa name="trash" class="delete-icon flex-row-evenly" (click)="this.data.deleteImageById(image.id)"></fa>
+        <img src="{{image.url}}" (click)="this.sandbox.selectImage(image.id)" class="clickable gallery-img">
+        <fa name="trash" class="delete-icon flex-row-evenly" (click)="this.sandbox.deleteImageById(image.id)"></fa>
       </div>
     </div>
 
@@ -75,9 +75,9 @@
       <h5>Image search powered by: <a href="https://pixabay.com/" target="__blank">Pixabay</a></h5>
     </div>
       
-      <div *ngFor="let image of this.data.imageSearchResults" class="gallery-img-container">
+      <div *ngFor="let image of this.sandbox.imageSearchResults" class="gallery-img-container">
         <img src="{{image.previewURL}}" class="gallery-img">
-        <fa name="plus" class="delete-icon flex-row-evenly" (click)="this.data.pixabayToGallery(image.largeImageURL)"></fa>
+        <fa name="plus" class="delete-icon flex-row-evenly" (click)="this.sandbox.pixabayToGallery(image.largeImageURL)"></fa>
       </div>
     </div>
 

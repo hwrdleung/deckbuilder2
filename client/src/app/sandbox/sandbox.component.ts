@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { DataService } from '../data.service';
 import { ViewChild } from '@angular/core'
-import { GalleryImage } from "../classes/galleryImage";
 import { DialogService } from '../dialog.service';
+import { SandboxAppLogicService } from '../sandbox-app-logic.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class SandboxComponent implements OnInit {
   @ViewChild('container') container: ElementRef<any>;
   isGalleryMode: boolean = true;
 
-  constructor(private data: DataService, private dialog: DialogService) { }
+  constructor(private data: DataService, private dialog: DialogService, private sandbox:SandboxAppLogicService) { }
 
 
   ngOnInit() {
