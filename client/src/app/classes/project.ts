@@ -11,7 +11,9 @@ import { GalleryImage } from './galleryImage';
 
 export class Project {
 
-    private title: string;
+    private name: string;
+    private created: Date;
+    private thumbnail: string;
     private slideObjectIdCounter: number;
     private styleIdCounter: number;
     private slideIdCounter: number;
@@ -45,7 +47,9 @@ export class Project {
     private slideRenderMagnification: number;
 
     constructor() {
-        this.title = 'New Project';
+        this.name = 'New Project';
+        this.created = new Date();
+        this.thumbnail = 'https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg'
         this.slideObjectIdCounter = 0;
         this.styleIdCounter = 0;
         this.slideIdCounter = 0;

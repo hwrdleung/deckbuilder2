@@ -1,0 +1,104 @@
+/* * {
+    border: 1px yellow solid;
+    box-sizing: border-box;
+} */
+
+@import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');
+
+
+#home-content-container {
+    width: 80%;
+    max-width: 1200px;
+    height: 650px;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-areas: "left right";
+}
+
+#home-left-content {
+    grid-area: left;
+}
+
+#home-left-content > * {
+    max-width: 90%;
+    margin: 15px auto;
+}
+
+#app-brand {
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-size: 4rem;
+}
+
+#splash {
+    box-shadow: 2px 2px 5px rgb(122, 122, 122),
+    -1px -1px 3px rgb(122, 122, 122);
+}
+
+#description {
+    line-height: 1.5;
+}
+
+#home-right-content > * {
+    max-width: 90%;
+}
+
+#home-right-content {
+    grid-area: right;
+    padding-top: 35px;
+}
+
+.cta-btn {
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: normal;
+    background: rgb(72, 72, 252);
+    border: 0;
+    border-radius: 5px;
+    color: #FFF;
+}
+
+.cta-btn:hover {
+    background: rgb(90, 192, 255);
+}
+
+#forms-container {
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 2px 2px 5px black;
+}
+
+#forms-container-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1px;
+    background: silver;
+    border-bottom: 1px silver inset;
+}
+
+#forms-container-nav button {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    margin: 0 auto;
+    padding: 12px 0;
+    font-size: 1rem;
+    background: white;
+    border: 0;
+    color: rgb(49, 49, 49);
+    transition: background 0.25s;
+    outline: none;
+}
+
+#forms-container-nav button:hover {
+    background: silver;
+    transition: background 0.25s;
+}
+
+.app-theme {
+    border: 0;
+    background: #FFF;
+    color: rgb(37, 44, 38);
+    border-radius: 10px;
+}
+

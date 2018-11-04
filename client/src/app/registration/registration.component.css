@@ -1,0 +1,55 @@
+form > * {
+    width: 85%;
+}
+
+
+label {
+    margin-top: 20px;
+    margin-bottom: 3px;
+    font-size: 0.8rem;
+}
+
+input[type="password"],
+input[type="text"] {
+    height: 35px;
+    border: 1px silver solid;
+    border-radius: 5px;
+    line-height: 25px;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    font-weight: normal;
+}
+
+button {
+    height: 50px;
+    background: rgb(101, 168, 101);
+    border: 0;
+    margin: 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #FFF;
+}
+
+button:hover {
+    background: rgb(125, 209, 125);
+}
+
+
+/*  Reactive forms */
+.form-alert {
+    font-size: 0.7rem;
+    color: red;
+    margin-top: 2px;
+}
+
+.server-alert {
+    font-size: 0.7rem;
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}
+
+
+
+

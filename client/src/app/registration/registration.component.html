@@ -1,0 +1,59 @@
+<form class="flex-col-evenly" [formGroup]="rForm" (ngSubmit)="register(rForm.value)">
+  
+    <div class="server-alert" *ngIf="serverMsg">{{
+        serverMsg }}</div>
+  
+  <label>
+    First name:
+  </label>
+  <input type="text" formControlName="first">
+  <div class="form-alert" *ngIf="rForm.controls['first'].errors?.required && rForm.controls['first'].touched">{{
+    requiredAlert }}</div>
+
+  <label>
+    Last name:
+  </label>
+  <input type="text" formControlName="last">
+  <div class="form-alert" *ngIf="rForm.controls['last'].errors?.required && rForm.controls['last'].touched">{{
+    requiredAlert }}</div>
+
+  <label>
+    Email address:
+  </label>
+  <input type="text" formControlName="email">
+  <div *ngIf="rForm.controls['email'].touched">
+    <div class="form-alert" *ngIf="rForm.controls['email'].errors?.required">{{ requiredAlert }}</div>
+    <div class="form-alert" *ngIf="rForm.controls['email'].errors?.email">{{ emailAlert }}</div>
+  </div>
+
+  <label>
+    Choose a username:
+  </label>
+  <input type="text" formControlName="username">
+  <div *ngIf="rForm.controls['username'].touched">
+    <div class="form-alert" *ngIf="rForm.controls['username'].errors?.required">{{ requiredAlert }}</div>
+    <div class="form-alert" *ngIf="rForm.controls['username'].errors?.minlength">{{ requiredLengthAlert +
+      rForm.controls['username'].errors.minlength.requiredLength }}</div>
+  </div>
+
+  <label>
+    Choose a password:
+  </label>
+  <input type="password" formControlName="password">
+  <div *ngIf="rForm.controls['password'].touched">
+    <div class="form-alert" *ngIf="rForm.controls['password'].errors?.required">{{ requiredAlert }}</div>
+    <div class="form-alert" *ngIf="rForm.controls['password'].errors?.minlength">{{ requiredLengthAlert +
+      rForm.controls['password'].errors.minlength.requiredLength }}</div>
+  </div>
+
+  <label>
+    Re-type your password:
+  </label>
+  <input type="password" formControlName="password2">
+  <div *ngIf="rForm.controls['password2'].touched">
+    <div class="form-alert" *ngIf="rForm.controls['password2'].errors?.required">{{ requiredAlert }}</div>
+    <div class="form-alert" *ngIf="rForm.controls['password2'].errors?.passwordMismatch">{{ passwordMismatchAlert }}</div>
+  </div>
+
+  <button type="submit" [disabled]="!rForm.valid">Register</button>
+</form>

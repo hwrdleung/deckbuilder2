@@ -31,6 +31,35 @@ button:hover
     cursor: pointer;
 }
 
+.success-btn {
+    background: rgb(11, 146, 11);
+    color: #FFF;
+    border: 0;
+    border-radius: 5px;
+}
+
+.success-btn:hover {
+    background: rgb(19, 211, 19);
+}
+
+.danger-btn {
+    background: rgb(197, 52, 52);
+    color: #FFF;
+    border: 0;
+    border-radius: 5px;
+}
+
+.danger-btn:hover {
+    background: rgb(255, 71, 71);
+}
+
+.component-container {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));
+    color: #FFF;
+}
+
 /* Alignment Classes */
 .flex-row-start {
     display: flex;
@@ -71,6 +100,13 @@ button:hover
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
+}
+
+.flex-col-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -118,3 +154,12 @@ button:hover
     background: rgb(255, 255, 255);
     color: rgb(99, 99, 99)
 }
+
+.loader {
+    animation: rotate linear 1s infinite;
+    font-size: 1rem;
+}
+
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+  }

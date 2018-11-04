@@ -12,7 +12,7 @@ export class ToolbarComponent implements OnInit {
   constructor(private data: DataService, private toolbar:ToolbarAppLogicService) { }
 
   ngOnInit() {
-
+    console.log('current project:', this.data.currentProject);
   }
 
   isSelected(style) {

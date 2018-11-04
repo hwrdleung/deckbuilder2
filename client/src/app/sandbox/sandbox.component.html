@@ -1,5 +1,5 @@
 <!-- Text sandbox -->
-<div #container id="sandbox-container" class="grayAccent03">
+<div #container id="sandbox-container" class="grayAccent03" *ngIf="this.data.currentProject">
   <div class="flex-col-evenly sandbox-preview-area accent05" *ngIf="this.data.viewTextElements">
     <div id="text-preview-container">
       <p [ngStyle]="this.data.getTextStyleById(this.data.selectedTextStyleId).getCss()">{{this.data.sandboxText}}</p>

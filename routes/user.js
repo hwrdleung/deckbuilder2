@@ -14,7 +14,7 @@ router.use(function timeLog(req, res, next) {
 
 let Response = function (success, message, body) {
     return {
-        sucesss: success,
+        success: success,
         message: message,
         body: body
     }
@@ -43,12 +43,20 @@ router.post('/new-account', (req, res) => {
     // Check for existing user by username
     User.findOne({ username: username }).exec()
         .then(user => {
-            if (user) return res.json(new Response(false, 'This username is already in use.'));
+            if (user) {
+                console.log('This username is already in use.')
+                res.json(new Response(false, 'This username is already in use.'));
+                throw new Error('End promise chain');
+            }
             return User.findOne({ email: email });
         })
         // Check for existing user by email
         .then(user => {
-            if (user) return res.json(new Response(false, 'This email address has been used to create an account.'));
+            if (user) {
+                console.log('This email address has been used to create an account.');
+                res.json(new Response(false, 'This email address has been used to create an account.'));
+                throw new Error('End promise chain');
+            }
             console.log('Hashing password')
             return bcrypt.hash(req.body.password, saltRounds);
         })
@@ -65,10 +73,18 @@ router.post('/new-account', (req, res) => {
             return newUser.save();
         })
         .then(user => {
-            if (!user) return res.json(new Response(false, 'Registration unsuccessful. Please try again.'));
-            return res.json(new Response(true, 'Registration successful'));
+            if (!user) {
+                console.log('There was an error saving user to database.');
+                res.json(new Response(false, 'Registration unsuccessful. Please try again.'));
+                throw new Error('End promise chain');
+            }
+            console.log('Registration successful');
+            let payload = {
+                username: username
+            }
+            return res.json(new Response(true, 'Registration successful', jwt.sign(payload, secret, { expiresIn: '3h' })));
         })
-        .catch(error => { console.log('Error:', error.message); });
+        .catch(error => { console.log(error.message); });
 });
 
 router.post('/auth', (req, res) => {
@@ -80,24 +96,34 @@ router.post('/auth', (req, res) => {
     console.log('Getting data for ' + username);
     User.findOne({ username: username }).exec()
         .then(user => {
-            if (!user) return res.json(new Response(false, 'User not found.'));
-            return bcrypt.compare(req.body.password, user.password);
+            if (!user) {
+                console.log('User not found.');
+                res.json(new Response(false, 'User not found.'));
+                throw new Error('End promise chain');
+            } else if (user) {
+                console.log('Checking password');
+                return bcrypt.compare(req.body.password, user.password);
+            }
         })
 
         // Check password
         .then(isValid => {
-            if (!isValid) return res.json(new Response(false, 'Invalid password.'));
+            console.log('Success:', isValid);
+            if (!isValid) {
+                res.json(new Response(false, 'Invalid password.'));
+                throw new Error('End promise chain');
+            } else if (isValid) {
 
-            // Define jwt payload
-            let payload = {
-                username: username
+                // Define jwt payload
+                let payload = {
+                    username: username
+                }
+
+                // Success: Respond with jwt
+                return res.json(new Response(true, 'Authentication successful.', jwt.sign(payload, secret, { expiresIn: '3h' })));
             }
-
-            // Success: Respond with jwt
-            return res.json(new Response(true, 'Auth successful.', jwt.sign(payload, secret, { expiresIn: '3h' })));
         })
-
-        .catch(error => { console.log('Error:', error.message); });
+        .catch(error => { console.log(error.message); });
 });
 
 router.delete('/delete-account', (req, res) => {
@@ -119,7 +145,7 @@ router.delete('/delete-account', (req, res) => {
         .then(() => {
             res.json(new Response(true, 'Account has been deleted.'));
         })
-        .catch(error => { console.log('Error:', error.message); });
+        .catch(error => { console.log(error.message); });
 });
 
 router.post('/change-password', (req, res) => {
@@ -133,19 +159,19 @@ router.post('/change-password', (req, res) => {
             return bcrypt.compare(req.body.password, user.password);
         })
 
-        .then ( isValid => {
+        .then(isValid => {
             if (!isValid) return res.json(new Response(false, 'Authentication failed.'));
             return bcrypt.hash(req.body.newPassword, saltRounds);
         })
         // Hash new password and save to DB
-        .then( hash => {
-            return User.update({username: username}, {$set: {password: hash}});
+        .then(hash => {
+            return User.update({ username: username }, { $set: { password: hash } });
         })
 
-        .then ( () => {
+        .then(() => {
             return res.json(new Response(true, 'Password has been changed.'));
         })
-        .catch(error => { console.log('Error:', error.message); });
+        .catch(error => { console.log(error.message); });
 });
 
 
@@ -169,7 +195,7 @@ router.post('/change-email', (req, res) => {
         .then(() => {
             return res.json(new Response(true, 'Email has been changed.'));
         })
-        .catch(error => { console.log('Error:', error.message); });
+        .catch(error => { console.log(error.message); });
 });
 
 router.get('/get-user-dashboard', (req, res) => {
@@ -204,7 +230,7 @@ router.get('/get-user-dashboard', (req, res) => {
             }
             return res.json(new Response(true, 'Returning dashboard data', userData));
         })
-        .catch(error => { console.log('Error:', error.message); });
+        .catch(error => { console.log(error.message); });
 });
 
 router.post('/save-project', (req, res) => {
@@ -235,6 +261,7 @@ router.post('/save-project', (req, res) => {
         .then(() => {
             return res.json(new Response(true, project.name + ' has been saved.'));
         })
+        .catch(error => { console.log(error.message); });
 });
 
 router.get('/get-project', (req, res) => {
@@ -248,7 +275,7 @@ router.get('/get-project', (req, res) => {
             let username = decoded.username;
             return User.findOne({ username: username })
         })
-        
+
         .then(user => {
             if (!user) return res.json(new Response(false, 'User not found'));
             // Return full project data to user
@@ -259,21 +286,29 @@ router.get('/get-project', (req, res) => {
             }
             return res.json(new Response(false, 'Project not found.'));
         })
-        .catch(error => { console.log('Error:', error.message); });
+        .catch(error => { console.log(error.message); });
 });
 
 router.delete('/delete-project', (req, res) => {
-    let token = req.body.token;
-    let projectName = req.body['project-name'];
+    let token = req.headers.token;
+    let projectName = req.headers['project-name'];
+
+    console.log(req.headers);
 
     verifyToken(token)
         .then(decoded => {
-            if (!decoded) return res.json(new Response(false, 'Invalid token'));
+            if (!decoded) {
+                res.json(new Response(false, 'Invalid token'));
+                throw new Error('End promise chain');
+            }
             return User.findOne({ username: decoded.username });
         })
 
         .then(user => {
-            if (!user) return res.json(new Response(false, 'User not found'));
+            if (!user) {
+                res.json(new Response(false, 'User not found'));
+                throw new Error('End promise chain');
+            }
             // Find and delete project
             for (let i = 0; i < user.projects.length; i++) {
                 if (user.projects[i].name === projectName) {
@@ -287,6 +322,8 @@ router.delete('/delete-project', (req, res) => {
         .then(() => {
             return res.json(new Response(true, projectName + ' has been Deleted.'));
         })
+        .catch(error => { console.log(error.message); });
+
 });
 
 module.exports = router;

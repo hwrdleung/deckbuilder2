@@ -1,0 +1,67 @@
+<div class="component-container" id="dashboard-container" *ngIf="isSignedIn">
+
+  <div id="dashboard-nav" class="flex-col-center greenAccent01">
+    <a class="dashboard-nav-link" (click)="showContent('projects')" [class.selected]="showProjects">Projects</a>
+    <a class="dashboard-nav-link" (click)="showContent('settings')" [class.selected]="showSettings">Settings</a>
+    <a class="dashboard-nav-link" (click)="signOut()">Sign Out</a>
+  </div>
+
+  <div id="dashboard-projects" class="dashboard-content flex-col-start" *ngIf="showProjects">
+    <h1>PROJECTS</h1>
+
+    <button id="create-project-btn" class="success-btn" (click)="openProjectCreator()">Create a new project!</button>
+
+    <fa *ngIf="!projectsData" name="cog" class="loader"></fa>
+
+    <div id="projects-container" class="flex-row-start" *ngIf="projectsData">
+      <h3 *ngIf="projectsData.length === 0">You don't have any projects yet.</h3>
+      <div class="project-card grayAccent02" *ngFor="let project of projectsData">
+        <img src="{{project.thumbnail}}">
+        <p>{{project.name}}</p>
+        <p>Created: {{project.created | date: 'shortDate'}}</p>
+
+        <div class="flex-row-evenly">
+          <button class="success-btn" (click)="openProject(project.name)">Open</button>
+          <button class="danger-btn" (click)="deleteProject(project.name)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="dashboard-settings" class="dashboard-content flex-col-start" *ngIf="showSettings">
+    <h1>SETTINGS</h1>
+
+    <fa *ngIf="!settingsData" name="cog" class="loader"></fa>
+
+    <div *ngIf="settingsData" id="settings-container">
+      <div *ngFor="let item of settingsData | keyvalue" class="flex-row-between">
+        <h3>{{ item.key }}:</h3>
+        <h3>{{ item.value }}</h3>
+      </div>
+
+      <div class="flex-row-between">
+        <h3>Password:</h3>
+        <button>Change Password</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="project-creator-overlay" class="flex-col-evenly" *ngIf="showProjectCreator">
+  <form [formGroup]="projectCreatorForm" id="project-creator-form" class="flex-col-evenly" (ngSubmit)="createProject(projectCreatorForm.value)">
+
+    <label class="flex-col-evenly">Choose a name for your project:
+      <input type="text" formControlName="projectName"></label>
+
+    <div class="form-alert" *ngIf="projectCreatorForm.controls['projectName'].errors?.nameTaken && projectCreatorForm.controls['last'].touched">{{
+      nameTakenAlert }}</div>
+    <label class="flex-col-evenly">Select a document size:</label>
+    <input type="radio" formControlName="documentSize" value="768 x 432 Landscape">768px X 432px <br>Landscape
+
+    <div class="flex-row-center">
+      <button class="success-btn" type="submit" [disabled]="!projectCreatorForm.valid">Get Started!</button>
+      <button class="danger-btn" (click)="closeProjectCreator()">Cancel</button>
+    </div>
+  </form>
+</div>

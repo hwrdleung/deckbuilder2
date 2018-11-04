@@ -6,6 +6,7 @@ import { ImageStyle } from "./classes/imageStyle";
 
 import { DialogService } from "./dialog.service";
 import { GalleryImage } from "./classes/galleryImage";
+import { HttpHeaders, HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
@@ -13,36 +14,38 @@ import { GalleryImage } from "./classes/galleryImage";
 
 export class DataService {
 
-  constructor(private dialog: DialogService) { }
+  constructor(private dialog: DialogService, private http: HttpClient) { }
 
   // These variable define the state of the app
-  currentProject: Project = localStorage.getItem('deckbuilder2Data') ? this.getSavedProject(localStorage.getItem('deckbuilder2Data')) : new Project();
+  currentProject: Project = new Project();
 
-  slides: Array<Slide> = this.currentProject.getProperty('slides');
-  textStyles: Array<TextStyle> = this.currentProject.getProperty('textStyles');
-  imageStyles: Array<ImageStyle> = this.currentProject.getProperty('imageStyles');
+  slides: Array<Slide> = this.currentProject? this.currentProject.getProperty('slides') : null;
+  textStyles: Array<TextStyle> = this.currentProject? this.currentProject.getProperty('textStyles') : null;
+  imageStyles: Array<ImageStyle> = this.currentProject? this.currentProject.getProperty('imageStyles') : null;
 
   // Toolbar variables
-  selectedTextStyleId: number = this.currentProject.getProperty('selectedTextStyleId');
-  selectedImageStyleId: number = this.currentProject.getProperty('selectedImageStyleId');
+  selectedTextStyleId: number = this.currentProject? this.currentProject.getProperty('selectedTextStyleId') : null;
+  selectedImageStyleId: number = this.currentProject? this.currentProject.getProperty('selectedImageStyleId') : null;
 
   // Slide editor variables
-  currentSlideIndex: number = this.currentProject.getProperty('currentSlideIndex');
-  selectedSlideObjectId: number = this.currentProject.getProperty('selectedSlideObjectId');
+  currentSlideIndex: number = this.currentProject? this.currentProject.getProperty('currentSlideIndex') : null;
+  selectedSlideObjectId: number = this.currentProject? this.currentProject.getProperty('selectedSlideObjectId') : null;
 
   // Sandbox variables
-  sandboxText: string = this.currentProject.getProperty('sandboxText');
-  textNotes: string = this.currentProject.getProperty('textNotes');
-  images: GalleryImage[] = this.currentProject.getProperty('images');
-  selectedImage: number = this.currentProject.getProperty('selectedImage');
+  sandboxText: string = this.currentProject? this.currentProject.getProperty('sandboxText') : null;
+  textNotes: string = this.currentProject? this.currentProject.getProperty('textNotes') : null;
+  images: GalleryImage[] = this.currentProject? this.currentProject.getProperty('images') : null;
+  selectedImage: number = this.currentProject? this.currentProject.getProperty('selectedImage') : null;
 
   // UI Logic variables
-  viewTextElements: boolean = this.currentProject.getProperty('viewTextElements');
-  viewImageElements: boolean = this.currentProject.getProperty('viewImageElements');
-  viewShapeElements: boolean = this.currentProject.getProperty('viewShapeElements');
+  viewTextElements: boolean = this.currentProject? this.currentProject.getProperty('viewTextElements') : null;
+  viewImageElements: boolean = this.currentProject? this.currentProject.getProperty('viewImageElements') : null;
+  viewShapeElements: boolean = this.currentProject? this.currentProject.getProperty('viewShapeElements') : null;
 
-  documentSize = this.currentProject.getProperty('documentSize');
-  slideRenderMagnification: number = this.currentProject.getProperty('slideRenderMagnification');
+  documentSize = this.currentProject? this.currentProject.getProperty('documentSize'): null;
+  slideRenderMagnification: number = this.currentProject? this.currentProject.getProperty('slideRenderMagnification'): null;
+
+  apiEndpoint: String = 'http://localhost:3000';
 
   // FUNCTIONS USED BY ALL COMPONENTS
   // App view mode:  text || image || shape
@@ -82,25 +85,45 @@ export class DataService {
     }
   }
 
-  getSavedProject(jsonData) {
-    let project = new Project();
-    project.revive(jsonData);
-    return project;
+  loadProject(projectName) {
+
+    console.log('dataService recieved project name.  Fetching data from server for project ' + projectName);
+
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('token', sessionStorage.getItem('currentUser'));
+    headers = headers.append('project-name', projectName);
+
+    let newProject = new Project();
+
+    this.http.get(this.apiEndpoint + '/get-project', { headers: headers }).subscribe(res => {
+      if (res['success'] === false) this.dialog.alert(res['message'], 'danger');
+      let projectJsonData = JSON.stringify(res['body']);
+      console.log(projectJsonData)
+      this.currentProject.revive(projectJsonData);
+      
+      // Load project variables
+        for(let key in this.currentProject){
+          this[key] = this.currentProject.getProperty(key);
+          console.log(this[key])
+        }
+        console.log(this.currentProject);
+    });
   }
 
   isStyleInUse = (style: TextStyle | ImageStyle) => {
     let id = style.getProperty('id');
     let styleType = style.constructor.name;
-  
+
     // Iterate through all slideOjects in all slides
     // Return true if style is in use
     for (let i = 0; i < this.slides.length; i++) {
       let thisSlideObjects = this.slides[i].getProperty('slideObjects');
-  
+
       for (let j = 0; j < thisSlideObjects.length; j++) {
         let slideObjectStyleId = thisSlideObjects[j].getProperty('styleId');
         let slideObjectType = thisSlideObjects[j].constructor.name;
-  
+
         if (slideObjectStyleId === id) {
           switch (styleType) {
             case 'TextStyle':
