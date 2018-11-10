@@ -1,15 +1,15 @@
 import { SlideObject } from "./slideObject";
+import { TextStyle } from "./textStyle";
 
 export class TextObject extends SlideObject {
 
-    private textValue: string;
-    private editTextMode: boolean;
-    private styleId: number;
+    textValue: string;
+    editTextMode: boolean;
+    style: TextStyle;
 
     constructor () {
         super();
         this.editTextMode = false;
-        this.styleId = 0;
         this.textValue = "Lorem Ipsum";
     }
 

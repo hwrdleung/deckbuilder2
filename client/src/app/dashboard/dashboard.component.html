@@ -1,15 +1,14 @@
-<div class="component-container" id="dashboard-container" *ngIf="isSignedIn">
+<div class="component-container" id="dashboard-container" *ngIf="userState.isLoggedIn">
 
   <div id="dashboard-nav" class="flex-col-center greenAccent01">
     <a class="dashboard-nav-link" (click)="showContent('projects')" [class.selected]="showProjects">Projects</a>
     <a class="dashboard-nav-link" (click)="showContent('settings')" [class.selected]="showSettings">Settings</a>
-    <a class="dashboard-nav-link" (click)="signOut()">Sign Out</a>
+    <a class="dashboard-nav-link" (click)="this.data.logout()">Sign Out</a>
   </div>
 
-  <div id="dashboard-projects" class="dashboard-content flex-col-start" *ngIf="showProjects">
+   <div id="dashboard-projects" class="dashboard-content flex-col-start" *ngIf="showProjects">
     <h1>PROJECTS</h1>
-
-    <button id="create-project-btn" class="success-btn" (click)="openProjectCreator()">Create a new project!</button>
+    <button id="create-project-btn" class="success-btn" (click)="popupProjectCreator(true)">Create a new project!</button>
 
     <fa *ngIf="!projectsData" name="cog" class="loader"></fa>
 
@@ -33,7 +32,7 @@
 
     <fa *ngIf="!settingsData" name="cog" class="loader"></fa>
 
-    <div *ngIf="settingsData" id="settings-container">
+    <div *ngIf="userState.isLoggedIn" id="settings-container">
       <div *ngFor="let item of settingsData | keyvalue" class="flex-row-between">
         <h3>{{ item.key }}:</h3>
         <h3>{{ item.value }}</h3>
@@ -61,7 +60,7 @@
 
     <div class="flex-row-center">
       <button class="success-btn" type="submit" [disabled]="!projectCreatorForm.valid">Get Started!</button>
-      <button class="danger-btn" (click)="closeProjectCreator()">Cancel</button>
+      <button class="danger-btn" (click)="popupProjectCreator(false)">Cancel</button>
     </div>
   </form>
 </div>

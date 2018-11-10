@@ -1,15 +1,15 @@
   <div id="toolbar2" class="grayAccent02 flex-row-evenly">
-    <a (click)="this.data.setMode('text')" class="flex-row-evenly toolbar2-btn-group">
+    <a (click)="this.toolbar2.newTextObject()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="font" class="dashed-border"></fa>
       <p>New text object</p>
     </a>
 
-    <a (click)="this.data.setMode('image')" class="flex-row-evenly toolbar2-btn-group">
+    <a (click)="this.toolbar2.newImageObject()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="image" class="dashed-border"></fa>
       <p>New image object</p>
     </a>
 
-    <a (click)="this.toolbar2.createNewSlide()" class="flex-row-evenly toolbar2-btn-group">
+    <a (click)="this.toolbar2.newSlide()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="plus-square"></fa>
       <p>New slide</p>
     </a>
@@ -20,12 +20,12 @@
     </a>
 
     <div class="flex-row-evenly" id="slide-nav-group">
-    <a (click)="this.toolbar2.previousSlide()" class="flex-row-evenly">
+    <a (click)="this.toolbar2.prevSlide()" class="flex-row-evenly">
       <fa name="step-backward"></fa>
     </a>
 
     <div>
-      <h1 style="padding: 10px;" (click)="this.dialog.toast('toast works')" id="slide-number">{{this.data.currentSlideIndex+1}}/{{this.data.slides.length}}</h1>
+      <h1 style="padding: 10px;" (click)="this.dialog.toast('toast works')" id="slide-number">{{currentSlideIndex + 1}}/{{slides.length}}</h1>
     </div>
 
     <a (click)="this.toolbar2.nextSlide()" class="flex-row-evenly">
@@ -33,7 +33,7 @@
     </a>
   </div>
 
-    <a (click)="this.toolbar2.deleteCurrentSlide()" class="flex-row-evenly toolbar2-btn-group">
+    <a (click)="this.toolbar2.deleteSlide()" class="flex-row-evenly toolbar2-btn-group">
       <fa name="trash"></fa>
       <p>Delete slide</p>
     </a>

@@ -5,6 +5,9 @@ import { GalleryImage } from "./classes/galleryImage";
 import { TextObject } from "./classes/textObject";
 import { ImageObject } from "./classes/imageObject";
 import { HttpClient } from "@angular/common/http";
+import { Store } from '@ngrx/store';
+import { ProjectState } from './state-management/state/projectState';
+import { ADD_TEXTOBJECT, ADD_IMAGEOBJECT, ADD_IMAGE, SELECT_GALLERY_IMAGE } from './state-management/actions/projectActions';
 
 
 @Injectable({
@@ -12,17 +15,30 @@ import { HttpClient } from "@angular/common/http";
 })
 export class SandboxAppLogicService {
 
-  constructor(private http: HttpClient, private data: DataService, private dialog: DialogService) { }
+  constructor(private http: HttpClient, private data: DataService, private dialog: DialogService, private store:Store<ProjectState>) { }
 
   imageSearchQuery: string = "";
   imageSearchResults;
 
+  getProjectState() {
+    return new Promise((resolve, reject) => {
+      this.store.select('projectReducer')
+      .subscribe(projectState => {
+        if(!projectState) reject();
+        resolve(projectState);
+      })
+    })
+    .catch(error => {console.log(error)});
+  }
+
   pixabayToGallery(url: string) {
-    let image = new GalleryImage();
-    image.setProperty('url', url);
-    image.setProperty('id', this.data.images.length);
-    this.data.images.push(image);
-    this.dialog.toast('Added to gallery.');
+    this.data.getProjectState().then(projectState => {
+      let galleryImage = new GalleryImage();
+      galleryImage.url = url;
+      galleryImage.id = projectState['images'].length;
+      this.store.dispatch({type:ADD_IMAGE, payload: {galleryImage: galleryImage}});
+      this.dialog.toast('Added to gallery.');
+    })
   }
 
   searchPixabay() {
@@ -33,51 +49,11 @@ export class SandboxAppLogicService {
     });
   }
 
-  addTextObjectToSlide() {
-    let currentSlide = this.data.slides[this.data.currentSlideIndex];
-    let currentSlideObjects = currentSlide.getProperty('slideObjects');
-    let newTextObject = new TextObject();
-
-    newTextObject.setProperty('textValue', this.data.sandboxText);
-    newTextObject.setProperty('styleId', this.data.selectedTextStyleId);
-
-    // !important!  set z index after slideObject has been added to the project to ensure proper assignment of z index
-    currentSlide.addSlideObject(newTextObject);
-    newTextObject.setProperty('zIndex', currentSlideObjects.length - 1);
-  }
-
-  addImageObjectToSlide() {
-    // Create a new ImageObject using currently selected image and currently selected ImageStyle
-    let currentSlide = this.data.slides[this.data.currentSlideIndex];
-    let currentSlideObjects = currentSlide.getProperty('slideObjects');
-    let newImageObject = new ImageObject();
-    let image = this.data.images[this.data.selectedImage].getProperty('url');
-
-    // Check if image is larger than document size
-    let imageElement = new Image;
-    imageElement.src = image;
-    let imageWidth;
-    let imageHeight;
-
-    // Scale down if larger than document size
-    if (imageElement.width > this.data.documentSize.width) {
-      let ratio = imageElement.width / imageElement.height;
-      imageWidth = this.data.documentSize.width;
-      imageHeight = imageWidth / ratio;
+  addToSlide(type: 'textObject' | 'imageObject') { 
+    switch(type){
+      case 'textObject': this.store.dispatch({type:ADD_TEXTOBJECT}); break;
+      case 'imageObject' : this.store.dispatch({type:ADD_IMAGEOBJECT}); break;
     }
-
-    // Define properties for newImageObject
-    newImageObject.setProperty('imagePath', image);
-    newImageObject.setProperty('styleId', this.data.selectedImageStyleId);
-    newImageObject.setProperty('height', imageHeight);
-    newImageObject.setProperty('width', imageWidth);
-
-    // imageElement is no longer needed
-    imageElement = null;
-
-    // Add to current slide
-    currentSlide.addSlideObject(newImageObject);
-    newImageObject.setProperty('zIndex', currentSlideObjects.length - 1);
   }
 
   uploadImage(event) {
@@ -87,16 +63,19 @@ export class SandboxAppLogicService {
     reader.readAsDataURL(file);
     reader.onload = (e) => {
       let url = (<FileReader>e.target).result;
-      let image = new GalleryImage();
+      this.data.getProjectState().then(projectState => {
+        let galleryImage = new GalleryImage();
 
-      image.setProperty('url', url);
-      image.setProperty('id', this.data.images.length);
-      this.data.images.push(image);
+        galleryImage.url = url.toString();
+        galleryImage.id = projectState['images'].length;
+        this.store.dispatch({type:ADD_IMAGE, payload: {galleryImage: galleryImage}});
+      })
+      .catch(error => {console.log(error)});
     }
   }
 
-  selectImage(index) {
-    this.data.selectedImage = index;
+  selectImage(galleryImage: GalleryImage) {
+    this.store.dispatch({type:SELECT_GALLERY_IMAGE, payload:{galleryImage: galleryImage}})
   }
 
   deleteImageById(imageId: number) {

@@ -3,7 +3,11 @@ import { DataService } from '../data.service';
 import { ViewChild } from '@angular/core'
 import { DialogService } from '../dialog.service';
 import { SandboxAppLogicService } from '../sandbox-app-logic.service';
-
+import { Store } from '@ngrx/store';
+import { ProjectState } from '../state-management/state/projectState';
+import { ImageStyle } from '../classes/imageStyle';
+import { TextStyle } from '../classes/textStyle';
+import { GalleryImage } from '../classes/galleryImage';
 
 @Component({
   selector: 'sandbox',
@@ -17,11 +21,39 @@ export class SandboxComponent implements OnInit {
   @ViewChild('container') container: ElementRef<any>;
   isGalleryMode: boolean = true;
 
-  constructor(private data: DataService, private dialog: DialogService, private sandbox:SandboxAppLogicService) { }
+  // Text view
+  textStyles: TextStyle[];
+  viewTextElements: boolean;
+  sandboxText: string;
+  textNotes: string;
+  selectedTextStyle: TextStyle;
+
+  // Image view
+  viewImageElements: boolean;
+  imageStyles: ImageStyle[];
+  images: [];
+  selectedImageStyle: ImageStyle;
+  selectedImage: GalleryImage;
+
+  constructor(private data: DataService, private dialog: DialogService, private sandbox:SandboxAppLogicService, private store:Store<ProjectState>) { }
 
 
   ngOnInit() {
     this.enableSandboxResizer();
+
+    this.store.select('projectReducer')
+    .subscribe(projectState => {
+      this.imageStyles = projectState.imageStyles;
+      this.textStyles = projectState.textStyles;
+      this.viewTextElements = projectState.viewTextElements;
+      this.viewImageElements = projectState.viewImageElements;
+      this.sandboxText = projectState.sandboxText;
+      this.textNotes = projectState.textNotes;
+      this.selectedTextStyle = projectState.selectedTextStyle;
+      this.selectedImageStyle = projectState.selectedImageStyle;
+      this.images = projectState.images;
+      this.selectedImage = projectState.selectedImage;
+    });
   }
 
   showGallery(){

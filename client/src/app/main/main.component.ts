@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core'
 import { DataService } from '../data.service';
+import { Store } from "@ngrx/store";
+import { UserState } from '../state-management/state/userState';
 
 @Component({
   selector: 'app-main',
@@ -15,10 +17,11 @@ export class MainComponent implements OnInit {
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('slideEditor') slideEditor: ElementRef<any>;
 
-  constructor(private elementRef: ElementRef, private data: DataService) {}
+  constructor(private elementRef: ElementRef, private data: DataService, private store:Store<UserState>) {}
 
   ngOnInit() {
     this.enableResizer();
+
   }
 
   enableResizer = () => {

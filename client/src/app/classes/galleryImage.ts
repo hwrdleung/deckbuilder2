@@ -1,8 +1,8 @@
 
 export class GalleryImage {
 
-    private url: string;
-    private id: number;
+    url: string;
+    id: number;
 
     constructor(){
         this.url = "";

@@ -1,46 +1,27 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { DialogService } from './dialog.service';
+import { SlideObject } from './classes/slideObject';
+import { Store } from '@ngrx/store';
+import { ProjectState } from './state-management/state/projectState';
+import { SLIDEOBJECT_LAYER_UP, SLIDEOBJECT_LAYER_DOWN, DEL_SLIDEOBJECT } from './state-management/actions/projectActions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SlideEditorAppLogicService {
 
-  constructor(private data: DataService, private dialog: DialogService) { }
+  constructor(private data: DataService, private dialog: DialogService, private store: Store<ProjectState>) { }
 
-  increaseOneLayer(objectId: number) {
-    // Locate object in currentSlideObjects
-    let currentSlide = this.data.slides[this.data.currentSlideIndex];
-    let currentSlideObjects = currentSlide.getProperty('slideObjects');
-  
-    for (let i = 0; i < currentSlideObjects.length; i++) {
-      if (currentSlideObjects[i].id === objectId && currentSlideObjects[i].zIndex < currentSlideObjects.length - 1) {
-        currentSlideObjects[i].zIndex++; // Increment zIndex of currentSlideObjects[i]
-        currentSlideObjects[i + 1].zIndex--; // Derement zIndex of currentSlideObjects[i+1]
-        // Switch positions of [i] and [i+1]
-        let tempStorage = currentSlideObjects[i];
-        currentSlideObjects[i] = currentSlideObjects[i + 1];
-        currentSlideObjects[i + 1] = tempStorage;
-        i++; // Increment i to prevent the code from entering the if statement on the next iteration
-      }
-    }
+  layerUp(slideObject: SlideObject) {
+    this.store.dispatch({ type: SLIDEOBJECT_LAYER_UP, payload: { slideObject: slideObject } });
   }
-  
-  decreaseOneLayer(objectId: number) {
-    // Locate object in currentSlideObjects
-    let currentSlide = this.data.slides[this.data.currentSlideIndex];
-    let currentSlideObjects = currentSlide.getProperty('slideObjects');
-  
-    for (let i = 0; i < currentSlideObjects.length; i++) {
-      if (currentSlideObjects[i].id === objectId && currentSlideObjects[i].zIndex > 0) {
-        currentSlideObjects[i].zIndex--; // Increment zIndex of currentSlideObjects[i]
-        currentSlideObjects[i - 1].zIndex++; // Derement zIndex of currentSlideObjects[i+1]
-        // Switch positions of [i] and [i+1]
-        let tempStorage = currentSlideObjects[i];
-        currentSlideObjects[i] = currentSlideObjects[i - 1];
-        currentSlideObjects[i - 1] = tempStorage;
-      }
-    }
-}
+
+  layerDown(slideObject: SlideObject) {
+    this.store.dispatch({ type: SLIDEOBJECT_LAYER_DOWN, payload: { slideObject: slideObject } });
+  }
+
+  deleteSlideOjbect(slideObject: SlideObject) {
+    this.store.dispatch({type:DEL_SLIDEOBJECT, payload: {slideObject: slideObject}});
+  }
 }

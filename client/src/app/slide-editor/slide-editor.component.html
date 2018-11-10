@@ -1,10 +1,10 @@
 <div id="slide-editor-workspace" #workspace>
-  <div *ngIf="this.data.slides.length > 0" id="slide-render-area">
-    <div id="slide-render" [ngStyle]="this.getSlideRenderCss()">
-      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects" 
+  <div id="slide-render-area" #slideRenderArea>
+    <div id="slide-render" #slideRender [ngStyle]="getSlideRenderCss()">
+      <div *ngFor="let slideObject of slides[currentSlideIndex].slideObjects" 
       class="slide-object"
         [ngStyle]="slideObject.getCss()" 
-        (mousedown)="this.selectObject(slideObject.id)" 
+        (mousedown)="selectObject(slideObject)" 
         ngResizable 
         [rzHandles]="'all'"
         (rzStart)="slideObject.setProperty('isResizing', true)" 
@@ -16,8 +16,8 @@
         [position]="slideObject.getTranslation()"
         [rzAspectRatio]="slideObject.constructor.name==='ImageObject'? true: false">
 
-        <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="this.data.getTextStyleById(slideObject.styleId).getCss()">{{slideObject.textValue}}</p>
-        <img *ngIf="slideObject.constructor.name==='ImageObject'" [ngStyle]="this.data.getImageStyleById(slideObject.styleId).getCss()"
+        <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>
+        <img *ngIf="slideObject.constructor.name==='ImageObject'" [ngStyle]="slideObject.style.getCss()"
           [src]="slideObject.imagePath" crossOrigin="anonymous">
 
       </div>
@@ -29,28 +29,28 @@
   </div>
 
 
-  <div *ngIf="this.data.slides.length > 0" id="slide-control" class="grayAccent02">
+  <div *ngIf="slides.length > 0" id="slide-control" class="grayAccent02">
 
     <div id="slide-control-toolbar" #controlToolbar class="grayAccent02 flex-row-evenly">
       <div class="flex-row-evenly">
         <p>Set background color: </p>
-        <div class="md-color-selector" [(colorPicker)]="this.data.slides[this.data.currentSlideIndex].backgroundColor"
-          [style.background]="this.data.slides[this.data.currentSlideIndex].backgroundColor"></div>
+        <div class="md-color-selector" [(colorPicker)]="slides[currentSlideIndex].backgroundColor"
+          [style.background]="slides[currentSlideIndex].backgroundColor"></div>
       </div>
 
       <div class="flex-row-evenly">
         <fa name="search-minus" class="flex-row-evenly" (click)="this.zoom('out')"></fa>
 
-        <input type='range' [(ngModel)]="this.data.slideRenderMagnification" min="0" max="200" (ngModelChange)="this.renderZoomController()">
+        <input type='range' [(ngModel)]="slideRenderMagnification" min="0" max="200" (ngModelChange)="this.renderZoomController()">
 
         <fa name="search-plus" class="flex-row-evenly" (click)="this.zoom('in')"></fa>
 
         <p>
-          <input type="number" [(ngModel)]="this.data.slideRenderMagnification">%</p>
+          <input type="number" [(ngModel)]="slideRenderMagnification">%</p>
       </div>
 
       <div class="flex-row-evenly">
-        <p>{{this.data.documentSize.width}}px X {{this.data.documentSize.height}}px</p>
+        <p>{{documentSize.width}}px X {{documentSize.height}}px</p>
 
       <fa class="flex-row-evenly" [name]="this.showRenderOverflow ? 'object-ungroup' : 'object-group'" (click)="this.toggleRenderOverflow()"></fa>
     </div>
@@ -58,8 +58,8 @@
     </div>
 
     <div id="heirarchy">
-      <div *ngFor="let slideObject of this.data.slides[this.data.currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-evenly grayAccent02"
-        [style.background]="this.indexOfSelectedSlideObject===slideObject.id ? 'green' : null">
+      <div *ngFor="let slideObject of slides[currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-evenly grayAccent02"
+        [style.background]="isSlideObjectSelected(slideObject) ? 'green' : 'none'">
         <div class="flex-row-evenly heirarchy-control-group heirarchy-name">
           <div *ngIf="!slideObject.editNameMode" class="flex-row-evenly">
             <h5>{{slideObject.name}}</h5>
@@ -88,13 +88,10 @@
         </div>
 
         <div class="heirarchy-control-group heirarchy-content-misc flex-row-evenly">
-          <fa (click)="this.slideEditor.increaseOneLayer(slideObject.id)" name="arrow-up"></fa>
-
-          <fa (click)="this.slideEditor.decreaseOneLayer(slideObject.id)" name="arrow-down"></fa>
-
+          <fa (click)="this.slideEditor.layerUp(slideObject)" name="arrow-up"></fa>
+          <fa (click)="this.slideEditor.layerDown(slideObject)" name="arrow-down"></fa>
           <fa (click)="slideObject.toggleProperty('display')" [name]="slideObject.display ? 'eye' : 'eye-slash'"></fa>
-
-          <fa (click)="this.deleteSlideObjectById(slideObject.id)" name="trash"></fa>
+          <fa (click)="this.slideEditor.deleteSlideOjbect(slideObject)" name="trash"></fa>
         </div>
 
         <div class="heirarchy-control-group heirarchy-dim flex-row-evenly">

@@ -1,9 +1,10 @@
 import { SlideObject } from "./slideObject";
+import { ImageStyle } from "./imageStyle";
 
 export class ImageObject extends SlideObject {
 
-    private imagePath: string;
-    private styleId: number;
+    imagePath: string;
+    style: ImageStyle;
 
     constructor () {
         super();

@@ -4,29 +4,29 @@ import { text } from "@angular/core/src/render3/instructions";
 
 export class TextStyle {
 
-    private static textStyleCounter: number = 0;
-    private name: string;
-    private id: number;
-    private editNameMode: boolean;
-    private showExtraOptions: boolean;
-    private fontPickerData: object; // Google font picker defines this format.  It includes family, size, and style
-    private color: string;
-    private backgroundColor: string;
-    private underline: boolean;
-    private overline: boolean;
-    private lineThrough: boolean;
-    private hAlign: string;
-    private vAlign: string;
-    private uppercase: boolean;
-    private lowercase: boolean;
-    private lineHeight: number;
-    private wordSpacing: number;
-    private letterSpacing: number;
-    private padding: number;
-    private breakWord: boolean;
-    private border: BorderControl;
-    private textShadow: ShadowControl;
-    private isDefault: Boolean;
+    static textStyleCounter: number = 0;
+    name: string;
+    id: number;
+    editNameMode: boolean;
+    showExtraOptions: boolean;
+    fontPickerData: object; // Google font picker defines this format.  It includes family, size, and style
+    color: string;
+    backgroundColor: string;
+    underline: boolean;
+    overline: boolean;
+    lineThrough: boolean;
+    hAlign: string;
+    vAlign: string;
+    uppercase: boolean;
+    lowercase: boolean;
+    lineHeight: number;
+    wordSpacing: number;
+    letterSpacing: number;
+    padding: number;
+    breakWord: boolean;
+    border: BorderControl;
+    textShadow: ShadowControl;
+    isDefault: Boolean;
 
     constructor() {
         this.id = TextStyle.textStyleCounter++;
@@ -61,6 +61,12 @@ export class TextStyle {
         for (let key in obj) {
             this[key] = obj[key];
         }
+
+        this.border = new BorderControl();
+        this.border.revive(obj.border);
+
+        this.textShadow = new ShadowControl();
+        this.textShadow.revive(obj.textShadow);
     }
 
     getCss() {

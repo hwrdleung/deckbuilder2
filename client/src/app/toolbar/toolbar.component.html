@@ -1,12 +1,12 @@
 <div id="toolbar-container">
 
   <div class="flex-row-evenly toolbar-button-group-container">
-    <a (click)="this.toolbar.createTextStyle(); this.data.setMode('text')" class="flex-col-evenly toolbar-btn-group">
+    <a (click)="this.toolbar.createTextStyle()" class="flex-col-evenly toolbar-btn-group">
       <fa name="font"></fa>
       <p>New text style</p>
     </a>
 
-    <a (click)="this.toolbar.createImageStyle(); this.data.setMode('image')" class="flex-col-evenly toolbar-btn-group">
+    <a (click)="this.toolbar.createImageStyle()" class="flex-col-evenly toolbar-btn-group">
       <fa name="image"></fa>
       <p>New image style</p>
     </a>
@@ -14,17 +14,21 @@
 
   <div id="toolbar-style-selector" class="greenAccent02">
     <!-- Text styles -->
-    <div *ngIf="this.data.viewTextElements">
-      <button *ngFor="let textStyle of this.data.textStyles" (click)="this.toolbar.selectStyle('text', textStyle.id);"
-        class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(textStyle)"><p>{{textStyle.name.substring(0,
-        20)}}</p></button>
+    <div *ngIf="viewTextElements">
+      <button *ngFor="let textStyle of textStyles" (click)="this.toolbar.selectStyle(textStyle)" class="greenAccent01 toolbar-style-btn"
+        [class.selected]="isSelected(textStyle)">
+        <p>{{textStyle.name.substring(0,
+          20)}}</p>
+      </button>
     </div>
 
     <!-- Image styles -->
-    <div *ngIf="this.data.viewImageElements">
-      <button *ngFor="let imageStyle of this.data.imageStyles" (click)="this.toolbar.selectStyle('image', imageStyle.id);"
-        class="greenAccent01 toolbar-style-btn" [class.selected]="isSelected(imageStyle)"><p>{{imageStyle.name.substring(0,
-        20)}}</p></button>
+    <div *ngIf="viewImageElements">
+      <button *ngFor="let imageStyle of imageStyles" (click)="this.toolbar.selectStyle(imageStyle)" class="greenAccent01 toolbar-style-btn"
+        [class.selected]="isSelected(imageStyle)">
+        <p>{{imageStyle.name.substring(0,
+          20)}}</p>
+      </button>
     </div>
   </div>
 
@@ -39,9 +43,9 @@
       <p>Export to PDF</p>
     </a>
 
-    <a (click)="this.toolbar.saveSession()" class="flex-col-evenly toolbar-btn-group">
+    <a (click)="this.toolbar.save()" class="flex-col-evenly toolbar-btn-group">
       <fa name="save"></fa>
-      <p>Save Session</p>
+      <p>Save</p>
     </a>
   </div>
 

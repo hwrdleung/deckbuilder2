@@ -2,28 +2,27 @@ import { BorderControl } from "./borderControl";
 
 export class ImageStyle {
 
-    private static imageStyleCounter:number = 0;
-    private name: string;
-    private id: number;
-    private editNameMode: boolean;
-    private showExtraOptions: boolean;
-    private isDefault : Boolean;
+    static imageStyleCounter:number = 0;
+    name: string;
+    id: number;
+    editNameMode: boolean;
+    showExtraOptions: boolean;
+    isDefault : Boolean;
 
     // Borders
-    private border: BorderControl;
+    border: BorderControl;
 
     // Filters
-    private opacity: number;
-    private grayscale: number;
-    private blur: number; // px
-    private brightness: number;
-    private contrast: number; 
-    private dropShadow: object;
-    private hueRotate: number; // deg
-    private invert: number; // %
-    private saturate: number; // %
-    private sepia: number; // %
-    private padding: number;
+    opacity: number;
+    grayscale: number;
+    blur: number; // px
+    brightness: number;
+    contrast: number; 
+    hueRotate: number; // deg
+    invert: number; // %
+    saturate: number; // %
+    sepia: number; // %
+    padding: number;
 
     constructor () {
         this.id = ImageStyle.imageStyleCounter++;
@@ -48,6 +47,9 @@ export class ImageStyle {
         for(let key in obj){
             this[key] = obj[key];
         }
+
+        this.border = new BorderControl();
+        this.border.revive(obj.border);
     }
 
     getCss(){

@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { Project } from '../classes/project';
 import { DataService } from '../data.service';
 import { DialogService } from '../dialog.service';
+import { UserState } from '../state-management/state/userState';
+import { Store } from '@ngrx/store';
+import { Project } from '../classes/project'
+import { NEW_PROJECT, LOAD_PROJECT } from '../state-management/actions/projectActions';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,30 +16,58 @@ import { DialogService } from '../dialog.service';
 })
 export class DashboardComponent implements OnInit {
 
+  /* DATA VARIABLES */
+  userState: UserState;
+  projectsData: any;
+  settingsData: object;
   apiEndpoint: String = 'http://localhost:3000';
-  isSignedIn: Boolean = sessionStorage.getItem('currentUser') ? true : false;
+
+  /*  UI VARIABLES */
   showProjects: Boolean = true;
   showSettings: Boolean = false;
   showProjectCreator: Boolean = false;
-  projectsData: Object[];
-  settingsData: Object;
-
   projectCreatorForm: FormGroup;
   nameTakenAlert: string = 'A project with this name already exists!';
 
-  constructor(private router: Router, private http: HttpClient, private fb: FormBuilder, private data:DataService, private dialog:DialogService) {
+  constructor(private router: Router, private http: HttpClient, private fb: FormBuilder, private data: DataService, private dialog: DialogService, private store: Store<UserState>) {
     this.projectCreatorForm = fb.group({
       'projectName': [null, Validators.required],
       'documentSize': [null, Validators.required]
-    }, { Validators: [this.projectNameValidator] });
+    })
   }
 
   ngOnInit() {
-    this.refreshDashboard();
+    this.store.select('userReducer')
+      .subscribe((userState: UserState) => {
+        this.userState = userState;
+        this.getSettingsData();
+        this.getProjectsData();
+      })
   }
 
+  /* POPULATE DATA VARIABLES */
+  getProjectsData() {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('token', this.userState.token);
+    console.log(headers);
 
-  /*  DASHBOARD NAV FUNCTIONS */
+    this.http.get(this.apiEndpoint + '/get-user-dashboard', { headers: headers })
+      .subscribe(res => {
+        if (res['success']) this.projectsData = res['body'].projects;
+      });
+  }
+
+  getSettingsData() {
+    this.settingsData = {
+      'First name': this.userState.first,
+      'Last name': this.userState.last,
+      'Username': this.userState.username,
+      'Email address': this.userState.email
+    }
+  }
+
+  /*  UI CONTROLLERS */
   showContent(view: 'projects' | 'settings') {
     switch (view) {
       case 'projects':
@@ -50,112 +81,63 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  signOut() {
-    sessionStorage.removeItem('currentUser');
-    this.router.navigate(['/']);
+  popupProjectCreator(bool: boolean) {
+    this.showProjectCreator = bool;
   }
 
-  /* DASHBOARD PROJECTS VIEW FUNCTIONS */
-  refreshDashboard() {
+  openProject(projectName: string) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('token', sessionStorage.getItem('currentUser'))
+    headers = headers.append('token', this.userState.token);
+    headers = headers.append('project-name', projectName);
+    console.log(headers);
 
-    this.http.get(this.apiEndpoint + '/get-user-dashboard', { headers: headers }).subscribe(res => {
-      console.log(res);
-      this.projectsData = res['body']['projects'];
-      this.settingsData = {
-        'First Name': res['body']['first'],
-        'Last Name': res['body']['last'],
-        'Email Address': res['body']['email'],
-        'Username': res['body']['username'],
-      }
-      console.log('settingsData', Object.keys(this.settingsData));
-    })
-  }
+    this.http.get(this.apiEndpoint + '/get-project', { headers: headers })
+      .subscribe(res => {
+        let projectData = res['body'];
 
-  openProject(projectName:string){
-    this.data.loadProject(projectName);
-    this.router.navigate(['main']);
-  }
-
-  deleteProject(projectName:string){
-
-    this.dialog.alert('Delete project ' + projectName + '?', 'danger', () => {
-
-      let headers: HttpHeaders = new HttpHeaders();
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('token', sessionStorage.getItem('currentUser'))
-      headers = headers.append('project-name', projectName);
-  
-      this.http.delete(this.apiEndpoint + '/delete-project', {headers: headers}).subscribe(res => {
-        console.log(res);
-        if(res['success']) this.refreshDashboard();
+        projectData = this.data.reviveProject(projectData)
+        console.log(projectData);
+        this.store.dispatch({ type: LOAD_PROJECT, payload: { projectData: projectData } });
+        this.router.navigate(['main']);
       });
-    })
   }
 
-  /*  PROJECT CREATOR FUNCTIONS */
+  deleteProject(projectName: string) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('token', this.userState.token);
+    headers = headers.append('project-name', projectName);
+    console.log(headers);
 
-  openProjectCreator() {
-    this.showProjectCreator = true;
+    this.http.delete(this.apiEndpoint + '/delete-project', { headers: headers })
+      .subscribe(() => {
+        this.getProjectsData();
+      });
   }
 
-  closeProjectCreator() {
-    this.showProjectCreator = false;
-  }
-
+  /* PROJECT CREATOR */
   createProject(formData) {
-    console.log('Create Project');
-    console.log(formData);
+    // Parse form Data
+    let projectName: string = formData.projectName;
+    let documentSize: object = {};
 
-    // Parse form data
-    let name = formData.projectName;
-    let documentSize = {};
-
-    if (formData.documentSize === "768 x 432 Landscape") {
-      documentSize['height'] = 432;
-      documentSize['width'] = 768;
+    switch (formData.documentSize) {
+      case '768 x 432 Landscape':
+        documentSize['height'] = 432,
+          documentSize['width'] = 768
     }
 
-    // Create new project
-    let newProject = new Project();
-    newProject.setProperty('name', name);
-    newProject.setProperty('documentSize', documentSize);
-
-    let body = {
-      token: sessionStorage.getItem('currentUser'),
-      project: JSON.stringify(newProject)
+    let payload = {
+      'name': projectName,
+      'documentSize': documentSize
     }
 
-    // Save to DB
-    this.saveProject(body)
-    .then((res)=> {
-      // Load project and route to main
-       this.data.loadProject(name);
-       this.router.navigate(['main']);
-    })
-  }
-
-  saveProject = (body) => {
-    return new Promise((resolve, reject) => {
-      this.http.post(this.apiEndpoint + '/save-project', body).subscribe(res => {
-        console.log(res);
-        if(res['success'] === false) reject(Error(res['message']));
-        resolve(res);
+    // Create and save new project.  Route to main.
+    this.store.dispatch({ type: NEW_PROJECT, payload: payload })
+    this.data.saveProject()
+      .then(() => {
+        this.router.navigate(['main']);
       })
-    })
   }
-
-  projectNameValidator(control: AbstractControl) {
-    let projectName = control.get('projectName').value;
-
-    for (let i = 0; i < this.projectsData.length; i++) {
-      if (this.projectsData[i]['name'] === projectName) {
-        return control.get('projectName').setErrors({ 'nameTaken': true });
-      }
-    }
-    return null;
-  }
-
 }

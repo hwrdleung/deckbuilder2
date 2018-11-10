@@ -8,16 +8,12 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  showLogin: Boolean = true;
-  showRegistration: Boolean = false;
+  showLogin:boolean = true;
+  showRegistration: boolean = false;
 
   constructor(private router:Router) { }
 
   ngOnInit() {
-    // Check for user session
-    // if(sessionStorage.getItem('currentUser')){
-    //   this.router.navigate(['dashboard']);
-    // }
   }
 
   showForm(form: 'login' | 'registration') {

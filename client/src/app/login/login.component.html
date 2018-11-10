@@ -1,7 +1,7 @@
-<form class="flex-col-start" [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+<form class="flex-col-start" [formGroup]="loginForm" (ngSubmit)="this.data.login(loginForm.value)">
 
   <div class="server-alert" *ngIf="serverMsg">{{
-    serverMsg }}</div>
+    this.data.serverMsg }}</div>
 
   <label>
     Username:

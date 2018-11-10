@@ -1,10 +1,10 @@
-
-<div class="style-card-container accent05" *ngIf="this.data.viewTextElements">
-  <text-style-card [textStyle]="textStyle" *ngFor="let textStyle of this.data.textStyles"></text-style-card>
+<!-- <a (click)="test()">TEST</a> -->
+<div class="style-card-container accent05" *ngIf="viewTextElements">
+  <text-style-card [textStyle]="textStyle" *ngFor="let textStyle of textStyles"></text-style-card>
 </div>
 
-<div class="style-card-container accent05" *ngIf="this.data.viewImageElements">
-  <image-style-card [imageStyle]="imageStyle" *ngFor="let imageStyle of this.data.imageStyles"></image-style-card>
+<div class="style-card-container accent05" *ngIf="viewImageElements">
+  <image-style-card [imageStyle]="imageStyle" *ngFor="let imageStyle of imageStyles"></image-style-card>
 </div>
 
  

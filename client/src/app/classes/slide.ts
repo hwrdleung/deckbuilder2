@@ -2,17 +2,19 @@ import { SlideObject } from './slideObject';
 
 export class Slide {
 
-    private static slideCounter: number = 0;
-    private id: number;
-    private backgroundImage: string;
-    private backgroundColor: string;
+    static slideCounter: number = 0;
+    id: number;
+    backgroundImage: string;
+    backgroundColor: string;
+    isDefault: boolean;
 
-    private slideObjects: Array<SlideObject>;
+    slideObjects: Array<SlideObject>;
 
     constructor () {
         this.id = Slide.slideCounter++;
         this.backgroundColor = "#FFF";
         this.slideObjects = [];
+        this.isDefault = false;
     }
 
     revive(obj){

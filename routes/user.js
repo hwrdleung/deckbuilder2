@@ -91,6 +91,13 @@ router.post('/auth', (req, res) => {
     console.log('Client request for user authentication.');
     // Client request user authentication
     let username = req.body.username;
+    let userData = {
+        first: '',
+        last: '',
+        username: '',
+        email: '',
+        token: ''
+    }
 
     // Find user record in DB
     console.log('Getting data for ' + username);
@@ -102,6 +109,10 @@ router.post('/auth', (req, res) => {
                 throw new Error('End promise chain');
             } else if (user) {
                 console.log('Checking password');
+                userData.first = user.first;
+                userData.last = user.last;
+                userData.username = user.username;
+                userData.email = user.email;
                 return bcrypt.compare(req.body.password, user.password);
             }
         })
@@ -119,8 +130,10 @@ router.post('/auth', (req, res) => {
                     username: username
                 }
 
+                userData.token = jwt.sign(payload, secret, { expiresIn: '3h' });
+
                 // Success: Respond with jwt
-                return res.json(new Response(true, 'Authentication successful.', jwt.sign(payload, secret, { expiresIn: '3h' })));
+                return res.json(new Response(true, 'Authentication successful.', userData));
             }
         })
         .catch(error => { console.log(error.message); });
@@ -200,7 +213,7 @@ router.post('/change-email', (req, res) => {
 
 router.get('/get-user-dashboard', (req, res) => {
     let token = req.headers.token;
-
+    console.log(req.headers);
     verifyToken(token)
         .then(decoded => {
             if (!decoded) return res.json(new Response(false, 'Invalid token'));
@@ -228,6 +241,7 @@ router.get('/get-user-dashboard', (req, res) => {
                 email: user.email,
                 projects: projectsMin
             }
+            console.log('Sending dashbard data to client')
             return res.json(new Response(true, 'Returning dashboard data', userData));
         })
         .catch(error => { console.log(error.message); });
@@ -292,8 +306,6 @@ router.get('/get-project', (req, res) => {
 router.delete('/delete-project', (req, res) => {
     let token = req.headers.token;
     let projectName = req.headers['project-name'];
-
-    console.log(req.headers);
 
     verifyToken(token)
         .then(decoded => {

@@ -15,7 +15,6 @@ import { SlideEditorComponent } from '../slide-editor/slide-editor.component';
 import { TextStyleCardComponent } from '../text-style-card/text-style-card.component';
 import { ImageStyleCardComponent } from '../image-style-card/image-style-card.component';
 
-import { DataService } from '../data.service';
 import { DialogService } from '../dialog.service';
 import { ToolbarAppLogicService } from '../toolbar-app-logic.service'
 import { Toolbar2AppLogicService } from '../toolbar2-app-logic.service'
@@ -30,6 +29,7 @@ import { ToolbarSecondaryComponent } from '../toolbar-secondary/toolbar-secondar
 import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './main.component';
 import { Routes, RouterModule } from '@angular/router';
+import { DialogComponent } from '../dialog/dialog.component';
 
 const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
   // Change this to your Google API key
@@ -59,9 +59,11 @@ const routes: Routes = [
     TextStyleCardComponent,
     ImageStyleCardComponent,
     ToolbarSecondaryComponent,
+    DialogComponent,
     MainComponent    
   ],
-  providers: [ToolbarAppLogicService, Toolbar2AppLogicService, StylerAppLogicService, SandboxAppLogicService, SlideEditorAppLogicService, DataService, DialogService, {
+
+  providers: [ToolbarAppLogicService, Toolbar2AppLogicService, StylerAppLogicService, SandboxAppLogicService, SlideEditorAppLogicService, DialogService, {
     provide: FONT_PICKER_CONFIG,
     useValue: DEFAULT_FONT_PICKER_CONFIG
   }],

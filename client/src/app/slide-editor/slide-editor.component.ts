@@ -3,6 +3,13 @@ import { DataService } from '../data.service';
 import { DialogService } from '../dialog.service';
 import { ViewChild } from '@angular/core'
 import { SlideEditorAppLogicService } from '../slide-editor-app-logic.service';
+import { Slide } from '../classes/slide';
+
+import { Store } from '@ngrx/store';
+import { ProjectState } from '../state-management/state/projectState';
+import { SlideObject } from '../classes/slideObject';
+import { TextStyle } from '../classes/textStyle';
+import { ImageStyle } from '../classes/imageStyle';
 
 @Component({
   selector: 'slide-editor',
@@ -12,19 +19,41 @@ import { SlideEditorAppLogicService } from '../slide-editor-app-logic.service';
 
 export class SlideEditorComponent implements OnInit {
 
-  indexOfSelectedSlideObject: number;
-  showRenderOverflow: boolean = false;
-
+  // Layout resizer elements
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('workspace') workspace: ElementRef<any>;
   @ViewChild('controlToolbar') controlToolbar: ElementRef<any>;
 
-  constructor(private data: DataService, private dialog: DialogService, private slideEditor: SlideEditorAppLogicService) { }
+  // Slide render variables
+  @ViewChild('slideRender') slideRender:ElementRef<any>;
+  @ViewChild('slideRenderArea') slideRenderArea:ElementRef<any>;
+  slides: Slide[];
+  currentSlideIndex: number;
+  slideRenderMagnification: number = 50;
+  documentSize: object;
+  textStyles: TextStyle[];
+  imageStyles: ImageStyle[];
+
+  // Slide editor heirarchy variables
+  selectedSlideObject: SlideObject;
+  showRenderOverflow: boolean = false;
+
+  constructor(private data: DataService, private dialog: DialogService, private slideEditor: SlideEditorAppLogicService, private store:Store<ProjectState>) { }
 
   ngOnInit() {
     this.enableSlideEditorResizer();
+
+    this.store.select('projectReducer')
+    .subscribe(projectState => {
+      this.slides = projectState.slides;
+      this.currentSlideIndex = projectState.currentSlideIndex;
+      this.documentSize = projectState.documentSize;
+      this.textStyles = projectState.textStyles;
+      this.imageStyles = projectState.imageStyles;
+    })
   }
 
+  // Resizer functions
   enableSlideEditorResizer(){
     let startResize = () => {
       document.addEventListener('mousemove', this.resizeGrid);
@@ -66,17 +95,16 @@ export class SlideEditorComponent implements OnInit {
   }
 
   // Slide editor render functions
-
   toggleRenderOverflow() {
     this.showRenderOverflow = !this.showRenderOverflow;
   }
 
   renderZoomController(){
-    let render = document.getElementById('slide-render');
-    let renderHeight = render.offsetHeight * this.data.slideRenderMagnification /100;
-    let renderWidth = render.clientWidth * this.data.slideRenderMagnification /100;
+    let render = this.slideRender.nativeElement;
+    let renderHeight = render.offsetHeight * this.slideRenderMagnification /100;
+    let renderWidth = render.clientWidth * this.slideRenderMagnification /100;
 
-    let renderArea = document.getElementById('slide-render-area');
+    let renderArea = this.slideRenderArea.nativeElement;
     let renderAreaHeight = renderArea.offsetHeight;
     let renderAreaWidth = renderArea.clientWidth;
 
@@ -91,15 +119,15 @@ export class SlideEditorComponent implements OnInit {
   }
 
   getSlideRenderCss() {
-    let backgroundColor = this.data.slides[this.data.currentSlideIndex].getProperty('backgroundColor');
-    let width = this.data.documentSize['width'];
-    let height = this.data.documentSize['height'];
+    let backgroundColor = this.slides[this.currentSlideIndex].getProperty('backgroundColor');
+    let width = this.documentSize['width'];
+    let height = this.documentSize['height'];
 
-    let render = document.getElementById('slide-render');
-    let renderHeight = render.offsetHeight * this.data.slideRenderMagnification /100;
-    let renderWidth = render.clientWidth * this.data.slideRenderMagnification /100;
+    let render = this.slideRender.nativeElement;
+    let renderHeight = render.offsetHeight * this.slideRenderMagnification /100;
+    let renderWidth = render.clientWidth * this.slideRenderMagnification /100;
 
-    let renderArea = document.getElementById('slide-render-area');
+    let renderArea = this.slideRenderArea.nativeElement;
     let renderAreaHeight = renderArea.offsetHeight;
     let renderAreaWidth = renderArea.clientWidth;
 
@@ -108,7 +136,7 @@ export class SlideEditorComponent implements OnInit {
       'height': height + 'px',
       'width': width + 'px',
       'transform-origin' : '0 0',
-      'transform': 'scale(' + this.data.slideRenderMagnification / 100 + ')',
+      'transform': 'scale(' + this.slideRenderMagnification / 100 + ')',
       'position': 'absolute',
       'overflow': this.showRenderOverflow ? 'visible' : 'hidden'
     }
@@ -123,14 +151,30 @@ export class SlideEditorComponent implements OnInit {
     return css;
   }
 
+  getSlideObjectStyle(slideObject:SlideObject) {
+    let slideObjectType = slideObject.constructor.name;
+
+    switch(slideObjectType){
+      case 'TextObject' :  
+        return this.textStyles[0];
+      case 'ImageObject' : 
+      return this.imageStyles[0];
+    }
+  }
+
   // Slide editor control panel functions
-  selectObject(objectId: number) {
-    this.indexOfSelectedSlideObject = objectId;
+  selectObject(slideObject:SlideObject) {
+    this.selectedSlideObject = slideObject
+  }
+
+  isSlideObjectSelected (slideObject:SlideObject) {
+    if(slideObject === this.selectedSlideObject) return true;
+    return false;
   }
 
   // User clicks zoom in/out
   zoom(direction: string) {
-    let magnification = this.data.slideRenderMagnification;
+    let magnification = this.slideRenderMagnification;
     let increment = 5;
 
     switch (direction) {
@@ -140,7 +184,7 @@ export class SlideEditorComponent implements OnInit {
         } else {
           magnification += increment;
         }
-        this.data.slideRenderMagnification = magnification;
+        this.slideRenderMagnification = magnification;
         break;
       case 'out':
         if (magnification < increment) {
@@ -148,7 +192,7 @@ export class SlideEditorComponent implements OnInit {
         } else {
           magnification -= increment;
         }
-        this.data.slideRenderMagnification = magnification;
+        this.slideRenderMagnification = magnification;
         break;
     }
 
@@ -160,7 +204,7 @@ export class SlideEditorComponent implements OnInit {
     let ratio: number;
 
     if (slideObject.width || slideObject.height === "auto") {
-      // Get ratio by some other method
+      // Get ratio 
       let img = new Image;
       img.src = slideObject.getProperty('imagePath');
       img.onload = () => {
@@ -188,14 +232,5 @@ export class SlideEditorComponent implements OnInit {
       }
     }
   }
-
-  deleteSlideObjectById(id: number) {
-    let currentSlideObjects = this.data.slides[this.data.currentSlideIndex].getProperty('slideObjects');
-
-    for (let i = 0; i < currentSlideObjects.length; i++) {
-      if (currentSlideObjects[i].getProperty('id') === id) {
-        currentSlideObjects.splice(i, 1);
-      }
-    }
-  }
 }
+

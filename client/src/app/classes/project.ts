@@ -7,6 +7,7 @@ import { ImageObject } from './imageObject';
 import { BorderControl } from './borderControl';
 import { ShadowControl } from './shadowControl';
 import { GalleryImage } from './galleryImage';
+import { SlideObject } from './slideObject';
 
 
 export class Project {
@@ -15,33 +16,27 @@ export class Project {
     private created: Date;
     private thumbnail: string;
     private slideObjectIdCounter: number;
-    private styleIdCounter: number;
-    private slideIdCounter: number;
+
 
     private slides: Array<Slide>;
     private textStyles: TextStyle[];
     private imageStyles: ImageStyle[];
-    private shapeStyles: ShapeStyle[];
 
-    private selectedTextStyleId: number;
-    private selectedImageStyleId: number;
-    private selectedShapeStyleId: number;
+    private selectedTextStyle: TextStyle;
+    private selectedImageStyle: ImageStyle;
 
-    private currentSlideIndex: number;
-    private selectedSlideObjectId: number;
+    private currentSlide: Slide;
+    private selectedSlideObject: SlideObject;
     private images: GalleryImage[];
 
     private sandboxText: string;
     private sandboxImage: string;
-    private sandboxShape: Object;
-
 
     private viewTextElements: boolean;
     private viewImageElements: boolean;
-    private viewShapeElements: boolean;
 
     private textNotes: string;
-    private selectedImage: number;
+    private selectedImage: GalleryImage;
 
     private documentSize: object;
     private slideRenderMagnification: number;
@@ -51,28 +46,21 @@ export class Project {
         this.created = new Date();
         this.thumbnail = 'https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg'
         this.slideObjectIdCounter = 0;
-        this.styleIdCounter = 0;
-        this.slideIdCounter = 0;
-
-        this.slides = [new Slide()];
+  
+        this.slides = [this.createDefaultSlide()];
         this.textStyles = [this.createDefaultTextStyle()];
         this.imageStyles = [this.createDefaultImageStyle()];
-
-        this.selectedTextStyleId = 0;
-        this.selectedImageStyleId = 0;
-        this.selectedShapeStyleId = 0;
-
+ 
         this.viewTextElements = true;
         this.viewImageElements = false;
-        this.viewShapeElements = false;
 
-        this.currentSlideIndex = 0;
-        this.selectedSlideObjectId = 1;
+        this.currentSlide;
+        this.selectedSlideObject;
 
         this.sandboxText = "Lorem ipsum";
         this.textNotes = "Add your notes here...";
         this.images = [];
-        this.selectedImage = 0;
+        this.selectedImage;
 
         this.documentSize = {
             height: 432,
@@ -84,8 +72,8 @@ export class Project {
 
     createDefaultTextStyle() {
         let textStyle = new TextStyle();
-        textStyle.setProperty('name', 'Default Text Style');
-        textStyle.setProperty('isDefault', true);
+        textStyle.name = 'Default Text Style';
+        textStyle..isDefault = true;
         return textStyle;
     }
 
@@ -96,12 +84,13 @@ export class Project {
         return imageStyle;
     }
 
-    reviveFullProject(JSON: object) {
-
+    createDefaultSlide(){
+        let slide = new Slide();
+        slide.isDefault = true;
+        return slide;
     }
 
     revive(jsonData) {
-        let savedProjectData = JSON.parse(jsonData);
 
         for (let key in savedProjectData) {
             this[key] = savedProjectData[key];

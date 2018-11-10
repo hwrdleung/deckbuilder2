@@ -9,7 +9,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { DialogComponent } from './dialog/dialog.component';
+import { userReducer } from "./state-management/reducers/userReducer";
+import { projectReducer } from "./state-management/reducers/projectReducer";
+
+import { StoreModule } from "@ngrx/store";
+
+import { DataService } from './data.service';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -24,7 +30,6 @@ const routes: Routes = [
     RegistrationComponent,
     LoginComponent,
     DashboardComponent,
-    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +37,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    StoreModule.forRoot({userReducer, projectReducer})
   ],
-  
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
