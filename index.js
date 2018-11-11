@@ -7,14 +7,6 @@ const mongoose = require('mongoose');
 const user = require('./routes/user'); 
 const port = process.env.PORT || 3000;
 
-require('dotenv').config();
-// mongoose.connect(process.env.DB_CONNECTION, function(err){
-//     if(err) {
-//         console.log(err);
-//     }
-//     console.log('DB connected');
-// });
-
 mongoose.connect('mongodb://noodles01:noodles01@ds149593.mlab.com:49593/deckbuilder2');
 
 
