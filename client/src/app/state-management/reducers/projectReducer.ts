@@ -13,7 +13,7 @@ export const projectReducer: ActionReducer<ProjectState> =
 
         switch (action.type) {
             case NEW_PROJECT:
-                let newProject = {...initialState}
+                let newProject = { ...initialState }
                 newProject.name = action.payload.name;
                 newProject.documentSize = action.payload.documentSize;
                 return newProject;
@@ -28,8 +28,8 @@ export const projectReducer: ActionReducer<ProjectState> =
                 return newState;
 
             case DEL_SLIDE:
-                if(newState.slides.length > 0) newState.slides.splice(newState.currentSlideIndex, 1);
-                if(newState.currentSlideIndex > 0) newState.currentSlideIndex--;
+                if (newState.slides.length > 0) newState.slides.splice(newState.currentSlideIndex, 1);
+                if (newState.currentSlideIndex > 0) newState.currentSlideIndex--;
                 return newState;
 
             case NEXT_SLIDE:
@@ -45,11 +45,12 @@ export const projectReducer: ActionReducer<ProjectState> =
                 return newState;
 
             case ADD_IMAGEOBJECT:
-                let imageObject = new ImageObject;
-                imageObject.style = newState.selectedImageStyle;
-                imageObject.imagePath = newState.selectedImage.url;
-                newState.slides[newState.currentSlideIndex].slideObjects.push(imageObject);
-                console.log('adding image object', imageObject);
+                if (newState.selectedImage) {
+                    let imageObject = new ImageObject;
+                    imageObject.style = newState.selectedImageStyle;
+                    imageObject.imagePath = newState.selectedImage.url;
+                    newState.slides[newState.currentSlideIndex].slideObjects.push(imageObject);
+                }
                 return newState;
 
             case ADD_TEXTOBJECT:
@@ -61,8 +62,8 @@ export const projectReducer: ActionReducer<ProjectState> =
 
             case DEL_SLIDEOBJECT:
                 newState.slides.forEach(slide => {
-                    for(let i = 0; i < slide.slideObjects.length; i++){
-                        if(slide.slideObjects[i] === action.payload.slideObject) slide.slideObjects.splice(i, 1);
+                    for (let i = 0; i < slide.slideObjects.length; i++) {
+                        if (slide.slideObjects[i] === action.payload.slideObject) slide.slideObjects.splice(i, 1);
                     }
                 });
                 return newState;

@@ -96,6 +96,8 @@
     font-size: 0.7rem;
     text-align: center;
     margin: 3px auto;
+    max-width: 90%;
+    word-wrap: break-word;
 }
 
 /*  Notes */

@@ -1,8 +1,8 @@
 export class HorizontalResizer {
 
-    containerElement:HTMLElement;
-    resizerElement:HTMLElement;
-    lowerBoundElement:HTMLElement;
+    containerElement:any;
+    resizerElement:any;
+    lowerBoundElement:any;
 
     constructor(containerElement, resizerElement, lowerBoundElement){
         this.containerElement = containerElement;

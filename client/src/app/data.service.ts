@@ -47,8 +47,6 @@ import { ImageStyle } from "./classes/imageStyle";
   SANDBOX
     -Find a solution for image storage
     -Get camanJS to work
-    -Redo the SANDBOX grid layout
-    -Make the textbox expandable
     -Add zoom capability
     -Fix issue of previous styling carrying over in browser when changing selected styles
     -Change pixabay search to go through backend to avoid cors issue
@@ -226,6 +224,7 @@ export class DataService {
       images.push(galleryImage);
     }
     projectData.images = images;
+    projectData.selectedImage = null;
   }
 
   reviveImageStyles(projectData) {

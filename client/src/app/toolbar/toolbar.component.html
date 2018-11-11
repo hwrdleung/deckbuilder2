@@ -1,6 +1,11 @@
 <div id="toolbar-container">
 
   <div class="flex-row-evenly toolbar-button-group-container">
+      <a (click)="this.toolbar.dashboard()" class="flex-col-evenly toolbar-btn-group">
+          <fa name="arrow-left"></fa>
+          <p>Dashboard</p>
+        </a>
+
     <a (click)="this.toolbar.createTextStyle()" class="flex-col-evenly toolbar-btn-group">
       <fa name="font"></fa>
       <p>New text style</p>

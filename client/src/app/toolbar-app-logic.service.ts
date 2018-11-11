@@ -12,6 +12,7 @@ import { UserState } from './state-management/state/userState';
 import { ProjectState } from './state-management/state/projectState';
 
 import { ADD_TEXTSTYLE, SET_MODE, ADD_IMAGESTYLE, SELECT_TEXTSTYLE, SELECT_IMAGESTYLE, DEL_SLIDE } from './state-management/actions/projectActions';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,12 @@ export class ToolbarAppLogicService {
 
   apiEndpoint:string = 'http://localhost:3000';
 
-  constructor(private data: DataService, private dialog: DialogService, private store:Store<ProjectState>, private user:Store<UserState>, private http:HttpClient) { }
+  constructor(private router:Router, private data: DataService, private dialog: DialogService, private store:Store<ProjectState>, private user:Store<UserState>, private http:HttpClient) { }
+
+  dashboard(){
+    this.data.saveProject();
+    this.router.navigate(['dashboard']);
+  }
 
   createTextStyle() {
     this.store.dispatch({type:ADD_TEXTSTYLE});

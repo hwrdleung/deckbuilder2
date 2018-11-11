@@ -1,6 +1,8 @@
 <div #container class="sandbox-container" id="image-sandbox">
   <div class="preview-area flex-row-center">
+    <div id="image-preview-container">
     <img id="image-preview" *ngIf="selectedImage" [src]="selectedImage.url" [ngStyle]="selectedImageStyle.getCss()">
+  </div>
   </div>
 
   <div #resizer class="resizer"></div>
@@ -23,7 +25,7 @@
 
       <a (click)="this.sandbox.addToSlide('imageObject')" id="sandbox-add-btn-group" class="grayAccent02 flex-col-center">
         <fa name="share"></fa>
-        <p>Add text object <br> to slide</p>
+        <p>Add image object to slide</p>
       </a>
 
       <div id="menu-tab-container" class="flex-row-start">

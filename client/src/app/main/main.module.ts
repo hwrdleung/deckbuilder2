@@ -10,7 +10,6 @@ import { ColorPickerModule } from 'ngx-color-picker';
 
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { StylerComponent } from '../styler/styler.component';
-import { SandboxComponent } from '../sandbox/sandbox.component';
 import { SlideEditorComponent } from '../slide-editor/slide-editor.component';
 import { TextStyleCardComponent } from '../text-style-card/text-style-card.component';
 import { ImageStyleCardComponent } from '../image-style-card/image-style-card.component';
@@ -57,7 +56,6 @@ const routes: Routes = [
   declarations: [    
     ToolbarComponent,
     StylerComponent,
-    SandboxComponent,
     TextSandboxComponent,
     ImageSandboxComponent,
     SlideEditorComponent,
