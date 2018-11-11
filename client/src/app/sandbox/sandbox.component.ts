@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { DataService } from '../data.service';
 import { ViewChild } from '@angular/core'
 import { DialogService } from '../dialog.service';
@@ -19,6 +19,7 @@ export class SandboxComponent implements OnInit {
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('middlebar') middlebar: ElementRef<any>;
   @ViewChild('container') container: ElementRef<any>;
+  
   isGalleryMode: boolean = true;
 
   // Text view
@@ -39,6 +40,7 @@ export class SandboxComponent implements OnInit {
 
 
   ngOnInit() {
+  
     this.enableSandboxResizer();
 
     this.store.select('projectReducer')

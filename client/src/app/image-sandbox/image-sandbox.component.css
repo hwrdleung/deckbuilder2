@@ -1,0 +1,245 @@
+/*  Layout  */
+.sandbox-container  {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 500px 10px 1fr;
+    grid-template-areas:
+        "previewArea"
+        "resizer"
+        "bottom";
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.preview-area {
+    grid-area: previewArea;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, rgb(179, 179, 179), rgb(241, 241, 241));
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.resizer {
+    grid-area: resizer;
+    height: 10px;
+    width: 100%;
+    background: gray;
+    cursor: row-resize;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.middle-bar {
+    grid-area: middleBar;
+    width: 100%;
+    height: 100%;
+    background: rgb(65, 65, 65);
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    grid-template-rows: 75px 25px;
+    grid-template-areas:
+        "imageInput addBtn"
+        "menuTabs addBtn";
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.sandbox-bottom {
+    grid-area: bottom;
+    width: 100%;
+    height: 100%;
+    background: rgb(235, 235, 235);
+    display: grid;
+    grid-template-rows: 100px 1fr;
+    grid-template-areas:
+        "middleBar"
+        "gallery";
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-sizing: border-box;
+}
+
+#image-preview {
+    max-width: 90%;
+    max-height: 90%;
+    min-width: 100px;
+}
+
+/* Middle bar  */
+.image-input-area {
+    grid-area: imageInput;
+    min-width: 100px;
+    resize: none;
+    outline: none;
+    border: 0;
+    box-sizing: border-box;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Helvetica', sans-serif;
+    background: silver;
+    color: rgb(34, 34, 34);
+    flex-wrap: wrap;
+}
+
+.image-input-area h3 {
+    font-size: 1rem;
+    margin: 0 10px;
+}
+
+#search-form {
+    width: 200px;
+    height: 20px;
+    border: 2px solid rgb(65, 65, 65);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0;
+}
+
+#search-bar {
+    outline: none;
+    width: 70%;
+    height: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0 5px;
+    box-sizing: border-box;
+}
+
+#search-bar-btn {
+    background: rgb(65, 65, 65);
+    color: silver;
+    width: 30%;
+    height: 100%;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#search-bar-btn:hover {
+    background: rgb(104, 104, 104);
+}
+
+#sandbox-add-btn-group {
+    grid-area: addBtn;
+    background: rgb(94, 94, 94);
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 5px 5px 5px 0;
+}
+
+#sandbox-add-btn-group:hover{
+    background: rgb(119, 119, 119);
+}
+
+#sandbox-add-btn-group fa {
+    font-size: 3vh;
+}
+
+#sandbox-add-btn-group p {
+    font-size: 0.7rem;
+    text-align: center;
+    margin: 3px auto;
+}
+
+#menu-tab-container {
+    grid-area: menuTabs;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+#menu-tab-container a,
+#pixabay-logo {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background: silver;
+    color: rgb(65, 65, 65);
+    height: 100%;
+    width: 150px;
+    box-sizing: border-box;
+    padding: 4px 0;
+    text-align: center;
+    margin-right: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tab-selected {
+    background: rgb(233, 233, 233) !important;
+}
+
+/*  Gallery */
+.gallery {
+    margin: 0 auto;
+    padding: 5px;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    font-family: 'Helvetica', sans-serif;
+    grid-area: gallery;
+    box-sizing: border-box;
+    background: rgb(233, 233, 233); 
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: auto;
+}
+
+.gallery-message {
+    width: 100%;
+    min-width: 150px;
+    text-align: center;
+    padding: 5px 0;
+    color: rgb(65, 65, 65);
+}
+
+.gallery-img-container {
+    background: #000;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin: 7px;
+    height: 75px;
+    display: inline-block;
+    position: relative;
+}
+
+.gallery-img {
+    height: 100%;
+    opacity: 0.8;
+}
+
+.gallery-img:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.delete-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #FFF;
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+    padding: 5px;
+    margin: 5px;
+    border: 2px #FFF solid;
+    opacity: 0.6;
+    font-size: 0.8rem
+}
+
+.delete-icon:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}

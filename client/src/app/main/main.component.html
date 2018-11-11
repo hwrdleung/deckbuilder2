@@ -1,30 +1,28 @@
 <div id="app-container" #appContainer class="grayAccent01">
 
   <div id="toolbar" #toolbar>
-  <toolbar></toolbar>
+    <toolbar></toolbar>
   </div>
 
   <div id="toolbar-secondary">
-  <toolbar-secondary ></toolbar-secondary>
+    <toolbar-secondary></toolbar-secondary>
   </div>
 
   <div id="styler" #styler>
-  <styler></styler>
+    <styler></styler>
   </div>
 
   <div id="sandbox" #sandbox>
-  <sandbox></sandbox>
+    <text-sandbox *ngIf="viewTextElements"></text-sandbox>
+    <image-sandbox *ngIf="viewImageElements"></image-sandbox>
   </div>
 
   <div id="resizer" #resizer></div>
-  
+
   <div id="slide-editor" #slideEditor>
-  <slide-editor></slide-editor>
-</div>
+    <slide-editor></slide-editor>
+  </div>
 
 </div>
 
 <app-dialog></app-dialog>
-
-
-

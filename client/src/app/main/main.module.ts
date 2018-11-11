@@ -14,6 +14,9 @@ import { SandboxComponent } from '../sandbox/sandbox.component';
 import { SlideEditorComponent } from '../slide-editor/slide-editor.component';
 import { TextStyleCardComponent } from '../text-style-card/text-style-card.component';
 import { ImageStyleCardComponent } from '../image-style-card/image-style-card.component';
+import { ImageSandboxComponent } from '../image-sandbox/image-sandbox.component'
+import { TextSandboxComponent } from '../text-sandbox/text-sandbox.component'
+
 
 import { DialogService } from '../dialog.service';
 import { ToolbarAppLogicService } from '../toolbar-app-logic.service'
@@ -55,6 +58,8 @@ const routes: Routes = [
     ToolbarComponent,
     StylerComponent,
     SandboxComponent,
+    TextSandboxComponent,
+    ImageSandboxComponent,
     SlideEditorComponent,
     TextStyleCardComponent,
     ImageStyleCardComponent,

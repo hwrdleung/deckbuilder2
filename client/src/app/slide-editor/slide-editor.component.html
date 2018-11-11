@@ -31,7 +31,7 @@
 
   <div *ngIf="slides.length > 0" id="slide-control" class="grayAccent02">
 
-    <div id="slide-control-toolbar" #controlToolbar class="grayAccent02 flex-row-evenly">
+    <div id="slide-control-toolbar" #controlToolbar class="grayAccent02 flex-row-center">
       <div class="flex-row-evenly">
         <p>Set background color: </p>
         <div class="md-color-selector" [(colorPicker)]="slides[currentSlideIndex].backgroundColor"
@@ -58,7 +58,7 @@
     </div>
 
     <div id="heirarchy">
-      <div *ngFor="let slideObject of slides[currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-evenly grayAccent02"
+      <div *ngFor="let slideObject of slides[currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-center grayAccent02"
         [style.background]="isSlideObjectSelected(slideObject) ? 'green' : 'none'">
         <div class="flex-row-evenly heirarchy-control-group heirarchy-name">
           <div *ngIf="!slideObject.editNameMode" class="flex-row-evenly">

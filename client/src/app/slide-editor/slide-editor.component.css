@@ -66,8 +66,6 @@
     margin-left: -2px;
 }
 
-
-
 #slide-control-toolbar {
     width: 100%;
     padding: 5px;
@@ -75,10 +73,13 @@
     flex-wrap: wrap;
 }
 
+#slide-control-toolbar > div {
+    margin: 2px 7px;
+}
+
 #slide-control-toolbar fa {
     width: 25px;
     height: 25px;
-    margin: 0 5px;
     cursor: pointer;
 }
 
@@ -127,6 +128,7 @@ input[type="text"]{
     font-size: 0.7rem;
     overflow: hidden;
     padding: 2px 0;
+    margin: 0 5px;
     font-weight: normal;
     position: relative;
 }
@@ -156,11 +158,11 @@ input[type="text"]{
 }
 
 .heirarchy-name {
-    width: 100px;
+    width: 125px;
 }
 
 .heirarchy-content {
-    width:100px;
+    width:125px;
 }
 
 .heirarchy-dim {

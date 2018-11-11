@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { DialogService } from "./dialog.service";
-import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 import { Router } from '@angular/router';
 
@@ -10,10 +10,59 @@ import { Slide } from "./classes/slide";
 import { TextObject } from "./classes/textObject";
 import { ImageObject } from "./classes/imageObject";
 import { TextStyle } from "./classes/textStyle";
-import { BorderControl } from "./classes/borderControl";
-import { ShadowControl } from "./classes/shadowControl";
 import { GalleryImage } from "./classes/galleryImage";
 import { ImageStyle } from "./classes/imageStyle";
+
+/*
+  TODO:
+
+  HOME
+    -Fix displaying of server error messages on login compoent
+    -Think of a good title for the app
+    -Come up with description text
+
+  DASHBOARD
+    -Implement functionality for editing user data: email address and password
+    -Fix dialog alert system for user dashboard when deleting projects
+    -Add more options for document size when creating projects
+    -Add icons/images for document size options in the project creator popup
+    -Add loader icon when user opens a project
+    -Fix refreshing of dashboard data when user deletes a project.  Why is it so slow?
+
+  TOOLBARS
+    -Set conditional buttons on main app when using as guest to prompt user registration for features: save, export to pdf, save as png
+    -Fix PREVIEW 
+    -Fix SAVE AS PNG
+    -Decide on mobile functionality - preview only?
+    -Add toolbar button for returning to user dashboard
+    -Fix padding on save button
+
+  STYLER
+    -Add box shadows for imageStyles
+    -Add click event listener on document when in edit title mode
+    -Add confirm dialog for deleting styles
+    -Fix functionality: deleting in-use styles reverts slideObjects using that style to default style
+    -Fix hover background color of 'show extra options' link
+
+  SANDBOX
+    -Find a solution for image storage
+    -Get camanJS to work
+    -Redo the SANDBOX grid layout
+    -Make the textbox expandable
+    -Add zoom capability
+    -Fix issue of previous styling carrying over in browser when changing selected styles
+    -Change pixabay search to go through backend to avoid cors issue
+
+  SLIDE EDITOR
+    -Add toggle button on layer heirarchy for maintaing aspect ratio
+    -Add popup textbox for editiong textObject textValue
+    -Fix issues with manual resizing of imageObjects in layer heirarchy
+    -Add button for changing style of slideObjects
+
+  DATA
+    -Impelement functionality for creating project thumbnails when saving projects
+    -Impelement auto saving for projects
+*/
 
 
 @Injectable({
@@ -44,7 +93,7 @@ export class DataService {
           username: res['body']['username'],
           token: res['body']['token'],
         }
-
+        sessionStorage.setItem('sessionData', JSON.stringify(payload));
         this.store.dispatch({ type: LOGIN, payload: payload });
         this.router.navigate(['dashboard']);
 
@@ -56,6 +105,7 @@ export class DataService {
   }
 
   logout() {
+    sessionStorage.removeItem('sessionData');
     this.store.dispatch({ type: LOGOUT });
     this.router.navigate(['/']);
   }
@@ -202,7 +252,6 @@ export class DataService {
     let userState;
 
     return this.getProjectState()
-
       .then(data => {
         projectState = JSON.stringify(data);
         return this.getUserState();
@@ -210,9 +259,10 @@ export class DataService {
 
       .then(data => {
         userState = data;
+        return userState;
       })
 
-      .then(() => {
+      .then((userState) => {
         let payload = {
           token: userState.token,
           project: projectState

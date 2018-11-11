@@ -12,7 +12,7 @@
 
     <fa *ngIf="!projectsData" name="cog" class="loader"></fa>
 
-    <div id="projects-container" class="flex-row-start" *ngIf="projectsData">
+    <div id="projects-container" *ngIf="projectsData">
       <h3 *ngIf="projectsData.length === 0">You don't have any projects yet.</h3>
       <div class="project-card grayAccent02" *ngFor="let project of projectsData">
         <img src="{{project.thumbnail}}">

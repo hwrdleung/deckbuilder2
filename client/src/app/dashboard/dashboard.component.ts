@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select('userReducer')
+      this.store.select('userReducer')
       .subscribe((userState: UserState) => {
         this.userState = userState;
         this.getSettingsData();

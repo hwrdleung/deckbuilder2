@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { UserState } from '../state-management/state/userState';
+import { LOGIN } from '../state-management/actions/userActions';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +14,7 @@ export class HomeComponent implements OnInit {
   showLogin:boolean = true;
   showRegistration: boolean = false;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private store:Store<UserState>) { }
 
   ngOnInit() {
   }

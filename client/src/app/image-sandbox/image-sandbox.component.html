@@ -1,0 +1,57 @@
+<div #container class="sandbox-container" id="image-sandbox">
+  <div class="preview-area flex-row-center">
+    <img id="image-preview" *ngIf="selectedImage" [src]="selectedImage.url" [ngStyle]="selectedImageStyle.getCss()">
+  </div>
+
+  <div #resizer class="resizer"></div>
+
+  <div class="sandbox-bottom">
+    <div #middlebar class="middle-bar">
+      <div class="flex-row-center image-input-area" *ngIf="viewGallery">
+          <h3>Import an image:</h3>
+
+          <input type="file" (change)="this.sandbox.uploadImage($event)">
+      </div>
+
+      <div class="flex-row-center image-input-area" *ngIf="viewSearchResults">
+          <h3>Search for an image:</h3>
+          <div id="search-form">
+          <input id="search-bar" type="text" [(ngModel)]="this.sandbox.imageSearchQuery">
+          <button id="search-bar-btn" type="submit" (click)="this.sandbox.searchPixabay()">Search</button></div>
+
+      </div>
+
+      <a (click)="this.sandbox.addToSlide('imageObject')" id="sandbox-add-btn-group" class="grayAccent02 flex-col-center">
+        <fa name="share"></fa>
+        <p>Add text object <br> to slide</p>
+      </a>
+
+      <div id="menu-tab-container" class="flex-row-start">
+        <a (click)="showContent('gallery')" [class.tab-selected]="viewGallery">Gallery <fa name="th-large"></fa></a>
+
+        <img (click)="showContent('search')" id="pixabay-logo" src="https://pixabay.com/static/img/logo.svg"
+          [class.tab-selected]="viewSearchResults">
+      </div>
+    </div>
+
+    <div class="gallery" *ngIf="viewGallery">
+
+      <h5 class="gallery-message" *ngIf="!images.length">There are no images in your gallery.</h5>
+
+      <div *ngFor="let image of images" class="gallery-img-container">
+        <img src="{{image.url}}" (click)="this.sandbox.selectImage(image)" class="gallery-img">
+        <fa name="trash" class="delete-icon flex-row-evenly" (click)="this.sandbox.deleteImage(image)"></fa>
+      </div>
+    </div>
+
+    <div class="gallery" *ngIf="viewSearchResults">
+
+        <h5 class="gallery-message">Image search powered by: <a href="https://pixabay.com/" target="__blank">Pixabay</a></h5>
+
+        <div *ngFor="let image of this.sandbox.imageSearchResults" class="gallery-img-container">
+            <img src="{{image.previewURL}}" class="gallery-img">
+            <fa name="plus" class="delete-icon flex-row-evenly" (click)="this.sandbox.pixabayToGallery(image.largeImageURL)"></fa>
+          </div>
+    </div>
+  </div>
+</div>

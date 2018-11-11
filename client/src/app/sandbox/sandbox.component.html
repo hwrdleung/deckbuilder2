@@ -1,5 +1,7 @@
+
+
 <!-- Text sandbox -->
-<div #container id="sandbox-container" class="grayAccent03">
+<!-- <div #container id="sandbox-container" class="grayAccent03">
   <div class="flex-col-evenly sandbox-preview-area accent05" *ngIf="viewTextElements">
     <div id="text-preview-container">
       <p [ngStyle]="selectedTextStyle.getCss()">{{sandboxText}}</p>
@@ -37,7 +39,7 @@
       <div class="flex-col-evenly" id="import-container">
         <p>Import an image:</p>
 
-        <input type="file" (change)="this.data.uploadImage($event)">
+        <input type="file" (change)="this.sandbox.uploadImage($event)">
       </div>
 
       <div class="flex-col-evenly" id="search-container">
@@ -65,10 +67,9 @@
     <div *ngIf="this.isGalleryMode" id="gallery">
       <div *ngFor="let image of images" class="gallery-img-container">
         <img src="{{image.url}}" (click)="this.sandbox.selectImage(image)" class="clickable gallery-img">
-        <fa name="trash" class="delete-icon flex-row-evenly" (click)="this.sandbox.deleteImageById(image.id)"></fa>
+        <fa name="trash" class="delete-icon flex-row-evenly" (click)="this.sandbox.deleteImage(image)"></fa>
       </div>
     </div>
-
 
     <div *ngIf="!this.isGalleryMode" id="search-results">
       <div id="pixabay-credits">
@@ -82,4 +83,4 @@
     </div>
 
   </div>
-</div>
+</div> -->

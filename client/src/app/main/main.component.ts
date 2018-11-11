@@ -3,6 +3,7 @@ import { ViewChild } from '@angular/core'
 import { DataService } from '../data.service';
 import { Store } from "@ngrx/store";
 import { UserState } from '../state-management/state/userState';
+import { ProjectState } from '../state-management/state/projectState';
 
 @Component({
   selector: 'app-main',
@@ -16,12 +17,19 @@ export class MainComponent implements OnInit {
   @ViewChild('sandbox') sandbox: ElementRef<any>;
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('slideEditor') slideEditor: ElementRef<any>;
+  viewTextElements:boolean;
+  viewImageElements:boolean;
 
-  constructor(private elementRef: ElementRef, private data: DataService, private store:Store<UserState>) {}
+  constructor(private elementRef: ElementRef, private data: DataService, private store:Store<ProjectState>) {}
 
   ngOnInit() {
     this.enableResizer();
 
+    this.store.select('projectReducer')
+    .subscribe(projectState => {
+      this.viewTextElements = projectState.viewTextElements;
+      this.viewImageElements = projectState.viewImageElements;
+    })
   }
 
   enableResizer = () => {

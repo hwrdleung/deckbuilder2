@@ -7,7 +7,7 @@ import { ImageObject } from "./classes/imageObject";
 import { HttpClient } from "@angular/common/http";
 import { Store } from '@ngrx/store';
 import { ProjectState } from './state-management/state/projectState';
-import { ADD_TEXTOBJECT, ADD_IMAGEOBJECT, ADD_IMAGE, SELECT_GALLERY_IMAGE } from './state-management/actions/projectActions';
+import { ADD_TEXTOBJECT, ADD_IMAGEOBJECT, ADD_IMAGE, SELECT_GALLERY_IMAGE, DEL_IMAGE } from './state-management/actions/projectActions';
 
 
 @Injectable({
@@ -78,15 +78,11 @@ export class SandboxAppLogicService {
     this.store.dispatch({type:SELECT_GALLERY_IMAGE, payload:{galleryImage: galleryImage}})
   }
 
-  deleteImageById(imageId: number) {
+  deleteImage(image: GalleryImage) {
     let callback = () => {
-      for (let i = 0; i < this.data.images.length; i++) {
-        if (this.data.images[i].getProperty('id') === imageId) {
-          this.data.images.splice(i, 1);
-          this.dialog.toast('Image has been deleted.');
-        }
-      }
+      this.store.dispatch({type:DEL_IMAGE, payload: {galleryImage: image}});
     }
+    
     this.dialog.alert("Are you sure you want to delete this image from your project?", 'danger', callback);
   }
 }
