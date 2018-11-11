@@ -9042,7 +9042,6 @@ var ToolbarAppLogicService = /** @class */ (function () {
         this.store = store;
         this.user = user;
         this.http = http;
-        this.apiEndpoint = 'http://localhost:3000';
     }
     ToolbarAppLogicService.prototype.dashboard = function () {
         this.data.saveProject();

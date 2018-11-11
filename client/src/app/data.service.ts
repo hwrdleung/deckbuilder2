@@ -69,13 +69,11 @@ import { ImageStyle } from "./classes/imageStyle";
 
 export class DataService {
 
+  apiEndpoint: string = 'https://deckbuilder2.herokuapp.com';
   serverMsg: string = '';
   userState: object;
 
   constructor(private dialog: DialogService, private http: HttpClient, private router: Router, private store: Store<any>) { }
-
-
-  apiEndpoint: String = 'http://localhost:3000';
 
   // User login
   login(formData) {

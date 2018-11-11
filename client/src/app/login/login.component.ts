@@ -11,7 +11,6 @@ import { DataService } from '../data.service';
 })
 export class LoginComponent implements OnInit {
 
-  apiEndpoint:string = 'http://localhost:3000';
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder, private http:HttpClient, private router: Router, private data:DataService) {

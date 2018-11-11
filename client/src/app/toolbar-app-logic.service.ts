@@ -19,8 +19,6 @@ import { Router } from '@angular/router';
 })
 export class ToolbarAppLogicService {
 
-  apiEndpoint:string = 'http://localhost:3000';
-
   constructor(private router:Router, private data: DataService, private dialog: DialogService, private store:Store<ProjectState>, private user:Store<UserState>, private http:HttpClient) { }
 
   dashboard(){

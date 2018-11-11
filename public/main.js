@@ -947,7 +947,6 @@ var DashboardComponent = /** @class */ (function () {
         this.data = data;
         this.dialog = dialog;
         this.store = store;
-        this.apiEndpoint = 'http://localhost:3000';
         /*  UI VARIABLES */
         this.showProjects = true;
         this.showSettings = false;
@@ -974,7 +973,7 @@ var DashboardComponent = /** @class */ (function () {
         headers = headers.append('Content-Type', 'application/json');
         headers = headers.append('token', this.userState.token);
         console.log(headers);
-        this.http.get(this.apiEndpoint + '/get-user-dashboard', { headers: headers })
+        this.http.get(this.data.apiEndpoint + '/get-user-dashboard', { headers: headers })
             .subscribe(function (res) {
             if (res['success'])
                 _this.projectsData = res['body'].projects;
@@ -1011,7 +1010,7 @@ var DashboardComponent = /** @class */ (function () {
         headers = headers.append('token', this.userState.token);
         headers = headers.append('project-name', projectName);
         console.log(headers);
-        this.http.get(this.apiEndpoint + '/get-project', { headers: headers })
+        this.http.get(this.data.apiEndpoint + '/get-project', { headers: headers })
             .subscribe(function (res) {
             var projectData = res['body'];
             projectData = _this.data.reviveProject(projectData);
@@ -1027,7 +1026,7 @@ var DashboardComponent = /** @class */ (function () {
         headers = headers.append('token', this.userState.token);
         headers = headers.append('project-name', projectName);
         console.log(headers);
-        this.http.delete(this.apiEndpoint + '/delete-project', { headers: headers })
+        this.http.delete(this.data.apiEndpoint + '/delete-project', { headers: headers })
             .subscribe(function () {
             _this.getProjectsData();
         });
@@ -1167,8 +1166,8 @@ var DataService = /** @class */ (function () {
         this.http = http;
         this.router = router;
         this.store = store;
+        this.apiEndpoint = 'https://deckbuilder2.herokuapp.com';
         this.serverMsg = '';
-        this.apiEndpoint = 'http://localhost:3000';
         this.getProjectState = function () {
             return new Promise(function (resolve, reject) {
                 _this.store.select('projectReducer').subscribe(function (projectState) {
@@ -1572,7 +1571,6 @@ var LoginComponent = /** @class */ (function () {
         this.http = http;
         this.router = router;
         this.data = data;
-        this.apiEndpoint = 'http://localhost:3000';
         this.loginForm = fb.group({
             'username': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             'password': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]

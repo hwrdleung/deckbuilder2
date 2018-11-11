@@ -19,7 +19,6 @@ export class DashboardComponent implements OnInit {
   userState: UserState;
   projectsData: any;
   settingsData: object;
-  apiEndpoint: String = 'http://localhost:3000';
 
   /*  UI VARIABLES */
   showProjects: Boolean = true;
@@ -51,7 +50,7 @@ export class DashboardComponent implements OnInit {
     headers = headers.append('token', this.userState.token);
     console.log(headers);
 
-    this.http.get(this.apiEndpoint + '/get-user-dashboard', { headers: headers })
+    this.http.get(this.data.apiEndpoint + '/get-user-dashboard', { headers: headers })
       .subscribe(res => {
         if (res['success']) this.projectsData = res['body'].projects;
       });
@@ -91,7 +90,7 @@ export class DashboardComponent implements OnInit {
     headers = headers.append('project-name', projectName);
     console.log(headers);
 
-    this.http.get(this.apiEndpoint + '/get-project', { headers: headers })
+    this.http.get(this.data.apiEndpoint + '/get-project', { headers: headers })
       .subscribe(res => {
         let projectData = res['body'];
 
@@ -109,7 +108,7 @@ export class DashboardComponent implements OnInit {
     headers = headers.append('project-name', projectName);
     console.log(headers);
 
-    this.http.delete(this.apiEndpoint + '/delete-project', { headers: headers })
+    this.http.delete(this.data.apiEndpoint + '/delete-project', { headers: headers })
       .subscribe(() => {
         this.getProjectsData();
       });
