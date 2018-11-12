@@ -1166,7 +1166,7 @@ var DataService = /** @class */ (function () {
         this.http = http;
         this.router = router;
         this.store = store;
-        this.apiEndpoint = 'https://deckbuilder2.herokuapp.com';
+        this.apiEndpoint = 'http://localhost:3000';
         this.serverMsg = '';
         this.getProjectState = function () {
             return new Promise(function (resolve, reject) {

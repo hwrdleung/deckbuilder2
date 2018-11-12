@@ -9,7 +9,6 @@ const port = process.env.PORT || 3000;
 
 mongoose.connect('mongodb://noodles01:noodles01@ds149593.mlab.com:49593/deckbuilder2');
 
-
 // Middleware
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
