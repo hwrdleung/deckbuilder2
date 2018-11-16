@@ -11,6 +11,7 @@
     max-width: 1200px;
     height: 650px;
     display: grid;
+    padding: 100px 0;
     grid-template-columns: 70% 30%;
     grid-template-areas: "left right";
 }
@@ -34,8 +35,15 @@
     -1px -1px 3px rgb(122, 122, 122);
 }
 
-#description {
-    line-height: 1.5;
+#description-list li {
+    text-decoration: none;
+    list-style-type: none;
+    line-height: 30px;
+}
+
+#description-list li fa {
+    margin: 0 15px;
+    color: rgb(0, 155, 0);
 }
 
 #home-right-content > * {

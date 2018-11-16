@@ -20,9 +20,6 @@ import { ImageStyle } from "./classes/imageStyle";
     -Think of a good name for the app
     -Come up with description text
 
-  DASHBOARD
-    -Fix refreshing of dashboard data when user deletes a project.  Why is it so slow?
-
   TOOLBARS
     -Decide on mobile functionality - preview only?
 
