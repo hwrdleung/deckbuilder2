@@ -86,8 +86,9 @@
 }
 
 .project-card img {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100px;
+    margin: 5px auto;
 }
 
 .project-card p {

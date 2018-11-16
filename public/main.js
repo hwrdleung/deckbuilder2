@@ -919,7 +919,7 @@ var TextStyle = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#dashboard-container {\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-columns: 250px auto;\r\n        grid-template-columns: 250px auto;\r\n        -ms-grid-rows: 100vh;\r\n        grid-template-rows: 100vh;\r\n        grid-template-areas: \"nav content\";\r\n    max-width: 100vw;\r\n    max-height: 100vh;\r\n}\r\n\r\n/*  Dashboard left navigation bar */\r\n\r\n#dashboard-nav {\r\n    width: 100%;\r\n    height: 100%;\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: nav;\r\n}\r\n\r\n.dashboard-nav-link {\r\n    display: block;\r\n    width: 100%;\r\n    height: auto;\r\n    padding: 20px 0;\r\n    text-align: center;\r\n    font-size: 1.2rem;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.dashboard-nav-link:hover {\r\n    background: rgba(255, 255, 255, 0.3);\r\n}\r\n\r\n.selected {\r\n    background: rgb(71, 78, 69);\r\n}\r\n\r\n/*  Dashboard right content */\r\n\r\n.dashboard-content {\r\n    width: 100%;\r\n    height: 100%;\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 2;\r\n    grid-area: content;\r\n    padding-top: 100px;\r\n    padding-bottom: 100px;\r\n    box-sizing: border-box;\r\n    overflow-y: auto;\r\n}\r\n\r\n.dashboard-content > * {\r\n    margin: 25px auto;\r\n}\r\n\r\n#no-projects {\r\n    width: 100%;\r\n    text-align: center;\r\n    margin: 75px auto;\r\n}\r\n\r\n/* Dashboard PROJECTS view */\r\n\r\n#create-project-btn {\r\n    width: 300px;\r\n    min-height: 50px;\r\n    font-size: 1.2rem;\r\n    text-align: center;\r\n    position: relative;\r\n}\r\n\r\n#projects-container {\r\n    width: 90%;\r\n    margin: 0 auto;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-start;\r\n    align-items: flex-start;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.project-card {\r\n    width: 200px;\r\n    height: auto;\r\n    margin: 20px;\r\n    padding: 0 15px 15px 15px;\r\n    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.project-card-title {\r\n    text-align: center;\r\n    margin: 10px auto 5px auto;\r\n}\r\n\r\n.project-card img {\r\n    width: 100%;\r\n    height: auto;\r\n}\r\n\r\n.project-card p {\r\n    margin: 5px 0 0 0;\r\n    font-size: 0.8rem;\r\n    text-align: left;\r\n    width: 100%;\r\n}\r\n\r\n.project-card button {\r\n    width: 75px;\r\n    padding: 5px 0;\r\n    margin: 10px 5px 0 5px;\r\n}\r\n\r\n/*  Project creator  */\r\n\r\n.popup-form-overlay {\r\n    width: 100%;\r\n    height: 100vh;\r\n    background: rgba(0, 0, 0, 0.5);\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.popup-form {\r\n    width: 500px;\r\n    height: auto;\r\n    padding: 25px;\r\n    border-radius: 10px;\r\n    background: #FFF;\r\n}\r\n\r\n.popup-form p {\r\n    font-size: 0.8rem;\r\n    margin: 3px 3px 0 3px;\r\n}\r\n\r\n.popup-form > * {\r\n    margin: 15px auto;\r\n}\r\n\r\n.popup-form input[type=\"password\"],\r\n.popup-form input[type=\"text\"] {\r\n    width: 100%;\r\n    height: 40px;\r\n    font-size: 1.2rem;\r\n    padding: 0 10px;\r\n    border: 1px silver solid;\r\n    border-radius: 5px;\r\n}\r\n\r\n.popup-form button {\r\n    padding: 10px 25px;\r\n    margin: 0 5px;\r\n    font-size: 1rem;\r\n    width: 200px;\r\n}\r\n\r\n#doc-sizes {\r\n    width: 100%;\r\n}\r\n\r\n.form-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    margin: 3px auto 0 auto;\r\n}\r\n\r\n.popup-form input[type=\"number\"] {\r\n    width: 50px;\r\n    text-align: center;\r\n}\r\n\r\n.popup-form\r\n.material-icons {\r\n    font-size: 48px;\r\n}\r\n\r\n/*  Dashboard SETTINGS view */\r\n\r\nhr {\r\n    margin: 20px auto;\r\n}\r\n\r\n#settings-container {\r\n    width: 90%;\r\n    max-width: 700px;\r\n}\r\n\r\n#settings-container > div {\r\n    margin: 20px auto;\r\n}\r\n\r\n#settings-container button {\r\n    width: 175px;\r\n    padding: 10px 0;\r\n}"
+module.exports = "#dashboard-container {\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-columns: 250px auto;\r\n        grid-template-columns: 250px auto;\r\n        -ms-grid-rows: 100vh;\r\n        grid-template-rows: 100vh;\r\n        grid-template-areas: \"nav content\";\r\n    max-width: 100vw;\r\n    max-height: 100vh;\r\n}\r\n\r\n/*  Dashboard left navigation bar */\r\n\r\n#dashboard-nav {\r\n    width: 100%;\r\n    height: 100%;\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: nav;\r\n}\r\n\r\n.dashboard-nav-link {\r\n    display: block;\r\n    width: 100%;\r\n    height: auto;\r\n    padding: 20px 0;\r\n    text-align: center;\r\n    font-size: 1.2rem;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.dashboard-nav-link:hover {\r\n    background: rgba(255, 255, 255, 0.3);\r\n}\r\n\r\n.selected {\r\n    background: rgb(71, 78, 69);\r\n}\r\n\r\n/*  Dashboard right content */\r\n\r\n.dashboard-content {\r\n    width: 100%;\r\n    height: 100%;\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 2;\r\n    grid-area: content;\r\n    padding-top: 100px;\r\n    padding-bottom: 100px;\r\n    box-sizing: border-box;\r\n    overflow-y: auto;\r\n}\r\n\r\n.dashboard-content > * {\r\n    margin: 25px auto;\r\n}\r\n\r\n#no-projects {\r\n    width: 100%;\r\n    text-align: center;\r\n    margin: 75px auto;\r\n}\r\n\r\n/* Dashboard PROJECTS view */\r\n\r\n#create-project-btn {\r\n    width: 300px;\r\n    min-height: 50px;\r\n    font-size: 1.2rem;\r\n    text-align: center;\r\n    position: relative;\r\n}\r\n\r\n#projects-container {\r\n    width: 90%;\r\n    margin: 0 auto;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-start;\r\n    align-items: flex-start;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.project-card {\r\n    width: 200px;\r\n    height: auto;\r\n    margin: 20px;\r\n    padding: 0 15px 15px 15px;\r\n    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.project-card-title {\r\n    text-align: center;\r\n    margin: 10px auto 5px auto;\r\n}\r\n\r\n.project-card img {\r\n    width: auto;\r\n    height: 100px;\r\n    margin: 5px auto;\r\n}\r\n\r\n.project-card p {\r\n    margin: 5px 0 0 0;\r\n    font-size: 0.8rem;\r\n    text-align: left;\r\n    width: 100%;\r\n}\r\n\r\n.project-card button {\r\n    width: 75px;\r\n    padding: 5px 0;\r\n    margin: 10px 5px 0 5px;\r\n}\r\n\r\n/*  Project creator  */\r\n\r\n.popup-form-overlay {\r\n    width: 100%;\r\n    height: 100vh;\r\n    background: rgba(0, 0, 0, 0.5);\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.popup-form {\r\n    width: 500px;\r\n    height: auto;\r\n    padding: 25px;\r\n    border-radius: 10px;\r\n    background: #FFF;\r\n}\r\n\r\n.popup-form p {\r\n    font-size: 0.8rem;\r\n    margin: 3px 3px 0 3px;\r\n}\r\n\r\n.popup-form > * {\r\n    margin: 15px auto;\r\n}\r\n\r\n.popup-form input[type=\"password\"],\r\n.popup-form input[type=\"text\"] {\r\n    width: 100%;\r\n    height: 40px;\r\n    font-size: 1.2rem;\r\n    padding: 0 10px;\r\n    border: 1px silver solid;\r\n    border-radius: 5px;\r\n}\r\n\r\n.popup-form button {\r\n    padding: 10px 25px;\r\n    margin: 0 5px;\r\n    font-size: 1rem;\r\n    width: 200px;\r\n}\r\n\r\n#doc-sizes {\r\n    width: 100%;\r\n}\r\n\r\n.form-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    margin: 3px auto 0 auto;\r\n}\r\n\r\n.popup-form input[type=\"number\"] {\r\n    width: 50px;\r\n    text-align: center;\r\n}\r\n\r\n.popup-form\r\n.material-icons {\r\n    font-size: 48px;\r\n}\r\n\r\n/*  Dashboard SETTINGS view */\r\n\r\nhr {\r\n    margin: 20px auto;\r\n}\r\n\r\n#settings-container {\r\n    width: 90%;\r\n    max-width: 700px;\r\n}\r\n\r\n#settings-container > div {\r\n    margin: 20px auto;\r\n}\r\n\r\n#settings-container button {\r\n    width: 175px;\r\n    padding: 10px 0;\r\n}"
 
 /***/ }),
 
@@ -1207,15 +1207,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dialog.service */ "./src/app/dialog.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./state-management/actions/userActions */ "./src/app/state-management/actions/userActions.ts");
-/* harmony import */ var _classes_slide__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./classes/slide */ "./src/app/classes/slide.ts");
-/* harmony import */ var _classes_textObject__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./classes/textObject */ "./src/app/classes/textObject.ts");
-/* harmony import */ var _classes_imageObject__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./classes/imageObject */ "./src/app/classes/imageObject.ts");
-/* harmony import */ var _classes_textStyle__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./classes/textStyle */ "./src/app/classes/textStyle.ts");
-/* harmony import */ var _classes_galleryImage__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./classes/galleryImage */ "./src/app/classes/galleryImage.ts");
-/* harmony import */ var _classes_imageStyle__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./classes/imageStyle */ "./src/app/classes/imageStyle.ts");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./state-management/actions/userActions */ "./src/app/state-management/actions/userActions.ts");
+/* harmony import */ var _classes_slide__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./classes/slide */ "./src/app/classes/slide.ts");
+/* harmony import */ var _classes_textObject__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./classes/textObject */ "./src/app/classes/textObject.ts");
+/* harmony import */ var _classes_imageObject__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./classes/imageObject */ "./src/app/classes/imageObject.ts");
+/* harmony import */ var _classes_textStyle__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./classes/textStyle */ "./src/app/classes/textStyle.ts");
+/* harmony import */ var _classes_galleryImage__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./classes/galleryImage */ "./src/app/classes/galleryImage.ts");
+/* harmony import */ var _classes_imageStyle__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./classes/imageStyle */ "./src/app/classes/imageStyle.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1225,6 +1227,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1287,6 +1290,9 @@ var DataService = /** @class */ (function () {
                 });
             });
         };
+        this.SRA_ORIGINAL_OVERFLOW = '';
+        this.SR_ORIGINAL_OVERFLOW = '';
+        this.SR_ORIGINAL_TRANSFORM = '';
     }
     DataService.prototype.displayServerMessage = function (message) {
         var _this = this;
@@ -1343,7 +1349,7 @@ var DataService = /** @class */ (function () {
                     token: res['body']['token'],
                 };
                 sessionStorage.setItem('sessionData', JSON.stringify(payload));
-                _this.store.dispatch({ type: _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_5__["LOGIN"], payload: payload });
+                _this.store.dispatch({ type: _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_6__["LOGIN"], payload: payload });
                 _this.router.navigate(['dashboard']);
             }
             else if (res['success'] === false) {
@@ -1354,7 +1360,7 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.logout = function () {
         sessionStorage.removeItem('sessionData');
-        this.store.dispatch({ type: _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_5__["LOGOUT"] });
+        this.store.dispatch({ type: _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_6__["LOGOUT"] });
         this.router.navigate(['/']);
     };
     DataService.prototype.deleteAccount = function (formData) {
@@ -1427,7 +1433,7 @@ var DataService = /** @class */ (function () {
     DataService.prototype.reviveSlides = function (projectData) {
         var slides = [];
         projectData.slides.forEach(function (slide) {
-            var newSlide = new _classes_slide__WEBPACK_IMPORTED_MODULE_6__["Slide"]();
+            var newSlide = new _classes_slide__WEBPACK_IMPORTED_MODULE_7__["Slide"]();
             newSlide.revive(slide);
             for (var i = 0; i < slide.slideObjects.length; i++) {
                 var type = '';
@@ -1437,12 +1443,12 @@ var DataService = /** @class */ (function () {
                     type = 'ImageObject';
                 switch (type) {
                     case 'TextObject':
-                        var textObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_7__["TextObject"]();
+                        var textObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_8__["TextObject"]();
                         textObject.revive(slide.slideObjects[i]);
                         newSlide.slideObjects[i] = textObject;
                         break;
                     case 'ImageObject':
-                        var imageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_8__["ImageObject"]();
+                        var imageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_9__["ImageObject"]();
                         imageObject.revive(slide.slideObjects[i]);
                         newSlide.slideObjects[i] = imageObject;
                         break;
@@ -1458,7 +1464,7 @@ var DataService = /** @class */ (function () {
         var textStyles = [];
         for (var i = 0; i < projectData.textStyles.length; i++) {
             var thisTextStyle = projectData.textStyles[i];
-            var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_9__["TextStyle"];
+            var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_10__["TextStyle"];
             textStyle.revive(thisTextStyle);
             textStyles.push(textStyle);
         }
@@ -1467,14 +1473,14 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.reviveGalleryImages = function (projectData) {
         // Revive selectedImage
-        var selectedImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_10__["GalleryImage"];
+        var selectedImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_11__["GalleryImage"];
         selectedImage.revive(projectData.selectedImage);
         projectData.selectedImage = selectedImage;
         // Revive images
         var images = [];
         for (var i = 0; i < projectData.images.length; i++) {
             var thisImage = projectData.images[i];
-            var galleryImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_10__["GalleryImage"];
+            var galleryImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_11__["GalleryImage"];
             galleryImage.revive(thisImage);
             images.push(galleryImage);
         }
@@ -1483,29 +1489,82 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.reviveImageStyles = function (projectData) {
         // Revive selectedImageStyle
-        var selectedImageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_11__["ImageStyle"];
+        var selectedImageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_12__["ImageStyle"];
         selectedImageStyle.revive(projectData.selectedImageStyle);
         projectData.selectedImageStyle = selectedImageStyle;
         // Revive imageStyles
         var imageStyles = [];
         for (var i = 0; i < projectData.imageStyles.length; i++) {
             var thisImageStyle = projectData.imageStyles[i];
-            var imageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_11__["ImageStyle"];
+            var imageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_12__["ImageStyle"];
             imageStyle.revive(thisImageStyle);
             imageStyles.push(imageStyle);
         }
         projectData.imageStyles = imageStyles;
         projectData.selectedImageStyle = projectData.imageStyles[0];
     };
+    DataService.prototype.canvasPrep = function (task) {
+        var slideRender = document.getElementById('slide-render');
+        var slideRenderArea = document.getElementById('slide-render-area');
+        switch (task) {
+            case 'start':
+                // Save original style values before changing them
+                this.SRA_ORIGINAL_OVERFLOW = slideRenderArea.style.overflow;
+                this.SR_ORIGINAL_OVERFLOW = slideRender.style.overflow;
+                this.SR_ORIGINAL_TRANSFORM = slideRender.style.transform;
+                // Set required css style values for HTML2CANVAS to work properly
+                slideRender.style.transform = 'scale(1)';
+                slideRender.style.overflow = 'visible';
+                slideRenderArea.style.overflow = 'visible';
+                break;
+            case 'complete':
+                slideRender.style.transform = this.SR_ORIGINAL_TRANSFORM;
+                slideRender.style.overflow = this.SR_ORIGINAL_OVERFLOW;
+                slideRenderArea.style.overflow = this.SRA_ORIGINAL_OVERFLOW;
+                break;
+        }
+    };
+    DataService.prototype.getThumbnail = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            // Show loader screen
+            var slideRender = document.getElementById("slide-render");
+            _this.canvasPrep('start');
+            // Get project state for doc height and width
+            var projectState;
+            var getProjectState = _this.store.select('projectReducer').subscribe(function (data) {
+                projectState = data;
+            });
+            html2canvas__WEBPACK_IMPORTED_MODULE_3__(slideRender, {
+                height: projectState.documentSize.height,
+                width: projectState.documentSize.width,
+                scale: 0.1,
+                allowTaint: false,
+                useCORS: true
+            }).then(function (canvas) {
+                var imgData = canvas.toDataURL("image/png");
+                _this.canvasPrep('complete');
+                getProjectState.unsubscribe();
+                resolve(imgData);
+            })
+                .catch(function (error) { return console.log(error); });
+        });
+    };
     DataService.prototype.saveProject = function () {
         var _this = this;
         var projectState;
         var userState;
+        var thumbnail;
         // create thumbnail here
-        return this.getProjectState()
+        return this.getThumbnail()
+            .then(function (imgData) {
+            thumbnail = imgData;
+            return _this.getProjectState();
+        })
             .then(function (data) {
             projectState = data;
             projectState.lastSaved = new Date();
+            projectState.thumbnail = thumbnail;
             projectState = JSON.stringify(projectState);
             return _this.getUserState();
         })
@@ -1526,7 +1585,7 @@ var DataService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: "root"
         }),
-        __metadata("design:paramtypes", [_dialog_service__WEBPACK_IMPORTED_MODULE_1__["DialogService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"]])
+        __metadata("design:paramtypes", [_dialog_service__WEBPACK_IMPORTED_MODULE_1__["DialogService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"]])
     ], DataService);
     return DataService;
 }());
@@ -1692,7 +1751,7 @@ module.exports = "\r\n\r\n@import url('https://fonts.googleapis.com/css?family=O
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"flex-row-evenly component-container\">\r\n\r\n  <div id=\"home-content-container\">\r\n    <div id=\"home-left-content\" class=\"flex-col-start\">\r\n\r\n      <h1 id=\"app-brand\">Name Here</h1>\r\n      <p>Produce beautiful creative content right in your web browser.  No installations required!</p>\r\n      <ul id=\"description-list\">\r\n        <li><fa name=\"check\"></fa>Create presentation slideshows</li>\r\n        <li><fa name=\"check\"></fa>Web design templates</li>\r\n        <li><fa name=\"check\"></fa>Generate PDF Documents</li>\r\n        <li><fa name=\"check\"></fa>Image editing</li>\r\n        <li><fa name=\"check\"></fa>Google Fonts library and Pixabay image search, all in one place.</li>\r\n      </ul>\r\n\r\n      <button routerLink=\"main\" class=\"cta-btn\">Use as guest</button>\r\n      <img id=\"splash\" src=\"../../assets/splash.jpg\">\r\n\r\n    </div>\r\n\r\n    <div id=\"home-right-content\" class=\"flex-col-start\">\r\n      <div class=\"app-theme\" id=\"forms-container\">\r\n        <div id=\"forms-container-nav\" class=\"flex-row-evenly\">\r\n          <button (click)=\"showForm('login')\">Login</button>\r\n          <button (click)=\"showForm('registration')\">Register</button>\r\n        </div>\r\n        <login *ngIf=\"showLogin\"></login>\r\n        <registration *ngIf=\"showRegistration\"></registration>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n</div>"
+module.exports = "<div class=\"flex-row-evenly component-container\">\r\n\r\n  <div id=\"home-content-container\">\r\n    <div id=\"home-left-content\" class=\"flex-col-start\">\r\n\r\n      <h1 id=\"app-brand\">Name Here</h1>\r\n      <p>Produce beautiful creative content right in your web browser.  No installations required!</p>\r\n      <ul id=\"description-list\">\r\n        <li><fa name=\"check\"></fa>Create presentation slideshows</li>\r\n        <li><fa name=\"check\"></fa>Web design templates</li>\r\n        <li><fa name=\"check\"></fa>Generate PDF Documents</li>\r\n        <li><fa name=\"check\"></fa>Image editing</li>\r\n        <li><fa name=\"check\"></fa>Google Fonts library and Pixabay image search, all in one place.</li>\r\n      </ul>\r\n\r\n      <button routerLink=\"main\" class=\"cta-btn\">Use as guest</button>\r\n    </div>\r\n\r\n    <div id=\"home-right-content\" class=\"flex-col-start\">\r\n      <div class=\"app-theme\" id=\"forms-container\">\r\n        <div id=\"forms-container-nav\" class=\"flex-row-evenly\">\r\n          <button (click)=\"showForm('login')\">Login</button>\r\n          <button (click)=\"showForm('registration')\">Register</button>\r\n        </div>\r\n        <login *ngIf=\"showLogin\"></login>\r\n        <registration *ngIf=\"showRegistration\"></registration>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n</div>"
 
 /***/ }),
 

@@ -64,34 +64,6 @@ export class ToolbarAppLogicService {
   }
   /*  EXPORT TO PDF AND SAVE AS PNG FUNCTIONS */
 
-  SRA_ORIGINAL_OVERFLOW = '';
-  SR_ORIGINAL_OVERFLOW = '';
-  SR_ORIGINAL_TRANSFORM = '';
-
-  canvasPrep(task: 'start' | 'complete') {
-    let slideRender = document.getElementById('slide-render');
-    let slideRenderArea = document.getElementById('slide-render-area');
-
-    switch (task) {
-      case 'start':
-        // Save original style values before changing them
-        this.SRA_ORIGINAL_OVERFLOW = slideRenderArea.style.overflow;
-        this.SR_ORIGINAL_OVERFLOW = slideRender.style.overflow;
-        this.SR_ORIGINAL_TRANSFORM = slideRender.style.transform;
-
-        // Set required css style values for HTML2CANVAS to work properly
-        slideRender.style.transform = 'scale(1)';
-        slideRender.style.overflow = 'visible';
-        slideRenderArea.style.overflow = 'visible';
-        break;
-      case 'complete':
-        slideRender.style.transform = this.SR_ORIGINAL_TRANSFORM;
-        slideRender.style.overflow = this.SR_ORIGINAL_OVERFLOW;
-        slideRenderArea.style.overflow = this.SRA_ORIGINAL_OVERFLOW;
-        break;
-    }
-  }
-
   exportAsPDF = () => {
     this.sessionData = sessionStorage.getItem('sessionData');
     // Is user logged in?
@@ -110,7 +82,7 @@ export class ToolbarAppLogicService {
       });
 
       // Prep canvas for HTML2CANVAS
-      this.canvasPrep('start');
+      this.data.canvasPrep('start');
 
       // Define jsPDF settings
       let doc = new jsPDF({
@@ -158,7 +130,7 @@ export class ToolbarAppLogicService {
             // Save document
             doc.save("a4.pdf");
             // Set css values back to their original values
-            this.canvasPrep('complete');
+            this.data.canvasPrep('complete');
             getProjectState.unsubscribe();
             // Hide loader screen
             this.isPreparingDocument = false;
@@ -238,7 +210,7 @@ export class ToolbarAppLogicService {
       // Show loader screen
       this.isPreparingDocument = true;
       let slideRender = document.getElementById("slide-render");
-      this.canvasPrep('start');
+      this.data.canvasPrep('start');
 
       // Get project state for doc height and width
       let projectState;
@@ -262,7 +234,7 @@ export class ToolbarAppLogicService {
         imgElement.href = objUrl;
         imgElement.download = "slide.png";
         imgElement.click();
-        this.canvasPrep('complete');
+        this.data.canvasPrep('complete');
         getProjectState.unsubscribe();
         this.isPreparingDocument = false;
       });

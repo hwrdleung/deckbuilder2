@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { DialogService } from "./dialog.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import * as html2canvas from "html2canvas";
 
 import { Router } from '@angular/router';
 
@@ -300,15 +301,78 @@ export class DataService {
     projectData.selectedImageStyle = projectData.imageStyles[0];
   }
 
+
+  SRA_ORIGINAL_OVERFLOW = '';
+  SR_ORIGINAL_OVERFLOW = '';
+  SR_ORIGINAL_TRANSFORM = '';
+
+  canvasPrep(task: 'start' | 'complete') {
+    let slideRender = document.getElementById('slide-render');
+    let slideRenderArea = document.getElementById('slide-render-area');
+
+    switch (task) {
+      case 'start':
+        // Save original style values before changing them
+        this.SRA_ORIGINAL_OVERFLOW = slideRenderArea.style.overflow;
+        this.SR_ORIGINAL_OVERFLOW = slideRender.style.overflow;
+        this.SR_ORIGINAL_TRANSFORM = slideRender.style.transform;
+
+        // Set required css style values for HTML2CANVAS to work properly
+        slideRender.style.transform = 'scale(1)';
+        slideRender.style.overflow = 'visible';
+        slideRenderArea.style.overflow = 'visible';
+        break;
+      case 'complete':
+        slideRender.style.transform = this.SR_ORIGINAL_TRANSFORM;
+        slideRender.style.overflow = this.SR_ORIGINAL_OVERFLOW;
+        slideRenderArea.style.overflow = this.SRA_ORIGINAL_OVERFLOW;
+        break;
+    }
+  }
+
+  getThumbnail() {
+    return new Promise((resolve, reject) => {
+      // Show loader screen
+      let slideRender = document.getElementById("slide-render");
+      this.canvasPrep('start');
+
+      // Get project state for doc height and width
+      let projectState;
+      const getProjectState = this.store.select('projectReducer').subscribe(data => {
+        projectState = data;
+      });
+
+      html2canvas(slideRender, {
+        height: projectState.documentSize.height,
+        width: projectState.documentSize.width,
+        scale: 0.1,
+        allowTaint: false,
+        useCORS: true
+      }).then(canvas => {
+        let imgData = canvas.toDataURL("image/png");
+        this.canvasPrep('complete');
+        getProjectState.unsubscribe();
+        resolve(imgData);
+      })
+      .catch(error => console.log(error));
+    });
+  }
+
   saveProject() {
     let projectState;
     let userState;
+    let thumbnail;
     // create thumbnail here
 
-    return this.getProjectState()
+    return this.getThumbnail()
+    .then(imgData => {
+      thumbnail = imgData;
+      return this.getProjectState();
+    })
       .then(data => {
         projectState = data;
         projectState.lastSaved = new Date();
+        projectState.thumbnail = thumbnail;
         projectState = JSON.stringify(projectState);
         return this.getUserState();
       })
