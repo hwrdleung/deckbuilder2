@@ -17,6 +17,7 @@ export class StylerAppLogicService {
   constructor(private data: DataService, private dialog: DialogService, private store: Store<ProjectState>) { }
 
   deleteStyle = (style: TextStyle | ImageStyle) => {
+    // This function prompts user for confirmation before deleting style from the project.
     this.data.getProjectState()
       .then(projectState => this.projectState = projectState)
       .then(() => {
@@ -44,6 +45,8 @@ export class StylerAppLogicService {
   }
 
   confirmedDelete = (style: TextStyle | ImageStyle, isStyleInUse: boolean) => {
+    // If slideObjects are currently using this style and the user confirms deletion, 
+    // then those slideObjects' styles will revert to the default style.
     let styleType = style.constructor.name;
 
     if (isStyleInUse) {

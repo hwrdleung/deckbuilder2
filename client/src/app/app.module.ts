@@ -11,13 +11,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { userReducer } from "./state-management/reducers/userReducer";
 import { projectReducer } from "./state-management/reducers/projectReducer";
-
 import { StoreModule } from "@ngrx/store";
-
 import { DataService } from './data.service';
 import { DialogService } from './dialog.service';
 import { DialogComponent } from './dialog/dialog.component';
-
 
 const routes: Routes = [
   { path: '', component: HomeComponent},

@@ -33,6 +33,7 @@ export interface ProjectState {
     documentSize: DocumentSize;
 }
 
+// Create defaults
 let defaultTextStyle = new TextStyle;
 defaultTextStyle.isDefault = true;
 defaultTextStyle.name = "Default Text Style";

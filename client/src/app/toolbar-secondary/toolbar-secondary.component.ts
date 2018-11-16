@@ -13,6 +13,7 @@ import { Slide } from '../classes/slide';
 })
 export class ToolbarSecondaryComponent implements OnInit {
 
+  /*  UI LAYOUT VARIABLES */
   slides: Slide[];
   currentSlideIndex;
 

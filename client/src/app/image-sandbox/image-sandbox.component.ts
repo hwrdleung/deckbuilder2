@@ -15,17 +15,17 @@ import { SandboxAppLogicService } from '../sandbox-app-logic.service';
 })
 export class ImageSandboxComponent implements OnInit {
 
+  /*  UI LAYOUT VARIABLES  */
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('middlebar') middlebar: ElementRef<any>;
   @ViewChild('container') container: ElementRef<any>;
 
+  /* TEMPLATE VARIABLES */
   selectedImage: GalleryImage;
   selectedImageStyle: ImageStyle;
   images: GalleryImage[];
-
   viewGallery: boolean = true;
   viewSearchResults: boolean = false;
-
   previewRenderMagnification:number = 100;
 
   constructor(private store: Store<ProjectState>, private sandbox:SandboxAppLogicService) { }
@@ -34,6 +34,7 @@ export class ImageSandboxComponent implements OnInit {
   ngOnInit() {
     this.enableResizer();
 
+    // Subscribe to projectState
     this.store.select('projectReducer')
       .subscribe(projectState => {
         this.selectedImage = projectState.selectedImage;
@@ -60,6 +61,7 @@ export class ImageSandboxComponent implements OnInit {
   }
 
   enableResizer() {
+    // This function enables the draggable resizable layout
     let containerElement = this.container.nativeElement;
     let resizerElement = this.resizer.nativeElement;
     let lowerBoundElement = this.middlebar.nativeElement
@@ -68,14 +70,15 @@ export class ImageSandboxComponent implements OnInit {
   }
 
   getPreviewRenderCss(){
+    // This function allows zooming in and out for the sandbox
     let css = {
       'transform': `scale(${this.previewRenderMagnification/100})`
     }
     return css;
   }
 
-  // User clicks zoom in/out
   zoom(direction: string) {
+    // This function handles the clicking of the zoom in/ zoom out buttons in the sandbox
     let magnification = this.previewRenderMagnification;
     let increment = 10;
     let maxZoom = 300;

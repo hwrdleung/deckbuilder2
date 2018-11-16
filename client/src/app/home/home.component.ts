@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UserState } from '../state-management/state/userState';
-import { LOGIN } from '../state-management/actions/userActions';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   showForm(form: 'login' | 'registration') {
+    // This function serves as the controller for the displaying of login and registration forms
     switch (form) {
       case 'login':
         this.showLogin = true;

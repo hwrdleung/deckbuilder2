@@ -11,8 +11,7 @@ import { DataService } from '../data.service';
 })
 export class RegistrationComponent implements OnInit {
 
-  apiEndpoint:string = 'http://localhost:3000';
-
+  /*  UI VARIABLES */
   rForm: FormGroup;
   requiredAlert: string = 'Required';
   passwordMismatchAlert: string = 'Passwords do not match';
@@ -34,10 +33,13 @@ export class RegistrationComponent implements OnInit {
   }
 
   passwordMatchValidator(control: AbstractControl) {
+    // This validator makes sure that the passwords match
     return control.get('password').value === control.get('password2').value ? null : control.get('password2').setErrors({ 'passwordMismatch': true });
   }
 
 ngOnDestroy(){
+  // data.serverMsg is shared with dashboard.
+  // Clearing it prevents the wrong serverMsg from being displayed in the dashboard.
   this.data.serverMsg = null;
 }
 

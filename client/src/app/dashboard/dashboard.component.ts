@@ -25,12 +25,11 @@ export class DashboardComponent implements OnInit {
   showProjects: Boolean = true;
   showSettings: Boolean = false;
 
+  /* POPUP FORM VARIABLES */
   projectCreatorForm: FormGroup;
   showProjectCreator: Boolean = false;
-
   changePasswordForm: FormGroup;
   deleteAccountForm: FormGroup;
-
   requiredAlert: string = 'Required'
   nameTakenAlert: string = 'You already have a project with this name!';
   customHeightAlert: string = 'You must specify a height';
@@ -57,6 +56,8 @@ export class DashboardComponent implements OnInit {
   }
 
   projectCreatorConditionalValidation() {
+    // This function subscribes to the documentSize form control
+    // and sets the appropriate validations based on the user's documentSize selection.
     let documentSizeChanges = this.projectCreatorForm.controls.documentSize.valueChanges;
     let customHeightControl = this.projectCreatorForm.controls.customHeight;
     let customWidthControl = this.projectCreatorForm.controls.customWidth;
@@ -89,6 +90,8 @@ export class DashboardComponent implements OnInit {
   }
 
   projectNamevalidator = (control: AbstractControl) => {
+    // This validator marks the projectName form control as "invalid" if its value matches
+    // another project's name
     let projectNameControl = control.get('projectName');
 
     if (this.projectsData) {
@@ -104,6 +107,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.projectCreatorConditionalValidation();
 
+    // Subscribe to userState to get updated user data
     this.store.select('userReducer')
       .subscribe((userState: UserState) => {
         this.userState = userState;
@@ -112,13 +116,11 @@ export class DashboardComponent implements OnInit {
       })
   }
 
-  test(formData) {
-    console.log('test');
-    console.log(formData);
-  }
-
   /* POPULATE DATA VARIABLES */
   getProjectsData() {
+    // This function makes a call to the back-end to get project data for the dashboard.
+    // The "projects" property that is returned by the back-end does not contain full project data.
+    //  It only consists of the minimal data required for the template's project cards.
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('token', this.userState.token);
@@ -130,6 +132,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getSettingsData() {
+    // This function populates the settingsData variable with the data from userState.
+    // settingsData is used in the template's "settings" view.
     this.settingsData = {
       'First name': this.userState.first,
       'Last name': this.userState.last,
@@ -140,6 +144,7 @@ export class DashboardComponent implements OnInit {
 
   /*  UI CONTROLLERS */
   showContent(view: 'projects' | 'settings') {
+    // This function serves as the controller for the dashboard's left vertical nav bar.
     switch (view) {
       case 'projects':
         this.showProjects = true;
@@ -153,6 +158,8 @@ export class DashboardComponent implements OnInit {
   }
 
   popup(form: 'project creator' | 'delete account' | 'change password', bool: boolean) {
+    // This function serves as the controller for the displaying of popup forms 
+    // in the dashboard's "settings" view.
     switch (form) {
       case 'project creator':
         this.showProjectCreator = bool;
@@ -166,9 +173,9 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-
-
   openProject(project: any) {
+    // When user "opens" a project, this function makes a call to the back-end to fetch 
+    // full data for the selected project, loads it into the store, and routes to the main.
     this.dialog.toast(`Opening project: ${project.name}`);
 
     project.isLoading = true;
@@ -189,7 +196,8 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteProject(projectName: string) {
-
+    // This function prompts user for confirmation to delete a project,
+    // and sends a delete request to the back-end if user chooses to proceed.
     let confirmedDelete = () => {
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
@@ -210,6 +218,7 @@ export class DashboardComponent implements OnInit {
 
   /* PROJECT CREATOR */
   createProject(formData) {
+    // This function handles the ngSubmit for the projectCreatorForm
     // Parse form Data
     let projectName: string = formData.projectName;
     let options: any = {};
@@ -254,6 +263,8 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    // data.serverMsg is shared with the login and registration components.
+    // Clearing it onDestroy prevents the displaying the wrong serverMsg on the wrong form
     this.data.serverMsg = null;
   }
 }

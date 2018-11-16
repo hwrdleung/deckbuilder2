@@ -2,9 +2,7 @@ import { Injectable } from "@angular/core";
 import { DialogService } from "./dialog.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import * as html2canvas from "html2canvas";
-
 import { Router } from '@angular/router';
-
 import { Store } from "@ngrx/store";
 import { LOGIN, LOGOUT } from './state-management/actions/userActions';
 import { Slide } from "./classes/slide";
@@ -30,6 +28,7 @@ import { ImageStyle } from "./classes/imageStyle";
 
   SLIDE EDITOR
     -Add button for changing style of slideObjects
+    - Change ts file to use the resizer class
 
   DATA
     -Impelement functionality for creating project thumbnails when saving projects
@@ -43,17 +42,24 @@ import { ImageStyle } from "./classes/imageStyle";
 
 export class DataService {
 
+  /* SERVER VARIABLES */
   apiEndpoint: string = 'https://deckbuilder2.herokuapp.com';
   // apiEndpoint: string = 'http://localhost:3000';
   serverMsg: string = '';
+
+  /* STATE VARIABLES */
   userState: object;
 
+  /*  UI VARIABLES */
+  // Had to put this here so that dataService could hide the forms after API calls
   showChangePasswordForm: boolean = false;
   showDeleteAccountForm: boolean = false;
+  isSlideRenderLoading: boolean = false;
 
   constructor(private dialog: DialogService, private http: HttpClient, private router: Router, private store: Store<any>) { }
 
   displayServerMessage(message: string) {
+    // This function sets serverMsg = message and clears it after 5 seconds.
     this.serverMsg = message;
     setTimeout(() => {
       this.serverMsg = null;
@@ -62,8 +68,9 @@ export class DataService {
 
   // User registration
   register(formData) {
+    // This function handles ngSubmit for the reigstration form.
 
-    // Parse formData
+    // Capitalize the user's first and last names
     let capitalize = function (str: string) {
       let strArr = str.split(' ');
       for (let i = 0; i < strArr.length; i++) {
@@ -75,7 +82,7 @@ export class DataService {
     formData.first = capitalize(formData.first);
     formData.last = capitalize(formData.last);
 
-    // Make api call
+    // Make API call to the back-end for user registration
     this.http.post(this.apiEndpoint + '/new-account', formData).subscribe(res => {
 
       if (res['success']) {
@@ -100,9 +107,9 @@ export class DataService {
     })
   }
 
-
   // User login
   login(formData) {
+    // This function handles ngSubmit for the login form
     this.http.post(this.apiEndpoint + '/auth', formData).subscribe((res) => {
       if (res['success'] === true) {
         this.displayServerMessage(res['message']);
@@ -115,7 +122,9 @@ export class DataService {
           username: res['body']['username'],
           token: res['body']['token'],
         }
-
+        // Store session data to session storage
+        // Update the store's userState
+        // Route to dashboard
         sessionStorage.setItem('sessionData', JSON.stringify(payload));
         this.store.dispatch({ type: LOGIN, payload: payload });
         this.router.navigate(['dashboard']);
@@ -127,12 +136,16 @@ export class DataService {
   }
 
   logout() {
+    // Clear session storage, clear the store's userState, and route to '/'
     sessionStorage.removeItem('sessionData');
     this.store.dispatch({ type: LOGOUT });
     this.router.navigate(['/']);
   }
 
   deleteAccount(formData) {
+    // This function handles ngSubmit for the 'delete account form' in the dashboard's 'settings' view.
+    // Confirmation is handled by form validations in dashboard.ts, requiring the user's password.
+    // Make API call to delete user from database and display server message on failure, logout on success
     this.getUserState().then(userState => {
 
       let headers = new HttpHeaders;
@@ -150,6 +163,9 @@ export class DataService {
   }
 
   changePassword(formData) {
+    // This function handles ngSubmit of the 'change password form' in the dashboard's 'settings' view.
+    // Confirmation is handled by form validaions in dashboard.ts, requiring the user to enter their current password.
+    // Make API call to back-end to change the user's password.
     this.getUserState().then(userState => {
 
       let payload = {
@@ -170,6 +186,7 @@ export class DataService {
   }
 
   getProjectState = () => {
+    // This function returns a promise containing the store's projectState.
     return new Promise((resolve, reject) => {
       this.store.select('projectReducer').subscribe(projectState => {
         if (projectState) resolve(projectState);
@@ -179,6 +196,7 @@ export class DataService {
   }
 
   getUserState = () => {
+    // This function returns a promise containing the store's userState.
     return new Promise((resolve, reject) => {
       this.store.select('userReducer').subscribe(userState => {
         if (userState) resolve(userState);
@@ -188,8 +206,8 @@ export class DataService {
   }
 
   reviveProject(projectData) {
-    // projectData comes back from the database in JSON format.
-    // Revive projectData to get protoype functions back.
+    // This function takes in a projectState in JSON format, and "revives" its data.
+    // The purpose of the "revive" functions is to restore prototype functions to projectData.
     this.reviveGalleryImages(projectData)
     this.reviveTextStyles(projectData)
     this.reviveImageStyles(projectData)
@@ -199,6 +217,7 @@ export class DataService {
   }
 
   reviveSlideObjectStyles(projectData) {
+    // Helper function for reviveProject()
     projectData.slides.forEach(slide => {
       slide.slideObjects.forEach(slideObject => {
         let type = slideObject.constructor.name;
@@ -225,6 +244,7 @@ export class DataService {
   }
 
   reviveSlides(projectData) {
+    // Helper function for reviveProject()
     let slides = [];
     projectData.slides.forEach(slide => {
       let newSlide = new Slide();
@@ -254,6 +274,7 @@ export class DataService {
   }
 
   reviveTextStyles(projectData) {
+    // Helper function for reviveProject()
     // Revive selectedTextStyle
     // Revive text styles
     let textStyles = [];
@@ -268,6 +289,7 @@ export class DataService {
   }
 
   reviveGalleryImages(projectData) {
+    // Helper function for reviveProject()
     // Revive selectedImage
     let selectedImage = new GalleryImage;
     selectedImage.revive(projectData.selectedImage);
@@ -287,6 +309,7 @@ export class DataService {
   }
 
   reviveImageStyles(projectData) {
+    // Helper function for reviveProject()
     // Revive selectedImageStyle
     let selectedImageStyle = new ImageStyle;
     selectedImageStyle.revive(projectData.selectedImageStyle);
@@ -304,12 +327,14 @@ export class DataService {
     projectData.selectedImageStyle = projectData.imageStyles[0];
   }
 
-
+  // Storage for canvasPrep()
   SRA_ORIGINAL_OVERFLOW = '';
   SR_ORIGINAL_OVERFLOW = '';
   SR_ORIGINAL_TRANSFORM = '';
 
   canvasPrep(task: 'start' | 'complete') {
+    // This function makes changes to DOM style values necessary for HTML2CANVAS to work properly.
+    // This funcion is shared between dataService and toolbarAppLogicService
     let slideRender = document.getElementById('slide-render');
     let slideRenderArea = document.getElementById('slide-render-area');
 
@@ -334,10 +359,13 @@ export class DataService {
   }
 
   getThumbnail() {
+    // This function returns a promise containing a small snapshot of the slide render
+    // at the time this function is called.  (when saving project)
     return new Promise((resolve, reject) => {
       // Show loader screen
       let slideRender = document.getElementById("slide-render");
       this.canvasPrep('start');
+      this.isSlideRenderLoading = true;
 
       // Get project state for doc height and width
       let projectState;
@@ -348,48 +376,67 @@ export class DataService {
       html2canvas(slideRender, {
         height: projectState.documentSize.height,
         width: projectState.documentSize.width,
-        scale: 0.5,
+        scale: 0.3,
         allowTaint: false,
         useCORS: true
       }).then(canvas => {
         let imgData = canvas.toDataURL("image/png");
         this.canvasPrep('complete');
         getProjectState.unsubscribe();
+        this.isSlideRenderLoading = false;
         resolve(imgData);
       })
-      .catch(error => console.log(error));
+        .catch(error => console.log(error));
     });
   }
 
   saveProject() {
-    let projectState;
-    let userState;
-    let thumbnail;
-    // create thumbnail here
+    /*
+        1.  Detect user session.  This feature is only available to registered users.
+        2.  Get thumbnail
+        3.  Get project state, and update 'lastSaved' and 'thumbnail'.  Convert to JSON.
+        4.  Get user state for the token.  Create payload with token and project state.
+        5.  Make API call to save this project's changes to the database.
+        6.  Display dialog message
+    */
+    let sessionData = sessionStorage.getItem('sessionData');
 
-    return this.getThumbnail()
-    .then(imgData => {
-      thumbnail = imgData;
-      return this.getProjectState();
-    })
-      .then(data => {
-        projectState = data;
-        projectState.lastSaved = new Date();
-        projectState.thumbnail = thumbnail;
-        projectState = JSON.stringify(projectState);
-        return this.getUserState();
-      })
-      .then(data => {
-        userState = data;
-        return userState;
-      })
-      .then((userState) => {
-        let payload = {
-          token: userState.token,
-          project: projectState
-        }
-        this.http.post(this.apiEndpoint + '/save-project', payload).subscribe();
-      })
-      .catch(error => { console.log(error) })
+    if (!sessionData) {
+      this.dialog.toast('Register to unlock this feature!');
+    } else if (sessionData) {
+      let projectState;
+      let userState;
+      let thumbnail;
+      // create thumbnail here
+
+      return this.getThumbnail()
+        .then(imgData => {
+          thumbnail = imgData;
+          return this.getProjectState();
+        })
+        .then(data => {
+          projectState = data;
+          projectState.lastSaved = new Date();
+          projectState.thumbnail = thumbnail;
+          projectState = JSON.stringify(projectState);
+          return this.getUserState();
+        })
+        .then(data => {
+          userState = data;
+          return userState;
+        })
+        .then((userState) => {
+          let payload = {
+            token: userState.token,
+            project: projectState
+          }
+          this.http.post(this.apiEndpoint + '/save-project', payload).subscribe(res => {
+            console.log(res);
+            if(res['success'] === false ) this.dialog.alert('There was a problem saving your project.', 'danger');
+            if(res['success'] === true) this.dialog.toast('Your project has been saved');
+          });
+        })
+        .catch(error => { console.log(error) })
+    }
   }
 }

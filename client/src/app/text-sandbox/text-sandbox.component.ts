@@ -14,14 +14,13 @@ import { SET_SANDBOXTEXT } from '../state-management/actions/projectActions';
 })
 export class TextSandboxComponent implements OnInit {
 
+  /*  UI LAYOUT VARIABLES */
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('middlebar') middlebar: ElementRef<any>;
   @ViewChild('container') container: ElementRef<any>;
-
   sandboxText:string;
   textNotes:string;
   selectedTextStyle:TextStyle;
-
   previewRenderMagnification:number = 100;
   
   constructor(private store:Store<ProjectState>, private sandbox:SandboxAppLogicService) { }
@@ -37,6 +36,7 @@ export class TextSandboxComponent implements OnInit {
   }
 
   enableResizer(){
+    // This function enables drag resizing of UI layout
     let containerElement = this.container.nativeElement;
     let resizerElement = this.resizer.nativeElement;
     let lowerBoundElement = this.middlebar.nativeElement
@@ -45,6 +45,8 @@ export class TextSandboxComponent implements OnInit {
   }
 
   getPreviewRenderCss(){
+    // This function provides text preview render with dynamic styling
+    // based on range input value
     let css = {
       'transform': `scale(${this.previewRenderMagnification/100})`
     }
@@ -52,14 +54,14 @@ export class TextSandboxComponent implements OnInit {
   }
 
   textInput($event){
-    console.log('textInput');
-    console.log($event);
+    // This function updates the projectState when user types into the text input
     let sandboxText = $event;
     this.store.dispatch({type: SET_SANDBOXTEXT, payload: {sandboxText: sandboxText}});
   }
 
-  // User clicks zoom in/out
   zoom(direction: string) {
+    // This function handles zooming in/out of the text preview render
+    // via clicking of the zoom in/out buttons
     let magnification = this.previewRenderMagnification;
     let increment = 10;
     let maxZoom = 300;
@@ -83,5 +85,4 @@ export class TextSandboxComponent implements OnInit {
         break;
     }
   }
-
 }

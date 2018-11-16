@@ -1,8 +1,7 @@
 <div id="slide-editor-workspace" #workspace>
   <div id="slide-render-area" #slideRenderArea>
-      <div id="slide-render-loader" class="flex-col-center" *ngIf="this.toolbar.isPreparingDocument">
+      <div id="slide-render-loader" class="flex-col-center" *ngIf="this.data.isSlideRenderLoading">
         <fa name="cog" class="loader"></fa>
-        <p>Peparing document</p>
       </div>
 
     <div id="slide-render" #slideRender [ngStyle]="getSlideRenderCss()">

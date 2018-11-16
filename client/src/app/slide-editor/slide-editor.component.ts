@@ -4,7 +4,6 @@ import { DialogService } from '../dialog.service';
 import { ViewChild } from '@angular/core'
 import { SlideEditorAppLogicService } from '../slide-editor-app-logic.service';
 import { Slide } from '../classes/slide';
-
 import { Store } from '@ngrx/store';
 import { ProjectState } from '../state-management/state/projectState';
 import { SlideObject } from '../classes/slideObject';
@@ -21,14 +20,14 @@ import { ToolbarAppLogicService } from '../toolbar-app-logic.service';
 
 export class SlideEditorComponent implements OnInit {
 
-  // Layout resizer elements
+  /*  UI VARIABLES */
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('workspace') workspace: ElementRef<any>;
   @ViewChild('controlToolbar') controlToolbar: ElementRef<any>;
-
-  // Slide render variables
   @ViewChild('slideRender') slideRender:ElementRef<any>;
   @ViewChild('slideRenderArea') slideRenderArea:ElementRef<any>;
+
+  /* SLIDE RENDER VARIABLES */
   slides: Slide[];
   currentSlideIndex: number;
   slideRenderMagnification: number = 50;
@@ -36,11 +35,11 @@ export class SlideEditorComponent implements OnInit {
   textStyles: TextStyle[];
   imageStyles: ImageStyle[];
 
-  // Slide editor heirarchy variables
+  /*  SLIDE EDITOR VARIABLES */
   selectedSlideObject: SlideObject;
   showRenderOverflow: boolean = false;
 
-  // TextObject text editor
+  /*  POPUP TEXT OBJECT EDITOR VARIABLES */
   showTextObjectEditor: boolean = false;
   textEditorTextObject: TextObject;
 
@@ -48,7 +47,8 @@ export class SlideEditorComponent implements OnInit {
 
   ngOnInit() {
     this.enableSlideEditorResizer();
-
+    this.data.isSlideRenderLoading = false;
+    // Subscribe to projectState
     this.store.select('projectReducer')
     .subscribe(projectState => {
       this.slides = projectState.slides;
@@ -59,7 +59,6 @@ export class SlideEditorComponent implements OnInit {
     })
   }
 
-  // Resizer functions
   enableSlideEditorResizer(){
     let startResize = () => {
       document.addEventListener('mousemove', this.resizeGrid);
@@ -97,33 +96,16 @@ export class SlideEditorComponent implements OnInit {
     if(e.pageY >= viewportHeight - controlToolbar.offsetHeight - resizer.offsetHeight/2) {
       slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'fr ' + resizer.offsetHeight + 'px ' + controlToolbar.offsetHeight + 'px';
     }
-
   }
 
   // Slide editor render functions
   toggleRenderOverflow() {
+    // This function is used in the layer heirarchy
     this.showRenderOverflow = !this.showRenderOverflow;
   }
 
-  renderZoomController(){
-    let render = this.slideRender.nativeElement;
-    let renderHeight = render.offsetHeight * this.slideRenderMagnification /100;
-    let renderWidth = render.clientWidth * this.slideRenderMagnification /100;
-
-    let renderArea = this.slideRenderArea.nativeElement;
-    let renderAreaHeight = renderArea.offsetHeight;
-    let renderAreaWidth = renderArea.clientWidth;
-
-    if(renderHeight >= renderAreaHeight) {
-      renderArea.scrollTop = (renderHeight - renderAreaHeight) / 2;
-    }
-
-    if(renderWidth >= renderAreaWidth) {
-      renderArea.scrollLeft = (renderWidth - renderAreaWidth) / 2
-    }
-  }
-
   getSlideRenderCss() {
+    // This function provides css for the slide render.
     let backgroundColor = this.slides[this.currentSlideIndex].getProperty('backgroundColor');
     let width = this.documentSize['width'];
     let height = this.documentSize['height'];
@@ -156,8 +138,9 @@ export class SlideEditorComponent implements OnInit {
     return css;
   }
 
-  // Text Object Editor
   editTextObjectText (textObject:TextObject) {
+    // This function specifies the text object whose text value should be edited
+    // with the changes in the popup text editor
     this.textEditorTextObject = textObject;
     this.showTextObjectEditor = true;
   }
@@ -172,12 +155,36 @@ export class SlideEditorComponent implements OnInit {
   }
 
   isSlideObjectSelected (slideObject:SlideObject) {
+    // This function provides the boolean for the conditional styling in the template's
+    // layer heirarchy so that the selected slide object is highlighted
     if(slideObject === this.selectedSlideObject) return true;
     return false;
   }
 
-  // User clicks zoom in/out
+  renderZoomController(){
+    // This function handles the zooming in/out of the slide render 
+    // via range input
+    let render = this.slideRender.nativeElement;
+    let renderHeight = render.offsetHeight * this.slideRenderMagnification /100;
+    let renderWidth = render.clientWidth * this.slideRenderMagnification /100;
+
+    let renderArea = this.slideRenderArea.nativeElement;
+    let renderAreaHeight = renderArea.offsetHeight;
+    let renderAreaWidth = renderArea.clientWidth;
+
+    // Keep slide render centered in slide render area when zooming in/out
+    if(renderHeight >= renderAreaHeight) {
+      renderArea.scrollTop = (renderHeight - renderAreaHeight) / 2;
+    }
+
+    if(renderWidth >= renderAreaWidth) {
+      renderArea.scrollLeft = (renderWidth - renderAreaWidth) / 2
+    }
+  }
+
   zoom(direction: string) {
+    // This function handles the zooming in/out of the slide render
+    // via zoom in/ zoom out buttons
     let magnification = this.slideRenderMagnification;
     let increment = 5;
 
@@ -201,9 +208,9 @@ export class SlideEditorComponent implements OnInit {
     }
   }
 
-  // This controls the image size when user inputs a value in the heirarchy
   maintainRatio(slideObject, dimension, value) {
-    // Get original aspect ratio of this slide object
+    // This function maintains the aspect ratio of imageObjects when they are
+    // resized using the number inputs in the layer heirarchy
     let ratio: number;
 
     if (slideObject.width || slideObject.height === "auto") {
@@ -221,6 +228,7 @@ export class SlideEditorComponent implements OnInit {
     }
 
     function setImageSize() {
+      // Helper function for maintainRatio()
       switch (dimension) {
         case 'width':
           let newHeight = value / ratio;

@@ -3,15 +3,12 @@ import { DataService } from './data.service';
 import { DialogService } from './dialog.service';
 import * as jsPDF from 'jspdf';
 import * as html2canvas from "html2canvas";
-
 import { TextStyle } from "./classes/textStyle";
 import { ImageStyle } from "./classes/imageStyle";
 import { Store } from "@ngrx/store";
 import { HttpClient } from '@angular/common/http'
-
 import { UserState } from './state-management/state/userState';
 import { ProjectState } from './state-management/state/projectState';
-
 import { ADD_TEXTSTYLE, SET_MODE, ADD_IMAGESTYLE, SELECT_TEXTSTYLE, SELECT_IMAGESTYLE, DEL_SLIDE, PREV_SLIDE, NEXT_SLIDE } from './state-management/actions/projectActions';
 import { Router } from '@angular/router';
 
@@ -21,11 +18,11 @@ import { Router } from '@angular/router';
 export class ToolbarAppLogicService {
 
   sessionData;
-  isPreparingDocument: boolean = false;
 
   constructor(private router: Router, private data: DataService, private dialog: DialogService, private store: Store<ProjectState>, private user: Store<UserState>, private http: HttpClient) { }
 
   dashboard() {
+    // Save project before navigating back to the dashboard
     this.data.saveProject();
     this.router.navigate(['dashboard']);
   }
@@ -52,26 +49,33 @@ export class ToolbarAppLogicService {
     }
   }
 
-  save() {
-    this.sessionData = sessionStorage.getItem('sessionData');
-    if (this.sessionData) {
-      this.data.saveProject().then(() => {
-        this.dialog.toast('Your project has been saved');
-      })
-    } else if (!this.sessionData) {
-      this.dialog.toast('Register to unlock this feature!');
-    }
-  }
+
   /*  EXPORT TO PDF AND SAVE AS PNG FUNCTIONS */
 
   exportAsPDF = () => {
+
+    /*
+      1.  Detect user session.  This feature is only available for registered users.
+      2.  Get projectState documentSize for use in jsPdf and HTML2CANVAS
+      3.  Display loader screen and prep DOM for HTML2CANVAS.  
+            **HTML2CANVAS requires slideRender's scale = 1, and slideRender&&slideRenderArea's overflow = visible to work properly
+      4.  Create jsPdf document
+      5.  Start at slide 0 and recursively convert each slide to an image with HTML2CANVAS, and add it to jsPdf document
+            ** Scale custom-sized documents so that they fit inside of the jsPdf document properly
+      6.  When last slide has been converted and added to the jsPdf document, 
+            -Revert DOM changes from (3) back to their original values
+            -Download jsPdf document to browser for the user
+            -Hide loader screen
+
+    */
+
     this.sessionData = sessionStorage.getItem('sessionData');
     // Is user logged in?
     if (!this.sessionData) {
       this.dialog.toast('Register to unlock this feature!');
     } else if (this.sessionData) {
       // Display loader
-      this.isPreparingDocument = true;
+      this.data.isSlideRenderLoading = true;
       // Get DOM element for HTML2CANVAS
       let slideRender = document.getElementById('slide-render');
 
@@ -81,7 +85,7 @@ export class ToolbarAppLogicService {
         projectState = data;
       });
 
-      // Prep canvas for HTML2CANVAS
+      // Prep DOM for HTML2CANVAS
       this.data.canvasPrep('start');
 
       // Define jsPDF settings
@@ -133,7 +137,7 @@ export class ToolbarAppLogicService {
             this.data.canvasPrep('complete');
             getProjectState.unsubscribe();
             // Hide loader screen
-            this.isPreparingDocument = false;
+            this.data.isSlideRenderLoading = false;
             return;
           } else {
             // Convert to canvas, add to PDF doc, and increment currentSlideIndex
@@ -161,16 +165,15 @@ export class ToolbarAppLogicService {
                   let ratio = imageWidthInches / imageHeightInches;
 
                   // Scale down if image is larger than doc size
+                  // Maintain aspect ratio
                   if (imageHeightInches > height) {
                     imageHeightInches = height;
                     imageWidthInches = height / ratio;
                   }
-
                   if (imageWidthInches > width) {
                     imageWidthInches = width;
                     imageHeightInches = width * ratio;
                   }
-
                   width = imageWidthInches;
                   height = imageHeightInches;
 
@@ -193,6 +196,9 @@ export class ToolbarAppLogicService {
   }
 
   dataURLtoBlob = (dataurl) => {
+    // This function converts data URL to a blob object
+    // data URL was causing a 'network error' when downloading large images  
+    // because 'a' tags have a cap on the length of its src.
     var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
       bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
     while (n--) {
@@ -202,13 +208,28 @@ export class ToolbarAppLogicService {
   }
 
   saveAsPng() {
+
+    /*
+        1.  Detect user session.  This feature is only available for registered users.
+        2.  Prep DOM for HTML2CANVAS
+        3.  Show loader screen
+        4.  Get projectState documentSize for use in HTML2CANVAS
+        5.  Convert slide render to canvas
+        6.  Convert canvas to data URL
+        7.  Convert data URL to blob 
+        8.  Convert blob to object URL
+        9.  Download PNG for user
+        10. Revert DOM changes from (2) back to their original values
+        11. Hide loader screen
+    */
+
     this.sessionData = sessionStorage.getItem('sessionData');
     // Check if user is logged in
     if (!this.sessionData) {
       this.dialog.toast('Register to unlock this feature!');
     } else if (this.sessionData) {
       // Show loader screen
-      this.isPreparingDocument = true;
+      this.data.isSlideRenderLoading = true;
       let slideRender = document.getElementById("slide-render");
       this.data.canvasPrep('start');
 
@@ -225,18 +246,19 @@ export class ToolbarAppLogicService {
         allowTaint: false,
         useCORS: true
       }).then(canvas => {
-        let imgElement = document.createElement('a');
+        // Conversions
         let imgData = canvas.toDataURL("image/png");
-
         let blob = this.dataURLtoBlob(imgData);
         let objUrl = URL.createObjectURL(blob);
-
+        // Download PNG
+        let imgElement = document.createElement('a');
         imgElement.href = objUrl;
         imgElement.download = "slide.png";
         imgElement.click();
+        // Clean up
         this.data.canvasPrep('complete');
         getProjectState.unsubscribe();
-        this.isPreparingDocument = false;
+        this.data.isSlideRenderLoading = false;
       });
     }
   }

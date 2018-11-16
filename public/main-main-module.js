@@ -8119,6 +8119,7 @@ var ImageSandboxComponent = /** @class */ (function () {
     ImageSandboxComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.enableResizer();
+        // Subscribe to projectState
         this.store.select('projectReducer')
             .subscribe(function (projectState) {
             _this.selectedImage = projectState.selectedImage;
@@ -8142,6 +8143,7 @@ var ImageSandboxComponent = /** @class */ (function () {
         }
     };
     ImageSandboxComponent.prototype.enableResizer = function () {
+        // This function enables the draggable resizable layout
         var containerElement = this.container.nativeElement;
         var resizerElement = this.resizer.nativeElement;
         var lowerBoundElement = this.middlebar.nativeElement;
@@ -8149,13 +8151,14 @@ var ImageSandboxComponent = /** @class */ (function () {
         horizontalResizer.init();
     };
     ImageSandboxComponent.prototype.getPreviewRenderCss = function () {
+        // This function allows zooming in and out for the sandbox
         var css = {
             'transform': "scale(" + this.previewRenderMagnification / 100 + ")"
         };
         return css;
     };
-    // User clicks zoom in/out
     ImageSandboxComponent.prototype.zoom = function (direction) {
+        // This function handles the clicking of the zoom in/ zoom out buttons in the sandbox
         var magnification = this.previewRenderMagnification;
         var increment = 10;
         var maxZoom = 300;
@@ -8583,7 +8586,17 @@ var PreviewComponent = /** @class */ (function () {
         this.store = store;
         this.toolbar2 = toolbar2;
         this.previewSlideIndex = 0;
+        this.exitPreviewMode = function (event) {
+            // This function cleans up eventListeners when user exits fullscreen 
+            if (document.fullscreenElement || document.webkitFullscreenElement === null) {
+                _this.toolbar2.isPreviewMode = false;
+                // Disable keyboard and mouse navigation
+                document.removeEventListener('keyup', _this.keyboardControl);
+                document.removeEventListener('click', _this.mouseControl);
+            }
+        };
         this.mouseControl = function (event) {
+            // This function is used in eventListeners for slideshow navigation
             switch (event.button) {
                 case 2:// Right click
                     _this.previousSlide();
@@ -8594,6 +8607,7 @@ var PreviewComponent = /** @class */ (function () {
             }
         };
         this.keyboardControl = function (event) {
+            // This function is used in eventListeners for slideshow navigation
             switch (event.key) {
                 case 'ArrowLeft':
                     _this.previousSlide();
@@ -8603,25 +8617,22 @@ var PreviewComponent = /** @class */ (function () {
                     break;
             }
         };
-        this.exitPreviewMode = function (event) {
-            if (document.fullscreenElement || document.webkitFullscreenElement === null) {
-                _this.toolbar2.isPreviewMode = false;
-                // Disable keyboard and mouse navigation
-                document.removeEventListener('keyup', _this.keyboardControl);
-                document.removeEventListener('click', _this.mouseControl);
-            }
-        };
     }
     PreviewComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // Subscribe to projectState
         this.store.select('projectReducer').subscribe(function (projectState) {
             _this.slides = projectState.slides;
             _this.documentSize = projectState.documentSize;
         });
         this.launchIntoFullscreen(this.previewContainer.nativeElement);
+        // Putting a setTimeout on the slideshowControls prevents the clicking of the "preview" button
+        // to cause the slideshow to start at the second slide.
         setTimeout(function () { return _this.enableSlideShowControls(); }, 1000);
     };
     PreviewComponent.prototype.getPreviewSlideRenderCss = function () {
+        // This function sets the css on the template's slide render so that it is centered horizontally and vertically,
+        // and takes the full screen while maintaining aspect ratio
         var backgroundColor = this.slides[this.previewSlideIndex].getProperty('backgroundColor');
         var width = this.documentSize['width'];
         var height = this.documentSize['height'];
@@ -8637,6 +8648,8 @@ var PreviewComponent = /** @class */ (function () {
         return css;
     };
     PreviewComponent.prototype.launchIntoFullscreen = function (element) {
+        // This function triggers the browser to go into fullscreen mode with the element
+        // passed in as the parameter
         if (element.requestFullscreen) {
             element.requestFullscreen();
         }
@@ -8649,22 +8662,27 @@ var PreviewComponent = /** @class */ (function () {
         else if (element.msRequestFullscreen) {
             element.msRequestFullscreen();
         }
+        // Hide cursor while in full screen mode
         element.requestPointerLock();
+        // Detect when user exits fullscreen
         document.addEventListener("fullscreenchange", this.exitPreviewMode);
         document.addEventListener("mozfullscreenchange", this.exitPreviewMode);
         document.addEventListener("webkitfullscreenchange", this.exitPreviewMode);
         document.addEventListener("msfullscreenchange", this.exitPreviewMode);
     };
-    // Mouse and keyboard navigation
     PreviewComponent.prototype.enableSlideShowControls = function () {
+        // This function uses event listeners to handle slideshow navigation
+        // with mouse and arrow keys
         document.addEventListener('keyup', this.keyboardControl);
         document.addEventListener('click', this.mouseControl);
     };
     PreviewComponent.prototype.previousSlide = function () {
+        // Helper function for slideshow navigation
         if (this.previewSlideIndex > 0)
             this.previewSlideIndex--;
     };
     PreviewComponent.prototype.nextSlide = function () {
+        // Helper function for slideshow navigation
         if (this.previewSlideIndex < this.slides.length - 1)
             this.previewSlideIndex++;
     };
@@ -8726,11 +8744,13 @@ var SandboxAppLogicService = /** @class */ (function () {
         this.data = data;
         this.dialog = dialog;
         this.store = store;
+        /* IMAGE SEARCH VARIABLES  */
         this.imageSearchQuery = "";
         this.imageSearchpage = 1;
     }
     SandboxAppLogicService.prototype.getProjectState = function () {
         var _this = this;
+        // Returns a promise with projectState from store
         return new Promise(function (resolve, reject) {
             _this.store.select('projectReducer')
                 .subscribe(function (projectState) {
@@ -8743,6 +8763,8 @@ var SandboxAppLogicService = /** @class */ (function () {
     };
     SandboxAppLogicService.prototype.pixabayToGallery = function (url) {
         var _this = this;
+        // This function creates a galleryImage object with the search result specified
+        // in the parameter and adds it to the project
         this.data.getProjectState().then(function (projectState) {
             var galleryImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_3__["GalleryImage"]();
             galleryImage.url = url;
@@ -8753,6 +8775,7 @@ var SandboxAppLogicService = /** @class */ (function () {
     };
     SandboxAppLogicService.prototype.searchPixabay = function () {
         var _this = this;
+        // This function makes a call to the back end to perform image search
         this.imageSearchpage = 1;
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"];
         headers = headers.append('search-query', this.imageSearchQuery);
@@ -8763,6 +8786,7 @@ var SandboxAppLogicService = /** @class */ (function () {
     };
     SandboxAppLogicService.prototype.loadMoreImages = function () {
         var _this = this;
+        // This function handles pagination for image search results.
         this.imageSearchpage++;
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"];
         headers = headers.append('search-query', this.imageSearchQuery);
@@ -8775,6 +8799,7 @@ var SandboxAppLogicService = /** @class */ (function () {
         });
     };
     SandboxAppLogicService.prototype.addToSlide = function (type) {
+        // This function adds slideObjects to the project
         switch (type) {
             case 'textObject':
                 this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["ADD_TEXTOBJECT"] });
@@ -8786,6 +8811,8 @@ var SandboxAppLogicService = /** @class */ (function () {
     };
     SandboxAppLogicService.prototype.uploadImage = function (event) {
         var _this = this;
+        // This function takes image file from file input, uses it to create a galleryImage, 
+        // and adds it to the project.
         var file = event.srcElement.files[0];
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -8801,10 +8828,12 @@ var SandboxAppLogicService = /** @class */ (function () {
         };
     };
     SandboxAppLogicService.prototype.selectImage = function (galleryImage) {
+        // This function updates the store with the selected image specified in the parameters
         this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["SELECT_GALLERY_IMAGE"], payload: { galleryImage: galleryImage } });
     };
     SandboxAppLogicService.prototype.deleteImage = function (image) {
         var _this = this;
+        // This function prompts user for confirmation before deleting an image from the project gallery.
         var callback = function () {
             _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["DEL_IMAGE"], payload: { galleryImage: image } });
         };
@@ -8859,12 +8888,15 @@ var SlideEditorAppLogicService = /** @class */ (function () {
         this.store = store;
     }
     SlideEditorAppLogicService.prototype.layerUp = function (slideObject) {
+        // This function increases the slideObject's layer position by 1
         this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SLIDEOBJECT_LAYER_UP"], payload: { slideObject: slideObject } });
     };
     SlideEditorAppLogicService.prototype.layerDown = function (slideObject) {
+        // This function decreases the slideObject's layer position by 1
         this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SLIDEOBJECT_LAYER_DOWN"], payload: { slideObject: slideObject } });
     };
     SlideEditorAppLogicService.prototype.deleteSlideOjbect = function (slideObject) {
+        // This function deletes slideObject from the slide
         this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["DEL_SLIDEOBJECT"], payload: { slideObject: slideObject } });
     };
     SlideEditorAppLogicService = __decorate([
@@ -8898,7 +8930,7 @@ module.exports = "#slide-editor-workspace {\r\n    width: 100%;\r\n    height: 1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"slide-editor-workspace\" #workspace>\r\n  <div id=\"slide-render-area\" #slideRenderArea>\r\n      <div id=\"slide-render-loader\" class=\"flex-col-center\" *ngIf=\"this.toolbar.isPreparingDocument\">\r\n        <fa name=\"cog\" class=\"loader\"></fa>\r\n        <p>Peparing document</p>\r\n      </div>\r\n\r\n    <div id=\"slide-render\" #slideRender [ngStyle]=\"getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"selectObject(slideObject)\" ngResizable [rzHandles]=\"'all'\" (rzStart)=\"slideObject.setProperty('isResizing', true)\"\r\n        (rzStop)=\"slideObject.setSize($event); slideObject.setProperty('isResizing', false)\" ngDraggable (started)=\"slideObject.setProperty('isDragging', true)\"\r\n        (stopped)=\"slideObject.setProperty('isDragging', false)\" (endOffset)=\"slideObject.setTranslation($event)\"\r\n        [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"slideObject.style.getCss()\" [src]=\"slideObject.imagePath\"\r\n          crossOrigin=\"anonymous\">\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"slide-editor-resizer\" #resizer>\r\n\r\n  </div>\r\n\r\n\r\n  <div *ngIf=\"slides.length > 0\" id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" #controlToolbar class=\"grayAccent02 flex-row-center\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <div class=\"md-color-selector\" [(colorPicker)]=\"slides[currentSlideIndex].backgroundColor\" [style.background]=\"slides[currentSlideIndex].backgroundColor\"></div>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"this.zoom('out')\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"slideRenderMagnification\" min=\"0\" max=\"200\" (ngModelChange)=\"this.renderZoomController()\">\r\n\r\n        <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"this.zoom('in')\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"slideRenderMagnification\">%</p>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <p>{{documentSize.width}}px X {{documentSize.height}}px</p>\r\n\r\n        <fa class=\"flex-row-evenly\" [name]=\"this.showRenderOverflow ? 'object-ungroup' : 'object-group'\" (click)=\"this.toggleRenderOverflow()\"></fa>\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-center grayAccent02\"\r\n        [style.background]=\"isSlideObjectSelected(slideObject) ? 'green' : 'none'\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"editTextObjectText(slideObject)\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editTextMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n          <fa (click)=\"this.slideEditor.layerUp(slideObject)\" name=\"arrow-up\"></fa>\r\n          <fa (click)=\"this.slideEditor.layerDown(slideObject)\" name=\"arrow-down\"></fa>\r\n          <fa (click)=\"slideObject.toggleProperty('display')\" [name]=\"slideObject.display ? 'eye' : 'eye-slash'\"></fa>\r\n          <fa (click)=\"this.slideEditor.deleteSlideOjbect(slideObject)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"maintainRatio(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"maintainRatio(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"textObjectEditor\" *ngIf=\"showTextObjectEditor\" class=\"grayAccent02\">\r\n  <p>Edit text for {{textEditorTextObject.name}}</p>\r\n  <textarea [(ngModel)]=\"textEditorTextObject.textValue\"></textarea>\r\n  <div class=\"flex-row-center\">\r\n    <button class=\"success-btn\" (click)=\"saveTextObjectEditor()\">Save</button>\r\n  </div>\r\n</div>"
+module.exports = "<div id=\"slide-editor-workspace\" #workspace>\r\n  <div id=\"slide-render-area\" #slideRenderArea>\r\n      <div id=\"slide-render-loader\" class=\"flex-col-center\" *ngIf=\"this.data.isSlideRenderLoading\">\r\n        <fa name=\"cog\" class=\"loader\"></fa>\r\n      </div>\r\n\r\n    <div id=\"slide-render\" #slideRender [ngStyle]=\"getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"selectObject(slideObject)\" ngResizable [rzHandles]=\"'all'\" (rzStart)=\"slideObject.setProperty('isResizing', true)\"\r\n        (rzStop)=\"slideObject.setSize($event); slideObject.setProperty('isResizing', false)\" ngDraggable (started)=\"slideObject.setProperty('isDragging', true)\"\r\n        (stopped)=\"slideObject.setProperty('isDragging', false)\" (endOffset)=\"slideObject.setTranslation($event)\"\r\n        [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"slideObject.style.getCss()\" [src]=\"slideObject.imagePath\"\r\n          crossOrigin=\"anonymous\">\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"slide-editor-resizer\" #resizer>\r\n\r\n  </div>\r\n\r\n\r\n  <div *ngIf=\"slides.length > 0\" id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" #controlToolbar class=\"grayAccent02 flex-row-center\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <div class=\"md-color-selector\" [(colorPicker)]=\"slides[currentSlideIndex].backgroundColor\" [style.background]=\"slides[currentSlideIndex].backgroundColor\"></div>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"this.zoom('out')\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"slideRenderMagnification\" min=\"0\" max=\"200\" (ngModelChange)=\"this.renderZoomController()\">\r\n\r\n        <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"this.zoom('in')\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"slideRenderMagnification\">%</p>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <p>{{documentSize.width}}px X {{documentSize.height}}px</p>\r\n\r\n        <fa class=\"flex-row-evenly\" [name]=\"this.showRenderOverflow ? 'object-ungroup' : 'object-group'\" (click)=\"this.toggleRenderOverflow()\"></fa>\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-center grayAccent02\"\r\n        [style.background]=\"isSlideObjectSelected(slideObject) ? 'green' : 'none'\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"editTextObjectText(slideObject)\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editTextMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n          <fa (click)=\"this.slideEditor.layerUp(slideObject)\" name=\"arrow-up\"></fa>\r\n          <fa (click)=\"this.slideEditor.layerDown(slideObject)\" name=\"arrow-down\"></fa>\r\n          <fa (click)=\"slideObject.toggleProperty('display')\" [name]=\"slideObject.display ? 'eye' : 'eye-slash'\"></fa>\r\n          <fa (click)=\"this.slideEditor.deleteSlideOjbect(slideObject)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"maintainRatio(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"maintainRatio(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"textObjectEditor\" *ngIf=\"showTextObjectEditor\" class=\"grayAccent02\">\r\n  <p>Edit text for {{textEditorTextObject.name}}</p>\r\n  <textarea [(ngModel)]=\"textEditorTextObject.textValue\"></textarea>\r\n  <div class=\"flex-row-center\">\r\n    <button class=\"success-btn\" (click)=\"saveTextObjectEditor()\">Save</button>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -8944,7 +8976,7 @@ var SlideEditorComponent = /** @class */ (function () {
         this.store = store;
         this.slideRenderMagnification = 50;
         this.showRenderOverflow = false;
-        // TextObject text editor
+        /*  POPUP TEXT OBJECT EDITOR VARIABLES */
         this.showTextObjectEditor = false;
         this.resizeGrid = function (e) {
             var slideEditorWorkspace = _this.workspace.nativeElement;
@@ -8968,6 +9000,8 @@ var SlideEditorComponent = /** @class */ (function () {
     SlideEditorComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.enableSlideEditorResizer();
+        this.data.isSlideRenderLoading = false;
+        // Subscribe to projectState
         this.store.select('projectReducer')
             .subscribe(function (projectState) {
             _this.slides = projectState.slides;
@@ -8977,7 +9011,6 @@ var SlideEditorComponent = /** @class */ (function () {
             _this.imageStyles = projectState.imageStyles;
         });
     };
-    // Resizer functions
     SlideEditorComponent.prototype.enableSlideEditorResizer = function () {
         var _this = this;
         var startResize = function () {
@@ -8993,23 +9026,11 @@ var SlideEditorComponent = /** @class */ (function () {
     };
     // Slide editor render functions
     SlideEditorComponent.prototype.toggleRenderOverflow = function () {
+        // This function is used in the layer heirarchy
         this.showRenderOverflow = !this.showRenderOverflow;
     };
-    SlideEditorComponent.prototype.renderZoomController = function () {
-        var render = this.slideRender.nativeElement;
-        var renderHeight = render.offsetHeight * this.slideRenderMagnification / 100;
-        var renderWidth = render.clientWidth * this.slideRenderMagnification / 100;
-        var renderArea = this.slideRenderArea.nativeElement;
-        var renderAreaHeight = renderArea.offsetHeight;
-        var renderAreaWidth = renderArea.clientWidth;
-        if (renderHeight >= renderAreaHeight) {
-            renderArea.scrollTop = (renderHeight - renderAreaHeight) / 2;
-        }
-        if (renderWidth >= renderAreaWidth) {
-            renderArea.scrollLeft = (renderWidth - renderAreaWidth) / 2;
-        }
-    };
     SlideEditorComponent.prototype.getSlideRenderCss = function () {
+        // This function provides css for the slide render.
         var backgroundColor = this.slides[this.currentSlideIndex].getProperty('backgroundColor');
         var width = this.documentSize['width'];
         var height = this.documentSize['height'];
@@ -9036,8 +9057,9 @@ var SlideEditorComponent = /** @class */ (function () {
         }
         return css;
     };
-    // Text Object Editor
     SlideEditorComponent.prototype.editTextObjectText = function (textObject) {
+        // This function specifies the text object whose text value should be edited
+        // with the changes in the popup text editor
         this.textEditorTextObject = textObject;
         this.showTextObjectEditor = true;
     };
@@ -9049,12 +9071,32 @@ var SlideEditorComponent = /** @class */ (function () {
         this.selectedSlideObject = slideObject;
     };
     SlideEditorComponent.prototype.isSlideObjectSelected = function (slideObject) {
+        // This function provides the boolean for the conditional styling in the template's
+        // layer heirarchy so that the selected slide object is highlighted
         if (slideObject === this.selectedSlideObject)
             return true;
         return false;
     };
-    // User clicks zoom in/out
+    SlideEditorComponent.prototype.renderZoomController = function () {
+        // This function handles the zooming in/out of the slide render 
+        // via range input
+        var render = this.slideRender.nativeElement;
+        var renderHeight = render.offsetHeight * this.slideRenderMagnification / 100;
+        var renderWidth = render.clientWidth * this.slideRenderMagnification / 100;
+        var renderArea = this.slideRenderArea.nativeElement;
+        var renderAreaHeight = renderArea.offsetHeight;
+        var renderAreaWidth = renderArea.clientWidth;
+        // Keep slide render centered in slide render area when zooming in/out
+        if (renderHeight >= renderAreaHeight) {
+            renderArea.scrollTop = (renderHeight - renderAreaHeight) / 2;
+        }
+        if (renderWidth >= renderAreaWidth) {
+            renderArea.scrollLeft = (renderWidth - renderAreaWidth) / 2;
+        }
+    };
     SlideEditorComponent.prototype.zoom = function (direction) {
+        // This function handles the zooming in/out of the slide render
+        // via zoom in/ zoom out buttons
         var magnification = this.slideRenderMagnification;
         var increment = 5;
         switch (direction) {
@@ -9078,9 +9120,9 @@ var SlideEditorComponent = /** @class */ (function () {
                 break;
         }
     };
-    // This controls the image size when user inputs a value in the heirarchy
     SlideEditorComponent.prototype.maintainRatio = function (slideObject, dimension, value) {
-        // Get original aspect ratio of this slide object
+        // This function maintains the aspect ratio of imageObjects when they are
+        // resized using the number inputs in the layer heirarchy
         var ratio;
         if (slideObject.width || slideObject.height === "auto") {
             // Get ratio 
@@ -9097,6 +9139,7 @@ var SlideEditorComponent = /** @class */ (function () {
             setImageSize();
         }
         function setImageSize() {
+            // Helper function for maintainRatio()
             switch (dimension) {
                 case 'width':
                     var newHeight = value / ratio;
@@ -9182,6 +9225,7 @@ var StylerAppLogicService = /** @class */ (function () {
         this.dialog = dialog;
         this.store = store;
         this.deleteStyle = function (style) {
+            // This function prompts user for confirmation before deleting style from the project.
             _this.data.getProjectState()
                 .then(function (projectState) { return _this.projectState = projectState; })
                 .then(function () {
@@ -9211,6 +9255,8 @@ var StylerAppLogicService = /** @class */ (function () {
                 .catch(function (error) { console.log(error); });
         };
         this.confirmedDelete = function (style, isStyleInUse) {
+            // If slideObjects are currently using this style and the user confirms deletion, 
+            // then those slideObjects' styles will revert to the default style.
             var styleType = style.constructor.name;
             if (isStyleInUse) {
                 // Find all slide objects that use this style, and set its style to the default style
@@ -9329,13 +9375,9 @@ var StylerComponent = /** @class */ (function () {
             _this.viewImageElements = projectState.viewImageElements;
         });
     };
-    StylerComponent.prototype.test = function () {
-        console.log('imageStyles:', this.imageStyles);
-        console.log('textStyles:', this.textStyles);
-        console.log('viewTextElements:', this.viewTextElements);
-        console.log('viewImageElements:', this.viewImageElements);
-    };
     StylerComponent.prototype.getCpPosition = function () {
+        // Helper function for colorPicker
+        // TODO:  smart positioning of colorPicker based on its offets
         return "right";
     };
     StylerComponent = __decorate([
@@ -9422,6 +9464,7 @@ var TextSandboxComponent = /** @class */ (function () {
         });
     };
     TextSandboxComponent.prototype.enableResizer = function () {
+        // This function enables drag resizing of UI layout
         var containerElement = this.container.nativeElement;
         var resizerElement = this.resizer.nativeElement;
         var lowerBoundElement = this.middlebar.nativeElement;
@@ -9429,19 +9472,21 @@ var TextSandboxComponent = /** @class */ (function () {
         horizontalResizer.init();
     };
     TextSandboxComponent.prototype.getPreviewRenderCss = function () {
+        // This function provides text preview render with dynamic styling
+        // based on range input value
         var css = {
             'transform': "scale(" + this.previewRenderMagnification / 100 + ")"
         };
         return css;
     };
     TextSandboxComponent.prototype.textInput = function ($event) {
-        console.log('textInput');
-        console.log($event);
+        // This function updates the projectState when user types into the text input
         var sandboxText = $event;
         this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SET_SANDBOXTEXT"], payload: { sandboxText: sandboxText } });
     };
-    // User clicks zoom in/out
     TextSandboxComponent.prototype.zoom = function (direction) {
+        // This function handles zooming in/out of the text preview render
+        // via clicking of the zoom in/out buttons
         var magnification = this.previewRenderMagnification;
         var increment = 10;
         var maxZoom = 300;
@@ -9616,9 +9661,22 @@ var ToolbarAppLogicService = /** @class */ (function () {
         this.store = store;
         this.user = user;
         this.http = http;
-        this.isPreparingDocument = false;
         /*  EXPORT TO PDF AND SAVE AS PNG FUNCTIONS */
         this.exportAsPDF = function () {
+            /*
+              1.  Detect user session.  This feature is only available for registered users.
+              2.  Get projectState documentSize for use in jsPdf and HTML2CANVAS
+              3.  Display loader screen and prep DOM for HTML2CANVAS.
+                    **HTML2CANVAS requires slideRender's scale = 1, and slideRender&&slideRenderArea's overflow = visible to work properly
+              4.  Create jsPdf document
+              5.  Start at slide 0 and recursively convert each slide to an image with HTML2CANVAS, and add it to jsPdf document
+                    ** Scale custom-sized documents so that they fit inside of the jsPdf document properly
+              6.  When last slide has been converted and added to the jsPdf document,
+                    -Revert DOM changes from (3) back to their original values
+                    -Download jsPdf document to browser for the user
+                    -Hide loader screen
+        
+            */
             _this.sessionData = sessionStorage.getItem('sessionData');
             // Is user logged in?
             if (!_this.sessionData) {
@@ -9626,7 +9684,7 @@ var ToolbarAppLogicService = /** @class */ (function () {
             }
             else if (_this.sessionData) {
                 // Display loader
-                _this.isPreparingDocument = true;
+                _this.data.isSlideRenderLoading = true;
                 // Get DOM element for HTML2CANVAS
                 var slideRender_1 = document.getElementById('slide-render');
                 // Get project state
@@ -9634,7 +9692,7 @@ var ToolbarAppLogicService = /** @class */ (function () {
                 var getProjectState_1 = _this.store.select('projectReducer').subscribe(function (data) {
                     projectState_1 = data;
                 });
-                // Prep canvas for HTML2CANVAS
+                // Prep DOM for HTML2CANVAS
                 _this.data.canvasPrep('start');
                 // Define jsPDF settings
                 var doc_1 = new jspdf__WEBPACK_IMPORTED_MODULE_3__({
@@ -9681,7 +9739,7 @@ var ToolbarAppLogicService = /** @class */ (function () {
                             _this.data.canvasPrep('complete');
                             getProjectState_1.unsubscribe();
                             // Hide loader screen
-                            _this.isPreparingDocument = false;
+                            _this.data.isSlideRenderLoading = false;
                             return;
                         }
                         else {
@@ -9708,6 +9766,7 @@ var ToolbarAppLogicService = /** @class */ (function () {
                                         var imageWidthInches = image_1.height / 96;
                                         var ratio = imageWidthInches / imageHeightInches;
                                         // Scale down if image is larger than doc size
+                                        // Maintain aspect ratio
                                         if (imageHeightInches > height_1) {
                                             imageHeightInches = height_1;
                                             imageWidthInches = height_1 / ratio;
@@ -9737,6 +9796,9 @@ var ToolbarAppLogicService = /** @class */ (function () {
             }
         };
         this.dataURLtoBlob = function (dataurl) {
+            // This function converts data URL to a blob object
+            // data URL was causing a 'network error' when downloading large images  
+            // because 'a' tags have a cap on the length of its src.
             var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1], bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
             while (n--) {
                 u8arr[n] = bstr.charCodeAt(n);
@@ -9745,6 +9807,7 @@ var ToolbarAppLogicService = /** @class */ (function () {
         };
     }
     ToolbarAppLogicService.prototype.dashboard = function () {
+        // Save project before navigating back to the dashboard
         this.data.saveProject();
         this.router.navigate(['dashboard']);
     };
@@ -9770,19 +9833,20 @@ var ToolbarAppLogicService = /** @class */ (function () {
                 break;
         }
     };
-    ToolbarAppLogicService.prototype.save = function () {
-        var _this = this;
-        this.sessionData = sessionStorage.getItem('sessionData');
-        if (this.sessionData) {
-            this.data.saveProject().then(function () {
-                _this.dialog.toast('Your project has been saved');
-            });
-        }
-        else if (!this.sessionData) {
-            this.dialog.toast('Register to unlock this feature!');
-        }
-    };
     ToolbarAppLogicService.prototype.saveAsPng = function () {
+        /*
+            1.  Detect user session.  This feature is only available for registered users.
+            2.  Prep DOM for HTML2CANVAS
+            3.  Show loader screen
+            4.  Get projectState documentSize for use in HTML2CANVAS
+            5.  Convert slide render to canvas
+            6.  Convert canvas to data URL
+            7.  Convert data URL to blob
+            8.  Convert blob to object URL
+            9.  Download PNG for user
+            10. Revert DOM changes from (2) back to their original values
+            11. Hide loader screen
+        */
         var _this = this;
         this.sessionData = sessionStorage.getItem('sessionData');
         // Check if user is logged in
@@ -9791,7 +9855,7 @@ var ToolbarAppLogicService = /** @class */ (function () {
         }
         else if (this.sessionData) {
             // Show loader screen
-            this.isPreparingDocument = true;
+            this.data.isSlideRenderLoading = true;
             var slideRender = document.getElementById("slide-render");
             this.data.canvasPrep('start');
             // Get project state for doc height and width
@@ -9806,16 +9870,19 @@ var ToolbarAppLogicService = /** @class */ (function () {
                 allowTaint: false,
                 useCORS: true
             }).then(function (canvas) {
-                var imgElement = document.createElement('a');
+                // Conversions
                 var imgData = canvas.toDataURL("image/png");
                 var blob = _this.dataURLtoBlob(imgData);
                 var objUrl = URL.createObjectURL(blob);
+                // Download PNG
+                var imgElement = document.createElement('a');
                 imgElement.href = objUrl;
                 imgElement.download = "slide.png";
                 imgElement.click();
+                // Clean up
                 _this.data.canvasPrep('complete');
                 getProjectState_2.unsubscribe();
-                _this.isPreparingDocument = false;
+                _this.data.isSlideRenderLoading = false;
             });
         }
     };
@@ -9931,7 +9998,7 @@ module.exports = "#toolbar-container {\r\n    width: 100%;\r\n    height: 100%;\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"toolbar-container\">\r\n\r\n  <div class=\"flex-row-evenly toolbar-button-group-container\">\r\n    <a *ngIf=\"sessionData\" (click)=\"this.toolbar.dashboard()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"arrow-left\"></fa>\r\n      <p>Dashboard</p>\r\n    </a>\r\n\r\n    <a *ngIf=\"!sessionData\" (click)=\"this.toolbar.home()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"arrow-left\"></fa>\r\n      <p>Home</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.createTextStyle()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"font\"></fa>\r\n      <p>New text style</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.createImageStyle()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"image\"></fa>\r\n      <p>New image style</p>\r\n    </a>\r\n  </div>\r\n\r\n  <div id=\"toolbar-style-selector\" class=\"greenAccent02\">\r\n    <!-- Text styles -->\r\n    <div *ngIf=\"viewTextElements\">\r\n      <button *ngFor=\"let textStyle of textStyles\" (click)=\"this.toolbar.selectStyle(textStyle)\" class=\"greenAccent01 toolbar-style-btn\"\r\n        [class.selected]=\"isSelected(textStyle)\">\r\n        <p>{{textStyle.name.substring(0,\r\n          20)}}</p>\r\n      </button>\r\n    </div>\r\n\r\n    <!-- Image styles -->\r\n    <div *ngIf=\"viewImageElements\">\r\n      <button *ngFor=\"let imageStyle of imageStyles\" (click)=\"this.toolbar.selectStyle(imageStyle)\" class=\"greenAccent01 toolbar-style-btn\"\r\n        [class.selected]=\"isSelected(imageStyle)\">\r\n        <p>{{imageStyle.name.substring(0,\r\n          20)}}</p>\r\n      </button>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly toolbar-button-group-container\">\r\n    <a (click)=\"this.toolbar.saveAsPng()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"file-image\"></fa>\r\n      <p>Save As PNG</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.exportAsPDF()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"file-pdf\"></fa>\r\n      <p>Export to PDF</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.save()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"save\"></fa>\r\n      <p>Save</p>\r\n    </a>\r\n  </div>\r\n\r\n</div>"
+module.exports = "<div id=\"toolbar-container\">\r\n\r\n  <div class=\"flex-row-evenly toolbar-button-group-container\">\r\n    <a *ngIf=\"sessionData\" (click)=\"this.toolbar.dashboard()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"arrow-left\"></fa>\r\n      <p>Dashboard</p>\r\n    </a>\r\n\r\n    <a *ngIf=\"!sessionData\" (click)=\"this.toolbar.home()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"arrow-left\"></fa>\r\n      <p>Home</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.createTextStyle()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"font\"></fa>\r\n      <p>New text style</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.createImageStyle()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"image\"></fa>\r\n      <p>New image style</p>\r\n    </a>\r\n  </div>\r\n\r\n  <div id=\"toolbar-style-selector\" class=\"greenAccent02\">\r\n    <!-- Text styles -->\r\n    <div *ngIf=\"viewTextElements\">\r\n      <button *ngFor=\"let textStyle of textStyles\" (click)=\"this.toolbar.selectStyle(textStyle)\" class=\"greenAccent01 toolbar-style-btn\"\r\n        [class.selected]=\"isSelected(textStyle)\">\r\n        <p>{{textStyle.name.substring(0,\r\n          20)}}</p>\r\n      </button>\r\n    </div>\r\n\r\n    <!-- Image styles -->\r\n    <div *ngIf=\"viewImageElements\">\r\n      <button *ngFor=\"let imageStyle of imageStyles\" (click)=\"this.toolbar.selectStyle(imageStyle)\" class=\"greenAccent01 toolbar-style-btn\"\r\n        [class.selected]=\"isSelected(imageStyle)\">\r\n        <p>{{imageStyle.name.substring(0,\r\n          20)}}</p>\r\n      </button>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly toolbar-button-group-container\">\r\n    <a (click)=\"this.toolbar.saveAsPng()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"file-image\"></fa>\r\n      <p>Save As PNG</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.exportAsPDF()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"file-pdf\"></fa>\r\n      <p>Export to PDF</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.data.saveProject()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"save\"></fa>\r\n      <p>Save</p>\r\n    </a>\r\n  </div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -9973,7 +10040,9 @@ var ToolbarComponent = /** @class */ (function () {
     }
     ToolbarComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // Detect user session
         this.sessionData = sessionStorage.getItem('sessionData');
+        // Subscribe to projectState
         this.store.select('projectReducer')
             .subscribe(function (projectState) {
             _this.imageStyles = projectState.imageStyles;
@@ -9987,6 +10056,8 @@ var ToolbarComponent = /** @class */ (function () {
         });
     };
     ToolbarComponent.prototype.isSelected = function (style) {
+        // This function provides the template with a boolean for the conditional styling
+        // of the toolbar's style selector
         var styleType = style.constructor.name;
         switch (styleType) {
             case 'TextStyle':
@@ -10067,6 +10138,7 @@ var Toolbar2AppLogicService = /** @class */ (function () {
     };
     Toolbar2AppLogicService.prototype.deleteSlide = function () {
         var _this = this;
+        // Prompt user for confirmation before deleting current slide from project.
         this.data.getProjectState().then(function (projectState) {
             if (projectState['slides'].length > 1) {
                 var message = 'Are you sure you want to delete this slide?';

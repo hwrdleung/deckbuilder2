@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { ProjectState } from './state-management/state/projectState';
 import { ADD_SLIDE, PREV_SLIDE, NEXT_SLIDE, DEL_SLIDE, SET_MODE } from './state-management/actions/projectActions';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -37,6 +36,7 @@ export class Toolbar2AppLogicService {
   }
 
   deleteSlide() {
+    // Prompt user for confirmation before deleting current slide from project.
     this.data.getProjectState().then(projectState => {
       if (projectState['slides'].length > 1) {
         let message = 'Are you sure you want to delete this slide?';

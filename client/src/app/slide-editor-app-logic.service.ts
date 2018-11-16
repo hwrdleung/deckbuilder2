@@ -11,18 +11,20 @@ import { SLIDEOBJECT_LAYER_UP, SLIDEOBJECT_LAYER_DOWN, DEL_SLIDEOBJECT } from '.
 })
 export class SlideEditorAppLogicService {
   
-
   constructor(private data: DataService, private dialog: DialogService, private store: Store<ProjectState>) { }
 
   layerUp(slideObject: SlideObject) {
+    // This function increases the slideObject's layer position by 1
     this.store.dispatch({ type: SLIDEOBJECT_LAYER_UP, payload: { slideObject: slideObject } });
   }
 
   layerDown(slideObject: SlideObject) {
+    // This function decreases the slideObject's layer position by 1
     this.store.dispatch({ type: SLIDEOBJECT_LAYER_DOWN, payload: { slideObject: slideObject } });
   }
 
   deleteSlideOjbect(slideObject: SlideObject) {
+    // This function deletes slideObject from the slide
     this.store.dispatch({type:DEL_SLIDEOBJECT, payload: {slideObject: slideObject}});
   }
 }

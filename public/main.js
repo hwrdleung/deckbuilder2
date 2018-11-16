@@ -997,6 +997,8 @@ var DashboardComponent = /** @class */ (function () {
             return null;
         };
         this.projectNamevalidator = function (control) {
+            // This validator marks the projectName form control as "invalid" if its value matches
+            // another project's name
             var projectNameControl = control.get('projectName');
             if (_this.projectsData) {
                 _this.projectsData.forEach(function (project) {
@@ -1023,6 +1025,8 @@ var DashboardComponent = /** @class */ (function () {
         });
     }
     DashboardComponent.prototype.projectCreatorConditionalValidation = function () {
+        // This function subscribes to the documentSize form control
+        // and sets the appropriate validations based on the user's documentSize selection.
         var documentSizeChanges = this.projectCreatorForm.controls.documentSize.valueChanges;
         var customHeightControl = this.projectCreatorForm.controls.customHeight;
         var customWidthControl = this.projectCreatorForm.controls.customWidth;
@@ -1044,6 +1048,7 @@ var DashboardComponent = /** @class */ (function () {
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.projectCreatorConditionalValidation();
+        // Subscribe to userState to get updated user data
         this.store.select('userReducer')
             .subscribe(function (userState) {
             _this.userState = userState;
@@ -1051,13 +1056,12 @@ var DashboardComponent = /** @class */ (function () {
             _this.getProjectsData();
         });
     };
-    DashboardComponent.prototype.test = function (formData) {
-        console.log('test');
-        console.log(formData);
-    };
     /* POPULATE DATA VARIABLES */
     DashboardComponent.prototype.getProjectsData = function () {
         var _this = this;
+        // This function makes a call to the back-end to get project data for the dashboard.
+        // The "projects" property that is returned by the back-end does not contain full project data.
+        //  It only consists of the minimal data required for the template's project cards.
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.append('Content-Type', 'application/json');
         headers = headers.append('token', this.userState.token);
@@ -1068,6 +1072,8 @@ var DashboardComponent = /** @class */ (function () {
         });
     };
     DashboardComponent.prototype.getSettingsData = function () {
+        // This function populates the settingsData variable with the data from userState.
+        // settingsData is used in the template's "settings" view.
         this.settingsData = {
             'First name': this.userState.first,
             'Last name': this.userState.last,
@@ -1077,6 +1083,7 @@ var DashboardComponent = /** @class */ (function () {
     };
     /*  UI CONTROLLERS */
     DashboardComponent.prototype.showContent = function (view) {
+        // This function serves as the controller for the dashboard's left vertical nav bar.
         switch (view) {
             case 'projects':
                 this.showProjects = true;
@@ -1089,6 +1096,8 @@ var DashboardComponent = /** @class */ (function () {
         }
     };
     DashboardComponent.prototype.popup = function (form, bool) {
+        // This function serves as the controller for the displaying of popup forms 
+        // in the dashboard's "settings" view.
         switch (form) {
             case 'project creator':
                 this.showProjectCreator = bool;
@@ -1103,6 +1112,8 @@ var DashboardComponent = /** @class */ (function () {
     };
     DashboardComponent.prototype.openProject = function (project) {
         var _this = this;
+        // When user "opens" a project, this function makes a call to the back-end to fetch 
+        // full data for the selected project, loads it into the store, and routes to the main.
         this.dialog.toast("Opening project: " + project.name);
         project.isLoading = true;
         var projectName = project.name;
@@ -1120,6 +1131,8 @@ var DashboardComponent = /** @class */ (function () {
     };
     DashboardComponent.prototype.deleteProject = function (projectName) {
         var _this = this;
+        // This function prompts user for confirmation to delete a project,
+        // and sends a delete request to the back-end if user chooses to proceed.
         var confirmedDelete = function () {
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
             headers = headers.append('Content-Type', 'application/json');
@@ -1137,6 +1150,7 @@ var DashboardComponent = /** @class */ (function () {
     /* PROJECT CREATOR */
     DashboardComponent.prototype.createProject = function (formData) {
         var _this = this;
+        // This function handles the ngSubmit for the projectCreatorForm
         // Parse form Data
         var projectName = formData.projectName;
         var options = {};
@@ -1177,6 +1191,8 @@ var DashboardComponent = /** @class */ (function () {
         });
     };
     DashboardComponent.prototype.ngOnDestroy = function () {
+        // data.serverMsg is shared with the login and registration components.
+        // Clearing it onDestroy prevents the displaying the wrong serverMsg on the wrong form
         this.data.serverMsg = null;
     };
     DashboardComponent = __decorate([
@@ -1256,6 +1272,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
   SLIDE EDITOR
     -Add button for changing style of slideObjects
+    - Change ts file to use the resizer class
 
   DATA
     -Impelement functionality for creating project thumbnails when saving projects
@@ -1268,12 +1285,17 @@ var DataService = /** @class */ (function () {
         this.http = http;
         this.router = router;
         this.store = store;
+        /* SERVER VARIABLES */
         this.apiEndpoint = 'https://deckbuilder2.herokuapp.com';
         // apiEndpoint: string = 'http://localhost:3000';
         this.serverMsg = '';
+        /*  UI VARIABLES */
+        // Had to put this here so that dataService could hide the forms after API calls
         this.showChangePasswordForm = false;
         this.showDeleteAccountForm = false;
+        this.isSlideRenderLoading = false;
         this.getProjectState = function () {
+            // This function returns a promise containing the store's projectState.
             return new Promise(function (resolve, reject) {
                 _this.store.select('projectReducer').subscribe(function (projectState) {
                     if (projectState)
@@ -1283,6 +1305,7 @@ var DataService = /** @class */ (function () {
             });
         };
         this.getUserState = function () {
+            // This function returns a promise containing the store's userState.
             return new Promise(function (resolve, reject) {
                 _this.store.select('userReducer').subscribe(function (userState) {
                     if (userState)
@@ -1291,12 +1314,14 @@ var DataService = /** @class */ (function () {
                 });
             });
         };
+        // Storage for canvasPrep()
         this.SRA_ORIGINAL_OVERFLOW = '';
         this.SR_ORIGINAL_OVERFLOW = '';
         this.SR_ORIGINAL_TRANSFORM = '';
     }
     DataService.prototype.displayServerMessage = function (message) {
         var _this = this;
+        // This function sets serverMsg = message and clears it after 5 seconds.
         this.serverMsg = message;
         setTimeout(function () {
             _this.serverMsg = null;
@@ -1304,8 +1329,9 @@ var DataService = /** @class */ (function () {
     };
     // User registration
     DataService.prototype.register = function (formData) {
+        // This function handles ngSubmit for the reigstration form.
         var _this = this;
-        // Parse formData
+        // Capitalize the user's first and last names
         var capitalize = function (str) {
             var strArr = str.split(' ');
             for (var i = 0; i < strArr.length; i++) {
@@ -1315,7 +1341,7 @@ var DataService = /** @class */ (function () {
         };
         formData.first = capitalize(formData.first);
         formData.last = capitalize(formData.last);
-        // Make api call
+        // Make API call to the back-end for user registration
         this.http.post(this.apiEndpoint + '/new-account', formData).subscribe(function (res) {
             if (res['success']) {
                 _this.displayServerMessage(res['message']);
@@ -1338,6 +1364,7 @@ var DataService = /** @class */ (function () {
     // User login
     DataService.prototype.login = function (formData) {
         var _this = this;
+        // This function handles ngSubmit for the login form
         this.http.post(this.apiEndpoint + '/auth', formData).subscribe(function (res) {
             if (res['success'] === true) {
                 _this.displayServerMessage(res['message']);
@@ -1349,6 +1376,9 @@ var DataService = /** @class */ (function () {
                     username: res['body']['username'],
                     token: res['body']['token'],
                 };
+                // Store session data to session storage
+                // Update the store's userState
+                // Route to dashboard
                 sessionStorage.setItem('sessionData', JSON.stringify(payload));
                 _this.store.dispatch({ type: _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_6__["LOGIN"], payload: payload });
                 _this.router.navigate(['dashboard']);
@@ -1360,12 +1390,16 @@ var DataService = /** @class */ (function () {
         });
     };
     DataService.prototype.logout = function () {
+        // Clear session storage, clear the store's userState, and route to '/'
         sessionStorage.removeItem('sessionData');
         this.store.dispatch({ type: _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_6__["LOGOUT"] });
         this.router.navigate(['/']);
     };
     DataService.prototype.deleteAccount = function (formData) {
         var _this = this;
+        // This function handles ngSubmit for the 'delete account form' in the dashboard's 'settings' view.
+        // Confirmation is handled by form validations in dashboard.ts, requiring the user's password.
+        // Make API call to delete user from database and display server message on failure, logout on success
         this.getUserState().then(function (userState) {
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"];
             headers = headers.append('username', userState['username']);
@@ -1382,6 +1416,9 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.changePassword = function (formData) {
         var _this = this;
+        // This function handles ngSubmit of the 'change password form' in the dashboard's 'settings' view.
+        // Confirmation is handled by form validaions in dashboard.ts, requiring the user to enter their current password.
+        // Make API call to back-end to change the user's password.
         this.getUserState().then(function (userState) {
             var payload = {
                 username: userState['username'],
@@ -1399,8 +1436,8 @@ var DataService = /** @class */ (function () {
         });
     };
     DataService.prototype.reviveProject = function (projectData) {
-        // projectData comes back from the database in JSON format.
-        // Revive projectData to get protoype functions back.
+        // This function takes in a projectState in JSON format, and "revives" its data.
+        // The purpose of the "revive" functions is to restore prototype functions to projectData.
         this.reviveGalleryImages(projectData);
         this.reviveTextStyles(projectData);
         this.reviveImageStyles(projectData);
@@ -1409,6 +1446,7 @@ var DataService = /** @class */ (function () {
         return projectData;
     };
     DataService.prototype.reviveSlideObjectStyles = function (projectData) {
+        // Helper function for reviveProject()
         projectData.slides.forEach(function (slide) {
             slide.slideObjects.forEach(function (slideObject) {
                 var type = slideObject.constructor.name;
@@ -1434,6 +1472,7 @@ var DataService = /** @class */ (function () {
         });
     };
     DataService.prototype.reviveSlides = function (projectData) {
+        // Helper function for reviveProject()
         var slides = [];
         projectData.slides.forEach(function (slide) {
             var newSlide = new _classes_slide__WEBPACK_IMPORTED_MODULE_7__["Slide"]();
@@ -1462,6 +1501,7 @@ var DataService = /** @class */ (function () {
         projectData.slides = slides;
     };
     DataService.prototype.reviveTextStyles = function (projectData) {
+        // Helper function for reviveProject()
         // Revive selectedTextStyle
         // Revive text styles
         var textStyles = [];
@@ -1475,6 +1515,7 @@ var DataService = /** @class */ (function () {
         projectData.selectedTextStyle = projectData.textStyles[0];
     };
     DataService.prototype.reviveGalleryImages = function (projectData) {
+        // Helper function for reviveProject()
         // Revive selectedImage
         var selectedImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_11__["GalleryImage"];
         selectedImage.revive(projectData.selectedImage);
@@ -1491,6 +1532,7 @@ var DataService = /** @class */ (function () {
         projectData.selectedImage = null;
     };
     DataService.prototype.reviveImageStyles = function (projectData) {
+        // Helper function for reviveProject()
         // Revive selectedImageStyle
         var selectedImageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_12__["ImageStyle"];
         selectedImageStyle.revive(projectData.selectedImageStyle);
@@ -1507,6 +1549,8 @@ var DataService = /** @class */ (function () {
         projectData.selectedImageStyle = projectData.imageStyles[0];
     };
     DataService.prototype.canvasPrep = function (task) {
+        // This function makes changes to DOM style values necessary for HTML2CANVAS to work properly.
+        // This funcion is shared between dataService and toolbarAppLogicService
         var slideRender = document.getElementById('slide-render');
         var slideRenderArea = document.getElementById('slide-render-area');
         switch (task) {
@@ -1529,10 +1573,13 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.getThumbnail = function () {
         var _this = this;
+        // This function returns a promise containing a small snapshot of the slide render
+        // at the time this function is called.  (when saving project)
         return new Promise(function (resolve, reject) {
             // Show loader screen
             var slideRender = document.getElementById("slide-render");
             _this.canvasPrep('start');
+            _this.isSlideRenderLoading = true;
             // Get project state for doc height and width
             var projectState;
             var getProjectState = _this.store.select('projectReducer').subscribe(function (data) {
@@ -1541,13 +1588,14 @@ var DataService = /** @class */ (function () {
             html2canvas__WEBPACK_IMPORTED_MODULE_3__(slideRender, {
                 height: projectState.documentSize.height,
                 width: projectState.documentSize.width,
-                scale: 0.5,
+                scale: 0.3,
                 allowTaint: false,
                 useCORS: true
             }).then(function (canvas) {
                 var imgData = canvas.toDataURL("image/png");
                 _this.canvasPrep('complete');
                 getProjectState.unsubscribe();
+                _this.isSlideRenderLoading = false;
                 resolve(imgData);
             })
                 .catch(function (error) { return console.log(error); });
@@ -1555,34 +1603,54 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.saveProject = function () {
         var _this = this;
-        var projectState;
-        var userState;
-        var thumbnail;
-        // create thumbnail here
-        return this.getThumbnail()
-            .then(function (imgData) {
-            thumbnail = imgData;
-            return _this.getProjectState();
-        })
-            .then(function (data) {
-            projectState = data;
-            projectState.lastSaved = new Date();
-            projectState.thumbnail = thumbnail;
-            projectState = JSON.stringify(projectState);
-            return _this.getUserState();
-        })
-            .then(function (data) {
-            userState = data;
-            return userState;
-        })
-            .then(function (userState) {
-            var payload = {
-                token: userState.token,
-                project: projectState
-            };
-            _this.http.post(_this.apiEndpoint + '/save-project', payload).subscribe();
-        })
-            .catch(function (error) { console.log(error); });
+        /*
+            1.  Detect user session.  This feature is only available to registered users.
+            2.  Get thumbnail
+            3.  Get project state, and update 'lastSaved' and 'thumbnail'.  Convert to JSON.
+            4.  Get user state for the token.  Create payload with token and project state.
+            5.  Make API call to save this project's changes to the database.
+            6.  Display dialog message
+        */
+        var sessionData = sessionStorage.getItem('sessionData');
+        if (!sessionData) {
+            this.dialog.toast('Register to unlock this feature!');
+        }
+        else if (sessionData) {
+            var projectState_1;
+            var userState_1;
+            var thumbnail_1;
+            // create thumbnail here
+            return this.getThumbnail()
+                .then(function (imgData) {
+                thumbnail_1 = imgData;
+                return _this.getProjectState();
+            })
+                .then(function (data) {
+                projectState_1 = data;
+                projectState_1.lastSaved = new Date();
+                projectState_1.thumbnail = thumbnail_1;
+                projectState_1 = JSON.stringify(projectState_1);
+                return _this.getUserState();
+            })
+                .then(function (data) {
+                userState_1 = data;
+                return userState_1;
+            })
+                .then(function (userState) {
+                var payload = {
+                    token: userState.token,
+                    project: projectState_1
+                };
+                _this.http.post(_this.apiEndpoint + '/save-project', payload).subscribe(function (res) {
+                    console.log(res);
+                    if (res['success'] === false)
+                        _this.dialog.alert('There was a problem saving your project.', 'danger');
+                    if (res['success'] === true)
+                        _this.dialog.toast('Your project has been saved');
+                });
+            })
+                .catch(function (error) { console.log(error); });
+        }
     };
     DataService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1743,7 +1811,7 @@ var DialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n@import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');\n/* * {\r\n    border: 1px yellow solid;\r\n    box-sizing: border-box;\r\n} */\n#home-content-container {\r\n    width: 80%;\r\n    max-width: 1200px;\r\n    height: 650px;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    padding: 100px 0;\r\n        -ms-grid-columns: 70% 30%;\r\n        grid-template-columns: 70% 30%;\r\n        grid-template-areas: \"left right\";\r\n}\n#home-left-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: left;\r\n}\n#home-left-content > * {\r\n    max-width: 90%;\r\n    margin: 15px auto;\r\n}\n#app-brand {\r\n    font-family: 'Oleo Script Swash Caps', cursive;\r\n    font-size: 4rem;\r\n}\n#splash {\r\n    box-shadow: 2px 2px 5px rgb(122, 122, 122),\r\n    -1px -1px 3px rgb(122, 122, 122);\r\n}\n#description-list li {\r\n    text-decoration: none;\r\n    list-style-type: none;\r\n    line-height: 30px;\r\n}\n#description-list li fa {\r\n    margin: 0 15px;\r\n    color: rgb(0, 155, 0);\r\n}\n#home-right-content > * {\r\n    max-width: 90%;\r\n}\n#home-right-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 2;\r\n    grid-area: right;\r\n    padding-top: 35px;\r\n}\n.cta-btn {\r\n    padding: 10px 25px;\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n    background: rgb(72, 72, 252);\r\n    border: 0;\r\n    border-radius: 5px;\r\n    color: #FFF;\r\n}\n.cta-btn:hover {\r\n    background: rgb(90, 192, 255);\r\n}\n#forms-container {\r\n    width: 100%;\r\n    overflow: hidden;\r\n    box-shadow: 2px 2px 5px black;\r\n}\n#forms-container-nav {\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 1fr 1fr;\r\n        grid-template-columns: 1fr 1fr;\r\n    grid-gap: 1px;\r\n    background: silver;\r\n    border-bottom: 1px silver inset;\r\n}\n#forms-container-nav button {\r\n    display: inline-block;\r\n    width: 100%;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    margin: 0 auto;\r\n    padding: 12px 0;\r\n    font-size: 1rem;\r\n    background: white;\r\n    border: 0;\r\n    color: rgb(49, 49, 49);\r\n    transition: background 0.25s;\r\n    outline: none;\r\n}\n#forms-container-nav button:hover {\r\n    background: silver;\r\n    transition: background 0.25s;\r\n}\n.app-theme {\r\n    border: 0;\r\n    background: #FFF;\r\n    color: rgb(37, 44, 38);\r\n    border-radius: 10px;\r\n}\r\n\r\n"
+module.exports = "\r\n\r\n@import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');\n/* * {\r\n    border: 1px yellow solid;\r\n    box-sizing: border-box;\r\n} */\n#home-content-container {\r\n    width: 80%;\r\n    max-width: 1200px;\r\n    height: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    padding: 150px 0;\r\n    margin-top: 100px;\r\n        -ms-grid-columns: 70% 30%;\r\n        grid-template-columns: 70% 30%;\r\n        grid-template-areas: \"left right\";\r\n}\n#home-left-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: left;\r\n}\n#home-left-content > * {\r\n    max-width: 90%;\r\n    margin: 15px auto;\r\n}\n#app-brand {\r\n    font-family: 'Oleo Script Swash Caps', cursive;\r\n    font-size: 4rem;\r\n}\n#splash {\r\n    box-shadow: 0px 0px 10px rgba(59, 59, 59, 0.4);\r\n    border: 1px rgba(54, 54, 54, 0.5) solid;\r\n}\n#description-list li {\r\n    text-decoration: none;\r\n    list-style-type: none;\r\n    line-height: 30px;\r\n}\n#description-list li fa {\r\n    margin: 0 15px;\r\n    color: rgb(0, 155, 0);\r\n}\n#home-right-content > * {\r\n    max-width: 90%;\r\n}\n#home-right-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 2;\r\n    grid-area: right;\r\n    padding-top: 35px;\r\n}\n.cta-btn {\r\n    padding: 10px 25px;\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n    background: rgb(72, 72, 252);\r\n    border: 0;\r\n    border-radius: 5px;\r\n    color: #FFF;\r\n}\n.cta-btn:hover {\r\n    background: rgb(90, 192, 255);\r\n}\n#forms-container {\r\n    width: 100%;\r\n    overflow: hidden;\r\n    box-shadow: 2px 2px 5px black;\r\n}\n#forms-container-nav {\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 1fr 1fr;\r\n        grid-template-columns: 1fr 1fr;\r\n    grid-gap: 1px;\r\n    background: silver;\r\n    border-bottom: 1px silver inset;\r\n}\n#forms-container-nav button {\r\n    display: inline-block;\r\n    width: 100%;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    margin: 0 auto;\r\n    padding: 12px 0;\r\n    font-size: 1rem;\r\n    background: white;\r\n    border: 0;\r\n    color: rgb(49, 49, 49);\r\n    transition: background 0.25s;\r\n    outline: none;\r\n}\n#forms-container-nav button:hover {\r\n    background: silver;\r\n    transition: background 0.25s;\r\n}\n.app-theme {\r\n    border: 0;\r\n    background: #FFF;\r\n    color: rgb(37, 44, 38);\r\n    border-radius: 10px;\r\n}\r\n\r\n"
 
 /***/ }),
 
@@ -1754,7 +1822,7 @@ module.exports = "\r\n\r\n@import url('https://fonts.googleapis.com/css?family=O
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"flex-row-evenly component-container\">\r\n\r\n  <div id=\"home-content-container\">\r\n    <div id=\"home-left-content\" class=\"flex-col-start\">\r\n\r\n      <h1 id=\"app-brand\">Name Here</h1>\r\n      <p>Produce beautiful creative content right in your web browser.  No installations required!</p>\r\n      <ul id=\"description-list\">\r\n        <li><fa name=\"check\"></fa>Create presentation slideshows</li>\r\n        <li><fa name=\"check\"></fa>Web design templates</li>\r\n        <li><fa name=\"check\"></fa>Generate PDF Documents</li>\r\n        <li><fa name=\"check\"></fa>Image editing</li>\r\n        <li><fa name=\"check\"></fa>Google Fonts library and Pixabay image search, all in one place.</li>\r\n      </ul>\r\n\r\n      <button routerLink=\"main\" class=\"cta-btn\">Use as guest</button>\r\n    </div>\r\n\r\n    <div id=\"home-right-content\" class=\"flex-col-start\">\r\n      <div class=\"app-theme\" id=\"forms-container\">\r\n        <div id=\"forms-container-nav\" class=\"flex-row-evenly\">\r\n          <button (click)=\"showForm('login')\">Login</button>\r\n          <button (click)=\"showForm('registration')\">Register</button>\r\n        </div>\r\n        <login *ngIf=\"showLogin\"></login>\r\n        <registration *ngIf=\"showRegistration\"></registration>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n</div>"
+module.exports = "<div class=\"flex-row-evenly component-container\">\r\n\r\n  <div id=\"home-content-container\">\r\n    <div id=\"home-left-content\" class=\"flex-col-start\">\r\n\r\n      <h1 id=\"app-brand\">Name Here</h1>\r\n      <p>Produce beautiful creative content right in your web browser.  No installations required!</p>\r\n      <ul id=\"description-list\">\r\n        <li><fa name=\"check\"></fa>Create presentation slideshows</li>\r\n        <li><fa name=\"check\"></fa>Draft web design templates</li>\r\n        <li><fa name=\"check\"></fa>Generate PDF Documents</li>\r\n        <li><fa name=\"check\"></fa>Image editing</li>\r\n        <li><fa name=\"check\"></fa>Google Fonts library and Pixabay image search, all in one place.</li>\r\n      </ul>\r\n\r\n      <button routerLink=\"main\" class=\"cta-btn\">Use as guest</button>\r\n\r\n      <img id=\"splash\" src=\"../../assets/splash.jpg\">\r\n    </div>\r\n\r\n    \r\n\r\n    <div id=\"home-right-content\" class=\"flex-col-start\">\r\n      <div class=\"app-theme\" id=\"forms-container\">\r\n        <div id=\"forms-container-nav\" class=\"flex-row-evenly\">\r\n          <button (click)=\"showForm('login')\">Login</button>\r\n          <button (click)=\"showForm('registration')\">Register</button>\r\n        </div>\r\n        <login *ngIf=\"showLogin\"></login>\r\n        <registration *ngIf=\"showRegistration\"></registration>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n</div>"
 
 /***/ }),
 
@@ -1793,6 +1861,7 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.ngOnInit = function () {
     };
     HomeComponent.prototype.showForm = function (form) {
+        // This function serves as the controller for the displaying of login and registration forms
         switch (form) {
             case 'login':
                 this.showLogin = true;
@@ -1884,6 +1953,8 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.ngOnDestroy = function () {
+        // this.data.serverMsg is shared with the home component.
+        // Clearing it prevents the wrong serverMsg from being displayed on dashboard forms after user signs in.
         this.data.serverMsg = null;
     };
     LoginComponent = __decorate([
@@ -1958,7 +2029,6 @@ var RegistrationComponent = /** @class */ (function () {
         this.fb = fb;
         this.http = http;
         this.router = router;
-        this.apiEndpoint = 'http://localhost:3000';
         this.requiredAlert = 'Required';
         this.passwordMismatchAlert = 'Passwords do not match';
         this.emailAlert = 'Invalid email address';
@@ -1975,9 +2045,12 @@ var RegistrationComponent = /** @class */ (function () {
     RegistrationComponent.prototype.ngOnInit = function () {
     };
     RegistrationComponent.prototype.passwordMatchValidator = function (control) {
+        // This validator makes sure that the passwords match
         return control.get('password').value === control.get('password2').value ? null : control.get('password2').setErrors({ 'passwordMismatch': true });
     };
     RegistrationComponent.prototype.ngOnDestroy = function () {
+        // data.serverMsg is shared with dashboard.
+        // Clearing it prevents the wrong serverMsg from being displayed in the dashboard.
         this.data.serverMsg = null;
     };
     RegistrationComponent = __decorate([
@@ -2271,9 +2344,12 @@ var __assign = (undefined && undefined.__assign) || Object.assign || function(t)
 
 var projectReducer = function (state, action) {
     if (state === void 0) { state = _state_projectState__WEBPACK_IMPORTED_MODULE_0__["initialState"]; }
+    /* PROJECT REDUCER HANDLES A LARGE BULK OF APP LOGIC */
     var newState = __assign({}, state);
     switch (action.type) {
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["NEW_PROJECT"]:
+            // Return all state variables to initial states for new project
+            // (Had issues cloning an instance of intial state)
             newState.name = action.payload.name;
             newState.documentSize = action.payload.documentSize;
             newState.created = new Date();
@@ -2298,28 +2374,35 @@ var projectReducer = function (state, action) {
             newState.textNotes = 'Notes...';
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["LOAD_PROJECT"]:
+            // Populate state variables with data from payload
             return action.payload.projectData;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_SLIDE"]:
+            // Add a new slide to the project
             newState.slides.push(new src_app_classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]);
             newState.currentSlideIndex = newState.slides.length - 1;
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["DEL_SLIDE"]:
+            // Delete the current slide
             if (newState.slides.length > 0)
                 newState.slides.splice(newState.currentSlideIndex, 1);
             if (newState.currentSlideIndex > 0)
                 newState.currentSlideIndex--;
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["NEXT_SLIDE"]:
+            // Slide navigation
             if (newState.currentSlideIndex < newState.slides.length - 1) {
                 newState.currentSlideIndex++;
             }
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["PREV_SLIDE"]:
+            // Slide navigation
             if (newState.currentSlideIndex > 0) {
                 newState.currentSlideIndex--;
             }
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_IMAGEOBJECT"]:
+            // Create a new ImageObject with selected image selected image style
+            // and add it to the current slide.
             if (newState.selectedImage) {
                 var imageObject_1 = new src_app_classes_imageObject__WEBPACK_IMPORTED_MODULE_3__["ImageObject"];
                 imageObject_1.style = newState.selectedImageStyle;
@@ -2343,6 +2426,8 @@ var projectReducer = function (state, action) {
             }
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_TEXTOBJECT"]:
+            // Create a new textObject with sandboxText and selectedTextStyle
+            // and add it to the current slide.
             var textObject = new src_app_classes_textObject__WEBPACK_IMPORTED_MODULE_4__["TextObject"];
             textObject.style = newState.selectedTextStyle;
             textObject.textValue = newState.sandboxText;
@@ -2357,9 +2442,12 @@ var projectReducer = function (state, action) {
             });
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_TEXTSTYLE"]:
+            // Add a new textStyle to the project.
             newState.textStyles.push(new src_app_classes_textStyle__WEBPACK_IMPORTED_MODULE_5__["TextStyle"]);
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["DEL_TEXTSTYLE"]:
+            // Confirmation has been handled by the component.
+            // Delete the textStyle specified in the payload.
             for (var i = 0; i < newState.textStyles.length; i++) {
                 if (newState.textStyles[i] === action.payload.textStyle) {
                     newState.textStyles.splice(i, 1);
@@ -2368,9 +2456,12 @@ var projectReducer = function (state, action) {
             }
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_IMAGESTYLE"]:
+            // Add a new imageStyle to the project.
             newState.imageStyles.push(new src_app_classes_imageStyle__WEBPACK_IMPORTED_MODULE_6__["ImageStyle"]);
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["DEL_IMAGESTYLE"]:
+            // Confirmation has been handled by the component.
+            // Delete the imageStyle specified in the payload.
             for (var i = 0; i < newState.imageStyles.length; i++) {
                 if (newState.imageStyles[i] === action.payload.imageStyle) {
                     newState.imageStyles.splice(i, 1);
@@ -2379,9 +2470,12 @@ var projectReducer = function (state, action) {
             }
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_IMAGE"]:
+            // Add a the galleryImage in the payload to the project
             newState.images.push(action.payload.galleryImage);
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["DEL_IMAGE"]:
+            // Confirmation has been handled by the component.
+            // Delete the image specified in the payload.
             for (var i = 0; i < newState.images.length; i++) {
                 if (newState.images[i] === action.payload.galleryImage) {
                     newState.images.splice(i, 1);
@@ -2390,9 +2484,12 @@ var projectReducer = function (state, action) {
             }
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SET_SANDBOXTEXT"]:
+            // Update the project's sandboxText with the data in the payload.
+            // This is triggered by the change event in the text sandbox text input
             newState.sandboxText = action.payload.sandboxText;
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SET_MODE"]:
+            // Switch between 'text' mode and 'image' mode for styler, toolbar, and sandbox components
             if (action.payload.mode === 'text') {
                 newState.viewImageElements = false;
                 newState.viewTextElements = true;
@@ -2403,15 +2500,19 @@ var projectReducer = function (state, action) {
             }
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SELECT_TEXTSTYLE"]:
+            // Set the project's selected textStyle to the one that is specified in the payload
             newState.selectedTextStyle = action.payload.textStyle;
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SELECT_IMAGESTYLE"]:
+            // Set the project's selected imageStyle to the one that is specified in the payload
             newState.selectedImageStyle = action.payload.imageStyle;
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SELECT_GALLERY_IMAGE"]:
+            // Set the project's selected image to the one that is specified in the payload
             newState.selectedImage = action.payload.galleryImage;
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SELECT_SLIDEOBJECT"]:
+            // Set the project's selected slide object to the one that is specified in the payload
             var thisSlide = newState.slides[newState.currentSlideIndex];
             for (var i = 0; i < thisSlide.slideObjects.length; i++) {
                 if (thisSlide.slideObjects[i] === action.payload.slideObject) {
@@ -2421,6 +2522,8 @@ var projectReducer = function (state, action) {
             }
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SLIDEOBJECT_LAYER_DOWN"]:
+            // Find the slide object specified in the payload and switch its place with
+            // the slide object in the previous index
             newState.slides.forEach(function (slide) {
                 for (var i = 0; i < slide.slideObjects.length; i++) {
                     if (slide.slideObjects[i] === action.payload.slideObject) {
@@ -2435,6 +2538,8 @@ var projectReducer = function (state, action) {
             });
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SLIDEOBJECT_LAYER_UP"]:
+            // Find the slide object specified in the payload and switch its place with
+            // the slide object in the next index
             newState.slides.forEach(function (slide) {
                 for (var i = 0; i < slide.slideObjects.length; i++) {
                     if (slide.slideObjects[i] === action.payload.slideObject) {
@@ -2475,6 +2580,7 @@ var userReducer = function (state, action) {
     if (state === void 0) { state = _state_userState__WEBPACK_IMPORTED_MODULE_0__["initialState"]; }
     switch (action.type) {
         case _actions_userActions__WEBPACK_IMPORTED_MODULE_1__["LOGIN"]:
+            // Populate userState variables with the data in the payload
             return {
                 isLoggedIn: action.payload.isLoggedIn,
                 token: action.payload.token,
@@ -2484,6 +2590,7 @@ var userReducer = function (state, action) {
                 username: action.payload.username
             };
         case _actions_userActions__WEBPACK_IMPORTED_MODULE_1__["LOGOUT"]:
+            // Clear userState
             return {
                 isLoggedIn: false,
                 token: '',
@@ -2519,6 +2626,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// Create defaults
 var defaultTextStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_0__["TextStyle"];
 defaultTextStyle.isDefault = true;
 defaultTextStyle.name = "Default Text Style";

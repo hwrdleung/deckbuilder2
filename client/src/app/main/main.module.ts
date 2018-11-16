@@ -24,7 +24,6 @@ import { PreviewComponent } from '../preview/preview.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './main.component';
 import { Routes, RouterModule } from '@angular/router';
-import { DialogComponent } from '../dialog/dialog.component';
 
 const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
   // Change this to your Google API key

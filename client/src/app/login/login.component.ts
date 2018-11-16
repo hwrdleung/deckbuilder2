@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy(){
+    // this.data.serverMsg is shared with the home component.
+    // Clearing it prevents the wrong serverMsg from being displayed on dashboard forms after user signs in.
     this.data.serverMsg = null;
   }
 

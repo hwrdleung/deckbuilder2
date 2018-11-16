@@ -15,11 +15,13 @@ export class SandboxAppLogicService {
 
   constructor(private http: HttpClient, private data: DataService, private dialog: DialogService, private store:Store<ProjectState>) { }
 
+  /* IMAGE SEARCH VARIABLES  */
   imageSearchQuery: string = "";
   imageSearchResults;
   imageSearchpage:number = 1;
 
   getProjectState() {
+    // Returns a promise with projectState from store
     return new Promise((resolve, reject) => {
       this.store.select('projectReducer')
       .subscribe(projectState => {
@@ -31,6 +33,8 @@ export class SandboxAppLogicService {
   }
 
   pixabayToGallery(url: string) {
+    // This function creates a galleryImage object with the search result specified
+    // in the parameter and adds it to the project
     this.data.getProjectState().then(projectState => {
       let galleryImage = new GalleryImage();
       galleryImage.url = url;
@@ -41,6 +45,7 @@ export class SandboxAppLogicService {
   }
 
   searchPixabay() {
+    // This function makes a call to the back end to perform image search
     this.imageSearchpage = 1;
     let headers = new HttpHeaders;
     headers = headers.append('search-query', this.imageSearchQuery);
@@ -52,6 +57,7 @@ export class SandboxAppLogicService {
   }
 
   loadMoreImages(){
+    // This function handles pagination for image search results.
     this.imageSearchpage++;
     let headers = new HttpHeaders;
     headers = headers.append('search-query', this.imageSearchQuery);
@@ -66,6 +72,7 @@ export class SandboxAppLogicService {
   }
 
   addToSlide(type: 'textObject' | 'imageObject') { 
+    // This function adds slideObjects to the project
     switch(type){
       case 'textObject': this.store.dispatch({type:ADD_TEXTOBJECT}); break;
       case 'imageObject' : this.store.dispatch({type:ADD_IMAGEOBJECT}); break;
@@ -73,6 +80,8 @@ export class SandboxAppLogicService {
   }
 
   uploadImage(event) {
+    // This function takes image file from file input, uses it to create a galleryImage, 
+    // and adds it to the project.
     let file = event.srcElement.files[0];
     let reader = new FileReader();
 
@@ -91,10 +100,12 @@ export class SandboxAppLogicService {
   }
 
   selectImage(galleryImage: GalleryImage) {
+    // This function updates the store with the selected image specified in the parameters
     this.store.dispatch({type:SELECT_GALLERY_IMAGE, payload:{galleryImage: galleryImage}})
   }
 
   deleteImage(image: GalleryImage) {
+    // This function prompts user for confirmation before deleting an image from the project gallery.
     let callback = () => {
       this.store.dispatch({type:DEL_IMAGE, payload: {galleryImage: image}});
     }
