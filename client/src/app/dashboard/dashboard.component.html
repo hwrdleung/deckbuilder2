@@ -16,7 +16,9 @@
       <h3 *ngIf="projectsData.length === 0" id="no-projects">You don't have any projects yet.</h3>
       <div class="project-card flex-col-evenly grayAccent02" *ngFor="let project of projectsData">
         <h3 class="project-card-title">{{project.name}}</h3>
+        <div class="project-card-img-container flex-col-center">
         <img src="{{project.thumbnail}}">
+      </div>
 
         <p>Created: {{project.created | date: 'short'}}</p>
         <p>Last saved: {{project.lastSaved | date: 'short'}}</p>

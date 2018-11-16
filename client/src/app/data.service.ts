@@ -33,6 +33,7 @@ import { ImageStyle } from "./classes/imageStyle";
 
   DATA
     -Impelement functionality for creating project thumbnails when saving projects
+    -Fix scaling of thumbnails -- if user creates a custom size document that is really small, then thumbnail ends up even smaller.
 */
 
 
@@ -187,6 +188,8 @@ export class DataService {
   }
 
   reviveProject(projectData) {
+    // projectData comes back from the database in JSON format.
+    // Revive projectData to get protoype functions back.
     this.reviveGalleryImages(projectData)
     this.reviveTextStyles(projectData)
     this.reviveImageStyles(projectData)
@@ -345,7 +348,7 @@ export class DataService {
       html2canvas(slideRender, {
         height: projectState.documentSize.height,
         width: projectState.documentSize.width,
-        scale: 0.1,
+        scale: 0.5,
         allowTaint: false,
         useCORS: true
       }).then(canvas => {
@@ -389,5 +392,4 @@ export class DataService {
       })
       .catch(error => { console.log(error) })
   }
-
 }
