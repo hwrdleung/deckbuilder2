@@ -210,7 +210,7 @@ export class ToolbarAppLogicService {
                 }
               }
             })
-             .catch(error => console.log(error));
+              .catch(error => console.log(error));
           }
         }, 1000);
       }
@@ -218,6 +218,15 @@ export class ToolbarAppLogicService {
       // Start recursion
       addSlides();
     }
+  }
+
+  dataURLtoBlob = (dataurl) => {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
   }
 
   saveAsPng() {
@@ -246,7 +255,11 @@ export class ToolbarAppLogicService {
       }).then(canvas => {
         let imgElement = document.createElement('a');
         let imgData = canvas.toDataURL("image/png");
-        imgElement.href = imgData;
+
+        let blob = this.dataURLtoBlob(imgData);
+        let objUrl = URL.createObjectURL(blob);
+
+        imgElement.href = objUrl;
         imgElement.download = "slide.png";
         imgElement.click();
         this.canvasPrep('complete');
