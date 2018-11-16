@@ -44,8 +44,8 @@ import { ImageStyle } from "./classes/imageStyle";
 
 export class DataService {
 
-  apiEndpoint: string = 'https://deckbuilder2.herokuapp.com/user';
-  // apiEndpoint: string = 'http://localhost:3000/user';
+  apiEndpoint: string = 'https://deckbuilder2.herokuapp.com';
+  // apiEndpoint: string = 'http://localhost:3000';
   serverMsg: string = '';
   userState: object;
 
