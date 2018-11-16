@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 const user = require('./routes/user'); 
-const port = process.env.PORT || 3000;
 
 mongoose.connect('mongodb://noodles01:noodles01@ds149593.mlab.com:49593/deckbuilder2');
 
@@ -23,6 +22,6 @@ app.get('/', (req, res) => {
 
 
 // Start server
-app.listen(port, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('Server started on port ' + port);
 });
