@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { DialogService } from './dialog.service';
 import { GalleryImage } from "./classes/galleryImage";
-import { TextObject } from "./classes/textObject";
-import { ImageObject } from "./classes/imageObject";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Store } from '@ngrx/store';
 import { ProjectState } from './state-management/state/projectState';
 import { ADD_TEXTOBJECT, ADD_IMAGEOBJECT, ADD_IMAGE, SELECT_GALLERY_IMAGE, DEL_IMAGE } from './state-management/actions/projectActions';
@@ -19,6 +17,7 @@ export class SandboxAppLogicService {
 
   imageSearchQuery: string = "";
   imageSearchResults;
+  imageSearchpage:number = 1;
 
   getProjectState() {
     return new Promise((resolve, reject) => {
@@ -42,10 +41,27 @@ export class SandboxAppLogicService {
   }
 
   searchPixabay() {
-    let url = 'https://pixabay.com/api/?'
-    let apiKey = '7780146-3f3faea2d00a0e8da80a92f14';
-    this.http.get(url + 'key=' + apiKey + '&q=' + this.imageSearchQuery).subscribe((res) => {
+    this.imageSearchpage = 1;
+    let headers = new HttpHeaders;
+    headers = headers.append('search-query', this.imageSearchQuery);
+    headers = headers.append('page', '1');
+
+    this.http.get(this.data.apiEndpoint + '/search-pixabay', {headers: headers}).subscribe(res => {
       this.imageSearchResults = res['hits'];
+    });
+  }
+
+  loadMoreImages(){
+    this.imageSearchpage++;
+    let headers = new HttpHeaders;
+    headers = headers.append('search-query', this.imageSearchQuery);
+    headers = headers.append('page', this.imageSearchpage.toString());
+
+    this.http.get(this.data.apiEndpoint + '/search-pixabay', {headers: headers}).subscribe(res => {
+      let results = res['hits'];
+      results.forEach(result => {
+        this.imageSearchResults.push(result);
+      })
     });
   }
 

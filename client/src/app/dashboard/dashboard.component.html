@@ -6,23 +6,26 @@
     <a class="dashboard-nav-link" (click)="this.data.logout()">Sign Out</a>
   </div>
 
-   <div id="dashboard-projects" class="dashboard-content flex-col-start" *ngIf="showProjects">
+  <div id="dashboard-projects" class="dashboard-content flex-col-start" *ngIf="showProjects">
     <h1>PROJECTS</h1>
-    <button id="create-project-btn" class="success-btn" (click)="popupProjectCreator(true)">Create a new project!</button>
+    <button id="create-project-btn" class="success-btn" (click)="popup('project creator', true)">Create a new project!</button>
 
     <fa *ngIf="!projectsData" name="cog" class="loader"></fa>
 
     <div id="projects-container" *ngIf="projectsData">
-      <h3 *ngIf="projectsData.length === 0">You don't have any projects yet.</h3>
-      <div class="project-card grayAccent02" *ngFor="let project of projectsData">
+      <h3 *ngIf="projectsData.length === 0" id="no-projects">You don't have any projects yet.</h3>
+      <div class="project-card flex-col-evenly grayAccent02" *ngFor="let project of projectsData">
+        <h3 class="project-card-title">{{project.name}}</h3>
         <img src="{{project.thumbnail}}">
-        <p>{{project.name}}</p>
-        <p>Created: {{project.created | date: 'shortDate'}}</p>
+
+        <p>Created: {{project.created | date: 'short'}}</p>
+        <p>Last saved: {{project.lastSaved | date: 'short'}}</p>
 
         <div class="flex-row-evenly">
-          <button class="success-btn" (click)="openProject(project.name)">Open</button>
+          <button class="success-btn" (click)="openProject(project)">Open</button>
           <button class="danger-btn" (click)="deleteProject(project.name)">Delete</button>
         </div>
+
       </div>
     </div>
   </div>
@@ -33,6 +36,7 @@
     <fa *ngIf="!settingsData" name="cog" class="loader"></fa>
 
     <div *ngIf="userState.isLoggedIn" id="settings-container">
+      <hr>
       <div *ngFor="let item of settingsData | keyvalue" class="flex-row-between">
         <h3>{{ item.key }}:</h3>
         <h3>{{ item.value }}</h3>
@@ -40,27 +44,127 @@
 
       <div class="flex-row-between">
         <h3>Password:</h3>
-        <button>Change Password</button>
+        <button class="success-btn" (click)="popup('change password', true)">Change My Password</button>
       </div>
 
+      <div class="flex-row-between">
+        <div></div>
+        <button class="danger-btn" (click)="popup('delete account', true)">Delete My Account</button>
+      </div>
+      <hr>
     </div>
   </div>
 </div>
 
-<div id="project-creator-overlay" class="flex-col-evenly" *ngIf="showProjectCreator">
-  <form [formGroup]="projectCreatorForm" id="project-creator-form" class="flex-col-evenly" (ngSubmit)="createProject(projectCreatorForm.value)">
+<div class="flex-col-evenly popup-form-overlay" *ngIf="showProjectCreator">
+  <form [formGroup]="projectCreatorForm" class="flex-col-evenly popup-form" (ngSubmit)="createProject(projectCreatorForm.value)">
 
     <label class="flex-col-evenly">Choose a name for your project:
-      <input type="text" formControlName="projectName"></label>
+      <input type="text" formControlName="projectName">
 
-    <div class="form-alert" *ngIf="projectCreatorForm.controls['projectName'].errors?.nameTaken && projectCreatorForm.controls['last'].touched">{{
-      nameTakenAlert }}</div>
+      <div class="form-alert" *ngIf="projectCreatorForm.controls['projectName'].errors?.required && projectCreatorForm.controls['projectName'].touched">{{
+        requiredAlert }}</div>
+
+      <div class="form-alert" *ngIf="projectCreatorForm.controls['projectName'].errors?.nameTaken && projectCreatorForm.controls['projectName'].touched">{{
+        nameTakenAlert }}</div>
+    </label>
+
     <label class="flex-col-evenly">Select a document size:</label>
-    <input type="radio" formControlName="documentSize" value="768 x 432 Landscape">768px X 432px <br>Landscape
+    <div class="flex-row-evenly" id="doc-sizes">
+      <div class="flex-col-center">
+        <i class="material-icons">tv</i>
+        <input type="radio" formControlName="documentSize" value="1536px x 864px Presentation">
+        <p>Presentation</p>
+        <p>1536px x 864px</p>
+      </div>
+
+      <div class="flex-col-center">
+        <i class="material-icons">crop_portrait</i>
+        <input type="radio" formControlName="documentSize" value="816px x 1056px A4 Document">
+        <p>A4 Document</p>
+        <p>816px x 1056px</p>
+      </div>
+
+      <div class="flex-col-center">
+        <i class="material-icons">photo_size_select_small</i>
+        <input type="radio" formControlName="documentSize" value="custom">
+        <p>Custom size</p>
+      </div>
+    </div>
+
+    <div class="flex-col-center" *ngIf="projectCreatorForm.controls['documentSize'].value==='custom'">
+      <div class="flex-row-center">
+        <p>H:</p><input type="number" formControlName="customHeight" min="1" max="3000">
+        <p>px</p>
+        <p>W:</p><input type="number" formControlName="customWidth" min="1" max="3000">
+        <p>px</p>
+      </div>
+
+      <div class="form-alert" *ngIf="projectCreatorForm.controls['customHeight'].errors?.required && projectCreatorForm.controls['customHeight'].touched">{{
+        customHeightAlert }}</div>
+      <div class="form-alert" *ngIf="projectCreatorForm.controls['customWidth'].errors?.required && projectCreatorForm.controls['customWidth'].touched">{{customWidthAlert
+        }}</div>
+    </div>
 
     <div class="flex-row-center">
-      <button class="success-btn" type="submit" [disabled]="!projectCreatorForm.valid">Get Started!</button>
-      <button class="danger-btn" (click)="popupProjectCreator(false)">Cancel</button>
+        <button class="success-btn" type="submit" [disabled]="!projectCreatorForm.valid">Get Started!</button>
+      <button class="danger-btn" (click)="popup('project creator', false)">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<div class="flex-col-evenly popup-form-overlay" *ngIf="this.data.showChangePasswordForm">
+  <form [formGroup]="changePasswordForm" class="flex-col-evenly popup-form" (ngSubmit)="this.data.changePassword(changePasswordForm.value)">
+    <label class="flex-col-evenly">Please enter your current password:
+      <input type="password" formControlName="oldPassword">
+
+      <div class="form-alert" *ngIf="changePasswordForm.controls['oldPassword'].errors?.required && changePasswordForm.controls['oldPassword'].touched">{{
+        requiredAlert }}</div>
+    </label>
+
+    <label class="flex-col-evenly">Please choose a new password:
+      <input type="password" formControlName="newPassword">
+
+      <div class="form-alert" *ngIf="changePasswordForm.controls['newPassword'].errors?.required && changePasswordForm.controls['newPassword'].touched">{{
+        requiredAlert }}</div>
+    </label>
+
+    <label class="flex-col-evenly">Please re-enter your new password:
+      <input type="password" formControlName="newPassword2">
+
+      <div class="form-alert" *ngIf="changePasswordForm.controls['newPassword2'].errors?.required && changePasswordForm.controls['newPassword2'].touched">{{
+        requiredAlert }}</div>
+
+      <div class="form-alert" *ngIf="changePasswordForm.controls['newPassword2'].errors?.mismatch && changePasswordForm.controls['newPassword2'].touched">{{
+        passwordMismatchAlert }}</div>
+    </label>
+
+    <div class="form-alert" *ngIf="this.data.serverMsg">{{this.data.serverMsg}}</div>
+
+    <div class="flex-row-center">
+      <button class="success-btn" type="submit" [disabled]="!changePasswordForm.valid">Change password</button>
+      <button class="danger-btn" (click)="popup('change password', false)">Cancel</button>
+    </div>
+
+  </form>
+</div>
+
+<div class="flex-col-evenly popup-form-overlay" *ngIf="this.data.showDeleteAccountForm">
+  <form [formGroup]="deleteAccountForm" class="flex-col-evenly popup-form" (ngSubmit)="this.data.deleteAccount(deleteAccountForm.value)">
+    <label class="flex-col-evenly">You are about to delete your account. This is irreversible and you will lose all of
+      your projects and data. <br><br>
+      If you wish to proceed, please enter your password:
+      <input type="password" formControlName="password">
+
+      <div class="form-alert" *ngIf="deleteAccountForm.controls['password'].errors?.required && deleteAccountForm.controls['password'].touched">{{
+        requiredAlert }}</div>
+    </label>
+
+    <div class="form-alert" *ngIf="this.data.serverMsg">{{this.data.serverMsg}}</div>
+
+    <div class="flex-row-center">
+      <button class="success-btn" type="submit" [disabled]="!deleteAccountForm.valid">Delete my account</button>
+      <button class="danger-btn" (click)="popup('delete account', false)">Cancel</button>
     </div>
   </form>
 </div>

@@ -26,6 +26,8 @@ export class ImageSandboxComponent implements OnInit {
   viewGallery: boolean = true;
   viewSearchResults: boolean = false;
 
+  previewRenderMagnification:number = 100;
+
   constructor(private store: Store<ProjectState>, private sandbox:SandboxAppLogicService) { }
 
 
@@ -38,6 +40,10 @@ export class ImageSandboxComponent implements OnInit {
         this.selectedImageStyle = projectState.selectedImageStyle;
         this.images = projectState.images;
       })
+  }
+
+  ngOnDestroy(){
+    this.sandbox.imageSearchResults = null;
   }
 
   showContent(view: string) {
@@ -59,5 +65,38 @@ export class ImageSandboxComponent implements OnInit {
     let lowerBoundElement = this.middlebar.nativeElement
     let horizontalResizer = new HorizontalResizer(containerElement, resizerElement, lowerBoundElement);
     horizontalResizer.init();
+  }
+
+  getPreviewRenderCss(){
+    let css = {
+      'transform': `scale(${this.previewRenderMagnification/100})`
+    }
+    return css;
+  }
+
+  // User clicks zoom in/out
+  zoom(direction: string) {
+    let magnification = this.previewRenderMagnification;
+    let increment = 10;
+    let maxZoom = 300;
+
+    switch (direction) {
+      case 'in':
+        if (magnification > maxZoom - increment) {
+          magnification = maxZoom;
+        } else {
+          magnification += increment;
+        }
+        this.previewRenderMagnification = magnification;
+        break;
+      case 'out':
+        if (magnification < increment) {
+          magnification = 0;
+        } else {
+          magnification -= increment;
+        }
+        this.previewRenderMagnification = magnification;
+        break;
+    }
   }
 }

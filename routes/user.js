@@ -3,6 +3,7 @@ const User = require('../models/user');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const request = require('request');
 const saltRounds = 10;
 const secret = 'secret';
 
@@ -45,7 +46,7 @@ router.post('/new-account', (req, res) => {
         .then(user => {
             if (user) {
                 console.log('This username is already in use.')
-                res.json(new Response(false, 'This username is already in use.'));
+                res.json(new Response(false, 'This username is unavailable.'));
                 throw new Error('End promise chain');
             }
             return User.findOne({ email: email });
@@ -54,7 +55,7 @@ router.post('/new-account', (req, res) => {
         .then(user => {
             if (user) {
                 console.log('This email address has been used to create an account.');
-                res.json(new Response(false, 'This email address has been used to create an account.'));
+                res.json(new Response(false, 'This email address has already been used to create an account.'));
                 throw new Error('End promise chain');
             }
             console.log('Hashing password')
@@ -141,17 +142,17 @@ router.post('/auth', (req, res) => {
 
 router.delete('/delete-account', (req, res) => {
     // Client requests to delete account
-    let username = req.body.username;
-    console.log(req.body.password);
+    let username = req.headers.username;
+    console.log(req.headers.password);
     // Parse data and auth
     User.findOne({ username: username }).exec()
         .then(user => {
             if (!user) return res.json(new Response(false, 'User not found.'));
-            return bcrypt.compare(req.body.password, user.password);
+            return bcrypt.compare(req.headers.password, user.password);
         })
         // Check password
         .then(isValid => {
-            if (!isValid) return res.json(new Response(false, 'Invalid password'));
+            if (!isValid) return res.json(new Response(false, 'Invalid password.'));
             return User.findOneAndRemove({ username: username });
         })
         // Success: delete account and respond with success message
@@ -173,7 +174,7 @@ router.post('/change-password', (req, res) => {
         })
 
         .then(isValid => {
-            if (!isValid) return res.json(new Response(false, 'Authentication failed.'));
+            if (!isValid) return res.json(new Response(false, 'Invalid password.'));
             return bcrypt.hash(req.body.newPassword, saltRounds);
         })
         // Hash new password and save to DB
@@ -229,7 +230,8 @@ router.get('/get-user-dashboard', (req, res) => {
                 let project = {
                     name: user.projects[i].name,
                     thumbnail: user.projects[i].thumbnail,
-                    created: user.projects[i].created
+                    created: user.projects[i].created,
+                    lastSaved: user.projects[i].lastSaved
                 }
                 projectsMin.push(project);
             }
@@ -335,7 +337,21 @@ router.delete('/delete-project', (req, res) => {
             return res.json(new Response(true, projectName + ' has been Deleted.'));
         })
         .catch(error => { console.log(error.message); });
+});
 
+router.get('/search-pixabay', (req, res) => {
+    let searchQuery = req.headers['search-query'];
+    let page = req.headers['page'];
+    console.log('searchQuery:', searchQuery)
+    console.log(req.headers);
+
+    let apiKey = '7780146-3f3faea2d00a0e8da80a92f14';
+    let pixabayEndpoint = 'https://pixabay.com/api/?';
+
+    request(`${pixabayEndpoint}key=${apiKey}&q=${searchQuery}&page=${page}`, {json: true }, (err, data, body) => {
+        if(err) console.log(err);
+        res.json(body);
+    })
 });
 
 module.exports = router;

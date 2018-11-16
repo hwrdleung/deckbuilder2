@@ -2,21 +2,21 @@ import { Slide } from "./slide";
 
 export class SlideObject{
 
-    private static slideObjectCounter:number = 0;
-    private id: number;
-    private name: string;
-    private editNameMode: boolean;
-    private top: number; // Save as percentage
-    private left: number; // Save as percentage
-    private xTranslation: number; // Save as percentage
-    private yTranslation: number; // Save as percentage
-    private rotation: number;
-    private height:  string | number; // Save as percentage
-    private width: string | number; // Save as percentage
-    private display: boolean;
-    private zIndex: number;
-    private isResizing: boolean;
-    private isDragging: boolean;
+    static slideObjectCounter:number = 0;
+    id: number;
+    name: string;
+    editNameMode: boolean;
+    top: number; // Save as percentage
+    left: number; // Save as percentage
+    xTranslation: number; // Save as percentage
+    yTranslation: number; // Save as percentage
+    rotation: number;
+    height:  string | number; // Save as percentage
+    width: string | number; // Save as percentage
+    display: boolean;
+    zIndex: number;
+    isResizing: boolean;
+    isDragging: boolean;
 
     constructor () {
         this.id = SlideObject.slideObjectCounter++;
@@ -78,7 +78,8 @@ export class SlideObject{
             'left' : this.left + 'px',
             'z-index' : this.zIndex,
             'display' : this.display ? 'block' : 'none',
-            'position' : 'absolute'
+            'position' : 'absolute',
+            'box-sizing': 'content-box'
         }
 
         if(this.isResizing || this.isDragging) {

@@ -1,6 +1,6 @@
 import { ActionReducer } from "@ngrx/store";
 import { ProjectState, initialState } from '../state/projectState';
-import { Actions, NEW_PROJECT, LOAD_PROJECT, ADD_SLIDE, DEL_SLIDE, NEXT_SLIDE, PREV_SLIDE, ADD_IMAGEOBJECT, ADD_TEXTOBJECT, DEL_SLIDEOBJECT, ADD_TEXTSTYLE, DEL_TEXTSTYLE, ADD_IMAGESTYLE, DEL_IMAGESTYLE, ADD_IMAGE, DEL_IMAGE, SET_MODE, SELECT_TEXTSTYLE, SELECT_IMAGESTYLE, SELECT_GALLERY_IMAGE, SELECT_SLIDEOBJECT, SLIDEOBJECT_LAYER_UP, SLIDEOBJECT_LAYER_DOWN } from "../actions/projectActions";
+import { Actions, NEW_PROJECT, LOAD_PROJECT, ADD_SLIDE, DEL_SLIDE, NEXT_SLIDE, PREV_SLIDE, ADD_IMAGEOBJECT, ADD_TEXTOBJECT, DEL_SLIDEOBJECT, ADD_TEXTSTYLE, DEL_TEXTSTYLE, ADD_IMAGESTYLE, DEL_IMAGESTYLE, ADD_IMAGE, DEL_IMAGE, SET_SANDBOXTEXT, SET_MODE, SELECT_TEXTSTYLE, SELECT_IMAGESTYLE, SELECT_GALLERY_IMAGE, SELECT_SLIDEOBJECT, SLIDEOBJECT_LAYER_UP, SLIDEOBJECT_LAYER_DOWN, SET_TEXTVALUE } from "../actions/projectActions";
 import { Slide } from "src/app/classes/slide";
 import { ImageObject } from "src/app/classes/imageObject";
 import { TextObject } from "src/app/classes/textObject";
@@ -13,13 +13,35 @@ export const projectReducer: ActionReducer<ProjectState> =
 
         switch (action.type) {
             case NEW_PROJECT:
-                let newProject = { ...initialState }
-                newProject.name = action.payload.name;
-                newProject.documentSize = action.payload.documentSize;
-                return newProject;
+                newState.name = action.payload.name;
+                newState.documentSize = action.payload.documentSize;
+                newState.created = new Date();
+                newState.lastSaved = new Date();
+
+                let defaultSlide = new Slide
+                defaultSlide.isDefault = true;
+                newState.slides = [defaultSlide];
+
+                let defaultTextStyle = new TextStyle;
+                defaultTextStyle.isDefault = true;
+                newState.textStyles = [defaultTextStyle];
+                newState.selectedTextStyle = newState.textStyles[0];
+
+                let defaultImageStyle = new ImageStyle;
+                defaultImageStyle.isDefault = true;
+                newState.imageStyles = [defaultImageStyle];
+                newState.selectedImageStyle = newState.imageStyles[0];
+                
+                newState.currentSlideIndex = 0;
+                newState.images = [];
+                newState.selectedImage = null;
+                newState.viewTextElements = true;
+                newState.viewImageElements = false;
+                newState.sandboxText = 'Lorem Ipsum';
+                newState.textNotes = 'Notes...';
+                return newState;
 
             case LOAD_PROJECT:
-                console.log(action.payload.projectData);
                 return action.payload.projectData
 
             case ADD_SLIDE:
@@ -49,7 +71,22 @@ export const projectReducer: ActionReducer<ProjectState> =
                     let imageObject = new ImageObject;
                     imageObject.style = newState.selectedImageStyle;
                     imageObject.imagePath = newState.selectedImage.url;
-                    newState.slides[newState.currentSlideIndex].slideObjects.push(imageObject);
+
+                    // Set imageObject height and width
+                    let img = new Image;
+                    img.src = imageObject.imagePath;
+                    img.onload = () => {
+                        if (img.width <= newState.documentSize['width']) {
+                            imageObject.height = img.height;
+                            imageObject.width = img.width;
+                        } else if (img.width > newState.documentSize['width']) {
+                            let ratio = img.width / img.height;
+                            imageObject.width = newState.documentSize['width'];
+                            imageObject.height = newState.documentSize['width'] / ratio;
+                        }
+                        img = null;
+                        newState.slides[newState.currentSlideIndex].slideObjects.push(imageObject);
+                    }
                 }
                 return newState;
 
@@ -107,6 +144,10 @@ export const projectReducer: ActionReducer<ProjectState> =
                 }
                 return newState;
 
+            case SET_SANDBOXTEXT:
+                newState.sandboxText = action.payload.sandboxText;
+                return newState;
+
             case SET_MODE:
                 if (action.payload.mode === 'text') {
                     newState.viewImageElements = false;
@@ -125,7 +166,6 @@ export const projectReducer: ActionReducer<ProjectState> =
 
             case SELECT_IMAGESTYLE:
                 newState.selectedImageStyle = action.payload.imageStyle;
-                console.log(newState.selectedImageStyle)
                 return newState;
 
             case SELECT_GALLERY_IMAGE:

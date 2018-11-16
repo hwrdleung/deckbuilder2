@@ -66,10 +66,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    box-sizing: border-box;
 }
-
-
 
 #image-preview-container {
     max-width: 90%;
@@ -81,6 +78,36 @@
     width: 100%;
     height: auto;
 }
+
+/* Preview area */
+#preview-toolbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 25px;
+    width: 100%;
+    padding: 3px 0;
+    box-sizing: border-box;
+}
+
+#preview-toolbar fa {
+    font-size: 0.8rem;
+}
+
+#preview-toolbar input[type="range"] {
+    width: 100px;
+}
+
+#preview-toolbar input[type="number"] {
+    width: 45px;
+    background: transparent;
+    color: #FFF;
+    border: 1px #FFF solid;
+    margin: 0 5px;
+    text-align: center;
+}
+
+
 
 /* Middle bar  */
 .image-input-area {
@@ -232,6 +259,22 @@
 .gallery-img:hover {
     opacity: 1;
     cursor: pointer;
+}
+
+#load-more-images {
+    width: auto;
+    height: 30px;
+    margin: 20px auto;
+    border: 0;
+    border-radius: 5px;
+}
+
+#load-more-images fa {
+    margin: 0 5px;
+}
+
+#load-more-images:hover {
+    background: rgb(104, 104, 104);
 }
 
 .delete-icon {

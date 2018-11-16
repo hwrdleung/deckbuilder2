@@ -2,14 +2,14 @@ import { TextStyle } from '../../classes/textStyle';
 import { ImageStyle } from '../../classes/imageStyle';
 import { Slide } from '../../classes/slide';
 import { GalleryImage } from '../../classes/galleryImage';
+import { DocumentSize } from 'src/app/classes/documentSize';
 
 
 export interface ProjectState {
     name: string;
     created: Date;
+    lastSaved: Date;
     thumbnail: string;
-    slideObjectIdCounter: number;
-    styleIdCounter: number;
 
     slides: Array<Slide>;
     textStyles: TextStyle[];
@@ -23,7 +23,6 @@ export interface ProjectState {
     images: GalleryImage[];
 
     sandboxText: string;
-    sandboxImage: string;
 
     viewTextElements: boolean;
     viewImageElements: boolean;
@@ -31,7 +30,7 @@ export interface ProjectState {
     textNotes: string;
     selectedImage: GalleryImage;
 
-    documentSize: object;
+    documentSize: DocumentSize;
 }
 
 let defaultTextStyle = new TextStyle;
@@ -48,9 +47,8 @@ defaultSlide.isDefault = true;
 export const initialState: ProjectState = {
     name: 'New Project',
     created: new Date(),
+    lastSaved: new Date(),
     thumbnail: 'https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg',
-    slideObjectIdCounter: 0,
-    styleIdCounter: 0,
 
     slides: [defaultSlide],
     textStyles: [defaultTextStyle],
@@ -64,16 +62,18 @@ export const initialState: ProjectState = {
     images: [],
 
     sandboxText: 'Lorem Ipsum',
-    sandboxImage: '',
+    selectedImage: null,
+
 
     viewTextElements: true,
     viewImageElements: false,
 
     textNotes: 'Notes...',
-    selectedImage: null,
 
-    documentSize: {
-        height: 432,
-        width: 768
-    },
+    documentSize: new DocumentSize({
+        height: 864,
+        width: 1536,
+        jsPdfFormat: [16, 9],
+        orientation: 'landscape'
+    }),
 };

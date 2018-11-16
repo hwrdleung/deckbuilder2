@@ -4,6 +4,7 @@ import { DataService } from '../data.service';
 import { Store } from "@ngrx/store";
 import { UserState } from '../state-management/state/userState';
 import { ProjectState } from '../state-management/state/projectState';
+import { Toolbar2AppLogicService } from '../toolbar2-app-logic.service';
 
 @Component({
   selector: 'app-main',
@@ -19,8 +20,9 @@ export class MainComponent implements OnInit {
   @ViewChild('slideEditor') slideEditor: ElementRef<any>;
   viewTextElements:boolean;
   viewImageElements:boolean;
+  autoSaveInterval:number = 5 * 60 * 1000;
 
-  constructor(private elementRef: ElementRef, private data: DataService, private store:Store<ProjectState>) {}
+  constructor(private elementRef: ElementRef, private data: DataService, private store:Store<ProjectState>, private toolbar2:Toolbar2AppLogicService) {}
 
   ngOnInit() {
     this.enableResizer();
@@ -30,6 +32,12 @@ export class MainComponent implements OnInit {
       this.viewTextElements = projectState.viewTextElements;
       this.viewImageElements = projectState.viewImageElements;
     })
+
+    this.autoSave();
+  }
+
+  autoSave(){
+    if(sessionStorage.getItem('sessionData')) setInterval(this.data.saveProject, this.autoSaveInterval);
   }
 
   enableResizer = () => {

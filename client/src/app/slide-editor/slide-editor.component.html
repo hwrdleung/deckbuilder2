@@ -1,31 +1,27 @@
 <div id="slide-editor-workspace" #workspace>
   <div id="slide-render-area" #slideRenderArea>
+      <div id="slide-render-loader" class="flex-col-center" *ngIf="this.toolbar.isPreparingDocument">
+        <fa name="cog" class="loader"></fa>
+        <p>Peparing document</p>
+      </div>
+
     <div id="slide-render" #slideRender [ngStyle]="getSlideRenderCss()">
-      <div *ngFor="let slideObject of slides[currentSlideIndex].slideObjects" 
-      class="slide-object"
-        [ngStyle]="slideObject.getCss()" 
-        (mousedown)="selectObject(slideObject)" 
-        ngResizable 
-        [rzHandles]="'all'"
-        (rzStart)="slideObject.setProperty('isResizing', true)" 
-        (rzStop)="slideObject.setSize($event); slideObject.setProperty('isResizing', false)"
-        ngDraggable 
-        (started)="slideObject.setProperty('isDragging', true)" 
-        (stopped)="slideObject.setProperty('isDragging', false)"
-        (endOffset)="slideObject.setTranslation($event)" 
-        [position]="slideObject.getTranslation()"
-        [rzAspectRatio]="slideObject.constructor.name==='ImageObject'? true: false">
+      <div *ngFor="let slideObject of slides[currentSlideIndex].slideObjects" class="slide-object" [ngStyle]="slideObject.getCss()"
+        (mousedown)="selectObject(slideObject)" ngResizable [rzHandles]="'all'" (rzStart)="slideObject.setProperty('isResizing', true)"
+        (rzStop)="slideObject.setSize($event); slideObject.setProperty('isResizing', false)" ngDraggable (started)="slideObject.setProperty('isDragging', true)"
+        (stopped)="slideObject.setProperty('isDragging', false)" (endOffset)="slideObject.setTranslation($event)"
+        [position]="slideObject.getTranslation()" [rzAspectRatio]="slideObject.constructor.name==='ImageObject'? true: false">
 
         <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>
-        <img *ngIf="slideObject.constructor.name==='ImageObject'" [ngStyle]="slideObject.style.getCss()"
-          [src]="slideObject.imagePath" crossOrigin="anonymous">
+        <img *ngIf="slideObject.constructor.name==='ImageObject'" [ngStyle]="slideObject.style.getCss()" [src]="slideObject.imagePath"
+          crossOrigin="anonymous">
 
       </div>
     </div>
   </div>
 
   <div id="slide-editor-resizer" #resizer>
-    
+
   </div>
 
 
@@ -34,8 +30,7 @@
     <div id="slide-control-toolbar" #controlToolbar class="grayAccent02 flex-row-center">
       <div class="flex-row-evenly">
         <p>Set background color: </p>
-        <div class="md-color-selector" [(colorPicker)]="slides[currentSlideIndex].backgroundColor"
-          [style.background]="slides[currentSlideIndex].backgroundColor"></div>
+        <div class="md-color-selector" [(colorPicker)]="slides[currentSlideIndex].backgroundColor" [style.background]="slides[currentSlideIndex].backgroundColor"></div>
       </div>
 
       <div class="flex-row-evenly">
@@ -52,8 +47,8 @@
       <div class="flex-row-evenly">
         <p>{{documentSize.width}}px X {{documentSize.height}}px</p>
 
-      <fa class="flex-row-evenly" [name]="this.showRenderOverflow ? 'object-ungroup' : 'object-group'" (click)="this.toggleRenderOverflow()"></fa>
-    </div>
+        <fa class="flex-row-evenly" [name]="this.showRenderOverflow ? 'object-ungroup' : 'object-group'" (click)="this.toggleRenderOverflow()"></fa>
+      </div>
 
     </div>
 
@@ -74,7 +69,7 @@
         <div *ngIf="slideObject.constructor.name==='TextObject'" class="flex-row-evenly heirarchy-content heirarchy-control-group">
           <div *ngIf="!slideObject.editTextMode" class="flex-row-evenly">
             <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>
-            <fa name="edit" (click)="slideObject.toggleProperty('editTextMode')"></fa>
+            <fa name="edit" (click)="editTextObjectText(slideObject)"></fa>
           </div>
 
           <div *ngIf="slideObject.editTextMode" class="flex-row-evenly">
@@ -109,5 +104,13 @@
 
       </div>
     </div>
+  </div>
+</div>
+
+<div id="textObjectEditor" *ngIf="showTextObjectEditor" class="grayAccent02">
+  <p>Edit text for {{textEditorTextObject.name}}</p>
+  <textarea [(ngModel)]="textEditorTextObject.textValue"></textarea>
+  <div class="flex-row-center">
+    <button class="success-btn" (click)="saveTextObjectEditor()">Save</button>
   </div>
 </div>

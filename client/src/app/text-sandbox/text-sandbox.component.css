@@ -53,14 +53,40 @@
         "middleBar"
         "notes";
     position: absolute;
-   
 }
 
 /* Preview area */
 #text-preview-container {
-    border: 2px dashed rgba(0, 0, 0, 0.3);
     min-width: 75px;
     word-wrap: break-word;
+    border: 2px dashed rgba(0, 0, 0, 0.3);
+}
+
+#preview-toolbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 25px;
+    width: 100%;
+    padding: 3px 0;
+    box-sizing: border-box;
+}
+
+#preview-toolbar fa {
+    font-size: 0.8rem;
+}
+
+#preview-toolbar input[type="range"] {
+    width: 100px;
+}
+
+#preview-toolbar input[type="number"] {
+    width: 45px;
+    background: transparent;
+    color: #FFF;
+    border: 1px #FFF solid;
+    margin: 0 5px;
+    text-align: center;
 }
 
 /* Middle bar  */

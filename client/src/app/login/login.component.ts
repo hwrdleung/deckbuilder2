@@ -23,6 +23,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy(){
+    this.data.serverMsg = null;
+  }
 
 
 }

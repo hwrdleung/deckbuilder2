@@ -3,7 +3,7 @@ import { DataService } from './data.service';
 import { DialogService } from './dialog.service';
 import { TextStyle } from "./classes/textStyle";
 import { ImageStyle } from "./classes/imageStyle";
-import { DEL_TEXTSTYLE, DEL_IMAGESTYLE } from './state-management/actions/projectActions';
+import { DEL_TEXTSTYLE, DEL_IMAGESTYLE, SELECT_TEXTSTYLE, SELECT_IMAGESTYLE } from './state-management/actions/projectActions';
 import { Store } from '@ngrx/store';
 import { ProjectState } from './state-management/state/projectState';
 
@@ -12,45 +12,72 @@ import { ProjectState } from './state-management/state/projectState';
 })
 export class StylerAppLogicService {
 
+  projectState;
+
   constructor(private data: DataService, private dialog: DialogService, private store: Store<ProjectState>) { }
 
   deleteStyle = (style: TextStyle | ImageStyle) => {
     this.data.getProjectState()
-      .then(projectState => {
-        if (!this.isStyleInUse(style, projectState)) this.confirmedDelete(style);
-        else console.log('Style is in use.');
-      })
-      .catch(error => {console.log(error)});
-  }
+      .then(projectState => this.projectState = projectState)
+      .then(() => {
+        // Check if style is being used by any slide objects
+        let isStyleInUse = false;
+        this.projectState.slides.forEach(slide => {
+          slide.slideObjects.forEach(slideObject => {
+            if (slideObject.style === style) isStyleInUse = true;
+          });
+        });
 
-  confirmedDelete = (style: TextStyle | ImageStyle) => {
-    let styleType = style.constructor.name;
-
-    switch (styleType) {
-      case 'TextStyle': this.store.dispatch({ type: DEL_TEXTSTYLE, payload: { textStyle: style } }); break;
-      case 'ImageStyle': this.store.dispatch({ type: DEL_IMAGESTYLE, payload: { imageStyle: style } }); break;
-    }
-  }
-
-
-
-  isStyleInUse = (style: TextStyle | ImageStyle, projectState: object) => {
-    let styleType = style.constructor.name;
-
-    let slides = projectState['slides'];
-    if (!slides) return false;
-
-    slides.forEach(slide => {
-      for (let i = 0; i < slide.slideObjects.length; i++) {
-        let slideObject = slide.slideObjects[i];
-        let slideObjectType = slideObject.constructor.name;
-
-        switch (styleType) {
-          case 'TextStyle': if (slideObjectType === 'TextObject' && style.id === slideObject.styleId) return true;
-          case 'ImageStyle': if (slideObjectType === 'ImageObject' && style.id === slideObject.styleId) return true;
-          default: return false;
+        if (!isStyleInUse) {
+          // Delete and toast message
+          this.confirmedDelete(style, false);
+        } else if (isStyleInUse) {
+          // Prompt for confirmation
+          let type: string;
+          if (style.constructor.name === 'TextStyle') type = 'text';
+          if (style.constructor.name === 'ImageStyle') type = 'image';
+          let message = style.name + ' is currently being used in one or more slides.  Deleting it will cause all ' + type + ' objects using this style to revert to the default style.  Do you wish to proceed?'
+          this.dialog.alert(message, 'danger', () => this.confirmedDelete(style, isStyleInUse))
         }
-      }
-    });
+      })
+      .catch(error => { console.log(error) });
+  }
+
+  confirmedDelete = (style: TextStyle | ImageStyle, isStyleInUse: boolean) => {
+    let styleType = style.constructor.name;
+
+    if (isStyleInUse) {
+      // Find all slide objects that use this style, and set its style to the default style
+      this.projectState.slides.forEach(slide => {
+        slide.slideObjects.forEach(slideObject => {
+          if (slideObject.style === style) {
+            switch (styleType) {
+              case 'TextStyle': slideObject.style = this.projectState.textStyles[0]; break;
+              case 'ImageStyle': slideObject.style = this.projectState.imageStyles[0]; break;
+            }
+          }
+        })
+      })
+    }
+
+    // Delete from project state
+    switch (styleType) {
+      case 'TextStyle':
+        // Check selectedTextStyle
+        if (this.projectState.selectedTextStyle === style) {
+          this.store.dispatch({ type: SELECT_TEXTSTYLE, payload: { textStyle: this.projectState.textStyles[0] } })
+        }
+        this.store.dispatch({ type: DEL_TEXTSTYLE, payload: { textStyle: style } }); break;
+      case 'ImageStyle':
+        // Check selectedImageStyle
+        if (this.projectState.selectedImageStyle === style) {
+          this.store.dispatch({ type: SELECT_IMAGESTYLE, payload: { imageStyle: this.projectState.imageStyles[0] } })
+        }
+        this.store.dispatch({ type: DEL_IMAGESTYLE, payload: { imageStyle: style } }); break;
+    }
+
+    // Display toast message
+    let message = style.name + ' has been deleted.'
+    this.dialog.toast(message);
   }
 }

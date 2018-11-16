@@ -34,7 +34,7 @@ export class TextStyle {
         this.editNameMode = false;
         this.showExtraOptions = false;
         this.color = '#000';
-        this.backgroundColor = 'none';
+        this.backgroundColor = 'transparent';
         this.underline = false;
         this.overline = false;
         this.lineThrough = false;

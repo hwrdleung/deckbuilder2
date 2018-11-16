@@ -1,15 +1,22 @@
 <div #container class="sandbox-container" id="text-sandbox">
     <div class="preview-area flex-row-center">
-        <div id="text-preview-container" *ngIf="sandboxText">
+        <div id="text-preview-container" *ngIf="sandboxText" [ngStyle]="getPreviewRenderCss()">
             <p [ngStyle]="selectedTextStyle.getCss()">{{sandboxText}}</p>
           </div>
+
+          <div class="flex-row-center grayAccent02" id="preview-toolbar">
+            <fa name="search-minus" class="flex-row-evenly" (click)="zoom('out')"></fa>
+            <input type='range' [(ngModel)]="previewRenderMagnification" min="0" max="300">
+            <fa name="search-plus" class="flex-row-evenly" (click)="zoom('in')"></fa>
+            <p><input type="number" [(ngModel)]="previewRenderMagnification">%</p>
+          </div>
+
     </div>
-  
     <div #resizer class="resizer"></div>
   
     <div class="sandbox-bottom">
       <div #middlebar class="middle-bar">
-        <textarea id="main-textarea" [(ngModel)]="sandboxText"></textarea>
+        <textarea id="main-textarea" [(ngModel)]="sandboxText" (ngModelChange)="textInput($event)"></textarea>
         <a (click)="this.sandbox.addToSlide('textObject')" id="sandbox-add-btn-group" class="grayAccent02 flex-col-center">
             <fa name="share"></fa>
             <p>Add text object to slide</p>

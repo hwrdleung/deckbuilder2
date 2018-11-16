@@ -1,12 +1,4 @@
 import { Action } from "@ngrx/store";
-import { ProjectState } from "../state/projectState";
-import { Slide } from "src/app/classes/slide";
-import { SlideObject } from "src/app/classes/slideObject";
-import { TextStyle } from "src/app/classes/textStyle";
-import { ImageStyle } from "src/app/classes/imageStyle";
-import { GalleryImage } from "src/app/classes/galleryImage";
-import { TextObject } from "src/app/classes/textObject";
-import { ImageObject } from "src/app/classes/imageObject";
 
 // UserState actions
 export const NEW_PROJECT:string = "NEW_PROJECT";
@@ -20,6 +12,7 @@ export const PREV_SLIDE:string = "PREV_SLIDE";
 export const ADD_IMAGEOBJECT:string = "ADD_IMAGEOBJECT";
 export const ADD_TEXTOBJECT:string = "ADD_TEXTOBJECT";
 export const DEL_SLIDEOBJECT:string = "DEL_SLIDEOBJECT";
+export const SET_TEXTVALUE: string = "SET_TEXTVALUE"
 
 export const ADD_TEXTSTYLE:string = "ADD_TEXTSTYLE";
 export const DEL_TEXTSTYLE:string = "DEL_TEXTSTYLE";
@@ -30,6 +23,7 @@ export const DEL_IMAGESTYLE:string = "DEL_IMAGESTYLE";
 export const ADD_IMAGE:string = "ADD_IMAGE";
 export const DEL_IMAGE:string = "DEL_IMAGE";
 
+export const SET_SANDBOXTEXT:string = "SET_SANDBOXTEXT";
 export const SET_MODE:string = "SET_MODE";
 
 export const SELECT_TEXTSTYLE:string = "SELECT_TEXTSTYLE";
@@ -52,6 +46,11 @@ export class LoadProject implements Action {
 
 export class AddTextObject implements Action {
     readonly type = ADD_TEXTOBJECT
+    constructor(public payload: any){}
+}
+
+export class SetTextValue implements Action {
+    readonly type = SET_TEXTVALUE
     constructor(public payload: any){}
 }
 
@@ -85,6 +84,11 @@ export class DelImage implements Action {
     constructor(public payload: any){}
 }
 
+export class SetSandboxText implements Action {
+    readonly type = SET_SANDBOXTEXT
+    constructor(public payload: any){}
+}
+
 export class SetMode implements Action {
     readonly type = SET_MODE
     constructor(public payload: any){}
@@ -115,4 +119,4 @@ export class SlideObjectLayerDown implements Action {
     constructor(public payload: any){}
 }
 
-export type Actions = LoadProject | AddImageObject | AddTextObject | DelSlideObject | DelTextStyle | DelImageStyle | AddImage | DelImage | SetMode | SelectTextStyle | SelectImageStyle | SelectGalleryImage | SlideObjectLayerUp | SlideObjectLayerDown;
+export type Actions = LoadProject | AddImageObject | AddTextObject | SetTextValue | DelSlideObject | DelTextStyle | DelImageStyle | AddImage | DelImage | SetMode | SetSandboxText | SelectTextStyle | SelectImageStyle | SelectGalleryImage | SlideObjectLayerUp | SlideObjectLayerDown;

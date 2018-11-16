@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { DialogService } from "./dialog.service";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { Router } from '@angular/router';
 
@@ -17,49 +17,24 @@ import { ImageStyle } from "./classes/imageStyle";
   TODO:
 
   HOME
-    -Fix displaying of server error messages on login compoent
-    -Think of a good title for the app
+    -Think of a good name for the app
     -Come up with description text
 
   DASHBOARD
-    -Implement functionality for editing user data: email address and password
-    -Fix dialog alert system for user dashboard when deleting projects
-    -Add more options for document size when creating projects
-    -Add icons/images for document size options in the project creator popup
-    -Add loader icon when user opens a project
     -Fix refreshing of dashboard data when user deletes a project.  Why is it so slow?
 
   TOOLBARS
-    -Set conditional buttons on main app when using as guest to prompt user registration for features: save, export to pdf, save as png
-    -Fix PREVIEW 
-    -Fix SAVE AS PNG
     -Decide on mobile functionality - preview only?
-    -Add toolbar button for returning to user dashboard
-    -Fix padding on save button
-
-  STYLER
-    -Add box shadows for imageStyles
-    -Add click event listener on document when in edit title mode
-    -Add confirm dialog for deleting styles
-    -Fix functionality: deleting in-use styles reverts slideObjects using that style to default style
-    -Fix hover background color of 'show extra options' link
 
   SANDBOX
     -Find a solution for image storage
     -Get camanJS to work
-    -Add zoom capability
-    -Fix issue of previous styling carrying over in browser when changing selected styles
-    -Change pixabay search to go through backend to avoid cors issue
 
   SLIDE EDITOR
-    -Add toggle button on layer heirarchy for maintaing aspect ratio
-    -Add popup textbox for editiong textObject textValue
-    -Fix issues with manual resizing of imageObjects in layer heirarchy
     -Add button for changing style of slideObjects
 
   DATA
     -Impelement functionality for creating project thumbnails when saving projects
-    -Impelement auto saving for projects
 */
 
 
@@ -73,13 +48,64 @@ export class DataService {
   serverMsg: string = '';
   userState: object;
 
+  showChangePasswordForm: boolean = false;
+  showDeleteAccountForm: boolean = false;
+
   constructor(private dialog: DialogService, private http: HttpClient, private router: Router, private store: Store<any>) { }
+
+  displayServerMessage(message: string) {
+    this.serverMsg = message;
+    setTimeout(() => {
+      this.serverMsg = null;
+    }, 5000)
+  }
+
+  // User registration
+  register(formData) {
+
+    // Parse formData
+    let capitalize = function (str: string) {
+      let strArr = str.split(' ');
+      for (let i = 0; i < strArr.length; i++) {
+        strArr[i] = strArr[i][0].toUpperCase() + strArr[i].substring(1).toLowerCase();
+      }
+      return strArr.join(' ');
+    }
+
+    formData.first = capitalize(formData.first);
+    formData.last = capitalize(formData.last);
+
+    // Make api call
+    this.http.post(this.apiEndpoint + '/new-account', formData).subscribe(res => {
+
+      if (res['success']) {
+        this.displayServerMessage(res['message']);
+        let token = res['body'];
+        sessionStorage.setItem('sessionData', token);
+
+        let loginData = {
+          username: formData.username,
+          password: formData.password
+        }
+
+        this.login(loginData);
+
+        let welcomeMessage = `Registration was successful.  Welcome!  To get started, click on "Create a new project!"`;
+        this.dialog.alert(welcomeMessage, 'success');
+
+      } else if (!res['success']) {
+        // Display error message to form
+        this.displayServerMessage(res['message']);
+      }
+    })
+  }
+
 
   // User login
   login(formData) {
     this.http.post(this.apiEndpoint + '/auth', formData).subscribe((res) => {
-      if (res['success']) {
-        this.serverMsg = res['message'];
+      if (res['success'] === true) {
+        this.displayServerMessage(res['message']);
 
         let payload = {
           isLoggedIn: true,
@@ -89,13 +115,13 @@ export class DataService {
           username: res['body']['username'],
           token: res['body']['token'],
         }
+
         sessionStorage.setItem('sessionData', JSON.stringify(payload));
         this.store.dispatch({ type: LOGIN, payload: payload });
         this.router.navigate(['dashboard']);
-
-      } else if (!res['success']) {
+      } else if (res['success'] === false) {
         // Display error message to form
-        this.serverMsg = res['message'];
+        this.displayServerMessage(res['message']);
       }
     })
   }
@@ -104,6 +130,43 @@ export class DataService {
     sessionStorage.removeItem('sessionData');
     this.store.dispatch({ type: LOGOUT });
     this.router.navigate(['/']);
+  }
+
+  deleteAccount(formData) {
+    this.getUserState().then(userState => {
+
+      let headers = new HttpHeaders;
+      headers = headers.append('username', userState['username']);
+      headers = headers.append('password', formData.password);
+
+      this.http.delete(this.apiEndpoint + '/delete-account', { headers: headers }).subscribe(res => {
+        if (res['success'] === false) this.displayServerMessage(res['message']);
+        if (res['success'] === true) {
+          this.showDeleteAccountForm = false;
+          this.logout();
+        }
+      })
+    })
+  }
+
+  changePassword(formData) {
+    this.getUserState().then(userState => {
+
+      let payload = {
+        username: userState['username'],
+        password: formData.oldPassword,
+        newPassword: formData.newPassword
+      }
+
+      this.http.post(this.apiEndpoint + '/change-password', payload).subscribe(res => {
+        if (res['success'] === false) this.displayServerMessage(res['message']);
+        if (res['success'] === true) {
+          this.showChangePasswordForm = false;
+          this.dialog.alert('Your new password has been saved.', 'success')
+        }
+      });
+    })
+
   }
 
   getProjectState = () => {
@@ -137,7 +200,6 @@ export class DataService {
     projectData.slides.forEach(slide => {
       slide.slideObjects.forEach(slideObject => {
         let type = slideObject.constructor.name;
-        console.log(type);
         switch (type) {
           case 'TextObject':
             for (let i = 0; i < projectData.textStyles.length; i++) {
@@ -162,7 +224,6 @@ export class DataService {
 
   reviveSlides(projectData) {
     let slides = [];
-
     projectData.slides.forEach(slide => {
       let newSlide = new Slide();
       newSlide.revive(slide);
@@ -194,7 +255,6 @@ export class DataService {
     // Revive selectedTextStyle
     // Revive text styles
     let textStyles = [];
-
     for (let i = 0; i < projectData.textStyles.length; i++) {
       let thisTextStyle = projectData.textStyles[i];
       let textStyle = new TextStyle;
@@ -206,7 +266,6 @@ export class DataService {
   }
 
   reviveGalleryImages(projectData) {
-
     // Revive selectedImage
     let selectedImage = new GalleryImage;
     selectedImage.revive(projectData.selectedImage);
@@ -233,7 +292,6 @@ export class DataService {
 
     // Revive imageStyles
     let imageStyles = [];
-
     for (let i = 0; i < projectData.imageStyles.length; i++) {
       let thisImageStyle = projectData.imageStyles[i];
       let imageStyle = new ImageStyle;
@@ -247,24 +305,25 @@ export class DataService {
   saveProject() {
     let projectState;
     let userState;
+    // create thumbnail here
 
     return this.getProjectState()
       .then(data => {
-        projectState = JSON.stringify(data);
+        projectState = data;
+        projectState.lastSaved = new Date();
+        projectState = JSON.stringify(projectState);
         return this.getUserState();
       })
-
       .then(data => {
         userState = data;
         return userState;
       })
-
       .then((userState) => {
         let payload = {
           token: userState.token,
           project: projectState
         }
-        return this.http.post(this.apiEndpoint + '/save-project', payload).subscribe();
+        this.http.post(this.apiEndpoint + '/save-project', payload).subscribe();
       })
       .catch(error => { console.log(error) })
   }

@@ -15,6 +15,8 @@ import { projectReducer } from "./state-management/reducers/projectReducer";
 import { StoreModule } from "@ngrx/store";
 
 import { DataService } from './data.service';
+import { DialogService } from './dialog.service';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 const routes: Routes = [
@@ -30,6 +32,7 @@ const routes: Routes = [
     RegistrationComponent,
     LoginComponent,
     DashboardComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,7 @@ const routes: Routes = [
     AngularFontAwesomeModule,
     StoreModule.forRoot({userReducer, projectReducer})
   ],
-  providers: [DataService],
+  providers: [DataService, DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

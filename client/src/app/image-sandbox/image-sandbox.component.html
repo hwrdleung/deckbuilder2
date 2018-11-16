@@ -1,8 +1,15 @@
 <div #container class="sandbox-container" id="image-sandbox">
-  <div class="preview-area flex-row-center">
-    <div id="image-preview-container">
-    <img id="image-preview" *ngIf="selectedImage" [src]="selectedImage.url" [ngStyle]="selectedImageStyle.getCss()">
-  </div>
+  <div class="preview-area flex-col-center">
+    <div id="image-preview-container" *ngIf="selectedImage" [ngStyle]="getPreviewRenderCss()">
+      <img id="image-preview" [src]="selectedImage.url" [ngStyle]="selectedImageStyle.getCss()">
+    </div>
+
+    <div class="flex-row-center grayAccent02" id="preview-toolbar">
+      <fa name="search-minus" class="flex-row-evenly" (click)="zoom('out')"></fa>
+      <input type='range' [(ngModel)]="previewRenderMagnification" min="0" max="300">
+      <fa name="search-plus" class="flex-row-evenly" (click)="zoom('in')"></fa>
+      <p><input type="number" [(ngModel)]="previewRenderMagnification">%</p>
+    </div>
   </div>
 
   <div #resizer class="resizer"></div>
@@ -10,14 +17,14 @@
   <div class="sandbox-bottom">
     <div #middlebar class="middle-bar">
       <div class="flex-row-center image-input-area" *ngIf="viewGallery">
-          <h3>Import an image:</h3>
+        <h3>Import an image:</h3>
 
-          <input type="file" (change)="this.sandbox.uploadImage($event)">
+        <input type="file" (change)="this.sandbox.uploadImage($event)">
       </div>
 
       <div class="flex-row-center image-input-area" *ngIf="viewSearchResults">
-          <h3>Search for an image:</h3>
-          <div id="search-form">
+        <h3>Search for an image:</h3>
+        <div id="search-form">
           <input id="search-bar" type="text" [(ngModel)]="this.sandbox.imageSearchQuery">
           <button id="search-bar-btn" type="submit" (click)="this.sandbox.searchPixabay()">Search</button></div>
 
@@ -48,12 +55,17 @@
 
     <div class="gallery" *ngIf="viewSearchResults">
 
-        <h5 class="gallery-message">Image search powered by: <a href="https://pixabay.com/" target="__blank">Pixabay</a></h5>
+      <h5 class="gallery-message">Image search powered by: <a href="https://pixabay.com/" target="__blank">Pixabay</a></h5>
 
-        <div *ngFor="let image of this.sandbox.imageSearchResults" class="gallery-img-container">
-            <img src="{{image.previewURL}}" class="gallery-img">
-            <fa name="plus" class="delete-icon flex-row-evenly" (click)="this.sandbox.pixabayToGallery(image.largeImageURL)"></fa>
-          </div>
+      <div *ngFor="let image of this.sandbox.imageSearchResults" class="gallery-img-container">
+        <img src="{{image.previewURL}}" class="gallery-img">
+        <fa name="plus" class="delete-icon flex-row-evenly" (click)="this.sandbox.pixabayToGallery(image.largeImageURL)"></fa>
+      </div>
+
+      <div class="flex-row-center">
+        <button class="grayAccent02" id="load-more-images" *ngIf="this.sandbox.imageSearchResults" (click)="this.sandbox.loadMoreImages()">
+          <fa name="angle-double-down"></fa>Load more images<fa name="angle-double-down"></fa></button>
+      </div>
     </div>
   </div>
 </div>

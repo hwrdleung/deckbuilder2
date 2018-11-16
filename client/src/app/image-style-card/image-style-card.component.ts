@@ -20,4 +20,6 @@ export class ImageStyleCardComponent implements OnInit {
   ngOnInit() {
   }
 
+ 
+
 }

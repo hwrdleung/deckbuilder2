@@ -24,6 +24,16 @@
     left: 0;
 }
 
+#slide-render-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));
+}
+
 #slide-editor-resizer {
     grid-area: editorResizer;
     width: 100%;
@@ -55,6 +65,10 @@
 .slide-object img {
     max-height: 100%;
     max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow:visible;
 }
 
 /*  Styling of slideObjects while being dragged or resized is controlled from within the SlideObjects class */
@@ -147,6 +161,16 @@ input[type="text"]{
     cursor: pointer;
 }
 
+.heirarchy-control-group select,
+.heirarchy-control-group select option {
+    width: 85%;
+    background: transparent;
+    border: 1px #FFF solid;
+    color: gray;
+    font-size: 0.7rem;
+    outline: none;
+}
+
 #heirarchy
 input[type="text"]{
     margin: 0 3px;
@@ -192,6 +216,37 @@ input[type="text"]{
     cursor: pointer;
 }
 
+#textObjectEditor {
+    position: absolute;
+    top: 50%;
+    left: 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+#textObjectEditor p {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#textObjectEditor textarea {
+    border-radius: 5px;
+    margin: 10px;
+    width: 300px;
+    height: 75px;
+    resize: none;
+    z-index: 100;
+    padding: 10px;
+    outline: none;
+    font-family: 'Helvetica', sans-serif;
+}
+
+#textObjectEditor button {
+    width: 75px;
+    height: 25px;
+    margin: 0 5px 10px 5px;
+}
 
 @media screen and (min-width: 1200px) {
     .slide-editor-toolbar-btn-group p {

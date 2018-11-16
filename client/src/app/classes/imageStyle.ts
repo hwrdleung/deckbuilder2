@@ -1,4 +1,5 @@
 import { BorderControl } from "./borderControl";
+import { ShadowControl } from "./shadowControl";
 
 export class ImageStyle {
 
@@ -56,7 +57,6 @@ export class ImageStyle {
         let css = {
             'border-radius': this.border.getBorderRadiusCss(),
             'filter' : this.getFilters(),
-            'box-sizing' : 'border-box',
             'padding' : this.padding + 'px'
         }
 

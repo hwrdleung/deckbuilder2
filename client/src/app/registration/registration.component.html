@@ -1,8 +1,5 @@
-<form class="flex-col-evenly" [formGroup]="rForm" (ngSubmit)="register(rForm.value)">
-  
-    <div class="server-alert" *ngIf="serverMsg">{{
-        serverMsg }}</div>
-  
+<form class="flex-col-evenly" [formGroup]="rForm" (ngSubmit)="this.data.register(rForm.value)">
+   
   <label>
     First name:
   </label>
@@ -54,6 +51,9 @@
     <div class="form-alert" *ngIf="rForm.controls['password2'].errors?.required">{{ requiredAlert }}</div>
     <div class="form-alert" *ngIf="rForm.controls['password2'].errors?.passwordMismatch">{{ passwordMismatchAlert }}</div>
   </div>
+
+  <div class="server-alert" *ngIf="this.data.serverMsg">{{
+      this.data.serverMsg }}</div>
 
   <button type="submit" [disabled]="!rForm.valid">Register</button>
 </form>

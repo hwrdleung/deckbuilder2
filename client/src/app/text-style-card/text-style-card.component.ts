@@ -18,5 +18,4 @@ export class TextStyleCardComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

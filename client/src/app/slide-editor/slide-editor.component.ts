@@ -10,6 +10,8 @@ import { ProjectState } from '../state-management/state/projectState';
 import { SlideObject } from '../classes/slideObject';
 import { TextStyle } from '../classes/textStyle';
 import { ImageStyle } from '../classes/imageStyle';
+import { TextObject } from '../classes/textObject';
+import { ToolbarAppLogicService } from '../toolbar-app-logic.service';
 
 @Component({
   selector: 'slide-editor',
@@ -38,7 +40,11 @@ export class SlideEditorComponent implements OnInit {
   selectedSlideObject: SlideObject;
   showRenderOverflow: boolean = false;
 
-  constructor(private data: DataService, private dialog: DialogService, private slideEditor: SlideEditorAppLogicService, private store:Store<ProjectState>) { }
+  // TextObject text editor
+  showTextObjectEditor: boolean = false;
+  textEditorTextObject: TextObject;
+
+  constructor(private data: DataService, private toolbar:ToolbarAppLogicService, private dialog: DialogService, private slideEditor: SlideEditorAppLogicService, private store:Store<ProjectState>) { }
 
   ngOnInit() {
     this.enableSlideEditorResizer();
@@ -115,7 +121,6 @@ export class SlideEditorComponent implements OnInit {
     if(renderWidth >= renderAreaWidth) {
       renderArea.scrollLeft = (renderWidth - renderAreaWidth) / 2
     }
-    
   }
 
   getSlideRenderCss() {
@@ -151,17 +156,16 @@ export class SlideEditorComponent implements OnInit {
     return css;
   }
 
-  getSlideObjectStyle(slideObject:SlideObject) {
-    let slideObjectType = slideObject.constructor.name;
-
-    switch(slideObjectType){
-      case 'TextObject' :  
-        return this.textStyles[0];
-      case 'ImageObject' : 
-      return this.imageStyles[0];
-    }
+  // Text Object Editor
+  editTextObjectText (textObject:TextObject) {
+    this.textEditorTextObject = textObject;
+    this.showTextObjectEditor = true;
   }
 
+  saveTextObjectEditor(){
+    this.showTextObjectEditor = false;
+  }
+  
   // Slide editor control panel functions
   selectObject(slideObject:SlideObject) {
     this.selectedSlideObject = slideObject
@@ -195,7 +199,6 @@ export class SlideEditorComponent implements OnInit {
         this.slideRenderMagnification = magnification;
         break;
     }
-
   }
 
   // This controls the image size when user inputs a value in the heirarchy

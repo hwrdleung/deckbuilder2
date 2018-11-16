@@ -1,8 +1,5 @@
 <form class="flex-col-start" [formGroup]="loginForm" (ngSubmit)="this.data.login(loginForm.value)">
 
-  <div class="server-alert" *ngIf="serverMsg">{{
-    this.data.serverMsg }}</div>
-
   <label>
     Username:
   </label>
@@ -13,8 +10,9 @@
   </label>
   <input type="password" formControlName="password">
 
+  <div class="server-alert" *ngIf="this.data.serverMsg">{{
+      this.data.serverMsg }}</div>
+
   <button type="submit" [disabled]="!loginForm.valid">Login</button>
-
-
 
 </form>

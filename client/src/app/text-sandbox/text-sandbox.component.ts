@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { ProjectState } from '../state-management/state/projectState';
 import { TextStyle } from '../classes/textStyle';
 import { SandboxAppLogicService } from '../sandbox-app-logic.service';
+import { SET_SANDBOXTEXT } from '../state-management/actions/projectActions';
 
 @Component({
   selector: 'text-sandbox',
@@ -20,6 +21,8 @@ export class TextSandboxComponent implements OnInit {
   sandboxText:string;
   textNotes:string;
   selectedTextStyle:TextStyle;
+
+  previewRenderMagnification:number = 100;
   
   constructor(private store:Store<ProjectState>, private sandbox:SandboxAppLogicService) { }
 
@@ -39,6 +42,46 @@ export class TextSandboxComponent implements OnInit {
     let lowerBoundElement = this.middlebar.nativeElement
     let horizontalResizer = new HorizontalResizer(containerElement, resizerElement, lowerBoundElement);
     horizontalResizer.init();
+  }
+
+  getPreviewRenderCss(){
+    let css = {
+      'transform': `scale(${this.previewRenderMagnification/100})`
+    }
+    return css;
+  }
+
+  textInput($event){
+    console.log('textInput');
+    console.log($event);
+    let sandboxText = $event;
+    this.store.dispatch({type: SET_SANDBOXTEXT, payload: {sandboxText: sandboxText}});
+  }
+
+  // User clicks zoom in/out
+  zoom(direction: string) {
+    let magnification = this.previewRenderMagnification;
+    let increment = 10;
+    let maxZoom = 300;
+
+    switch (direction) {
+      case 'in':
+        if (magnification > maxZoom - increment) {
+          magnification = maxZoom;
+        } else {
+          magnification += increment;
+        }
+        this.previewRenderMagnification = magnification;
+        break;
+      case 'out':
+        if (magnification < increment) {
+          magnification = 0;
+        } else {
+          magnification -= increment;
+        }
+        this.previewRenderMagnification = magnification;
+        break;
+    }
   }
 
 }

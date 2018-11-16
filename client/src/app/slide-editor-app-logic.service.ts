@@ -10,6 +10,7 @@ import { SLIDEOBJECT_LAYER_UP, SLIDEOBJECT_LAYER_DOWN, DEL_SLIDEOBJECT } from '.
   providedIn: 'root'
 })
 export class SlideEditorAppLogicService {
+  
 
   constructor(private data: DataService, private dialog: DialogService, private store: Store<ProjectState>) { }
 

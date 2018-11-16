@@ -157,7 +157,11 @@ button:hover
 
 .loader {
     animation: rotate linear 1s infinite;
-    font-size: 1rem;
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    padding: 15px;
+    font-size: 25px;
     transform-origin: 50% 50%;
 }
 

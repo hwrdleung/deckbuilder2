@@ -19,13 +19,13 @@
     border-radius: 8px;
     background: #FFF;
     z-index: 101;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
-
 
 #danger-icon, 
 #success-icon {
     text-align: center;
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 #danger-icon{
@@ -37,7 +37,9 @@
 }
 
 #message {
-    margin: 35px 25px;
+    margin: 25px;
+    font-size: 0.9rem;
+    line-height: 1.25;
 }
 
 button {
@@ -63,6 +65,8 @@ button:hover {
     padding: 15px;
     background: white;
     border-radius: 10px;
+    font-size: 0.9rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 #toast-container fa {
