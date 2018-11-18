@@ -34,7 +34,7 @@ export const projectReducer: ActionReducer<ProjectState> =
                 defaultImageStyle.isDefault = true;
                 newState.imageStyles = [defaultImageStyle];
                 newState.selectedImageStyle = newState.imageStyles[0];
-                
+
                 newState.currentSlideIndex = 0;
                 newState.images = [];
                 newState.selectedImage = null;

@@ -18,16 +18,16 @@ export class RegistrationComponent implements OnInit {
   emailAlert: string = 'Invalid email address'
   requiredLengthAlert: string = 'Minimum length: ';
 
-  constructor(private data:DataService, private fb: FormBuilder, private http:HttpClient, private router: Router) {
+  constructor(private data: DataService, private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.rForm = fb.group({
-      'first' : [null, Validators.required],
-      'last' : [null, Validators.required],
-      'username' : [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-      'email' : [null, Validators.compose([Validators.required, Validators.email])],
-      'password' : [null, Validators.compose([Validators.required, Validators.minLength(8)])],
-      'password2' : [null, Validators.required]
-    }, { validator: this.passwordMatchValidator});
-   }
+      'first': [null, Validators.required],
+      'last': [null, Validators.required],
+      'username': [null, Validators.compose([Validators.required, Validators.minLength(5)])],
+      'email': [null, Validators.compose([Validators.required, Validators.email])],
+      'password': [null, Validators.compose([Validators.required, Validators.minLength(8)])],
+      'password2': [null, Validators.required]
+    }, { validator: this.passwordMatchValidator });
+  }
 
   ngOnInit() {
   }
@@ -37,10 +37,9 @@ export class RegistrationComponent implements OnInit {
     return control.get('password').value === control.get('password2').value ? null : control.get('password2').setErrors({ 'passwordMismatch': true });
   }
 
-ngOnDestroy(){
-  // data.serverMsg is shared with dashboard.
-  // Clearing it prevents the wrong serverMsg from being displayed in the dashboard.
-  this.data.serverMsg = null;
-}
-
+  ngOnDestroy() {
+    // data.serverMsg is shared with dashboard.
+    // Clearing it prevents the wrong serverMsg from being displayed in the dashboard.
+    this.data.serverMsg = null;
+  }
 }

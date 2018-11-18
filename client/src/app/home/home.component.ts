@@ -10,10 +10,11 @@ import { UserState } from '../state-management/state/userState';
 })
 export class HomeComponent implements OnInit {
 
-  showLogin:boolean = true;
+  /*  UI LAYOUT VARIABLES  */
+  showLogin: boolean = true;
   showRegistration: boolean = false;
 
-  constructor(private router:Router, private store:Store<UserState>) { }
+  constructor(private router: Router, private store: Store<UserState>) { }
 
   ngOnInit() {
   }
@@ -31,5 +32,4 @@ export class HomeComponent implements OnInit {
         break;
     }
   }
-
 }

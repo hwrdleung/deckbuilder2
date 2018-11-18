@@ -17,9 +17,9 @@ import { DialogService } from './dialog.service';
 import { DialogComponent } from './dialog/dialog.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
-  { path: 'dashboard', component: DashboardComponent},
-  { path: 'main', loadChildren: './main/main.module#MainModule' }
+  { path: '', component: HomeComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'main', loadChildren: './main/main.module#MainModule' },
 ];
 
 @NgModule({
@@ -38,7 +38,7 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     AngularFontAwesomeModule,
-    StoreModule.forRoot({userReducer, projectReducer})
+    StoreModule.forRoot({ userReducer, projectReducer })
   ],
   providers: [DataService, DialogService],
   bootstrap: [AppComponent]

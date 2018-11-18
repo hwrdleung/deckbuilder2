@@ -49,11 +49,21 @@ export class ToolbarAppLogicService {
     }
   }
 
+  save() {
+    if (!sessionStorage.getItem('sessionData')) {
+      this.dialog.toast('Register to unlock this feature!');
+    } else if (sessionStorage.getItem('sessionData')) {
+      this.data.saveProject().then(res => {
+        if (!res['success']) this.dialog.alert('There was a problem saving your project.', 'danger');
+        if (res['success']) this.dialog.toast('Your project has been saved.');
+      })
+        .catch(error => console.log(error));
+    }
+}
 
   /*  EXPORT TO PDF AND SAVE AS PNG FUNCTIONS */
 
   exportAsPDF = () => {
-
     /*
       1.  Detect user session.  This feature is only available for registered users.
       2.  Get projectState documentSize for use in jsPdf and HTML2CANVAS
@@ -66,9 +76,7 @@ export class ToolbarAppLogicService {
             -Revert DOM changes from (3) back to their original values
             -Download jsPdf document to browser for the user
             -Hide loader screen
-
     */
-
     this.sessionData = sessionStorage.getItem('sessionData');
     // Is user logged in?
     if (!this.sessionData) {
@@ -208,7 +216,6 @@ export class ToolbarAppLogicService {
   }
 
   saveAsPng() {
-
     /*
         1.  Detect user session.  This feature is only available for registered users.
         2.  Prep DOM for HTML2CANVAS
@@ -222,7 +229,6 @@ export class ToolbarAppLogicService {
         10. Revert DOM changes from (2) back to their original values
         11. Hide loader screen
     */
-
     this.sessionData = sessionStorage.getItem('sessionData');
     // Check if user is logged in
     if (!this.sessionData) {
@@ -262,5 +268,4 @@ export class ToolbarAppLogicService {
       });
     }
   }
-
 }

@@ -26,9 +26,9 @@ export class ImageSandboxComponent implements OnInit {
   images: GalleryImage[];
   viewGallery: boolean = true;
   viewSearchResults: boolean = false;
-  previewRenderMagnification:number = 100;
+  previewRenderMagnification: number = 100;
 
-  constructor(private store: Store<ProjectState>, private sandbox:SandboxAppLogicService) { }
+  constructor(private store: Store<ProjectState>, private sandbox: SandboxAppLogicService) { }
 
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class ImageSandboxComponent implements OnInit {
       })
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.sandbox.imageSearchResults = null;
   }
 
@@ -69,10 +69,10 @@ export class ImageSandboxComponent implements OnInit {
     horizontalResizer.init();
   }
 
-  getPreviewRenderCss(){
+  getPreviewRenderCss() {
     // This function allows zooming in and out for the sandbox
     let css = {
-      'transform': `scale(${this.previewRenderMagnification/100})`
+      'transform': `scale(${this.previewRenderMagnification / 100})`
     }
     return css;
   }

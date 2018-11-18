@@ -17,14 +17,14 @@ export class ToolbarSecondaryComponent implements OnInit {
   slides: Slide[];
   currentSlideIndex;
 
-  constructor(private data:DataService, private dialog:DialogService, private toolbar2: Toolbar2AppLogicService, private store:Store<ProjectState>) { }
+  constructor(private data: DataService, private dialog: DialogService, private toolbar2: Toolbar2AppLogicService, private store: Store<ProjectState>) { }
 
   ngOnInit() {
     this.store.select('projectReducer')
-    .subscribe(projectState => {
-      this.slides = projectState.slides;
-      this.currentSlideIndex = projectState.currentSlideIndex;
-    })
+      .subscribe(projectState => {
+        this.slides = projectState.slides;
+        this.currentSlideIndex = projectState.currentSlideIndex;
+      })
   }
 
 

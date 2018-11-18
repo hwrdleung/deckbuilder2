@@ -6,6 +6,7 @@
     left: 0;
     z-index: 200;
     background: #000;
+    overflow: visible;
 }
 
 #preview-container-overlay {

@@ -13,28 +13,13 @@ import { GalleryImage } from "./classes/galleryImage";
 import { ImageStyle } from "./classes/imageStyle";
 
 /*
-  TODO:
-
   HOME
     -Think of a good name for the app
-    -Come up with description text
-
-  TOOLBARS
-    -Decide on mobile functionality - preview only?
 
   SANDBOX
     -Find a solution for image storage
     -Get camanJS to work
-
-  SLIDE EDITOR
-    -Add button for changing style of slideObjects
-    - Change ts file to use the resizer class
-
-  DATA
-    -Impelement functionality for creating project thumbnails when saving projects
-    -Fix scaling of thumbnails -- if user creates a custom size document that is really small, then thumbnail ends up even smaller.
 */
-
 
 @Injectable({
   providedIn: "root"
@@ -63,7 +48,7 @@ export class DataService {
     this.serverMsg = message;
     setTimeout(() => {
       this.serverMsg = null;
-    }, 5000)
+    }, 5000);
   }
 
   // User registration
@@ -104,7 +89,7 @@ export class DataService {
         // Display error message to form
         this.displayServerMessage(res['message']);
       }
-    })
+    });
   }
 
   // User login
@@ -132,7 +117,7 @@ export class DataService {
         // Display error message to form
         this.displayServerMessage(res['message']);
       }
-    })
+    });
   }
 
   logout() {
@@ -158,8 +143,8 @@ export class DataService {
           this.showDeleteAccountForm = false;
           this.logout();
         }
-      })
-    })
+      });
+    });
   }
 
   changePassword(formData) {
@@ -181,8 +166,7 @@ export class DataService {
           this.dialog.alert('Your new password has been saved.', 'success')
         }
       });
-    })
-
+    });
   }
 
   getProjectState = () => {
@@ -376,7 +360,7 @@ export class DataService {
       html2canvas(slideRender, {
         height: projectState.documentSize.height,
         width: projectState.documentSize.width,
-        scale: 0.3,
+        scale: 200 / projectState.documentSize.height,
         allowTaint: false,
         useCORS: true
       }).then(canvas => {
@@ -391,52 +375,52 @@ export class DataService {
   }
 
   saveProject() {
-    /*
-        1.  Detect user session.  This feature is only available to registered users.
-        2.  Get thumbnail
-        3.  Get project state, and update 'lastSaved' and 'thumbnail'.  Convert to JSON.
-        4.  Get user state for the token.  Create payload with token and project state.
-        5.  Make API call to save this project's changes to the database.
-        6.  Display dialog message
-    */
-    let sessionData = sessionStorage.getItem('sessionData');
+    return new Promise((resolve, reject) => {
+      /*
+          1.  Detect user session.  This feature is only available to registered users.
+          2.  Get thumbnail
+          3.  Get project state, and update 'lastSaved' and 'thumbnail'.  Convert to JSON.
+          4.  Get user state for the token.  Create payload with token and project state.
+          5.  Make API call to save this project's changes to the database.
+          6.  Display dialog message
+      */
+      let sessionData = sessionStorage.getItem('sessionData');
 
-    if (!sessionData) {
-      this.dialog.toast('Register to unlock this feature!');
-    } else if (sessionData) {
-      let projectState;
-      let userState;
-      let thumbnail;
-      // create thumbnail here
+      if (!sessionData) {
+        reject('User is not signed in.');
+      } else if (sessionData) {
+        let projectState;
+        let userState;
+        let thumbnail;
+        // create thumbnail here
 
-      return this.getThumbnail()
-        .then(imgData => {
-          thumbnail = imgData;
-          return this.getProjectState();
-        })
-        .then(data => {
-          projectState = data;
-          projectState.lastSaved = new Date();
-          projectState.thumbnail = thumbnail;
-          projectState = JSON.stringify(projectState);
-          return this.getUserState();
-        })
-        .then(data => {
-          userState = data;
-          return userState;
-        })
-        .then((userState) => {
-          let payload = {
-            token: userState.token,
-            project: projectState
-          }
-          this.http.post(this.apiEndpoint + '/save-project', payload).subscribe(res => {
-            console.log(res);
-            if(res['success'] === false ) this.dialog.alert('There was a problem saving your project.', 'danger');
-            if(res['success'] === true) this.dialog.toast('Your project has been saved');
-          });
-        })
-        .catch(error => { console.log(error) })
-    }
+        this.getThumbnail()
+          .then(imgData => {
+            thumbnail = imgData;
+            return this.getProjectState();
+          })
+          .then(data => {
+            projectState = data;
+            projectState.lastSaved = new Date();
+            projectState.thumbnail = thumbnail;
+            projectState = JSON.stringify(projectState);
+            return this.getUserState();
+          })
+          .then(data => {
+            userState = data;
+            return userState;
+          })
+          .then((userState) => {
+            let payload = {
+              token: userState.token,
+              project: projectState
+            }
+            this.http.post(this.apiEndpoint + '/save-project', payload).subscribe(res => {
+              resolve(res);
+            });
+          })
+          .catch(error => { console.log(error) })
+      }
+    });
   }
 }

@@ -117,7 +117,11 @@ button:hover
     align-items: center;
 }
 
-/* Color Scheme Classes */
+.wrap {
+    flex-wrap: wrap;
+}
+
+/* Color theme Classes */
 
 /*  app background color.  layer 0  */
 .accent05{

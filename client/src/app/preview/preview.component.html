@@ -1,4 +1,4 @@
-<div #previewContainer id="preview-container" class="flex-row-center">
+<div #previewContainer id="preview-container">
   <div  id="preview-slide-render" [ngStyle]="getPreviewSlideRenderCss()">
     <div class="slide-object" *ngFor="let slideObject of slides[previewSlideIndex].slideObjects" [ngStyle]="slideObject.getCss()" ngDraggable [position]="slideObject.getTranslation()">
       <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>

@@ -1,5 +1,4 @@
 import { BorderControl } from "./borderControl";
-import { ShadowControl } from "./shadowControl";
 
 export class ImageStyle {
 

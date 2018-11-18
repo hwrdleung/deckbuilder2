@@ -10,7 +10,6 @@ export class HorizontalResizer {
         this.lowerBoundElement = lowerBoundElement;
     }
 
-
     init() {
         let startResize = () => { 
           document.addEventListener('mousemove', this.resizeGrid);

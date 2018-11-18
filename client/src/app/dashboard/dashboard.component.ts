@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   userState: UserState;
   projectsData: any;
   settingsData: object;
+  openMobileNav: boolean = false;
 
   /*  UI VARIABLES */
   showProjects: Boolean = true;
@@ -52,7 +53,7 @@ export class DashboardComponent implements OnInit {
 
     this.deleteAccountForm = fb.group({
       'password': [null, Validators.required]
-    })
+    });
   }
 
   projectCreatorConditionalValidation() {
@@ -62,23 +63,23 @@ export class DashboardComponent implements OnInit {
     let customHeightControl = this.projectCreatorForm.controls.customHeight;
     let customWidthControl = this.projectCreatorForm.controls.customWidth;
 
-      documentSizeChanges.subscribe(documentSize => {
-         if (documentSize === 'custom') {
-          customHeightControl.setValidators(Validators.required);
-          customHeightControl.updateValueAndValidity();
+    documentSizeChanges.subscribe(documentSize => {
+      if (documentSize === 'custom') {
+        customHeightControl.setValidators(Validators.required);
+        customHeightControl.updateValueAndValidity();
 
-          customWidthControl.setValidators(Validators.required);
-          customWidthControl.updateValueAndValidity();
-         }
+        customWidthControl.setValidators(Validators.required);
+        customWidthControl.updateValueAndValidity();
+      }
 
-         if(documentSize !== 'custom'){
-          customHeightControl.setValidators(null);
-          customHeightControl.updateValueAndValidity();
+      if (documentSize !== 'custom') {
+        customHeightControl.setValidators(null);
+        customHeightControl.updateValueAndValidity();
 
-          customWidthControl.setValidators(null);
-          customWidthControl.updateValueAndValidity();
-         }
-      });
+        customWidthControl.setValidators(null);
+        customWidthControl.updateValueAndValidity();
+      }
+    });
   }
 
   passwordMatchValidator = (control: AbstractControl) => {
@@ -105,6 +106,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Subscribe to projectCreatorForm's value changes to enable conditional validations
     this.projectCreatorConditionalValidation();
 
     // Subscribe to userState to get updated user data
@@ -113,7 +115,7 @@ export class DashboardComponent implements OnInit {
         this.userState = userState;
         this.getSettingsData();
         this.getProjectsData();
-      })
+      });
   }
 
   /* POPULATE DATA VARIABLES */
@@ -142,9 +144,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  /*  UI CONTROLLERS */
   showContent(view: 'projects' | 'settings') {
-    // This function serves as the controller for the dashboard's left vertical nav bar.
+    // This function serves as the UI controller for the dashboard's left vertical nav bar.
     switch (view) {
       case 'projects':
         this.showProjects = true;
@@ -157,8 +158,13 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  toggleMobileNav(){
+    // This function serves as the UI controller for displaying the vertical mobile nav menu
+    this.openMobileNav = !this.openMobileNav;
+  }
+
   popup(form: 'project creator' | 'delete account' | 'change password', bool: boolean) {
-    // This function serves as the controller for the displaying of popup forms 
+    // This function serves as the UI controller for the displaying of popup forms 
     // in the dashboard's "settings" view.
     switch (form) {
       case 'project creator':
@@ -210,16 +216,12 @@ export class DashboardComponent implements OnInit {
           this.dialog.toast(`Project: ${projectName} has been deleted`);
         });
     }
-
     const message = `Are you sure you want to delete project: ${projectName}?`;
     this.dialog.alert(message, 'danger', confirmedDelete);
-
   }
 
-  /* PROJECT CREATOR */
   createProject(formData) {
     // This function handles the ngSubmit for the projectCreatorForm
-    // Parse form Data
     let projectName: string = formData.projectName;
     let options: any = {};
 
@@ -254,12 +256,10 @@ export class DashboardComponent implements OnInit {
     }
 
     // Create and save new project.  Route to main.
+    this.dialog.toast(`Creating new project: ${projectName}`);
     this.store.dispatch({ type: NEW_PROJECT, payload: payload })
-    this.data.saveProject()
-      .then(() => {
-        this.dialog.toast(`Creating new project: ${projectName}`);
-        this.router.navigate(['main']);
-      })
+    this.router.navigate(['main']);
+    // Saving of the project is handled at the time that user navigates away from main
   }
 
   ngOnDestroy() {

@@ -27,7 +27,7 @@ export class SandboxAppLogicService {
       .subscribe(projectState => {
         if(!projectState) reject();
         resolve(projectState);
-      })
+      });
     })
     .catch(error => {console.log(error)});
   }

@@ -1,6 +1,5 @@
 import { BorderControl } from "./borderControl";
 import { ShadowControl } from "./shadowControl";
-import { text } from "@angular/core/src/render3/instructions";
 
 export class TextStyle {
 

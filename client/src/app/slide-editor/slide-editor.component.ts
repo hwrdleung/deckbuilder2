@@ -11,6 +11,7 @@ import { TextStyle } from '../classes/textStyle';
 import { ImageStyle } from '../classes/imageStyle';
 import { TextObject } from '../classes/textObject';
 import { ToolbarAppLogicService } from '../toolbar-app-logic.service';
+import { HorizontalResizer } from '../classes/horizontalResizer';
 
 @Component({
   selector: 'slide-editor',
@@ -24,8 +25,8 @@ export class SlideEditorComponent implements OnInit {
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('workspace') workspace: ElementRef<any>;
   @ViewChild('controlToolbar') controlToolbar: ElementRef<any>;
-  @ViewChild('slideRender') slideRender:ElementRef<any>;
-  @ViewChild('slideRenderArea') slideRenderArea:ElementRef<any>;
+  @ViewChild('slideRender') slideRender: ElementRef<any>;
+  @ViewChild('slideRenderArea') slideRenderArea: ElementRef<any>;
 
   /* SLIDE RENDER VARIABLES */
   slides: Slide[];
@@ -43,59 +44,28 @@ export class SlideEditorComponent implements OnInit {
   showTextObjectEditor: boolean = false;
   textEditorTextObject: TextObject;
 
-  constructor(private data: DataService, private toolbar:ToolbarAppLogicService, private dialog: DialogService, private slideEditor: SlideEditorAppLogicService, private store:Store<ProjectState>) { }
+  constructor(private data: DataService, private toolbar: ToolbarAppLogicService, private dialog: DialogService, private slideEditor: SlideEditorAppLogicService, private store: Store<ProjectState>) { }
 
   ngOnInit() {
     this.enableSlideEditorResizer();
     this.data.isSlideRenderLoading = false;
     // Subscribe to projectState
     this.store.select('projectReducer')
-    .subscribe(projectState => {
-      this.slides = projectState.slides;
-      this.currentSlideIndex = projectState.currentSlideIndex;
-      this.documentSize = projectState.documentSize;
-      this.textStyles = projectState.textStyles;
-      this.imageStyles = projectState.imageStyles;
-    })
+      .subscribe(projectState => {
+        this.slides = projectState.slides;
+        this.currentSlideIndex = projectState.currentSlideIndex;
+        this.documentSize = projectState.documentSize;
+        this.textStyles = projectState.textStyles;
+        this.imageStyles = projectState.imageStyles;
+      })
   }
 
-  enableSlideEditorResizer(){
-    let startResize = () => {
-      document.addEventListener('mousemove', this.resizeGrid);
-      document.addEventListener('mouseup', stopResize);
-    }
-
-    let stopResize = () => {
-      document.removeEventListener('mousemove', this.resizeGrid);
-      document.removeEventListener('mouseup', stopResize);
-    }
-
-    let resizer = this.resizer.nativeElement;
-    resizer.addEventListener('mousedown', startResize);
-  }
-
-  resizeGrid = (e) => {
-    let slideEditorWorkspace = this.workspace.nativeElement;
-    let resizer = this.resizer.nativeElement;
-    let controlToolbar = this.controlToolbar.nativeElement;
-
-    let viewportHeight = document.documentElement.offsetHeight;
-    let offset = viewportHeight - slideEditorWorkspace.offsetHeight;
-
-    let renderAreaHeight = e.pageY - offset - resizer.offsetHeight / 2;
-    let slideControlHeight = viewportHeight - e.pageY - resizer.offsetHeight / 2;
-
-    slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'fr ' + resizer.offsetHeight + 'px ' + slideControlHeight + 'fr';
-
-    // Upper boundary
-    if(e.pageY < offset + resizer.offsetHeight / 2){
-      slideEditorWorkspace.style.gridTemplateRows = '0px ' + resizer.offsetHeight + 'px ' + '1fr';
-    }
-
-    // Lower boundary
-    if(e.pageY >= viewportHeight - controlToolbar.offsetHeight - resizer.offsetHeight/2) {
-      slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'fr ' + resizer.offsetHeight + 'px ' + controlToolbar.offsetHeight + 'px';
-    }
+  enableSlideEditorResizer() {
+    let containerElement = this.workspace.nativeElement;
+    let resizerElement = this.resizer.nativeElement;
+    let lowerBoundElement = this.controlToolbar.nativeElement;
+    let horizontalResizer = new HorizontalResizer(containerElement, resizerElement, lowerBoundElement);
+    horizontalResizer.init();
   }
 
   // Slide editor render functions
@@ -111,8 +81,8 @@ export class SlideEditorComponent implements OnInit {
     let height = this.documentSize['height'];
 
     let render = this.slideRender.nativeElement;
-    let renderHeight = render.offsetHeight * this.slideRenderMagnification /100;
-    let renderWidth = render.clientWidth * this.slideRenderMagnification /100;
+    let renderHeight = render.offsetHeight * this.slideRenderMagnification / 100;
+    let renderWidth = render.clientWidth * this.slideRenderMagnification / 100;
 
     let renderArea = this.slideRenderArea.nativeElement;
     let renderAreaHeight = renderArea.offsetHeight;
@@ -122,62 +92,62 @@ export class SlideEditorComponent implements OnInit {
       'background': backgroundColor,
       'height': height + 'px',
       'width': width + 'px',
-      'transform-origin' : '0 0',
+      'transform-origin': '0 0',
       'transform': 'scale(' + this.slideRenderMagnification / 100 + ')',
       'position': 'absolute',
       'overflow': this.showRenderOverflow ? 'visible' : 'hidden'
     }
 
-    if(renderHeight < renderAreaHeight) {
+    if (renderHeight < renderAreaHeight) {
       css['top'] = (renderAreaHeight - renderHeight) / 2 + 'px';
     }
 
-    if(renderWidth < renderAreaWidth) {
+    if (renderWidth < renderAreaWidth) {
       css['left'] = (renderAreaWidth - renderWidth) / 2 + 'px';
     }
     return css;
   }
 
-  editTextObjectText (textObject:TextObject) {
+  editTextObjectText(textObject: TextObject) {
     // This function specifies the text object whose text value should be edited
     // with the changes in the popup text editor
     this.textEditorTextObject = textObject;
     this.showTextObjectEditor = true;
   }
 
-  saveTextObjectEditor(){
+  saveTextObjectEditor() {
     this.showTextObjectEditor = false;
   }
-  
+
   // Slide editor control panel functions
-  selectObject(slideObject:SlideObject) {
+  selectObject(slideObject: SlideObject) {
     this.selectedSlideObject = slideObject
   }
 
-  isSlideObjectSelected (slideObject:SlideObject) {
+  isSlideObjectSelected(slideObject: SlideObject) {
     // This function provides the boolean for the conditional styling in the template's
     // layer heirarchy so that the selected slide object is highlighted
-    if(slideObject === this.selectedSlideObject) return true;
+    if (slideObject === this.selectedSlideObject) return true;
     return false;
   }
 
-  renderZoomController(){
+  renderZoomController() {
     // This function handles the zooming in/out of the slide render 
     // via range input
     let render = this.slideRender.nativeElement;
-    let renderHeight = render.offsetHeight * this.slideRenderMagnification /100;
-    let renderWidth = render.clientWidth * this.slideRenderMagnification /100;
+    let renderHeight = render.offsetHeight * this.slideRenderMagnification / 100;
+    let renderWidth = render.clientWidth * this.slideRenderMagnification / 100;
 
     let renderArea = this.slideRenderArea.nativeElement;
     let renderAreaHeight = renderArea.offsetHeight;
     let renderAreaWidth = renderArea.clientWidth;
 
     // Keep slide render centered in slide render area when zooming in/out
-    if(renderHeight >= renderAreaHeight) {
+    if (renderHeight >= renderAreaHeight) {
       renderArea.scrollTop = (renderHeight - renderAreaHeight) / 2;
     }
 
-    if(renderWidth >= renderAreaWidth) {
+    if (renderWidth >= renderAreaWidth) {
       renderArea.scrollLeft = (renderWidth - renderAreaWidth) / 2
     }
   }
@@ -208,7 +178,16 @@ export class SlideEditorComponent implements OnInit {
     }
   }
 
-  maintainRatio(slideObject, dimension, value) {
+  setDimension(slideObject:SlideObject, dimension: 'height' | 'width', value:number){
+    // This function handles changes to the number inputs for slide objects in the layer heirarchy.
+    let type = slideObject.constructor.name;
+    switch(type){
+      case 'ImageObject': this.maintainRatio(slideObject, dimension, value); break;
+      case 'TextObject': slideObject[dimension] = value; break;
+    }
+  }
+
+  maintainRatio(slideObject:SlideObject, dimension: 'height' | 'width', value:number) {
     // This function maintains the aspect ratio of imageObjects when they are
     // resized using the number inputs in the layer heirarchy
     let ratio: number;

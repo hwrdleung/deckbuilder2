@@ -24,7 +24,7 @@
   </div>
 
 
-  <div *ngIf="slides.length > 0" id="slide-control" class="grayAccent02">
+  <div id="slide-control" class="grayAccent02">
 
     <div id="slide-control-toolbar" #controlToolbar class="grayAccent02 flex-row-center">
       <div class="flex-row-evenly">
@@ -39,8 +39,7 @@
 
         <fa name="search-plus" class="flex-row-evenly" (click)="this.zoom('in')"></fa>
 
-        <p>
-          <input type="number" [(ngModel)]="slideRenderMagnification">%</p>
+        <p><input type="number" [(ngModel)]="slideRenderMagnification">%</p>
       </div>
 
       <div class="flex-row-evenly">
@@ -95,10 +94,10 @@
           <input type="number" [(ngModel)]="slideObject.yTranslation">
 
           <h5>H:</h5>
-          <input type="number" #heightInput [ngModel]="slideObject.height" (change)="maintainRatio(slideObject, 'height', heightInput.value)">
+          <input type="number" #heightInput [ngModel]="slideObject.height" (change)="setDimension(slideObject, 'height', heightInput.value)">
 
           <h5>W:</h5>
-          <input type="number" #widthInput [ngModel]="slideObject.width" (change)="maintainRatio(slideObject, 'width', widthInput.value)">
+          <input type="number" #widthInput [ngModel]="slideObject.width" (change)="setDimension(slideObject, 'width', widthInput.value)">
         </div>
 
       </div>

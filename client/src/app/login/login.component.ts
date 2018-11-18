@@ -13,21 +13,19 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http:HttpClient, private router: Router, private data:DataService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private data: DataService) {
     this.loginForm = fb.group({
       'username': [null, Validators.required],
       'password': [null, Validators.required]
-    })
-   }
+    });
+  }
 
   ngOnInit() {
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     // this.data.serverMsg is shared with the home component.
     // Clearing it prevents the wrong serverMsg from being displayed on dashboard forms after user signs in.
     this.data.serverMsg = null;
   }
-
-
 }

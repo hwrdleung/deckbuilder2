@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FontPickerModule } from 'ngx-font-picker';
 import { FONT_PICKER_CONFIG } from 'ngx-font-picker';
@@ -31,7 +31,8 @@ const DEFAULT_FONT_PICKER_CONFIG: FontPickerConfigInterface = {
 };
 
 const routes: Routes = [
-  { path: '', component: MainComponent } // default route of the module
+  { path: '', component: MainComponent }, // default route of the module
+  { path: 'preview', component: PreviewComponent }
 ];
 
 @NgModule({
@@ -45,7 +46,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [    
+  declarations: [
     ToolbarComponent,
     StylerComponent,
     TextSandboxComponent,
@@ -56,10 +57,10 @@ const routes: Routes = [
     ToolbarSecondaryComponent,
     MainComponent,
     PreviewComponent
- 
+
   ],
 
-  providers: [ToolbarAppLogicService, Toolbar2AppLogicService, StylerAppLogicService, SandboxAppLogicService, SlideEditorAppLogicService, {
+  providers: [DatePipe, ToolbarAppLogicService, Toolbar2AppLogicService, StylerAppLogicService, SandboxAppLogicService, SlideEditorAppLogicService, {
     provide: FONT_PICKER_CONFIG,
     useValue: DEFAULT_FONT_PICKER_CONFIG
   }],

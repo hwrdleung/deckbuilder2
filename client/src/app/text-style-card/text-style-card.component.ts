@@ -11,9 +11,9 @@ import { StylerAppLogicService } from '../styler-app-logic.service';
 export class TextStyleCardComponent implements OnInit {
 
   @Input()
-    textStyle: TextStyle;
+  textStyle: TextStyle;
 
-  constructor(private data: DataService, private styler: StylerAppLogicService) { 
+  constructor(private data: DataService, private styler: StylerAppLogicService) {
   }
 
   ngOnInit() {

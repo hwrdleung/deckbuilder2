@@ -4,6 +4,7 @@ import { DialogService } from './dialog.service';
 import { Store } from '@ngrx/store';
 import { ProjectState } from './state-management/state/projectState';
 import { ADD_SLIDE, PREV_SLIDE, NEXT_SLIDE, DEL_SLIDE, SET_MODE } from './state-management/actions/projectActions';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,8 @@ import { ADD_SLIDE, PREV_SLIDE, NEXT_SLIDE, DEL_SLIDE, SET_MODE } from './state-
 export class Toolbar2AppLogicService {
 
   projectState;
-  isPreviewMode: boolean = false;
 
-  constructor(private data: DataService, private dialog: DialogService, private store: Store<ProjectState>) { }
+  constructor(private data: DataService, private dialog: DialogService, private store: Store<ProjectState>, private router: Router) { }
 
   newTextObject() {
     this.store.dispatch({ type: SET_MODE, payload: { mode: 'text' } });
@@ -48,7 +48,7 @@ export class Toolbar2AppLogicService {
   }
 
   preview() {
-    this.isPreviewMode = true;
+    this.router.navigate(['main/preview']);
   }
 
 }

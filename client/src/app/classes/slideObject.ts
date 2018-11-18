@@ -1,5 +1,3 @@
-import { Slide } from "./slide";
-
 export class SlideObject{
 
     static slideObjectCounter:number = 0;

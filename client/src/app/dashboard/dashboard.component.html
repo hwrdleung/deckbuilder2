@@ -6,9 +6,17 @@
     <a class="dashboard-nav-link" (click)="this.data.logout()">Sign Out</a>
   </div>
 
+  <fa name="bars" id="mobile-nav-toggle-btn" (click)="toggleMobileNav()"></fa>
+  <div *ngIf="openMobileNav" id="dashboard-nav-mobile" class="flex-col-center greenAccent01">
+    <a class="dashboard-nav-link" (click)="showContent('projects'); toggleMobileNav()" [class.selected]="showProjects">Projects</a>
+    <a class="dashboard-nav-link" (click)="showContent('settings'); toggleMobileNav()" [class.selected]="showSettings">Settings</a>
+    <a class="dashboard-nav-link" (click)="this.data.logout()">Sign Out</a>
+  </div>
+
   <div id="dashboard-projects" class="dashboard-content flex-col-start" *ngIf="showProjects">
     <h1>PROJECTS</h1>
     <button id="create-project-btn" class="success-btn" (click)="popup('project creator', true)">Create a new project!</button>
+    <p id="mobile-message">** Only preview mode is available for mobile devices.  Please log in on a desktop to create and edit your projects.</p>
 
     <fa *ngIf="!projectsData" name="cog" class="loader"></fa>
 
@@ -108,7 +116,7 @@
         }}</div>
     </div>
 
-    <div class="flex-row-center">
+    <div class="flex-row-center wrap">
         <button class="success-btn" type="submit" [disabled]="!projectCreatorForm.valid">Get Started!</button>
       <button class="danger-btn" (click)="popup('project creator', false)">Cancel</button>
     </div>
@@ -143,7 +151,7 @@
 
     <div class="form-alert" *ngIf="this.data.serverMsg">{{this.data.serverMsg}}</div>
 
-    <div class="flex-row-center">
+    <div class="flex-row-center wrap">
       <button class="success-btn" type="submit" [disabled]="!changePasswordForm.valid">Change password</button>
       <button class="danger-btn" (click)="popup('change password', false)">Cancel</button>
     </div>
@@ -164,7 +172,7 @@
 
     <div class="form-alert" *ngIf="this.data.serverMsg">{{this.data.serverMsg}}</div>
 
-    <div class="flex-row-center">
+    <div class="flex-row-center wrap">
       <button class="success-btn" type="submit" [disabled]="!deleteAccountForm.valid">Delete my account</button>
       <button class="danger-btn" (click)="popup('delete account', false)">Cancel</button>
     </div>

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { ProjectState } from '../state-management/state/projectState';
 import { Slide } from '../classes/slide';
 import { Toolbar2AppLogicService } from '../toolbar2-app-logic.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'preview',
@@ -18,14 +19,14 @@ export class PreviewComponent implements OnInit {
   previewSlideIndex: number = 0;
   slideRenderMagnification: number;
 
-  constructor(private store: Store<ProjectState>, private toolbar2: Toolbar2AppLogicService) { }
+  constructor(private store: Store<ProjectState>, private toolbar2: Toolbar2AppLogicService, private router: Router) { }
 
   ngOnInit() {
     // Subscribe to projectState
     this.store.select('projectReducer').subscribe(projectState => {
       this.slides = projectState.slides;
       this.documentSize = projectState.documentSize;
-    })
+    });
 
     this.launchIntoFullscreen(this.previewContainer.nativeElement);
     // Putting a setTimeout on the slideshowControls prevents the clicking of the "preview" button
@@ -39,15 +40,33 @@ export class PreviewComponent implements OnInit {
     let backgroundColor = this.slides[this.previewSlideIndex].getProperty('backgroundColor');
     let width = this.documentSize['width'];
     let height = this.documentSize['height'];
-    this.slideRenderMagnification = window.innerHeight / height;
+    let top = 0;
+    let left = 0;
+    // // this.slideRenderMagnification = window.innerHeight / height;
+    this.slideRenderMagnification = 1;
+    
+
+    // The larger dimension (W or H) determines the scale factor
+    if(width > height){
+      this.slideRenderMagnification = window.innerWidth / width;
+      top = (window.innerHeight - (height * this.slideRenderMagnification)) / 2;
+    }
+    // Checking for '>=' here takes into account the case that the documentSize is a square
+    if(height >= width) {
+      this.slideRenderMagnification = window.innerHeight / height;
+      left = (window.innerWidth - (width * this.slideRenderMagnification)) / 2;
+    }
 
     let css = {
       'background': backgroundColor,
       'height': height + 'px',
       'width': width + 'px',
-      'transform-origin': '50% 50%',
+      'transform-origin': '0 0',
+      'position': 'fixed',
+      'top': top + 'px',
+      'left': left + 'px',
       'transform': 'scale(' + this.slideRenderMagnification + ')',
-      'overflow': 'hidden',
+      'overflow': 'visible'
     }
     return css;
   }
@@ -77,10 +96,10 @@ export class PreviewComponent implements OnInit {
   exitPreviewMode = (event) => {
     // This function cleans up eventListeners when user exits fullscreen 
     if (document.fullscreenElement || document.webkitFullscreenElement === null) {
-      this.toolbar2.isPreviewMode = false;
       // Disable keyboard and mouse navigation
       document.removeEventListener('keyup', this.keyboardControl);
       document.removeEventListener('click', this.mouseControl);
+      this.router.navigate(['main']);
     }
   }
 
@@ -120,5 +139,4 @@ export class PreviewComponent implements OnInit {
     // Helper function for slideshow navigation
     if (this.previewSlideIndex < this.slides.length - 1) this.previewSlideIndex++;
   }
-
 }

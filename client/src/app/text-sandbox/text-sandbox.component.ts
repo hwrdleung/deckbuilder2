@@ -18,24 +18,24 @@ export class TextSandboxComponent implements OnInit {
   @ViewChild('resizer') resizer: ElementRef<any>;
   @ViewChild('middlebar') middlebar: ElementRef<any>;
   @ViewChild('container') container: ElementRef<any>;
-  sandboxText:string;
-  textNotes:string;
-  selectedTextStyle:TextStyle;
-  previewRenderMagnification:number = 100;
-  
-  constructor(private store:Store<ProjectState>, private sandbox:SandboxAppLogicService) { }
+  sandboxText: string;
+  textNotes: string;
+  selectedTextStyle: TextStyle;
+  previewRenderMagnification: number = 100;
+
+  constructor(private store: Store<ProjectState>, private sandbox: SandboxAppLogicService) { }
 
   ngOnInit() {
     this.enableResizer();
     this.store.select('projectReducer')
-    .subscribe(projectState => {
-      this.sandboxText = projectState.sandboxText;
-      this.selectedTextStyle = projectState.selectedTextStyle;
-      this.textNotes = projectState.textNotes;
-    })
+      .subscribe(projectState => {
+        this.sandboxText = projectState.sandboxText;
+        this.selectedTextStyle = projectState.selectedTextStyle;
+        this.textNotes = projectState.textNotes;
+      })
   }
 
-  enableResizer(){
+  enableResizer() {
     // This function enables drag resizing of UI layout
     let containerElement = this.container.nativeElement;
     let resizerElement = this.resizer.nativeElement;
@@ -44,19 +44,19 @@ export class TextSandboxComponent implements OnInit {
     horizontalResizer.init();
   }
 
-  getPreviewRenderCss(){
+  getPreviewRenderCss() {
     // This function provides text preview render with dynamic styling
     // based on range input value
     let css = {
-      'transform': `scale(${this.previewRenderMagnification/100})`
+      'transform': `scale(${this.previewRenderMagnification / 100})`
     }
     return css;
   }
 
-  textInput($event){
+  textInput($event) {
     // This function updates the projectState when user types into the text input
     let sandboxText = $event;
-    this.store.dispatch({type: SET_SANDBOXTEXT, payload: {sandboxText: sandboxText}});
+    this.store.dispatch({ type: SET_SANDBOXTEXT, payload: { sandboxText: sandboxText } });
   }
 
   zoom(direction: string) {

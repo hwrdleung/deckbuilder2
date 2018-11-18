@@ -26,7 +26,7 @@ export class ToolbarComponent implements OnInit {
   slides: Slide[];
   currentSlideIndex: number;
 
-  constructor(private data: DataService, private dialog:DialogService, private toolbar: ToolbarAppLogicService, private store: Store<ProjectState>) { }
+  constructor(private data: DataService, private dialog: DialogService, private toolbar: ToolbarAppLogicService, private store: Store<ProjectState>) { }
 
   ngOnInit() {
     // Detect user session
@@ -59,7 +59,7 @@ export class ToolbarComponent implements OnInit {
     }
   }
 
-  
+
 
 
 

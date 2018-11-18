@@ -58,13 +58,13 @@ button:hover {
 
 #toast-container {
     position: fixed;
-    bottom: 15px;
-    right: 50px;
+    bottom: 25px;
+    right: 25px;
     height: auto;
     width: auto;
-    padding: 15px;
+    padding: 15px 20px;
     background: white;
-    border-radius: 10px;
+    border-radius: 7px;
     font-size: 0.9rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
