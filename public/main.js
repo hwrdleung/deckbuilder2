@@ -166,7 +166,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var routes = [
     { path: '', component: _home_home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"] },
     { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__["DashboardComponent"] },
-    { path: 'main', loadChildren: './main/main.module#MainModule' }
+    { path: 'main', loadChildren: './main/main.module#MainModule' },
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -919,7 +919,7 @@ var TextStyle = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#dashboard-container {\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-columns: 250px auto;\r\n        grid-template-columns: 250px auto;\r\n        -ms-grid-rows: 100vh;\r\n        grid-template-rows: 100vh;\r\n        grid-template-areas: \"nav content\";\r\n    max-width: 100vw;\r\n    max-height: 100vh;\r\n}\r\n\r\n/*  Dashboard left navigation bar */\r\n\r\n#dashboard-nav {\r\n    width: 100%;\r\n    height: 100%;\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: nav;\r\n}\r\n\r\n.dashboard-nav-link {\r\n    display: block;\r\n    width: 100%;\r\n    height: auto;\r\n    padding: 20px 0;\r\n    text-align: center;\r\n    font-size: 1.2rem;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.dashboard-nav-link:hover {\r\n    background: rgba(255, 255, 255, 0.3);\r\n}\r\n\r\n.selected {\r\n    background: rgb(71, 78, 69);\r\n}\r\n\r\n/*  Dashboard right content */\r\n\r\n.dashboard-content {\r\n    width: 100%;\r\n    height: 100%;\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 2;\r\n    grid-area: content;\r\n    padding-top: 100px;\r\n    padding-bottom: 100px;\r\n    box-sizing: border-box;\r\n    overflow-y: auto;\r\n}\r\n\r\n.dashboard-content > * {\r\n    margin: 25px auto;\r\n}\r\n\r\n#no-projects {\r\n    width: 100%;\r\n    text-align: center;\r\n    margin: 75px auto;\r\n}\r\n\r\n/* Dashboard PROJECTS view */\r\n\r\n#create-project-btn {\r\n    width: 300px;\r\n    min-height: 50px;\r\n    font-size: 1.2rem;\r\n    text-align: center;\r\n    position: relative;\r\n}\r\n\r\n#projects-container {\r\n    width: 90%;\r\n    margin: 0 auto;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-start;\r\n    align-items: flex-start;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.project-card {\r\n    width: 200px;\r\n    height: auto;\r\n    margin: 20px;\r\n    padding: 0 15px 15px 15px;\r\n    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.project-card-title {\r\n    text-align: center;\r\n    margin: 10px auto 5px auto;\r\n}\r\n\r\n.project-card-img-container{\r\n    width: 175px;\r\n    height: 100px;\r\n    margin: 5px auto;\r\n}\r\n\r\n.project-card img {\r\n    max-width: 100%;\r\n    max-height: 100%;\r\n}\r\n\r\n.project-card p {\r\n    margin: 5px 0 0 0;\r\n    font-size: 0.8rem;\r\n    text-align: left;\r\n    width: 100%;\r\n}\r\n\r\n.project-card button {\r\n    width: 75px;\r\n    padding: 5px 0;\r\n    margin: 10px 5px 0 5px;\r\n}\r\n\r\n/*  Project creator  */\r\n\r\n.popup-form-overlay {\r\n    width: 100%;\r\n    height: 100vh;\r\n    background: rgba(0, 0, 0, 0.5);\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.popup-form {\r\n    width: 500px;\r\n    height: auto;\r\n    padding: 25px;\r\n    border-radius: 10px;\r\n    background: #FFF;\r\n}\r\n\r\n.popup-form p {\r\n    font-size: 0.8rem;\r\n    margin: 3px 3px 0 3px;\r\n}\r\n\r\n.popup-form > * {\r\n    margin: 15px auto;\r\n}\r\n\r\n.popup-form input[type=\"password\"],\r\n.popup-form input[type=\"text\"] {\r\n    width: 100%;\r\n    height: 40px;\r\n    font-size: 1.2rem;\r\n    padding: 0 10px;\r\n    border: 1px silver solid;\r\n    border-radius: 5px;\r\n}\r\n\r\n.popup-form button {\r\n    padding: 10px 25px;\r\n    margin: 0 5px;\r\n    font-size: 1rem;\r\n    width: 200px;\r\n}\r\n\r\n#doc-sizes {\r\n    width: 100%;\r\n}\r\n\r\n.form-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    margin: 3px auto 0 auto;\r\n}\r\n\r\n.popup-form input[type=\"number\"] {\r\n    width: 50px;\r\n    text-align: center;\r\n}\r\n\r\n.popup-form\r\n.material-icons {\r\n    font-size: 48px;\r\n}\r\n\r\n/*  Dashboard SETTINGS view */\r\n\r\nhr {\r\n    margin: 20px auto;\r\n}\r\n\r\n#settings-container {\r\n    width: 90%;\r\n    max-width: 700px;\r\n}\r\n\r\n#settings-container > div {\r\n    margin: 20px auto;\r\n}\r\n\r\n#settings-container button {\r\n    width: 175px;\r\n    padding: 10px 0;\r\n}"
+module.exports = "#dashboard-container {\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-columns: auto 1fr;\r\n        grid-template-columns: auto 1fr;\r\n        -ms-grid-rows: 100vh;\r\n        grid-template-rows: 100vh;\r\n        grid-template-areas: \"nav content\";\r\n    max-width: 100vw;\r\n    max-height: 100vh;\r\n}\r\n\r\n/*  Dashboard left navigation bar */\r\n\r\n#dashboard-nav {\r\n    width: 225px;\r\n    height: 100%;\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: nav;\r\n}\r\n\r\n#mobile-nav-toggle-btn {\r\n    display: none;\r\n    font-size: 20px;\r\n    z-index: 101;\r\n    position: fixed;\r\n    top: 15px;\r\n    left: 15px;\r\n}\r\n\r\n#dashboard-nav-mobile {\r\n    width: 60vw;\r\n    height: 100%;\r\n    position: fixed;\r\n    left: 0;\r\n    top: 0;\r\n    z-index: 100;\r\n}\r\n\r\n.dashboard-nav-link {\r\n    display: block;\r\n    width: 100%;\r\n    height: auto;\r\n    padding: 20px 0;\r\n    text-align: center;\r\n    font-size: 1.2rem;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.dashboard-nav-link:hover {\r\n    background: rgba(255, 255, 255, 0.3);\r\n}\r\n\r\n.selected {\r\n    background: rgb(71, 78, 69);\r\n}\r\n\r\n/*  Dashboard right content */\r\n\r\n.dashboard-content {\r\n    width: 100%;\r\n    height: 100%;\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 2;\r\n    grid-area: content;\r\n    padding-top: 100px;\r\n    padding-bottom: 100px;\r\n    box-sizing: border-box;\r\n    overflow-y: auto;\r\n}\r\n\r\n.dashboard-content > * {\r\n    margin: 25px auto;\r\n}\r\n\r\n#mobile-message {\r\n    display: none;\r\n}\r\n\r\n#no-projects {\r\n    width: 100%;\r\n    text-align: center;\r\n    margin: 75px auto;\r\n}\r\n\r\n/* Dashboard PROJECTS view */\r\n\r\n#create-project-btn {\r\n    width: 300px;\r\n    min-height: 50px;\r\n    font-size: 1.2rem;\r\n    text-align: center;\r\n    position: relative;\r\n}\r\n\r\n#projects-container {\r\n    width: 90%;\r\n    height: auto;\r\n    margin: 0 auto;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-start;\r\n    align-items: flex-start;\r\n    flex-wrap: wrap;\r\n}\r\n\r\n.project-card {\r\n    width: 200px;\r\n    height: auto;\r\n    margin: 20px;\r\n    padding: 0 15px 15px 15px;\r\n    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.project-card-title {\r\n    text-align: center;\r\n    margin: 10px auto 5px auto;\r\n}\r\n\r\n.project-card-img-container{\r\n    width: 175px;\r\n    height: 100px;\r\n    margin: 5px auto;\r\n}\r\n\r\n.project-card img {\r\n    max-width: 100%;\r\n    max-height: 100%;\r\n}\r\n\r\n.project-card p {\r\n    margin: 5px 0 0 0;\r\n    font-size: 0.8rem;\r\n    text-align: left;\r\n    width: 100%;\r\n}\r\n\r\n.project-card button {\r\n    width: 75px;\r\n    padding: 5px 0;\r\n    margin: 10px 5px 0 5px;\r\n}\r\n\r\n/*  Project creator  */\r\n\r\n.popup-form-overlay {\r\n    width: 100%;\r\n    height: 100vh;\r\n    background: rgba(0, 0, 0, 0.5);\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.popup-form {\r\n    width: 500px;\r\n    height: auto;\r\n    padding: 25px;\r\n    border-radius: 10px;\r\n    background: #FFF;\r\n    max-width: 95vw;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.popup-form p {\r\n    font-size: 0.8rem;\r\n    margin: 3px 3px 0 3px;\r\n}\r\n\r\n.popup-form > * {\r\n    margin: 15px auto;\r\n}\r\n\r\n.popup-form input[type=\"password\"],\r\n.popup-form input[type=\"text\"] {\r\n    width: 100%;\r\n    height: 40px;\r\n    font-size: 1.2rem;\r\n    padding: 0 10px;\r\n    border: 1px silver solid;\r\n    border-radius: 5px;\r\n}\r\n\r\n.popup-form button {\r\n    padding: 10px 25px;\r\n    margin: 5px;\r\n    font-size: 1rem;\r\n    width: 200px;\r\n}\r\n\r\n#doc-sizes {\r\n    width: 100%;\r\n}\r\n\r\n.form-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    margin: 3px auto 0 auto;\r\n}\r\n\r\n.popup-form input[type=\"number\"] {\r\n    width: 50px;\r\n    text-align: center;\r\n}\r\n\r\n.popup-form\r\n.material-icons {\r\n    font-size: 48px;\r\n}\r\n\r\n/*  Dashboard SETTINGS view */\r\n\r\nhr {\r\n    margin: 20px auto;\r\n}\r\n\r\n#settings-container {\r\n    width: 90%;\r\n    max-width: 700px;\r\n}\r\n\r\n#settings-container > div {\r\n    margin: 20px auto;\r\n}\r\n\r\n#settings-container button {\r\n    width: 175px;\r\n    padding: 10px 0;\r\n}\r\n\r\n@media only screen and (max-width: 800px) {\r\n\r\n    #mobile-message{\r\n        max-width: 90vw;\r\n        font-size: 0.9rem;\r\n    }\r\n\r\n    #create-project-btn {\r\n        display: none;\r\n    }\r\n\r\n    #projects-container {\r\n        justify-content: center;\r\n    }\r\n\r\n    #dashboard-nav {\r\n        display: none;\r\n    }\r\n\r\n    #mobile-nav-toggle-btn {\r\n        display: flex;\r\n    }\r\n\r\n    #dashboard-nav-mobile {\r\n        display: flex;\r\n    }\r\n}"
 
 /***/ }),
 
@@ -930,7 +930,7 @@ module.exports = "#dashboard-container {\r\n    display: -ms-grid;\r\n    displa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"component-container\" id=\"dashboard-container\" *ngIf=\"userState.isLoggedIn\">\r\n\r\n  <div id=\"dashboard-nav\" class=\"flex-col-center greenAccent01\">\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('projects')\" [class.selected]=\"showProjects\">Projects</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('settings')\" [class.selected]=\"showSettings\">Settings</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"this.data.logout()\">Sign Out</a>\r\n  </div>\r\n\r\n  <div id=\"dashboard-projects\" class=\"dashboard-content flex-col-start\" *ngIf=\"showProjects\">\r\n    <h1>PROJECTS</h1>\r\n    <button id=\"create-project-btn\" class=\"success-btn\" (click)=\"popup('project creator', true)\">Create a new project!</button>\r\n\r\n    <fa *ngIf=\"!projectsData\" name=\"cog\" class=\"loader\"></fa>\r\n\r\n    <div id=\"projects-container\" *ngIf=\"projectsData\">\r\n      <h3 *ngIf=\"projectsData.length === 0\" id=\"no-projects\">You don't have any projects yet.</h3>\r\n      <div class=\"project-card flex-col-evenly grayAccent02\" *ngFor=\"let project of projectsData\">\r\n        <h3 class=\"project-card-title\">{{project.name}}</h3>\r\n        <div class=\"project-card-img-container flex-col-center\">\r\n        <img src=\"{{project.thumbnail}}\">\r\n      </div>\r\n\r\n        <p>Created: {{project.created | date: 'short'}}</p>\r\n        <p>Last saved: {{project.lastSaved | date: 'short'}}</p>\r\n\r\n        <div class=\"flex-row-evenly\">\r\n          <button class=\"success-btn\" (click)=\"openProject(project)\">Open</button>\r\n          <button class=\"danger-btn\" (click)=\"deleteProject(project.name)\">Delete</button>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"dashboard-settings\" class=\"dashboard-content flex-col-start\" *ngIf=\"showSettings\">\r\n    <h1>SETTINGS</h1>\r\n\r\n    <fa *ngIf=\"!settingsData\" name=\"cog\" class=\"loader\"></fa>\r\n\r\n    <div *ngIf=\"userState.isLoggedIn\" id=\"settings-container\">\r\n      <hr>\r\n      <div *ngFor=\"let item of settingsData | keyvalue\" class=\"flex-row-between\">\r\n        <h3>{{ item.key }}:</h3>\r\n        <h3>{{ item.value }}</h3>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between\">\r\n        <h3>Password:</h3>\r\n        <button class=\"success-btn\" (click)=\"popup('change password', true)\">Change My Password</button>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between\">\r\n        <div></div>\r\n        <button class=\"danger-btn\" (click)=\"popup('delete account', true)\">Delete My Account</button>\r\n      </div>\r\n      <hr>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"showProjectCreator\">\r\n  <form [formGroup]=\"projectCreatorForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"createProject(projectCreatorForm.value)\">\r\n\r\n    <label class=\"flex-col-evenly\">Choose a name for your project:\r\n      <input type=\"text\" formControlName=\"projectName\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['projectName'].errors?.required && projectCreatorForm.controls['projectName'].touched\">{{\r\n        requiredAlert }}</div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['projectName'].errors?.nameTaken && projectCreatorForm.controls['projectName'].touched\">{{\r\n        nameTakenAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Select a document size:</label>\r\n    <div class=\"flex-row-evenly\" id=\"doc-sizes\">\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">tv</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"1536px x 864px Presentation\">\r\n        <p>Presentation</p>\r\n        <p>1536px x 864px</p>\r\n      </div>\r\n\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">crop_portrait</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"816px x 1056px A4 Document\">\r\n        <p>A4 Document</p>\r\n        <p>816px x 1056px</p>\r\n      </div>\r\n\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">photo_size_select_small</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"custom\">\r\n        <p>Custom size</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"flex-col-center\" *ngIf=\"projectCreatorForm.controls['documentSize'].value==='custom'\">\r\n      <div class=\"flex-row-center\">\r\n        <p>H:</p><input type=\"number\" formControlName=\"customHeight\" min=\"1\" max=\"3000\">\r\n        <p>px</p>\r\n        <p>W:</p><input type=\"number\" formControlName=\"customWidth\" min=\"1\" max=\"3000\">\r\n        <p>px</p>\r\n      </div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['customHeight'].errors?.required && projectCreatorForm.controls['customHeight'].touched\">{{\r\n        customHeightAlert }}</div>\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['customWidth'].errors?.required && projectCreatorForm.controls['customWidth'].touched\">{{customWidthAlert\r\n        }}</div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-center\">\r\n        <button class=\"success-btn\" type=\"submit\" [disabled]=\"!projectCreatorForm.valid\">Get Started!</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('project creator', false)\">Cancel</button>\r\n    </div>\r\n  </form>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"this.data.showChangePasswordForm\">\r\n  <form [formGroup]=\"changePasswordForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"this.data.changePassword(changePasswordForm.value)\">\r\n    <label class=\"flex-col-evenly\">Please enter your current password:\r\n      <input type=\"password\" formControlName=\"oldPassword\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['oldPassword'].errors?.required && changePasswordForm.controls['oldPassword'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Please choose a new password:\r\n      <input type=\"password\" formControlName=\"newPassword\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword'].errors?.required && changePasswordForm.controls['newPassword'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Please re-enter your new password:\r\n      <input type=\"password\" formControlName=\"newPassword2\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword2'].errors?.required && changePasswordForm.controls['newPassword2'].touched\">{{\r\n        requiredAlert }}</div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword2'].errors?.mismatch && changePasswordForm.controls['newPassword2'].touched\">{{\r\n        passwordMismatchAlert }}</div>\r\n    </label>\r\n\r\n    <div class=\"form-alert\" *ngIf=\"this.data.serverMsg\">{{this.data.serverMsg}}</div>\r\n\r\n    <div class=\"flex-row-center\">\r\n      <button class=\"success-btn\" type=\"submit\" [disabled]=\"!changePasswordForm.valid\">Change password</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('change password', false)\">Cancel</button>\r\n    </div>\r\n\r\n  </form>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"this.data.showDeleteAccountForm\">\r\n  <form [formGroup]=\"deleteAccountForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"this.data.deleteAccount(deleteAccountForm.value)\">\r\n    <label class=\"flex-col-evenly\">You are about to delete your account. This is irreversible and you will lose all of\r\n      your projects and data. <br><br>\r\n      If you wish to proceed, please enter your password:\r\n      <input type=\"password\" formControlName=\"password\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"deleteAccountForm.controls['password'].errors?.required && deleteAccountForm.controls['password'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <div class=\"form-alert\" *ngIf=\"this.data.serverMsg\">{{this.data.serverMsg}}</div>\r\n\r\n    <div class=\"flex-row-center\">\r\n      <button class=\"success-btn\" type=\"submit\" [disabled]=\"!deleteAccountForm.valid\">Delete my account</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('delete account', false)\">Cancel</button>\r\n    </div>\r\n  </form>\r\n</div>"
+module.exports = "<div class=\"component-container\" id=\"dashboard-container\" *ngIf=\"userState.isLoggedIn\">\r\n\r\n  <div id=\"dashboard-nav\" class=\"flex-col-center greenAccent01\">\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('projects')\" [class.selected]=\"showProjects\">Projects</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('settings')\" [class.selected]=\"showSettings\">Settings</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"this.data.logout()\">Sign Out</a>\r\n  </div>\r\n\r\n  <fa name=\"bars\" id=\"mobile-nav-toggle-btn\" (click)=\"toggleMobileNav()\"></fa>\r\n  <div *ngIf=\"openMobileNav\" id=\"dashboard-nav-mobile\" class=\"flex-col-center greenAccent01\">\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('projects'); toggleMobileNav()\" [class.selected]=\"showProjects\">Projects</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('settings'); toggleMobileNav()\" [class.selected]=\"showSettings\">Settings</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"this.data.logout()\">Sign Out</a>\r\n  </div>\r\n\r\n  <div id=\"dashboard-projects\" class=\"dashboard-content flex-col-start\" *ngIf=\"showProjects\">\r\n    <h1>PROJECTS</h1>\r\n    <button id=\"create-project-btn\" class=\"success-btn\" (click)=\"popup('project creator', true)\">Create a new project!</button>\r\n    <p id=\"mobile-message\">** Only preview mode is available for mobile devices.  Please log in on a desktop to create and edit your projects.</p>\r\n\r\n    <fa *ngIf=\"!projectsData\" name=\"cog\" class=\"loader\"></fa>\r\n\r\n    <div id=\"projects-container\" *ngIf=\"projectsData\">\r\n      <h3 *ngIf=\"projectsData.length === 0\" id=\"no-projects\">You don't have any projects yet.</h3>\r\n      <div class=\"project-card flex-col-evenly grayAccent02\" *ngFor=\"let project of projectsData\">\r\n        <h3 class=\"project-card-title\">{{project.name}}</h3>\r\n        <div class=\"project-card-img-container flex-col-center\">\r\n        <img src=\"{{project.thumbnail}}\">\r\n      </div>\r\n\r\n        <p>Created: {{project.created | date: 'short'}}</p>\r\n        <p>Last saved: {{project.lastSaved | date: 'short'}}</p>\r\n\r\n        <div class=\"flex-row-evenly\">\r\n          <button class=\"success-btn\" (click)=\"openProject(project)\">Open</button>\r\n          <button class=\"danger-btn\" (click)=\"deleteProject(project.name)\">Delete</button>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"dashboard-settings\" class=\"dashboard-content flex-col-start\" *ngIf=\"showSettings\">\r\n    <h1>SETTINGS</h1>\r\n\r\n    <fa *ngIf=\"!settingsData\" name=\"cog\" class=\"loader\"></fa>\r\n\r\n    <div *ngIf=\"userState.isLoggedIn\" id=\"settings-container\">\r\n      <hr>\r\n      <div *ngFor=\"let item of settingsData | keyvalue\" class=\"flex-row-between\">\r\n        <h3>{{ item.key }}:</h3>\r\n        <h3>{{ item.value }}</h3>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between\">\r\n        <h3>Password:</h3>\r\n        <button class=\"success-btn\" (click)=\"popup('change password', true)\">Change My Password</button>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between\">\r\n        <div></div>\r\n        <button class=\"danger-btn\" (click)=\"popup('delete account', true)\">Delete My Account</button>\r\n      </div>\r\n      <hr>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"showProjectCreator\">\r\n  <form [formGroup]=\"projectCreatorForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"createProject(projectCreatorForm.value)\">\r\n\r\n    <label class=\"flex-col-evenly\">Choose a name for your project:\r\n      <input type=\"text\" formControlName=\"projectName\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['projectName'].errors?.required && projectCreatorForm.controls['projectName'].touched\">{{\r\n        requiredAlert }}</div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['projectName'].errors?.nameTaken && projectCreatorForm.controls['projectName'].touched\">{{\r\n        nameTakenAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Select a document size:</label>\r\n    <div class=\"flex-row-evenly\" id=\"doc-sizes\">\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">tv</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"1536px x 864px Presentation\">\r\n        <p>Presentation</p>\r\n        <p>1536px x 864px</p>\r\n      </div>\r\n\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">crop_portrait</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"816px x 1056px A4 Document\">\r\n        <p>A4 Document</p>\r\n        <p>816px x 1056px</p>\r\n      </div>\r\n\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">photo_size_select_small</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"custom\">\r\n        <p>Custom size</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"flex-col-center\" *ngIf=\"projectCreatorForm.controls['documentSize'].value==='custom'\">\r\n      <div class=\"flex-row-center\">\r\n        <p>H:</p><input type=\"number\" formControlName=\"customHeight\" min=\"1\" max=\"3000\">\r\n        <p>px</p>\r\n        <p>W:</p><input type=\"number\" formControlName=\"customWidth\" min=\"1\" max=\"3000\">\r\n        <p>px</p>\r\n      </div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['customHeight'].errors?.required && projectCreatorForm.controls['customHeight'].touched\">{{\r\n        customHeightAlert }}</div>\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['customWidth'].errors?.required && projectCreatorForm.controls['customWidth'].touched\">{{customWidthAlert\r\n        }}</div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-center wrap\">\r\n        <button class=\"success-btn\" type=\"submit\" [disabled]=\"!projectCreatorForm.valid\">Get Started!</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('project creator', false)\">Cancel</button>\r\n    </div>\r\n  </form>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"this.data.showChangePasswordForm\">\r\n  <form [formGroup]=\"changePasswordForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"this.data.changePassword(changePasswordForm.value)\">\r\n    <label class=\"flex-col-evenly\">Please enter your current password:\r\n      <input type=\"password\" formControlName=\"oldPassword\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['oldPassword'].errors?.required && changePasswordForm.controls['oldPassword'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Please choose a new password:\r\n      <input type=\"password\" formControlName=\"newPassword\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword'].errors?.required && changePasswordForm.controls['newPassword'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Please re-enter your new password:\r\n      <input type=\"password\" formControlName=\"newPassword2\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword2'].errors?.required && changePasswordForm.controls['newPassword2'].touched\">{{\r\n        requiredAlert }}</div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword2'].errors?.mismatch && changePasswordForm.controls['newPassword2'].touched\">{{\r\n        passwordMismatchAlert }}</div>\r\n    </label>\r\n\r\n    <div class=\"form-alert\" *ngIf=\"this.data.serverMsg\">{{this.data.serverMsg}}</div>\r\n\r\n    <div class=\"flex-row-center wrap\">\r\n      <button class=\"success-btn\" type=\"submit\" [disabled]=\"!changePasswordForm.valid\">Change password</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('change password', false)\">Cancel</button>\r\n    </div>\r\n\r\n  </form>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"this.data.showDeleteAccountForm\">\r\n  <form [formGroup]=\"deleteAccountForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"this.data.deleteAccount(deleteAccountForm.value)\">\r\n    <label class=\"flex-col-evenly\">You are about to delete your account. This is irreversible and you will lose all of\r\n      your projects and data. <br><br>\r\n      If you wish to proceed, please enter your password:\r\n      <input type=\"password\" formControlName=\"password\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"deleteAccountForm.controls['password'].errors?.required && deleteAccountForm.controls['password'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <div class=\"form-alert\" *ngIf=\"this.data.serverMsg\">{{this.data.serverMsg}}</div>\r\n\r\n    <div class=\"flex-row-center wrap\">\r\n      <button class=\"success-btn\" type=\"submit\" [disabled]=\"!deleteAccountForm.valid\">Delete my account</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('delete account', false)\">Cancel</button>\r\n    </div>\r\n  </form>\r\n</div>"
 
 /***/ }),
 
@@ -980,6 +980,7 @@ var DashboardComponent = /** @class */ (function () {
         this.data = data;
         this.dialog = dialog;
         this.store = store;
+        this.openMobileNav = false;
         /*  UI VARIABLES */
         this.showProjects = true;
         this.showSettings = false;
@@ -1047,6 +1048,7 @@ var DashboardComponent = /** @class */ (function () {
     };
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // Subscribe to projectCreatorForm's value changes to enable conditional validations
         this.projectCreatorConditionalValidation();
         // Subscribe to userState to get updated user data
         this.store.select('userReducer')
@@ -1081,9 +1083,8 @@ var DashboardComponent = /** @class */ (function () {
             'Email address': this.userState.email
         };
     };
-    /*  UI CONTROLLERS */
     DashboardComponent.prototype.showContent = function (view) {
-        // This function serves as the controller for the dashboard's left vertical nav bar.
+        // This function serves as the UI controller for the dashboard's left vertical nav bar.
         switch (view) {
             case 'projects':
                 this.showProjects = true;
@@ -1095,8 +1096,12 @@ var DashboardComponent = /** @class */ (function () {
                 break;
         }
     };
+    DashboardComponent.prototype.toggleMobileNav = function () {
+        // This function serves as the UI controller for displaying the vertical mobile nav menu
+        this.openMobileNav = !this.openMobileNav;
+    };
     DashboardComponent.prototype.popup = function (form, bool) {
-        // This function serves as the controller for the displaying of popup forms 
+        // This function serves as the UI controller for the displaying of popup forms 
         // in the dashboard's "settings" view.
         switch (form) {
             case 'project creator':
@@ -1147,11 +1152,8 @@ var DashboardComponent = /** @class */ (function () {
         var message = "Are you sure you want to delete project: " + projectName + "?";
         this.dialog.alert(message, 'danger', confirmedDelete);
     };
-    /* PROJECT CREATOR */
     DashboardComponent.prototype.createProject = function (formData) {
-        var _this = this;
         // This function handles the ngSubmit for the projectCreatorForm
-        // Parse form Data
         var projectName = formData.projectName;
         var options = {};
         switch (formData.documentSize) {
@@ -1183,12 +1185,10 @@ var DashboardComponent = /** @class */ (function () {
             'documentSize': documentSize
         };
         // Create and save new project.  Route to main.
+        this.dialog.toast("Creating new project: " + projectName);
         this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_7__["NEW_PROJECT"], payload: payload });
-        this.data.saveProject()
-            .then(function () {
-            _this.dialog.toast("Creating new project: " + projectName);
-            _this.router.navigate(['main']);
-        });
+        this.router.navigate(['main']);
+        // Saving of the project is handled at the time that user navigates away from main
     };
     DashboardComponent.prototype.ngOnDestroy = function () {
         // data.serverMsg is shared with the login and registration components.
@@ -1257,26 +1257,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 /*
-  TODO:
-
   HOME
     -Think of a good name for the app
-    -Come up with description text
-
-  TOOLBARS
-    -Decide on mobile functionality - preview only?
 
   SANDBOX
     -Find a solution for image storage
     -Get camanJS to work
-
-  SLIDE EDITOR
-    -Add button for changing style of slideObjects
-    - Change ts file to use the resizer class
-
-  DATA
-    -Impelement functionality for creating project thumbnails when saving projects
-    -Fix scaling of thumbnails -- if user creates a custom size document that is really small, then thumbnail ends up even smaller.
 */
 var DataService = /** @class */ (function () {
     function DataService(dialog, http, router, store) {
@@ -1588,7 +1574,7 @@ var DataService = /** @class */ (function () {
             html2canvas__WEBPACK_IMPORTED_MODULE_3__(slideRender, {
                 height: projectState.documentSize.height,
                 width: projectState.documentSize.width,
-                scale: 0.3,
+                scale: 200 / projectState.documentSize.height,
                 allowTaint: false,
                 useCORS: true
             }).then(function (canvas) {
@@ -1603,54 +1589,52 @@ var DataService = /** @class */ (function () {
     };
     DataService.prototype.saveProject = function () {
         var _this = this;
-        /*
-            1.  Detect user session.  This feature is only available to registered users.
-            2.  Get thumbnail
-            3.  Get project state, and update 'lastSaved' and 'thumbnail'.  Convert to JSON.
-            4.  Get user state for the token.  Create payload with token and project state.
-            5.  Make API call to save this project's changes to the database.
-            6.  Display dialog message
-        */
-        var sessionData = sessionStorage.getItem('sessionData');
-        if (!sessionData) {
-            this.dialog.toast('Register to unlock this feature!');
-        }
-        else if (sessionData) {
-            var projectState_1;
-            var userState_1;
-            var thumbnail_1;
-            // create thumbnail here
-            return this.getThumbnail()
-                .then(function (imgData) {
-                thumbnail_1 = imgData;
-                return _this.getProjectState();
-            })
-                .then(function (data) {
-                projectState_1 = data;
-                projectState_1.lastSaved = new Date();
-                projectState_1.thumbnail = thumbnail_1;
-                projectState_1 = JSON.stringify(projectState_1);
-                return _this.getUserState();
-            })
-                .then(function (data) {
-                userState_1 = data;
-                return userState_1;
-            })
-                .then(function (userState) {
-                var payload = {
-                    token: userState.token,
-                    project: projectState_1
-                };
-                _this.http.post(_this.apiEndpoint + '/save-project', payload).subscribe(function (res) {
-                    console.log(res);
-                    if (res['success'] === false)
-                        _this.dialog.alert('There was a problem saving your project.', 'danger');
-                    if (res['success'] === true)
-                        _this.dialog.toast('Your project has been saved');
-                });
-            })
-                .catch(function (error) { console.log(error); });
-        }
+        return new Promise(function (resolve, reject) {
+            /*
+                1.  Detect user session.  This feature is only available to registered users.
+                2.  Get thumbnail
+                3.  Get project state, and update 'lastSaved' and 'thumbnail'.  Convert to JSON.
+                4.  Get user state for the token.  Create payload with token and project state.
+                5.  Make API call to save this project's changes to the database.
+                6.  Display dialog message
+            */
+            var sessionData = sessionStorage.getItem('sessionData');
+            if (!sessionData) {
+                reject('User is not signed in.');
+            }
+            else if (sessionData) {
+                var projectState_1;
+                var userState_1;
+                var thumbnail_1;
+                // create thumbnail here
+                _this.getThumbnail()
+                    .then(function (imgData) {
+                    thumbnail_1 = imgData;
+                    return _this.getProjectState();
+                })
+                    .then(function (data) {
+                    projectState_1 = data;
+                    projectState_1.lastSaved = new Date();
+                    projectState_1.thumbnail = thumbnail_1;
+                    projectState_1 = JSON.stringify(projectState_1);
+                    return _this.getUserState();
+                })
+                    .then(function (data) {
+                    userState_1 = data;
+                    return userState_1;
+                })
+                    .then(function (userState) {
+                    var payload = {
+                        token: userState.token,
+                        project: projectState_1
+                    };
+                    _this.http.post(_this.apiEndpoint + '/save-project', payload).subscribe(function (res) {
+                        resolve(res);
+                    });
+                })
+                    .catch(function (error) { console.log(error); });
+            }
+        });
     };
     DataService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1745,7 +1729,7 @@ var DialogService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    background: rgba(0, 0, 0, 0.6);\r\n    z-index: 100;\r\n}\r\n\r\n#dialog-box {\r\n    width: 400px;\r\n    height: auto;\r\n    position: fixed;\r\n    left: 50%;\r\n    margin-left: -200px;\r\n    top: 30vh;\r\n    padding: 25px 25px 15px 25px;\r\n    border-radius: 8px;\r\n    background: #FFF;\r\n    z-index: 101;\r\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);\r\n}\r\n\r\n#danger-icon, \r\n#success-icon {\r\n    text-align: center;\r\n    font-size: 2rem;\r\n}\r\n\r\n#danger-icon{\r\n    color: red;\r\n}\r\n\r\n#success-icon {\r\n    color: green;\r\n}\r\n\r\n#message {\r\n    margin: 25px;\r\n    font-size: 0.9rem;\r\n    line-height: 1.25;\r\n}\r\n\r\nbutton {\r\n    width: 100px;\r\n    height: 25px;\r\n    border: 0;\r\n    border-radius: 5px;\r\n    margin: 5px;\r\n    background: rgb(146, 141, 141);\r\n    color: #FFF;\r\n}\r\n\r\nbutton:hover {\r\n    background: rgb(175, 170, 170);\r\n}\r\n\r\n#toast-container {\r\n    position: fixed;\r\n    bottom: 15px;\r\n    right: 50px;\r\n    height: auto;\r\n    width: auto;\r\n    padding: 15px;\r\n    background: white;\r\n    border-radius: 10px;\r\n    font-size: 0.9rem;\r\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);\r\n}\r\n\r\n#toast-container fa {\r\n    color: green;\r\n    font-size: 1rem;\r\n    padding-right: 10px;\r\n}"
+module.exports = "#overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    background: rgba(0, 0, 0, 0.6);\r\n    z-index: 100;\r\n}\r\n\r\n#dialog-box {\r\n    width: 400px;\r\n    height: auto;\r\n    position: fixed;\r\n    left: 50%;\r\n    margin-left: -200px;\r\n    top: 30vh;\r\n    padding: 25px 25px 15px 25px;\r\n    border-radius: 8px;\r\n    background: #FFF;\r\n    z-index: 101;\r\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);\r\n}\r\n\r\n#danger-icon, \r\n#success-icon {\r\n    text-align: center;\r\n    font-size: 2rem;\r\n}\r\n\r\n#danger-icon{\r\n    color: red;\r\n}\r\n\r\n#success-icon {\r\n    color: green;\r\n}\r\n\r\n#message {\r\n    margin: 25px;\r\n    font-size: 0.9rem;\r\n    line-height: 1.25;\r\n}\r\n\r\nbutton {\r\n    width: 100px;\r\n    height: 25px;\r\n    border: 0;\r\n    border-radius: 5px;\r\n    margin: 5px;\r\n    background: rgb(146, 141, 141);\r\n    color: #FFF;\r\n}\r\n\r\nbutton:hover {\r\n    background: rgb(175, 170, 170);\r\n}\r\n\r\n#toast-container {\r\n    position: fixed;\r\n    bottom: 25px;\r\n    right: 25px;\r\n    height: auto;\r\n    width: auto;\r\n    padding: 15px 20px;\r\n    background: white;\r\n    border-radius: 7px;\r\n    font-size: 0.9rem;\r\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);\r\n}\r\n\r\n#toast-container fa {\r\n    color: green;\r\n    font-size: 1rem;\r\n    padding-right: 10px;\r\n}"
 
 /***/ }),
 
@@ -1811,7 +1795,7 @@ var DialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n@import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');\n/* * {\r\n    border: 1px yellow solid;\r\n    box-sizing: border-box;\r\n} */\n#home-content-container {\r\n    width: 80%;\r\n    max-width: 1200px;\r\n    height: auto;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    padding: 150px 0;\r\n    margin-top: 100px;\r\n        -ms-grid-columns: 70% 30%;\r\n        grid-template-columns: 70% 30%;\r\n        grid-template-areas: \"left right\";\r\n}\n#home-left-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: left;\r\n}\n#home-left-content > * {\r\n    max-width: 90%;\r\n    margin: 15px auto;\r\n}\n#app-brand {\r\n    font-family: 'Oleo Script Swash Caps', cursive;\r\n    font-size: 4rem;\r\n}\n#splash {\r\n    box-shadow: 0px 0px 10px rgba(59, 59, 59, 0.4);\r\n    border: 1px rgba(54, 54, 54, 0.5) solid;\r\n}\n#description-list li {\r\n    text-decoration: none;\r\n    list-style-type: none;\r\n    line-height: 30px;\r\n}\n#description-list li fa {\r\n    margin: 0 15px;\r\n    color: rgb(0, 155, 0);\r\n}\n#home-right-content > * {\r\n    max-width: 90%;\r\n}\n#home-right-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 2;\r\n    grid-area: right;\r\n    padding-top: 35px;\r\n}\n.cta-btn {\r\n    padding: 10px 25px;\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n    background: rgb(72, 72, 252);\r\n    border: 0;\r\n    border-radius: 5px;\r\n    color: #FFF;\r\n}\n.cta-btn:hover {\r\n    background: rgb(90, 192, 255);\r\n}\n#forms-container {\r\n    width: 100%;\r\n    overflow: hidden;\r\n    box-shadow: 2px 2px 5px black;\r\n}\n#forms-container-nav {\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 1fr 1fr;\r\n        grid-template-columns: 1fr 1fr;\r\n    grid-gap: 1px;\r\n    background: silver;\r\n    border-bottom: 1px silver inset;\r\n}\n#forms-container-nav button {\r\n    display: inline-block;\r\n    width: 100%;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    margin: 0 auto;\r\n    padding: 12px 0;\r\n    font-size: 1rem;\r\n    background: white;\r\n    border: 0;\r\n    color: rgb(49, 49, 49);\r\n    transition: background 0.25s;\r\n    outline: none;\r\n}\n#forms-container-nav button:hover {\r\n    background: silver;\r\n    transition: background 0.25s;\r\n}\n.app-theme {\r\n    border: 0;\r\n    background: #FFF;\r\n    color: rgb(37, 44, 38);\r\n    border-radius: 10px;\r\n}\r\n\r\n"
+module.exports = "\r\n\r\n@import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');\n/* * {\r\n    border: 1px yellow solid;\r\n    box-sizing: border-box;\r\n} */\n#home-content-container {\r\n    width: 80%;\r\n    padding: 75px 0;\r\n    box-sizing: border-box;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-columns: 70% 30%;\r\n        grid-template-columns: 70% 30%;\r\n        grid-template-areas: \"left right\";\r\n}\n#home-left-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: left;\r\n}\n#home-left-content > * {\r\n    max-width: 90%;\r\n    margin: 15px auto;\r\n}\n#app-brand {\r\n    font-family: 'Oleo Script Swash Caps', cursive;\r\n    font-size: 4rem;\r\n}\n#splash {\r\n    box-shadow: 0px 0px 10px rgba(59, 59, 59, 0.4);\r\n    border: 1px rgba(54, 54, 54, 0.5) solid;\r\n}\n#description-list li {\r\n    text-decoration: none;\r\n    list-style-type: none;\r\n    line-height: 30px;\r\n}\n#description-list li fa {\r\n    margin: 0 15px;\r\n    color: rgb(0, 155, 0);\r\n}\n#home-right-content > * {\r\n    max-width: 90%;\r\n}\n#home-right-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 2;\r\n    grid-area: right;\r\n    padding-top: 35px;\r\n}\n.cta-btn {\r\n    padding: 10px 25px;\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n    background: rgb(72, 72, 252);\r\n    border: 0;\r\n    border-radius: 5px;\r\n    color: #FFF;\r\n}\n.cta-btn:hover {\r\n    background: rgb(90, 192, 255);\r\n}\n#forms-container {\r\n    width: 100%;\r\n    overflow: hidden;\r\n    box-shadow: 2px 2px 5px black;\r\n}\n#forms-container-nav {\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 1fr 1fr;\r\n        grid-template-columns: 1fr 1fr;\r\n    grid-gap: 1px;\r\n    background: silver;\r\n    border-bottom: 1px silver inset;\r\n}\n#forms-container-nav button {\r\n    display: inline-block;\r\n    width: 100%;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    margin: 0 auto;\r\n    padding: 12px 0;\r\n    font-size: 1rem;\r\n    background: white;\r\n    border: 0;\r\n    color: rgb(49, 49, 49);\r\n    transition: background 0.25s;\r\n    outline: none;\r\n}\n#forms-container-nav button:hover {\r\n    background: silver;\r\n    transition: background 0.25s;\r\n}\n.app-theme {\r\n    border: 0;\r\n    background: #FFF;\r\n    color: rgb(37, 44, 38);\r\n    border-radius: 10px;\r\n}\r\n\r\n"
 
 /***/ }),
 
@@ -1855,6 +1839,7 @@ var HomeComponent = /** @class */ (function () {
     function HomeComponent(router, store) {
         this.router = router;
         this.store = store;
+        /*  UI LAYOUT VARIABLES  */
         this.showLogin = true;
         this.showRegistration = false;
     }
@@ -2405,6 +2390,10 @@ var projectReducer = function (state, action) {
             // and add it to the current slide.
             if (newState.selectedImage) {
                 var imageObject_1 = new src_app_classes_imageObject__WEBPACK_IMPORTED_MODULE_3__["ImageObject"];
+                // Use camanJS to create a base64 image with the css filters specified in imageObject.style
+                // Send base64 to server to save to cloudinary OR send straight to cloudinary 
+                // Set imageObject.imagePath to cloundinary image URL
+                // Save to store
                 imageObject_1.style = newState.selectedImageStyle;
                 imageObject_1.imagePath = newState.selectedImage.url;
                 // Set imageObject height and width

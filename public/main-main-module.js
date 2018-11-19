@@ -8303,7 +8303,7 @@ module.exports = "#app-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"app-container\" #appContainer class=\"grayAccent01\">\r\n\r\n  <div id=\"toolbar\" #toolbar>\r\n    <toolbar></toolbar>\r\n  </div>\r\n\r\n  <div id=\"toolbar-secondary\">\r\n    <toolbar-secondary></toolbar-secondary>\r\n  </div>\r\n\r\n  <div id=\"styler\" #styler>\r\n    <styler></styler>\r\n  </div>\r\n\r\n  <div id=\"sandbox\" #sandbox>\r\n    <text-sandbox *ngIf=\"viewTextElements\"></text-sandbox>\r\n    <image-sandbox *ngIf=\"viewImageElements\"></image-sandbox>\r\n  </div>\r\n\r\n  <div id=\"resizer\" #resizer></div>\r\n\r\n  <div id=\"slide-editor\" #slideEditor>\r\n    <slide-editor></slide-editor>\r\n  </div>\r\n\r\n</div>\r\n\r\n<preview *ngIf=\"this.toolbar2.isPreviewMode\"></preview>\r\n"
+module.exports = "<div id=\"app-container\" #appContainer class=\"grayAccent01\">\r\n\r\n  <div id=\"toolbar\" #toolbar>\r\n    <toolbar></toolbar>\r\n  </div>\r\n\r\n  <div id=\"toolbar-secondary\">\r\n    <toolbar-secondary></toolbar-secondary>\r\n  </div>\r\n\r\n  <div id=\"styler\" #styler>\r\n    <styler></styler>\r\n  </div>\r\n\r\n  <div id=\"sandbox\" #sandbox>\r\n    <text-sandbox *ngIf=\"viewTextElements\"></text-sandbox>\r\n    <image-sandbox *ngIf=\"viewImageElements\"></image-sandbox>\r\n  </div>\r\n\r\n  <div id=\"resizer\" #resizer></div>\r\n\r\n  <div id=\"slide-editor\" #slideEditor>\r\n    <slide-editor></slide-editor>\r\n  </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -8318,9 +8318,12 @@ module.exports = "<div id=\"app-container\" #appContainer class=\"grayAccent01\"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainComponent", function() { return MainComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
-/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
-/* harmony import */ var _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../toolbar2-app-logic.service */ "./src/app/toolbar2-app-logic.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../toolbar2-app-logic.service */ "./src/app/toolbar2-app-logic.service.ts");
+/* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../dialog.service */ "./src/app/dialog.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8335,15 +8338,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var MainComponent = /** @class */ (function () {
-    function MainComponent(elementRef, data, store, toolbar2) {
+    function MainComponent(datePipe, router, elementRef, data, store, dialog, toolbar2) {
         var _this = this;
+        this.datePipe = datePipe;
+        this.router = router;
         this.elementRef = elementRef;
         this.data = data;
         this.store = store;
+        this.dialog = dialog;
         this.toolbar2 = toolbar2;
         this.autoSaveInterval = 5 * 60 * 1000;
         this.enableResizer = function () {
+            // This function enables the vertical resizer between the sandbox and slide editor
             var startResize = function (e) {
                 document.addEventListener('mousemove', _this.resizeGrid);
                 document.addEventListener('mouseup', stopResize); // Stop resizer
@@ -8355,6 +8365,8 @@ var MainComponent = /** @class */ (function () {
             _this.resizer.nativeElement.addEventListener('mousedown', startResize); // start resizer
         };
         this.resizeGrid = function (e) {
+            // This function sets the widths of the sandbox and slide editor 
+            // by setting the container element's gridTemplateColumns according to mouse position 
             var appContainer = _this.appContainer.nativeElement;
             var viewportWidth = document.documentElement.clientWidth;
             var styler = _this.styler.nativeElement;
@@ -8374,17 +8386,43 @@ var MainComponent = /** @class */ (function () {
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // Detect screen width and route to preview component for mobile devices
+        if (window.innerWidth <= 800)
+            this.router.navigate(['main/preview']);
         this.enableResizer();
+        // Subscribe to projectState
         this.store.select('projectReducer')
             .subscribe(function (projectState) {
             _this.viewTextElements = projectState.viewTextElements;
             _this.viewImageElements = projectState.viewImageElements;
         });
-        this.autoSave();
+        this.data.saveProject().then(function (res) {
+            if (!res['success'])
+                _this.dialog.alert('There was a problem saving your project.', 'danger');
+        })
+            .catch(function (error) { return console.log(error); });
+        this.enableAutoSave();
     };
-    MainComponent.prototype.autoSave = function () {
-        if (sessionStorage.getItem('sessionData'))
-            setInterval(this.data.saveProject, this.autoSaveInterval);
+    MainComponent.prototype.ngOnDestory = function () {
+        var _this = this;
+        // Save project when user navigates away
+        this.data.saveProject().then(function (res) {
+            if (!res['success'])
+                _this.dialog.alert('There was a problem saving your project.', 'danger');
+            if (res['success'])
+                _this.dialog.toast('Your project has been saved');
+        });
+    };
+    MainComponent.prototype.enableAutoSave = function () {
+        var _this = this;
+        if (sessionStorage.getItem('sessionData')) {
+            setInterval(function () {
+                _this.data.saveProject().then(function (res) {
+                    if (res['success'])
+                        _this.dialog.toast('Auto-saved at ' + _this.datePipe.transform(new Date(), 'shortTime'));
+                });
+            }, this.autoSaveInterval);
+        }
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('appContainer'),
@@ -8412,7 +8450,7 @@ var MainComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./main.component.html */ "./src/app/main/main.component.html"),
             styles: [__webpack_require__(/*! ./main.component.css */ "./src/app/main/main.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], _data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"], _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["Toolbar2AppLogicService"]])
+        __metadata("design:paramtypes", [_angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], _data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"], _dialog_service__WEBPACK_IMPORTED_MODULE_5__["DialogService"], _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_4__["Toolbar2AppLogicService"]])
     ], MainComponent);
     return MainComponent;
 }());
@@ -8491,7 +8529,8 @@ var DEFAULT_FONT_PICKER_CONFIG = {
     apiKey: 'AIzaSyAP146kdUvTjlnGzyoP-cFk6_ECHSWMMfw'
 };
 var routes = [
-    { path: '', component: _main_component__WEBPACK_IMPORTED_MODULE_22__["MainComponent"] } // default route of the module
+    { path: '', component: _main_component__WEBPACK_IMPORTED_MODULE_22__["MainComponent"] },
+    { path: 'preview', component: _preview_preview_component__WEBPACK_IMPORTED_MODULE_20__["PreviewComponent"] }
 ];
 var MainModule = /** @class */ (function () {
     function MainModule() {
@@ -8520,7 +8559,7 @@ var MainModule = /** @class */ (function () {
                 _main_component__WEBPACK_IMPORTED_MODULE_22__["MainComponent"],
                 _preview_preview_component__WEBPACK_IMPORTED_MODULE_20__["PreviewComponent"]
             ],
-            providers: [_toolbar_app_logic_service__WEBPACK_IMPORTED_MODULE_12__["ToolbarAppLogicService"], _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_13__["Toolbar2AppLogicService"], _styler_app_logic_service__WEBPACK_IMPORTED_MODULE_14__["StylerAppLogicService"], _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_15__["SandboxAppLogicService"], _slide_editor_app_logic_service__WEBPACK_IMPORTED_MODULE_16__["SlideEditorAppLogicService"], {
+            providers: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"], _toolbar_app_logic_service__WEBPACK_IMPORTED_MODULE_12__["ToolbarAppLogicService"], _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_13__["Toolbar2AppLogicService"], _styler_app_logic_service__WEBPACK_IMPORTED_MODULE_14__["StylerAppLogicService"], _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_15__["SandboxAppLogicService"], _slide_editor_app_logic_service__WEBPACK_IMPORTED_MODULE_16__["SlideEditorAppLogicService"], {
                     provide: ngx_font_picker__WEBPACK_IMPORTED_MODULE_3__["FONT_PICKER_CONFIG"],
                     useValue: DEFAULT_FONT_PICKER_CONFIG
                 }],
@@ -8540,7 +8579,7 @@ var MainModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#preview-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 200;\r\n    background: #000;\r\n}\r\n\r\n#preview-container-overlay {\r\n    width: 100%;\r\n    height: 100vh;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 201;\r\n    background: transparent;\r\n}\r\n\r\n.slide-object img {\r\n    max-width: 100%;\r\n    max-height: 100%;\r\n    width: 100%;\r\n    overflow: hidden;\r\n}\r\n\r\n"
+module.exports = "#preview-container {\r\n    width: 100%;\r\n    height: 100vh;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 200;\r\n    background: #000;\r\n    overflow: visible;\r\n}\r\n\r\n#preview-container-overlay {\r\n    width: 100%;\r\n    height: 100vh;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 201;\r\n    background: transparent;\r\n}\r\n\r\n.slide-object img {\r\n    max-width: 100%;\r\n    max-height: 100%;\r\n    width: 100%;\r\n    overflow: hidden;\r\n}\r\n\r\n"
 
 /***/ }),
 
@@ -8551,7 +8590,7 @@ module.exports = "#preview-container {\r\n    width: 100%;\r\n    height: 100vh;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div #previewContainer id=\"preview-container\" class=\"flex-row-center\">\n  <div  id=\"preview-slide-render\" [ngStyle]=\"getPreviewSlideRenderCss()\">\n    <div class=\"slide-object\" *ngFor=\"let slideObject of slides[previewSlideIndex].slideObjects\" [ngStyle]=\"slideObject.getCss()\" ngDraggable [position]=\"slideObject.getTranslation()\">\n      <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\n      <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"slideObject.style.getCss()\" [src]=\"slideObject.imagePath\"\n        crossOrigin=\"anonymous\">\n      </div>\n  </div>\n</div>\n\n<div id=\"preview-container-overlay\"></div>\n"
+module.exports = "<div #previewContainer id=\"preview-container\">\n  <div  id=\"preview-slide-render\" [ngStyle]=\"getPreviewSlideRenderCss()\">\n    <div class=\"slide-object\" *ngFor=\"let slideObject of slides[previewSlideIndex].slideObjects\" [ngStyle]=\"slideObject.getCss()\" ngDraggable [position]=\"slideObject.getTranslation()\">\n      <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\n      <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"slideObject.style.getCss()\" [src]=\"slideObject.imagePath\"\n        crossOrigin=\"anonymous\">\n      </div>\n  </div>\n</div>\n\n<div id=\"preview-container-overlay\"></div>\n"
 
 /***/ }),
 
@@ -8568,6 +8607,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../toolbar2-app-logic.service */ "./src/app/toolbar2-app-logic.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8580,19 +8620,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var PreviewComponent = /** @class */ (function () {
-    function PreviewComponent(store, toolbar2) {
+    function PreviewComponent(store, toolbar2, router) {
         var _this = this;
         this.store = store;
         this.toolbar2 = toolbar2;
+        this.router = router;
         this.previewSlideIndex = 0;
         this.exitPreviewMode = function (event) {
             // This function cleans up eventListeners when user exits fullscreen 
             if (document.fullscreenElement || document.webkitFullscreenElement === null) {
-                _this.toolbar2.isPreviewMode = false;
                 // Disable keyboard and mouse navigation
                 document.removeEventListener('keyup', _this.keyboardControl);
                 document.removeEventListener('click', _this.mouseControl);
+                _this.router.navigate(['main']);
             }
         };
         this.mouseControl = function (event) {
@@ -8636,14 +8678,30 @@ var PreviewComponent = /** @class */ (function () {
         var backgroundColor = this.slides[this.previewSlideIndex].getProperty('backgroundColor');
         var width = this.documentSize['width'];
         var height = this.documentSize['height'];
-        this.slideRenderMagnification = window.innerHeight / height;
+        var top = 0;
+        var left = 0;
+        // // this.slideRenderMagnification = window.innerHeight / height;
+        this.slideRenderMagnification = 1;
+        // The larger dimension (W or H) determines the scale factor
+        if (width > height) {
+            this.slideRenderMagnification = window.innerWidth / width;
+            top = (window.innerHeight - (height * this.slideRenderMagnification)) / 2;
+        }
+        // Checking for '>=' here takes into account the case that the documentSize is a square
+        if (height >= width) {
+            this.slideRenderMagnification = window.innerHeight / height;
+            left = (window.innerWidth - (width * this.slideRenderMagnification)) / 2;
+        }
         var css = {
             'background': backgroundColor,
             'height': height + 'px',
             'width': width + 'px',
-            'transform-origin': '50% 50%',
+            'transform-origin': '0 0',
+            'position': 'fixed',
+            'top': top + 'px',
+            'left': left + 'px',
             'transform': 'scale(' + this.slideRenderMagnification + ')',
-            'overflow': 'hidden',
+            'overflow': 'visible'
         };
         return css;
     };
@@ -8696,7 +8754,7 @@ var PreviewComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./preview.component.html */ "./src/app/preview/preview.component.html"),
             styles: [__webpack_require__(/*! ./preview.component.css */ "./src/app/preview/preview.component.css")]
         }),
-        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"], _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_2__["Toolbar2AppLogicService"]])
+        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"], _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_2__["Toolbar2AppLogicService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], PreviewComponent);
     return PreviewComponent;
 }());
@@ -8919,7 +8977,7 @@ var SlideEditorAppLogicService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#slide-editor-workspace {\r\n    width: 100%;\r\n    height: 100%;\r\n    min-width: 375px;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-rows: 1fr 10px 1fr;\r\n        grid-template-rows: 1fr 10px 1fr;\r\n        grid-template-areas:\r\n        \"render\"\r\n        \"editorResizer\"\r\n        \"control\";\r\n    margin: 0;\r\n    padding: 0;\r\n    position: relative;\r\n} \r\n\r\n#slide-render-area {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: render;\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: scroll;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n} \r\n\r\n#slide-render-loader {\r\n    height: 100%;\r\n    width: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 100;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n} \r\n\r\n#slide-editor-resizer {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 1;\r\n    grid-area: editorResizer;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: gray;\r\n    position: relative;\r\n} \r\n\r\n#slide-editor-resizer:hover {\r\n    cursor: row-resize;\r\n} \r\n\r\n#slide-control {\r\n    -ms-grid-row: 3;\r\n    -ms-grid-column: 1;\r\n    grid-area: control;\r\n    height: 100%;\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: auto 1fr;\r\n        grid-template-rows: auto 1fr;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n} \r\n\r\n.slide-object {\r\n    overflow: hidden;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n} \r\n\r\n.slide-object img {\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n    width: 100%;\r\n    height: auto;\r\n    display: block;\r\n    overflow:visible;\r\n} \r\n\r\n/*  Styling of slideObjects while being dragged or resized is controlled from within the SlideObjects class */ \r\n\r\n.slide-object:hover{\r\n    cursor: move;\r\n    background: rgba(0, 0, 0, 0.3);\r\n    border: 2px dashed gray;\r\n    margin-top: -2px;\r\n    margin-left: -2px;\r\n} \r\n\r\n#slide-control-toolbar {\r\n    width: 100%;\r\n    padding: 5px;\r\n    background: rgb(46, 46, 46);\r\n    flex-wrap: wrap;\r\n} \r\n\r\n#slide-control-toolbar > div {\r\n    margin: 2px 7px;\r\n} \r\n\r\n#slide-control-toolbar fa {\r\n    width: 25px;\r\n    height: 25px;\r\n    cursor: pointer;\r\n} \r\n\r\n#slide-control-toolbar fa:hover {\r\n    background: rgb(87, 87, 87);\r\n} \r\n\r\n#slide-control-toolbar p {\r\n    font-size: 0.7rem;\r\n    margin: 0 5px;\r\n} \r\n\r\ninput[type=\"range\"]{\r\n    width: 5vw;\r\n} \r\n\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n    text-align: center;\r\n} \r\n\r\ninput[type=number]::-webkit-inner-spin-button, \r\ninput[type=number]::-webkit-outer-spin-button { \r\n  -webkit-appearance: none; \r\n  margin: 0; \r\n} \r\n\r\ninput[type=\"text\"]{\r\n    width: 85%;\r\n} \r\n\r\n#heirarchy {\r\n    overflow-x: hidden;\r\n    overflow-y: scroll;\r\n    width: 100%;\r\n    position: relative;\r\n} \r\n\r\n.heirarchy-control-group {\r\n    font-size: 0.7rem;\r\n    overflow: hidden;\r\n    padding: 2px 0;\r\n    margin: 0 5px;\r\n    font-weight: normal;\r\n    position: relative;\r\n} \r\n\r\n.heirarchy-control-group h5 {\r\n    font-weight: normal;\r\n} \r\n\r\n.heirarchy-control-group fa {\r\n    font-size: 0.75rem;\r\n    padding: 5px;\r\n} \r\n\r\n.heirarchy-control-group fa:hover {\r\n    background-color: rgb(100, 100, 100);\r\n    cursor: pointer;\r\n} \r\n\r\n.heirarchy-control-group select,\r\n.heirarchy-control-group select option {\r\n    width: 85%;\r\n    background: transparent;\r\n    border: 1px #FFF solid;\r\n    color: gray;\r\n    font-size: 0.7rem;\r\n    outline: none;\r\n} \r\n\r\n#heirarchy\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n} \r\n\r\n.heirarchy-name {\r\n    width: 125px;\r\n} \r\n\r\n.heirarchy-content {\r\n    width:125px;\r\n} \r\n\r\n.heirarchy-dim {\r\n    width: 250px;\r\n} \r\n\r\n.heirarchy-content-misc {\r\n    width: 150px;\r\n} \r\n\r\n.slide-control-row {\r\n    width: 100%;\r\n    flex-wrap: wrap;\r\n    padding: 2px 0;\r\n    border-bottom: 3px rgb(81, 133, 81) solid; \r\n    position: relative;\r\n} \r\n\r\n.md-color-selector {\r\n    width: 100px;\r\n    height: 10px;\r\n    border: 1px #D6F9DD solid;\r\n    outline: none;\r\n} \r\n\r\n.md-color-selector:hover {\r\n    cursor: pointer;\r\n} \r\n\r\n#textObjectEditor {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 25px;\r\n    border-radius: 5px;\r\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);\r\n} \r\n\r\n#textObjectEditor p {\r\n    font-size: 0.8rem;\r\n    text-align: center;\r\n    margin-top: 10px;\r\n} \r\n\r\n#textObjectEditor textarea {\r\n    border-radius: 5px;\r\n    margin: 10px;\r\n    width: 300px;\r\n    height: 75px;\r\n    resize: none;\r\n    z-index: 100;\r\n    padding: 10px;\r\n    outline: none;\r\n    font-family: 'Helvetica', sans-serif;\r\n} \r\n\r\n#textObjectEditor button {\r\n    width: 75px;\r\n    height: 25px;\r\n    margin: 0 5px 10px 5px;\r\n} \r\n\r\n@media screen and (min-width: 1200px) {\r\n    .slide-editor-toolbar-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n\r\n    #slide-number {\r\n        font-size: 1.5rem;\r\n    }\r\n  }\r\n\r\n\r\n\r\n"
+module.exports = "#slide-editor-workspace {\r\n    width: 100%;\r\n    height: 100%;\r\n    min-width: 375px;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-rows: 1fr 10px 1fr;\r\n        grid-template-rows: 1fr 10px 1fr;\r\n        grid-template-areas:\r\n        \"render\"\r\n        \"editorResizer\"\r\n        \"control\";\r\n    margin: 0;\r\n    padding: 0;\r\n    position: relative;\r\n} \r\n\r\n#slide-render-area {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: render;\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: scroll;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n} \r\n\r\n#slide-render-loader {\r\n    height: 100%;\r\n    width: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 100;\r\n    background: linear-gradient(to bottom right, rgb(16, 16, 17), rgb(53, 53, 53));\r\n} \r\n\r\n#slide-editor-resizer {\r\n    -ms-grid-row: 2;\r\n    -ms-grid-column: 1;\r\n    grid-area: editorResizer;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: gray;\r\n    position: relative;\r\n} \r\n\r\n#slide-editor-resizer:hover {\r\n    cursor: row-resize;\r\n} \r\n\r\n#slide-control {\r\n    -ms-grid-row: 3;\r\n    -ms-grid-column: 1;\r\n    grid-area: control;\r\n    height: 100%;\r\n    width: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows: auto 1fr;\r\n        grid-template-rows: auto 1fr;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n} \r\n\r\n.slide-object {\r\n    overflow: hidden;\r\n    -webkit-user-select: none;\r\n       -moz-user-select: none;\r\n        -ms-user-select: none;\r\n            user-select: none;\r\n} \r\n\r\n.slide-object img {\r\n    max-height: 100%;\r\n    max-width: 100%;\r\n    width: 100%;\r\n    height: auto;\r\n    display: block;\r\n    overflow:visible;\r\n} \r\n\r\n/*  Styling of slideObjects while being dragged or resized is controlled from within the SlideObjects class */ \r\n\r\n.slide-object:hover{\r\n    cursor: move;\r\n    background: rgba(0, 0, 0, 0.3);\r\n    border: 2px dashed gray;\r\n    margin-top: -2px;\r\n    margin-left: -2px;\r\n} \r\n\r\n#slide-control-toolbar {\r\n    width: 100%;\r\n    padding: 5px;\r\n    background: rgb(46, 46, 46);\r\n    flex-wrap: wrap;\r\n} \r\n\r\n#slide-control-toolbar > div {\r\n    margin: 2px 7px;\r\n} \r\n\r\n#slide-control-toolbar fa {\r\n    width: 25px;\r\n    height: 25px;\r\n    cursor: pointer;\r\n} \r\n\r\n#slide-control-toolbar fa:hover {\r\n    background: rgb(87, 87, 87);\r\n} \r\n\r\n#slide-control-toolbar p {\r\n    font-size: 0.7rem;\r\n    margin: 0 5px;\r\n} \r\n\r\ninput[type=\"range\"]{\r\n    width: 5vw;\r\n} \r\n\r\ninput[type=\"number\"]{\r\n    width: 45px;\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n    text-align: center;\r\n} \r\n\r\ninput[type=number]::-webkit-inner-spin-button, \r\ninput[type=number]::-webkit-outer-spin-button { \r\n  -webkit-appearance: none; \r\n  margin: 0; \r\n} \r\n\r\ninput[type=\"text\"]{\r\n    width: 85%;\r\n} \r\n\r\n#heirarchy {\r\n    overflow-x: hidden;\r\n    overflow-y: scroll;\r\n    width: 100%;\r\n    position: relative;\r\n} \r\n\r\n.heirarchy-control-group {\r\n    font-size: 0.7rem;\r\n    overflow: hidden;\r\n    padding: 2px 0;\r\n    margin: 0 5px;\r\n    font-weight: normal;\r\n    position: relative;\r\n} \r\n\r\n.heirarchy-control-group h5 {\r\n    font-weight: normal;\r\n} \r\n\r\n.heirarchy-control-group fa {\r\n    font-size: 0.75rem;\r\n    padding: 5px;\r\n} \r\n\r\n.heirarchy-control-group fa:hover {\r\n    background-color: rgb(100, 100, 100);\r\n    cursor: pointer;\r\n} \r\n\r\n.heirarchy-control-group select,\r\n.heirarchy-control-group select option {\r\n    width: 85%;\r\n    background: transparent;\r\n    border: 1px #FFF solid;\r\n    color: gray;\r\n    font-size: 0.7rem;\r\n    outline: none;\r\n} \r\n\r\n#heirarchy\r\ninput[type=\"text\"]{\r\n    margin: 0 3px;\r\n    padding: 2px;\r\n    box-sizing: border-box;\r\n    background: transparent;\r\n    color: #FFF;\r\n    border: 1px #FFF solid;\r\n} \r\n\r\n.heirarchy-name {\r\n    width: 100px;\r\n} \r\n\r\n.heirarchy-content {\r\n    width:100px;\r\n} \r\n\r\n.heirarchy-dim {\r\n    width: 250px;\r\n} \r\n\r\n.heirarchy-content-misc {\r\n    width: 150px;\r\n} \r\n\r\n.slide-control-row {\r\n    width: 100%;\r\n    flex-wrap: wrap;\r\n    padding: 2px 0;\r\n    border-bottom: 3px rgb(81, 133, 81) solid; \r\n    position: relative;\r\n} \r\n\r\n.md-color-selector {\r\n    width: 100px;\r\n    height: 10px;\r\n    border: 1px #D6F9DD solid;\r\n    outline: none;\r\n} \r\n\r\n.md-color-selector:hover {\r\n    cursor: pointer;\r\n} \r\n\r\n#textObjectEditor {\r\n    position: absolute;\r\n    top: 50%;\r\n    left: 25px;\r\n    border-radius: 5px;\r\n    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);\r\n} \r\n\r\n#textObjectEditor p {\r\n    font-size: 0.8rem;\r\n    text-align: center;\r\n    margin-top: 10px;\r\n} \r\n\r\n#textObjectEditor textarea {\r\n    border-radius: 5px;\r\n    margin: 10px;\r\n    width: 300px;\r\n    height: 75px;\r\n    resize: none;\r\n    z-index: 100;\r\n    padding: 10px;\r\n    outline: none;\r\n    font-family: 'Helvetica', sans-serif;\r\n} \r\n\r\n#textObjectEditor button {\r\n    width: 75px;\r\n    height: 25px;\r\n    margin: 0 5px 10px 5px;\r\n} \r\n\r\n@media screen and (min-width: 1200px) {\r\n    .slide-editor-toolbar-btn-group p {\r\n       font-size: 0.8rem;\r\n    }\r\n\r\n    #slide-number {\r\n        font-size: 1.5rem;\r\n    }\r\n  }\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -8930,7 +8988,7 @@ module.exports = "#slide-editor-workspace {\r\n    width: 100%;\r\n    height: 1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"slide-editor-workspace\" #workspace>\r\n  <div id=\"slide-render-area\" #slideRenderArea>\r\n      <div id=\"slide-render-loader\" class=\"flex-col-center\" *ngIf=\"this.data.isSlideRenderLoading\">\r\n        <fa name=\"cog\" class=\"loader\"></fa>\r\n      </div>\r\n\r\n    <div id=\"slide-render\" #slideRender [ngStyle]=\"getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"selectObject(slideObject)\" ngResizable [rzHandles]=\"'all'\" (rzStart)=\"slideObject.setProperty('isResizing', true)\"\r\n        (rzStop)=\"slideObject.setSize($event); slideObject.setProperty('isResizing', false)\" ngDraggable (started)=\"slideObject.setProperty('isDragging', true)\"\r\n        (stopped)=\"slideObject.setProperty('isDragging', false)\" (endOffset)=\"slideObject.setTranslation($event)\"\r\n        [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"slideObject.style.getCss()\" [src]=\"slideObject.imagePath\"\r\n          crossOrigin=\"anonymous\">\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"slide-editor-resizer\" #resizer>\r\n\r\n  </div>\r\n\r\n\r\n  <div *ngIf=\"slides.length > 0\" id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" #controlToolbar class=\"grayAccent02 flex-row-center\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <div class=\"md-color-selector\" [(colorPicker)]=\"slides[currentSlideIndex].backgroundColor\" [style.background]=\"slides[currentSlideIndex].backgroundColor\"></div>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"this.zoom('out')\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"slideRenderMagnification\" min=\"0\" max=\"200\" (ngModelChange)=\"this.renderZoomController()\">\r\n\r\n        <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"this.zoom('in')\"></fa>\r\n\r\n        <p>\r\n          <input type=\"number\" [(ngModel)]=\"slideRenderMagnification\">%</p>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <p>{{documentSize.width}}px X {{documentSize.height}}px</p>\r\n\r\n        <fa class=\"flex-row-evenly\" [name]=\"this.showRenderOverflow ? 'object-ungroup' : 'object-group'\" (click)=\"this.toggleRenderOverflow()\"></fa>\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-center grayAccent02\"\r\n        [style.background]=\"isSlideObjectSelected(slideObject) ? 'green' : 'none'\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"editTextObjectText(slideObject)\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editTextMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n          <fa (click)=\"this.slideEditor.layerUp(slideObject)\" name=\"arrow-up\"></fa>\r\n          <fa (click)=\"this.slideEditor.layerDown(slideObject)\" name=\"arrow-down\"></fa>\r\n          <fa (click)=\"slideObject.toggleProperty('display')\" [name]=\"slideObject.display ? 'eye' : 'eye-slash'\"></fa>\r\n          <fa (click)=\"this.slideEditor.deleteSlideOjbect(slideObject)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"maintainRatio(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"maintainRatio(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"textObjectEditor\" *ngIf=\"showTextObjectEditor\" class=\"grayAccent02\">\r\n  <p>Edit text for {{textEditorTextObject.name}}</p>\r\n  <textarea [(ngModel)]=\"textEditorTextObject.textValue\"></textarea>\r\n  <div class=\"flex-row-center\">\r\n    <button class=\"success-btn\" (click)=\"saveTextObjectEditor()\">Save</button>\r\n  </div>\r\n</div>"
+module.exports = "<div id=\"slide-editor-workspace\" #workspace>\r\n  <div id=\"slide-render-area\" #slideRenderArea>\r\n      <div id=\"slide-render-loader\" class=\"flex-col-center\" *ngIf=\"this.data.isSlideRenderLoading\">\r\n        <fa name=\"cog\" class=\"loader\"></fa>\r\n      </div>\r\n\r\n    <div id=\"slide-render\" #slideRender [ngStyle]=\"getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"selectObject(slideObject)\" ngResizable [rzHandles]=\"'all'\" (rzStart)=\"slideObject.setProperty('isResizing', true)\"\r\n        (rzStop)=\"slideObject.setSize($event); slideObject.setProperty('isResizing', false)\" ngDraggable (started)=\"slideObject.setProperty('isDragging', true)\"\r\n        (stopped)=\"slideObject.setProperty('isDragging', false)\" (endOffset)=\"slideObject.setTranslation($event)\"\r\n        [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"slideObject.style.getCss()\" [src]=\"slideObject.imagePath\"\r\n          crossOrigin=\"anonymous\">\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"slide-editor-resizer\" #resizer>\r\n\r\n  </div>\r\n\r\n\r\n  <div id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" #controlToolbar class=\"grayAccent02 flex-row-center\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <div class=\"md-color-selector\" [(colorPicker)]=\"slides[currentSlideIndex].backgroundColor\" [style.background]=\"slides[currentSlideIndex].backgroundColor\"></div>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"this.zoom('out')\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"slideRenderMagnification\" min=\"0\" max=\"200\" (ngModelChange)=\"this.renderZoomController()\">\r\n\r\n        <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"this.zoom('in')\"></fa>\r\n\r\n        <p><input type=\"number\" [(ngModel)]=\"slideRenderMagnification\">%</p>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <p>{{documentSize.width}}px X {{documentSize.height}}px</p>\r\n\r\n        <fa class=\"flex-row-evenly\" [name]=\"this.showRenderOverflow ? 'object-ungroup' : 'object-group'\" (click)=\"this.toggleRenderOverflow()\"></fa>\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-center grayAccent02\"\r\n        [style.background]=\"isSlideObjectSelected(slideObject) ? 'green' : 'none'\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"editTextObjectText(slideObject)\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editTextMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n          <fa (click)=\"this.slideEditor.layerUp(slideObject)\" name=\"arrow-up\"></fa>\r\n          <fa (click)=\"this.slideEditor.layerDown(slideObject)\" name=\"arrow-down\"></fa>\r\n          <fa (click)=\"slideObject.toggleProperty('display')\" [name]=\"slideObject.display ? 'eye' : 'eye-slash'\"></fa>\r\n          <fa (click)=\"this.slideEditor.deleteSlideOjbect(slideObject)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"setDimension(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"setDimension(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"textObjectEditor\" *ngIf=\"showTextObjectEditor\" class=\"grayAccent02\">\r\n  <p>Edit text for {{textEditorTextObject.name}}</p>\r\n  <textarea [(ngModel)]=\"textEditorTextObject.textValue\"></textarea>\r\n  <div class=\"flex-row-center\">\r\n    <button class=\"success-btn\" (click)=\"saveTextObjectEditor()\">Save</button>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -8950,6 +9008,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slide_editor_app_logic_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../slide-editor-app-logic.service */ "./src/app/slide-editor-app-logic.service.ts");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _toolbar_app_logic_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../toolbar-app-logic.service */ "./src/app/toolbar-app-logic.service.ts");
+/* harmony import */ var _classes_horizontalResizer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../classes/horizontalResizer */ "./src/app/classes/horizontalResizer.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8966,9 +9025,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SlideEditorComponent = /** @class */ (function () {
     function SlideEditorComponent(data, toolbar, dialog, slideEditor, store) {
-        var _this = this;
         this.data = data;
         this.toolbar = toolbar;
         this.dialog = dialog;
@@ -8978,24 +9037,6 @@ var SlideEditorComponent = /** @class */ (function () {
         this.showRenderOverflow = false;
         /*  POPUP TEXT OBJECT EDITOR VARIABLES */
         this.showTextObjectEditor = false;
-        this.resizeGrid = function (e) {
-            var slideEditorWorkspace = _this.workspace.nativeElement;
-            var resizer = _this.resizer.nativeElement;
-            var controlToolbar = _this.controlToolbar.nativeElement;
-            var viewportHeight = document.documentElement.offsetHeight;
-            var offset = viewportHeight - slideEditorWorkspace.offsetHeight;
-            var renderAreaHeight = e.pageY - offset - resizer.offsetHeight / 2;
-            var slideControlHeight = viewportHeight - e.pageY - resizer.offsetHeight / 2;
-            slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'fr ' + resizer.offsetHeight + 'px ' + slideControlHeight + 'fr';
-            // Upper boundary
-            if (e.pageY < offset + resizer.offsetHeight / 2) {
-                slideEditorWorkspace.style.gridTemplateRows = '0px ' + resizer.offsetHeight + 'px ' + '1fr';
-            }
-            // Lower boundary
-            if (e.pageY >= viewportHeight - controlToolbar.offsetHeight - resizer.offsetHeight / 2) {
-                slideEditorWorkspace.style.gridTemplateRows = renderAreaHeight + 'fr ' + resizer.offsetHeight + 'px ' + controlToolbar.offsetHeight + 'px';
-            }
-        };
     }
     SlideEditorComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -9012,17 +9053,11 @@ var SlideEditorComponent = /** @class */ (function () {
         });
     };
     SlideEditorComponent.prototype.enableSlideEditorResizer = function () {
-        var _this = this;
-        var startResize = function () {
-            document.addEventListener('mousemove', _this.resizeGrid);
-            document.addEventListener('mouseup', stopResize);
-        };
-        var stopResize = function () {
-            document.removeEventListener('mousemove', _this.resizeGrid);
-            document.removeEventListener('mouseup', stopResize);
-        };
-        var resizer = this.resizer.nativeElement;
-        resizer.addEventListener('mousedown', startResize);
+        var containerElement = this.workspace.nativeElement;
+        var resizerElement = this.resizer.nativeElement;
+        var lowerBoundElement = this.controlToolbar.nativeElement;
+        var horizontalResizer = new _classes_horizontalResizer__WEBPACK_IMPORTED_MODULE_6__["HorizontalResizer"](containerElement, resizerElement, lowerBoundElement);
+        horizontalResizer.init();
     };
     // Slide editor render functions
     SlideEditorComponent.prototype.toggleRenderOverflow = function () {
@@ -9120,26 +9155,27 @@ var SlideEditorComponent = /** @class */ (function () {
                 break;
         }
     };
+    SlideEditorComponent.prototype.setDimension = function (slideObject, dimension, value) {
+        // This function handles changes to the number inputs for slide objects in the layer heirarchy.
+        var type = slideObject.constructor.name;
+        switch (type) {
+            case 'ImageObject':
+                this.maintainRatio(slideObject, dimension, value);
+                break;
+            case 'TextObject':
+                slideObject[dimension] = value;
+                break;
+        }
+    };
     SlideEditorComponent.prototype.maintainRatio = function (slideObject, dimension, value) {
         // This function maintains the aspect ratio of imageObjects when they are
         // resized using the number inputs in the layer heirarchy
+        // Ratio
         var ratio;
-        if (slideObject.width || slideObject.height === "auto") {
-            // Get ratio 
-            var img_1 = new Image;
-            img_1.src = slideObject.getProperty('imagePath');
-            img_1.onload = function () {
-                ratio = img_1.width / img_1.height;
-                setImageSize();
-                img_1 = null;
-            };
-        }
-        else {
-            ratio = slideObject.width / slideObject.height;
-            setImageSize();
-        }
-        function setImageSize() {
-            // Helper function for maintainRatio()
+        var img = new Image;
+        img.src = slideObject.getProperty('imagePath');
+        img.onload = function () {
+            ratio = img.width / img.height;
             switch (dimension) {
                 case 'width':
                     var newHeight = value / ratio;
@@ -9152,7 +9188,8 @@ var SlideEditorComponent = /** @class */ (function () {
                     slideObject.width = newWidth;
                     break;
             }
-        }
+            img = null;
+        };
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('resizer'),
@@ -9675,7 +9712,6 @@ var ToolbarAppLogicService = /** @class */ (function () {
                     -Revert DOM changes from (3) back to their original values
                     -Download jsPdf document to browser for the user
                     -Hide loader screen
-        
             */
             _this.sessionData = sessionStorage.getItem('sessionData');
             // Is user logged in?
@@ -9833,7 +9869,23 @@ var ToolbarAppLogicService = /** @class */ (function () {
                 break;
         }
     };
+    ToolbarAppLogicService.prototype.save = function () {
+        var _this = this;
+        if (!sessionStorage.getItem('sessionData')) {
+            this.dialog.toast('Register to unlock this feature!');
+        }
+        else if (sessionStorage.getItem('sessionData')) {
+            this.data.saveProject().then(function (res) {
+                if (!res['success'])
+                    _this.dialog.alert('There was a problem saving your project.', 'danger');
+                if (res['success'])
+                    _this.dialog.toast('Your project has been saved.');
+            })
+                .catch(function (error) { return console.log(error); });
+        }
+    };
     ToolbarAppLogicService.prototype.saveAsPng = function () {
+        var _this = this;
         /*
             1.  Detect user session.  This feature is only available for registered users.
             2.  Prep DOM for HTML2CANVAS
@@ -9847,7 +9899,6 @@ var ToolbarAppLogicService = /** @class */ (function () {
             10. Revert DOM changes from (2) back to their original values
             11. Hide loader screen
         */
-        var _this = this;
         this.sessionData = sessionStorage.getItem('sessionData');
         // Check if user is logged in
         if (!this.sessionData) {
@@ -9998,7 +10049,7 @@ module.exports = "#toolbar-container {\r\n    width: 100%;\r\n    height: 100%;\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"toolbar-container\">\r\n\r\n  <div class=\"flex-row-evenly toolbar-button-group-container\">\r\n    <a *ngIf=\"sessionData\" (click)=\"this.toolbar.dashboard()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"arrow-left\"></fa>\r\n      <p>Dashboard</p>\r\n    </a>\r\n\r\n    <a *ngIf=\"!sessionData\" (click)=\"this.toolbar.home()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"arrow-left\"></fa>\r\n      <p>Home</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.createTextStyle()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"font\"></fa>\r\n      <p>New text style</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.createImageStyle()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"image\"></fa>\r\n      <p>New image style</p>\r\n    </a>\r\n  </div>\r\n\r\n  <div id=\"toolbar-style-selector\" class=\"greenAccent02\">\r\n    <!-- Text styles -->\r\n    <div *ngIf=\"viewTextElements\">\r\n      <button *ngFor=\"let textStyle of textStyles\" (click)=\"this.toolbar.selectStyle(textStyle)\" class=\"greenAccent01 toolbar-style-btn\"\r\n        [class.selected]=\"isSelected(textStyle)\">\r\n        <p>{{textStyle.name.substring(0,\r\n          20)}}</p>\r\n      </button>\r\n    </div>\r\n\r\n    <!-- Image styles -->\r\n    <div *ngIf=\"viewImageElements\">\r\n      <button *ngFor=\"let imageStyle of imageStyles\" (click)=\"this.toolbar.selectStyle(imageStyle)\" class=\"greenAccent01 toolbar-style-btn\"\r\n        [class.selected]=\"isSelected(imageStyle)\">\r\n        <p>{{imageStyle.name.substring(0,\r\n          20)}}</p>\r\n      </button>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly toolbar-button-group-container\">\r\n    <a (click)=\"this.toolbar.saveAsPng()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"file-image\"></fa>\r\n      <p>Save As PNG</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.exportAsPDF()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"file-pdf\"></fa>\r\n      <p>Export to PDF</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.data.saveProject()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"save\"></fa>\r\n      <p>Save</p>\r\n    </a>\r\n  </div>\r\n\r\n</div>"
+module.exports = "<div id=\"toolbar-container\">\r\n\r\n  <div class=\"flex-row-evenly toolbar-button-group-container\">\r\n    <a *ngIf=\"sessionData\" (click)=\"this.toolbar.dashboard()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"arrow-left\"></fa>\r\n      <p>Dashboard</p>\r\n    </a>\r\n\r\n    <a *ngIf=\"!sessionData\" (click)=\"this.toolbar.home()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"arrow-left\"></fa>\r\n      <p>Home</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.createTextStyle()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"font\"></fa>\r\n      <p>New text style</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.createImageStyle()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"image\"></fa>\r\n      <p>New image style</p>\r\n    </a>\r\n  </div>\r\n\r\n  <div id=\"toolbar-style-selector\" class=\"greenAccent02\">\r\n    <!-- Text styles -->\r\n    <div *ngIf=\"viewTextElements\">\r\n      <button *ngFor=\"let textStyle of textStyles\" (click)=\"this.toolbar.selectStyle(textStyle)\" class=\"greenAccent01 toolbar-style-btn\"\r\n        [class.selected]=\"isSelected(textStyle)\">\r\n        <p>{{textStyle.name.substring(0,\r\n          20)}}</p>\r\n      </button>\r\n    </div>\r\n\r\n    <!-- Image styles -->\r\n    <div *ngIf=\"viewImageElements\">\r\n      <button *ngFor=\"let imageStyle of imageStyles\" (click)=\"this.toolbar.selectStyle(imageStyle)\" class=\"greenAccent01 toolbar-style-btn\"\r\n        [class.selected]=\"isSelected(imageStyle)\">\r\n        <p>{{imageStyle.name.substring(0,\r\n          20)}}</p>\r\n      </button>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly toolbar-button-group-container\">\r\n    <a (click)=\"this.toolbar.saveAsPng()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"file-image\"></fa>\r\n      <p>Save As PNG</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.exportAsPDF()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"file-pdf\"></fa>\r\n      <p>Export to PDF</p>\r\n    </a>\r\n\r\n    <a (click)=\"this.toolbar.save()\" class=\"flex-col-evenly toolbar-btn-group\">\r\n      <fa name=\"save\"></fa>\r\n      <p>Save</p>\r\n    </a>\r\n  </div>\r\n\r\n</div>"
 
 /***/ }),
 
@@ -10100,6 +10151,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dialog.service */ "./src/app/dialog.service.ts");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./state-management/actions/projectActions */ "./src/app/state-management/actions/projectActions.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10114,12 +10166,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var Toolbar2AppLogicService = /** @class */ (function () {
-    function Toolbar2AppLogicService(data, dialog, store) {
+    function Toolbar2AppLogicService(data, dialog, store, router) {
         this.data = data;
         this.dialog = dialog;
         this.store = store;
-        this.isPreviewMode = false;
+        this.router = router;
     }
     Toolbar2AppLogicService.prototype.newTextObject = function () {
         this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SET_MODE"], payload: { mode: 'text' } });
@@ -10149,13 +10202,13 @@ var Toolbar2AppLogicService = /** @class */ (function () {
         });
     };
     Toolbar2AppLogicService.prototype.preview = function () {
-        this.isPreviewMode = true;
+        this.router.navigate(['main/preview']);
     };
     Toolbar2AppLogicService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], Toolbar2AppLogicService);
     return Toolbar2AppLogicService;
 }());

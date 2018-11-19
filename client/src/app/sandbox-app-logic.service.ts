@@ -75,10 +75,12 @@ export class SandboxAppLogicService {
     // This function adds slideObjects to the project
     switch(type){
       case 'textObject': this.store.dispatch({type:ADD_TEXTOBJECT}); break;
-      case 'imageObject' : this.store.dispatch({type:ADD_IMAGEOBJECT}); break;
+      case 'imageObject' : 
+   
+      this.store.dispatch({type:ADD_IMAGEOBJECT}); break;
     }
   }
-
+   
   uploadImage(event) {
     // This function takes image file from file input, uses it to create a galleryImage, 
     // and adds it to the project.

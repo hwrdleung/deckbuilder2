@@ -178,36 +178,26 @@ export class SlideEditorComponent implements OnInit {
     }
   }
 
-  setDimension(slideObject:SlideObject, dimension: 'height' | 'width', value:number){
+  setDimension(slideObject: SlideObject, dimension: 'height' | 'width', value: number) {
     // This function handles changes to the number inputs for slide objects in the layer heirarchy.
     let type = slideObject.constructor.name;
-    switch(type){
+    switch (type) {
       case 'ImageObject': this.maintainRatio(slideObject, dimension, value); break;
       case 'TextObject': slideObject[dimension] = value; break;
     }
   }
 
-  maintainRatio(slideObject:SlideObject, dimension: 'height' | 'width', value:number) {
+  maintainRatio(slideObject: SlideObject, dimension: 'height' | 'width', value: number) {
     // This function maintains the aspect ratio of imageObjects when they are
     // resized using the number inputs in the layer heirarchy
+
+    // Ratio
     let ratio: number;
+    let img = new Image;
+    img.src = slideObject.getProperty('imagePath');
+    img.onload = () => {
+      ratio = img.width / img.height;
 
-    if (slideObject.width || slideObject.height === "auto") {
-      // Get ratio 
-      let img = new Image;
-      img.src = slideObject.getProperty('imagePath');
-      img.onload = () => {
-        ratio = img.width / img.height;
-        setImageSize();
-        img = null;
-      }
-    } else {
-      ratio = slideObject.width / slideObject.height;
-      setImageSize();
-    }
-
-    function setImageSize() {
-      // Helper function for maintainRatio()
       switch (dimension) {
         case 'width':
           let newHeight = value / ratio;
@@ -220,6 +210,7 @@ export class SlideEditorComponent implements OnInit {
           slideObject.width = newWidth;
           break;
       }
+      img = null;
     }
   }
 }

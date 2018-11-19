@@ -6,6 +6,7 @@ import { ImageObject } from "src/app/classes/imageObject";
 import { TextObject } from "src/app/classes/textObject";
 import { TextStyle } from "src/app/classes/textStyle";
 import { ImageStyle } from "src/app/classes/imageStyle";
+import { Caman } from "caman";
 
 export const projectReducer: ActionReducer<ProjectState> =
     (state = initialState, action: Actions) => {
@@ -79,6 +80,13 @@ export const projectReducer: ActionReducer<ProjectState> =
                 // and add it to the current slide.
                 if (newState.selectedImage) {
                     let imageObject = new ImageObject;
+
+                    // Use camanJS to create a base64 image with the css filters specified in imageObject.style
+                    // Send base64 to server to save to cloudinary OR send straight to cloudinary 
+                    // Set imageObject.imagePath to cloundinary image URL
+                    // Save to store
+                    
+
                     imageObject.style = newState.selectedImageStyle;
                     imageObject.imagePath = newState.selectedImage.url;
 
