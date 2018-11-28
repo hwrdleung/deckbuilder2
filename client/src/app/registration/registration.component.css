@@ -1,7 +1,12 @@
+#app-brand {
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-size: 4rem;
+    margin: 50px auto 25px auto;
+}
+
 form > * {
     width: 85%;
 }
-
 
 label {
     margin-top: 20px;

@@ -1,5 +1,7 @@
 import { BorderControl } from "./borderControl";
 
+/*   Only include style settings that would be supported by CamanJS   */
+
 export class ImageStyle {
 
     static imageStyleCounter:number = 0;

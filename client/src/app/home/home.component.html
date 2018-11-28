@@ -1,36 +1,51 @@
-<div class="flex-row-evenly component-container">
+<div class="component-container">
 
-  <div id="home-content-container">
-    <div id="home-left-content" class="flex-col-start">
+  <div class="flex-row-center wrap">
+    <div id="desc-container" class="flex-col-start">
+      <h1 id="app-brand">CreativeStudio</h1>
 
-      <h1 id="app-brand">Name Here</h1>
-      <p>Produce beautiful creative content right in your web browser.  No installations required!</p>
+      <div id="mobile-links-container" class="flex-row-center">
+          <a [routerLink]="['login']">Login</a>|
+          <a [routerLink]="['registration']">Register</a>
+        </div>
+      
+
+      <p id="app-desc">Produce beautiful creative content right in your web browser. No installations required!</p>
       <ul id="description-list">
-        <li><fa name="check"></fa>Create presentation slideshows</li>
-        <li><fa name="check"></fa>Draft web design templates</li>
-        <li><fa name="check"></fa>Generate PDF Documents</li>
-        <li><fa name="check"></fa>Image editing</li>
-        <li><fa name="check"></fa>Google Fonts library and Pixabay image search, all in one place.</li>
+        <li>
+          <fa name="check"></fa><p>Create presentation slideshows</p>
+        </li>
+        <li>
+          <fa name="check"></fa><p>Draft web design templates</p>
+        </li>
+        <li>
+          <fa name="check"></fa><p>Generate PDF Documents</p>
+        </li>
+        <li>
+          <fa name="check"></fa><p>Image editing</p>
+        </li>
+        <li>
+          <fa name="check"></fa><p>Google Fonts library and Pixabay image search, all in one place.</p>
+        </li>
       </ul>
 
       <button routerLink="main" class="cta-btn">Use as guest</button>
 
       <img id="splash" src="../../assets/splash.jpg">
+
     </div>
 
-    
-
-    <div id="home-right-content" class="flex-col-start">
-      <div class="app-theme" id="forms-container">
-        <div id="forms-container-nav" class="flex-row-evenly">
-          <button (click)="showForm('login')">Login</button>
-          <button (click)="showForm('registration')">Register</button>
-        </div>
-        <login *ngIf="showLogin"></login>
-        <registration *ngIf="showRegistration"></registration>
+    <div class="app-theme" id="forms-container">
+      <div id="forms-container-nav" class="flex-row-evenly">
+        <button (click)="showForm('login')">Login</button>
+        <button (click)="showForm('registration')">Register</button>
       </div>
+      <login embedded="true" *ngIf="showLogin"></login>
+      <registration embedded="true" *ngIf="showRegistration"></registration>
     </div>
   </div>
 
+  <!-- <div class="flex-row-center">
+  </div> -->
 
 </div>

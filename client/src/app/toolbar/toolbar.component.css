@@ -72,6 +72,10 @@
 }
 
   @media only screen and (max-width: 999px) {
+    .toolbar-btn-group {
+        width: 25px;
+    }
+
     .toolbar-btn-group p {
         display: none;
     }

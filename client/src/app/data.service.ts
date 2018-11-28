@@ -53,8 +53,7 @@ export class DataService {
 
   // User registration
   register(formData) {
-    // This function handles ngSubmit for the reigstration form.
-
+    // This function handles ngSubmit for the reigstration form
     // Capitalize the user's first and last names
     let capitalize = function (str: string) {
       let strArr = str.split(' ');
@@ -69,7 +68,6 @@ export class DataService {
 
     // Make API call to the back-end for user registration
     this.http.post(this.apiEndpoint + '/new-account', formData).subscribe(res => {
-
       if (res['success']) {
         this.displayServerMessage(res['message']);
         let token = res['body'];
@@ -81,10 +79,9 @@ export class DataService {
         }
 
         this.login(loginData);
-
         let welcomeMessage = `Registration was successful.  Welcome!  To get started, click on "Create a new project!"`;
         this.dialog.alert(welcomeMessage, 'success');
-
+        
       } else if (!res['success']) {
         // Display error message to form
         this.displayServerMessage(res['message']);

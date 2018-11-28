@@ -6,7 +6,7 @@ import { ProjectState } from '../state-management/state/projectState';
 import { GalleryImage } from '../classes/galleryImage';
 import { ImageStyle } from '../classes/imageStyle';
 import { SandboxAppLogicService } from '../sandbox-app-logic.service';
-
+declare var Caman: any;
 
 @Component({
   selector: 'image-sandbox',

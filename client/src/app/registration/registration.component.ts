@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
@@ -10,6 +10,9 @@ import { DataService } from '../data.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+
+  @Input()
+  embedded:boolean = false;
 
   /*  UI VARIABLES */
   rForm: FormGroup;

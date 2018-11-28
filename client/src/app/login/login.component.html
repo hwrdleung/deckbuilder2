@@ -1,18 +1,20 @@
-<form class="flex-col-start" [formGroup]="loginForm" (ngSubmit)="this.data.login(loginForm.value)">
+  <div *ngIf="!embedded" class="flex-col-center">
+      <h1 id="app-brand">CreativeStudio</h1>
+  </div>
+  
+  <form class="flex-col-center" [formGroup]="loginForm" (ngSubmit)="this.data.login(loginForm.value)">
+    <label>
+      Username:
+    </label>
+    <input type="text" formControlName="username">
 
-  <label>
-    Username:
-  </label>
-  <input type="text" formControlName="username">
+    <label>
+      Password:
+    </label>
+    <input type="password" formControlName="password">
 
-  <label>
-    Password:
-  </label>
-  <input type="password" formControlName="password">
-
-  <div class="server-alert" *ngIf="this.data.serverMsg">{{
+    <div class="server-alert" *ngIf="this.data.serverMsg">{{
       this.data.serverMsg }}</div>
 
-  <button type="submit" [disabled]="!loginForm.valid">Login</button>
-
-</form>
+    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+  </form>

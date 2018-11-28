@@ -6,7 +6,8 @@ import { ImageObject } from "src/app/classes/imageObject";
 import { TextObject } from "src/app/classes/textObject";
 import { TextStyle } from "src/app/classes/textStyle";
 import { ImageStyle } from "src/app/classes/imageStyle";
-import { Caman } from "caman";
+import * as firebase from 'firebase';
+declare var Caman: any;
 
 export const projectReducer: ActionReducer<ProjectState> =
     (state = initialState, action: Actions) => {
@@ -80,31 +81,85 @@ export const projectReducer: ActionReducer<ProjectState> =
                 // and add it to the current slide.
                 if (newState.selectedImage) {
                     let imageObject = new ImageObject;
+                    let dataUrl;
 
-                    // Use camanJS to create a base64 image with the css filters specified in imageObject.style
-                    // Send base64 to server to save to cloudinary OR send straight to cloudinary 
-                    // Set imageObject.imagePath to cloundinary image URL
-                    // Save to store
-                    
+                    // Use camanJS to create a base64 image with the css filters specified in imageObject.style             
+                    var image = new Image();
+                    image.crossOrigin = 'anonymous';
+                    image.id = 'selectedImage'
+                    image.src = newState.selectedImage.url;
 
-                    imageObject.style = newState.selectedImageStyle;
-                    imageObject.imagePath = newState.selectedImage.url;
+                    image.onload = function () {
+                        // var canvas = document.createElement('canvas');
+                        // canvas.width = image.width;
+                        // canvas.height = image.height;
+                        // canvas.getContext('2d').drawImage(image, 0, 0);
 
-                    // Set imageObject height and width
-                    let img = new Image;
-                    img.src = imageObject.imagePath;
-                    img.onload = () => {
-                        if (img.width <= newState.documentSize['width']) {
-                            imageObject.height = img.height;
-                            imageObject.width = img.width;
-                        } else if (img.width > newState.documentSize['width']) {
-                            let ratio = img.width / img.height;
-                            imageObject.width = newState.documentSize['width'];
-                            imageObject.height = newState.documentSize['width'] / ratio;
+                        // // ... or get as Data URI
+                        // dataUrl = canvas.toDataURL('image/png');
+
+                        var div = document.createElement("div");
+                        div.appendChild(image);
+                        
+                        Caman(image, function(){
+                            this.brightness(-100);
+                            this.render(function(){
+                                dataUrl = this.toBase64();
+                                console.log('DATA URL:', dataUrl);
+            
+                        
+
+
+                        // Send base64 to server to save to Firebase OR send straight to Firebase 
+                        // Set imageObject.imagePath to cloundinary image URL
+                        // Save to store
+
+                        if (!firebase.apps.length) {
+                            const config = {
+                                apiKey: "AIzaSyBz9UkDgc3Qfw-U31dJU43UoaymI5CtH44",
+                                authDomain: "deckbuilder-1531369409076.firebaseapp.com",
+                                projectId: "deckbuilder-1531369409076",
+                                storageBucket: "gs://deckbuilder-1531369409076.appspot.com",
+                            };
+
+                            firebase.initializeApp(config);
+                            firebase.auth().signInAnonymously().catch(function (error) {
+                                console.log(error);
+                            });
                         }
-                        img = null;
-                        newState.slides[newState.currentSlideIndex].slideObjects.push(imageObject);
-                    }
+
+                        let storageRef = firebase.storage().ref();
+                        let uploadTask = storageRef.child('images/test.jpg')
+                            .putString(dataUrl, 'data_url')
+                            .then((data) => {
+                                console.log(data);
+                                console.log('Uploaded an image to firebase storage');
+                                return data.ref.getDownloadURL();
+                            })
+                            .then((url) => {
+                                imageObject.style = newState.selectedImageStyle;
+                                imageObject.imagePath = url;
+                            })
+                            .then(() => {
+                                let img = new Image;
+                                img.src = imageObject.imagePath;
+                                img.onload = () => {
+                                    // Set imageObject height and width
+                                    if (img.width <= newState.documentSize['width']) {
+                                        imageObject.height = img.height;
+                                        imageObject.width = img.width;
+                                    } else if (img.width > newState.documentSize['width']) {
+                                        let ratio = img.width / img.height;
+                                        imageObject.width = newState.documentSize['width'];
+                                        imageObject.height = newState.documentSize['width'] / ratio;
+                                    }
+                                    img = null;
+                                    newState.slides[newState.currentSlideIndex].slideObjects.push(imageObject);
+                                }
+                            })
+                        })
+                    })
+                    };
                 }
                 return newState;
 
@@ -118,6 +173,8 @@ export const projectReducer: ActionReducer<ProjectState> =
                 return newState;
 
             case DEL_SLIDEOBJECT:
+                // If imageOjbect, delete image from firestorage
+
                 newState.slides.forEach(slide => {
                     for (let i = 0; i < slide.slideObjects.length; i++) {
                         if (slide.slideObjects[i] === action.payload.slideObject) slide.slideObjects.splice(i, 1);
@@ -165,6 +222,7 @@ export const projectReducer: ActionReducer<ProjectState> =
             case DEL_IMAGE:
                 // Confirmation has been handled by the component.
                 // Delete the image specified in the payload.
+                // Remove image from firestorage
                 for (let i = 0; i < newState.images.length; i++) {
                     if (newState.images[i] === action.payload.galleryImage) {
                         newState.images.splice(i, 1);

@@ -19,6 +19,8 @@ import { DialogComponent } from './dialog/dialog.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
   { path: 'main', loadChildren: './main/main.module#MainModule' },
 ];
 

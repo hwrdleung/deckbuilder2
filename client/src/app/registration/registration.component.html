@@ -1,5 +1,8 @@
-<form class="flex-col-evenly" [formGroup]="rForm" (ngSubmit)="this.data.register(rForm.value)">
-   
+<div *ngIf="!embedded" class="flex-col-center">
+    <h1 id="app-brand">CreativeStudio</h1>
+</div>
+
+<form class="flex-col-center" [formGroup]="rForm" (ngSubmit)="this.data.register(rForm.value)">
   <label>
     First name:
   </label>

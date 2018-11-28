@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Store } from '@ngrx/store';
 import { ProjectState } from './state-management/state/projectState';
 import { ADD_TEXTOBJECT, ADD_IMAGEOBJECT, ADD_IMAGE, SELECT_GALLERY_IMAGE, DEL_IMAGE } from './state-management/actions/projectActions';
+import * as firebase from 'firebase';
 
 
 @Injectable({
@@ -13,23 +14,23 @@ import { ADD_TEXTOBJECT, ADD_IMAGEOBJECT, ADD_IMAGE, SELECT_GALLERY_IMAGE, DEL_I
 })
 export class SandboxAppLogicService {
 
-  constructor(private http: HttpClient, private data: DataService, private dialog: DialogService, private store:Store<ProjectState>) { }
+  constructor(private http: HttpClient, private data: DataService, private dialog: DialogService, private store: Store<ProjectState>) { }
 
   /* IMAGE SEARCH VARIABLES  */
   imageSearchQuery: string = "";
   imageSearchResults;
-  imageSearchpage:number = 1;
+  imageSearchpage: number = 1;
 
   getProjectState() {
     // Returns a promise with projectState from store
     return new Promise((resolve, reject) => {
       this.store.select('projectReducer')
-      .subscribe(projectState => {
-        if(!projectState) reject();
-        resolve(projectState);
-      });
+        .subscribe(projectState => {
+          if (!projectState) reject();
+          resolve(projectState);
+        });
     })
-    .catch(error => {console.log(error)});
+      .catch(error => { console.log(error) });
   }
 
   pixabayToGallery(url: string) {
@@ -39,7 +40,7 @@ export class SandboxAppLogicService {
       let galleryImage = new GalleryImage();
       galleryImage.url = url;
       galleryImage.id = projectState['images'].length;
-      this.store.dispatch({type:ADD_IMAGE, payload: {galleryImage: galleryImage}});
+      this.store.dispatch({ type: ADD_IMAGE, payload: { galleryImage: galleryImage } });
       this.dialog.toast('Added to gallery.');
     })
   }
@@ -51,19 +52,19 @@ export class SandboxAppLogicService {
     headers = headers.append('search-query', this.imageSearchQuery);
     headers = headers.append('page', '1');
 
-    this.http.get(this.data.apiEndpoint + '/search-pixabay', {headers: headers}).subscribe(res => {
+    this.http.get(this.data.apiEndpoint + '/search-pixabay', { headers: headers }).subscribe(res => {
       this.imageSearchResults = res['hits'];
     });
   }
 
-  loadMoreImages(){
+  loadMoreImages() {
     // This function handles pagination for image search results.
     this.imageSearchpage++;
     let headers = new HttpHeaders;
     headers = headers.append('search-query', this.imageSearchQuery);
     headers = headers.append('page', this.imageSearchpage.toString());
 
-    this.http.get(this.data.apiEndpoint + '/search-pixabay', {headers: headers}).subscribe(res => {
+    this.http.get(this.data.apiEndpoint + '/search-pixabay', { headers: headers }).subscribe(res => {
       let results = res['hits'];
       results.forEach(result => {
         this.imageSearchResults.push(result);
@@ -71,47 +72,65 @@ export class SandboxAppLogicService {
     });
   }
 
-  addToSlide(type: 'textObject' | 'imageObject') { 
+  addToSlide(type: 'textObject' | 'imageObject') {
     // This function adds slideObjects to the project
-    switch(type){
-      case 'textObject': this.store.dispatch({type:ADD_TEXTOBJECT}); break;
-      case 'imageObject' : 
-   
-      this.store.dispatch({type:ADD_IMAGEOBJECT}); break;
+    switch (type) {
+      case 'textObject': this.store.dispatch({ type: ADD_TEXTOBJECT }); break;
+      case 'imageObject':
+
+        this.store.dispatch({ type: ADD_IMAGEOBJECT }); break;
     }
   }
-   
+
   uploadImage(event) {
     // This function takes image file from file input, uses it to create a galleryImage, 
     // and adds it to the project.
+    let galleryImage = new GalleryImage();
     let file = event.srcElement.files[0];
-    let reader = new FileReader();
 
-    reader.readAsDataURL(file);
-    reader.onload = (e) => {
-      let url = (<FileReader>e.target).result;
-      this.data.getProjectState().then(projectState => {
-        let galleryImage = new GalleryImage();
+    this.data.getProjectState().then(projectState => {
+      galleryImage.id = projectState['images'].length;
+    })
+      .then(() => {
+        // Upload image to firestore and get the firestore image url
+        var config = {
+          apiKey: "AIzaSyBz9UkDgc3Qfw-U31dJU43UoaymI5CtH44",
+          authDomain: "deckbuilder-1531369409076.firebaseapp.com",
+          projectId: "deckbuilder-1531369409076",
+          storageBucket: "gs://deckbuilder-1531369409076.appspot.com",
+        };
 
-        galleryImage.url = url.toString();
-        galleryImage.id = projectState['images'].length;
-        this.store.dispatch({type:ADD_IMAGE, payload: {galleryImage: galleryImage}});
+        if (!firebase.apps.length) {
+          firebase.initializeApp(config);
+          firebase.auth().signInAnonymously().catch(function (error) {
+            console.log(error);
+          });
+        }
+
+        let storageRef = firebase.storage().ref();
+        return storageRef.child('images/test.jpg').put(file)
       })
-      .catch(error => {console.log(error)});
-    }
+      .then((data) => {
+        return data.ref.getDownloadURL();
+      })
+      .then(downloadUrl => {
+        galleryImage.url = downloadUrl;
+        this.store.dispatch({ type: ADD_IMAGE, payload: { galleryImage: galleryImage } });
+      })
+      .catch(error => { console.log(error) });
   }
 
   selectImage(galleryImage: GalleryImage) {
     // This function updates the store with the selected image specified in the parameters
-    this.store.dispatch({type:SELECT_GALLERY_IMAGE, payload:{galleryImage: galleryImage}})
+    this.store.dispatch({ type: SELECT_GALLERY_IMAGE, payload: { galleryImage: galleryImage } })
   }
 
   deleteImage(image: GalleryImage) {
     // This function prompts user for confirmation before deleting an image from the project gallery.
     let callback = () => {
-      this.store.dispatch({type:DEL_IMAGE, payload: {galleryImage: image}});
+      this.store.dispatch({ type: DEL_IMAGE, payload: { galleryImage: image } });
     }
-    
+
     this.dialog.alert("Are you sure you want to delete this image from your project?", 'danger', callback);
   }
 }
