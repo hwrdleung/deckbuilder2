@@ -12,7 +12,7 @@
         [position]="slideObject.getTranslation()" [rzAspectRatio]="slideObject.constructor.name==='ImageObject'? true: false">
 
         <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>
-        <img *ngIf="slideObject.constructor.name==='ImageObject'" [ngStyle]="slideObject.style.getCss()" [src]="slideObject.imagePath"
+        <img *ngIf="slideObject.constructor.name==='ImageObject'" [src]="slideObject.imagePath"
           crossOrigin="anonymous">
 
       </div>

@@ -7,6 +7,8 @@ import { GalleryImage } from '../classes/galleryImage';
 import { ImageStyle } from '../classes/imageStyle';
 import { SandboxAppLogicService } from '../sandbox-app-logic.service';
 declare var Caman: any;
+import * as firebase from "firebase";
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'image-sandbox',
@@ -28,11 +30,12 @@ export class ImageSandboxComponent implements OnInit {
   viewSearchResults: boolean = false;
   previewRenderMagnification: number = 100;
 
-  constructor(private store: Store<ProjectState>, private sandbox: SandboxAppLogicService) { }
+  constructor(private store: Store<ProjectState>, private data:DataService, private sandbox: SandboxAppLogicService) { }
 
 
   ngOnInit() {
     this.enableResizer();
+    this.data.initializeFirebase();
 
     // Subscribe to projectState
     this.store.select('projectReducer')

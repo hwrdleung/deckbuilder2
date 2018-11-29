@@ -3,10 +3,12 @@ export class GalleryImage {
 
     url: string;
     id: number;
+    fileName: string;
 
     constructor(){
         this.url = "";
         this.id = 0;
+        this.fileName = '';
     }
 
     revive(obj){

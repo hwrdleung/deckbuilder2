@@ -11,6 +11,8 @@ import { ImageObject } from "./classes/imageObject";
 import { TextStyle } from "./classes/textStyle";
 import { GalleryImage } from "./classes/galleryImage";
 import { ImageStyle } from "./classes/imageStyle";
+import * as firebase from "firebase";
+
 
 /*
   HOME
@@ -49,6 +51,33 @@ export class DataService {
     setTimeout(() => {
       this.serverMsg = null;
     }, 5000);
+  }
+
+  initializeFirebase = () => {
+    if (!firebase.apps.length) {
+      var config = {
+        apiKey: "AIzaSyBz9UkDgc3Qfw-U31dJU43UoaymI5CtH44",
+        authDomain: "deckbuilder-1531369409076.firebaseapp.com",
+        projectId: "deckbuilder-1531369409076",
+        storageBucket: "gs://deckbuilder-1531369409076.appspot.com"
+      };
+
+      firebase.initializeApp(config);
+      firebase
+        .auth()
+        .signInAnonymously()
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
+  }
+
+  deleteImageFromFirebase = (fileName:string) => {
+    let storageRef = firebase.storage().ref();
+    storageRef.child(`images/${fileName}`).delete().then(() => {
+      console.log("Deleted image ", fileName);
+    })
+    .catch(error => console.log(error));
   }
 
   // User registration
@@ -399,7 +428,7 @@ export class DataService {
           .then(data => {
             projectState = data;
             projectState.lastSaved = new Date();
-            projectState.thumbnail = thumbnail;
+            projectState.thumbnail = 'https://cdn.pixabay.com/photo/2014/05/02/21/49/home-office-336373_150.jpg';
             projectState = JSON.stringify(projectState);
             return this.getUserState();
           })
@@ -412,6 +441,8 @@ export class DataService {
               token: userState.token,
               project: projectState
             }
+            console.log(payload);
+
             this.http.post(this.apiEndpoint + '/save-project', payload).subscribe(res => {
               resolve(res);
             });

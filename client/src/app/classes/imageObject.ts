@@ -5,6 +5,7 @@ export class ImageObject extends SlideObject {
 
     imagePath: string;
     style: ImageStyle;
+    fileName: string;
 
     constructor () {
         super();
