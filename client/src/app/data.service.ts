@@ -30,8 +30,8 @@ import * as firebase from "firebase";
 export class DataService {
 
   /* SERVER VARIABLES */
-  apiEndpoint: string = 'https://deckbuilder2.herokuapp.com';
-  // apiEndpoint: string = 'http://localhost:3000';
+  // apiEndpoint: string = 'https://deckbuilder2.herokuapp.com';
+  apiEndpoint: string = 'http://localhost:3000';
   serverMsg: string = '';
 
   /* STATE VARIABLES */

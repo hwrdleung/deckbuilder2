@@ -6,7 +6,7 @@ const router = express.Router();
 const path = require('path');
 const mongoose = require('mongoose');
 const user = require('./routes/user')(router); 
-
+// require('dotenv').config();
 mongoose.connect('mongodb://noodles01:noodles01@ds149593.mlab.com:49593/deckbuilder2');
 
 // Middleware

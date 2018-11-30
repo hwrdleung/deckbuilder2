@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const request = require('request');
 const saltRounds = 10;
+// const secret = process.env.AUTH_SECRET;
 const secret = 'secret';
 
 module.exports = (router) => {
@@ -104,11 +105,12 @@ module.exports = (router) => {
                     res.json(new Response(false, 'User not found.'));
                     throw new Error('End promise chain');
                 } else if (user) {
-                    console.log('Checking password');
+                    console.log('User found.  Checking password');
                     userData.first = user.first;
                     userData.last = user.last;
                     userData.username = user.username;
                     userData.email = user.email;
+                    console.log(req.body.password, user.password);
                     return bcrypt.compare(req.body.password, user.password);
                 }
             })
@@ -120,7 +122,7 @@ module.exports = (router) => {
                     res.json(new Response(false, 'Invalid password.'));
                     throw new Error('End promise chain');
                 } else if (isValid) {
-
+                    console.log('Password is valid.  Creating token.')
                     // Define jwt payload
                     let payload = {
                         username: username
