@@ -34,7 +34,6 @@ import { TextStyle } from "src/app/classes/textStyle";
 import { ImageStyle } from "src/app/classes/imageStyle";
 import * as firebase from "firebase";
 import { resetApplicationState } from "@angular/core/src/render3/instructions";
-declare var Caman: any;
 
 export const projectReducer: ActionReducer<ProjectState> = (
   state = initialState,
@@ -109,72 +108,11 @@ export const projectReducer: ActionReducer<ProjectState> = (
     case ADD_IMAGEOBJECT:
       // Create a new ImageObject with selected image selected image style
       // and add it to the current slide.
-      if (newState.selectedImage) {
         let imageObject = new ImageObject();
-
-        // Use camanJS to create a base64 image with the css filters specified in imageObject.style
-        var image = new Image();
-        image.crossOrigin = "anonymous";
-        image.id = "selectedImage";
-        image.src = newState.selectedImage.url;
-
-        image.onload = function() {
-          var div = document.createElement("div");
-          div.appendChild(image);
-
-          let getDataUrl = () => {
-            // This function applies the style settings specifed in the selectedImageStyle
-            // to the selectedImage via CamanJS, and returns a promise containing the edited image as base64 string
-            return new Promise((resolve, reject) => {
-              Caman(image, function() {
-                this.brightness(newState.selectedImageStyle.brightness - 100);
-                this.render(function() {
-                  console.log("getDataUrl completed");
-                  resolve(this.toBase64());
-                });
-              });
-            });
-          };
-
-          if (!firebase.apps.length) {
-            // firebase auth
-            const config = {
-              apiKey: "AIzaSyBz9UkDgc3Qfw-U31dJU43UoaymI5CtH44",
-              authDomain: "deckbuilder-1531369409076.firebaseapp.com",
-              projectId: "deckbuilder-1531369409076",
-              storageBucket: "gs://deckbuilder-1531369409076.appspot.com"
-            };
-
-            firebase.initializeApp(config);
-            firebase
-              .auth()
-              .signInAnonymously()
-              .catch(function(error) {
-                console.log(error);
-              });
-          }
-
-          getDataUrl()
-            .then(res => {
-              // Upload dataUrl to firebase storage
-              let dataUrl = res;
-              let storageRef = firebase.storage().ref();
-              return storageRef
-                .child(`images/${action.payload.fileName}`)
-                .putString(dataUrl.toString(), "data_url");
-            })
-            .then(data => {
-              // After upload is complete, get the image firebase url
-              return data.ref.getDownloadURL();
-            })
-            .then(downloadUrl => {
-              // Set the firebase url as the imageObject's imagePath
-              imageObject.style = newState.selectedImageStyle;
-              imageObject.imagePath = downloadUrl;
-              imageObject.fileName = action.payload.fileName;
-            })
-            .then(() => {
-              // Scale down large images
+        imageObject.imagePath = action.payload.url;
+        imageObject.fileName = action.payload.fileName;
+    
+              // Scale down images that are larger than doc size
               let img = new Image();
               img.src = imageObject.imagePath;
               img.onload = () => {
@@ -193,10 +131,6 @@ export const projectReducer: ActionReducer<ProjectState> = (
                   imageObject
                 );
               };
-            });
-        };
-      }
-
       return newState;
 
     case ADD_TEXTOBJECT:

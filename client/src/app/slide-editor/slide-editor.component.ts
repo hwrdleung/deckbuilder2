@@ -1,32 +1,30 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { DataService } from '../data.service';
-import { DialogService } from '../dialog.service';
-import { ViewChild } from '@angular/core'
-import { SlideEditorAppLogicService } from '../slide-editor-app-logic.service';
-import { Slide } from '../classes/slide';
-import { Store } from '@ngrx/store';
-import { ProjectState } from '../state-management/state/projectState';
-import { SlideObject } from '../classes/slideObject';
-import { TextStyle } from '../classes/textStyle';
-import { ImageStyle } from '../classes/imageStyle';
-import { TextObject } from '../classes/textObject';
-import { ToolbarAppLogicService } from '../toolbar-app-logic.service';
-import { HorizontalResizer } from '../classes/horizontalResizer';
+import { Component, OnInit, ElementRef } from "@angular/core";
+import { DataService } from "../data.service";
+import { DialogService } from "../dialog.service";
+import { ViewChild } from "@angular/core";
+import { SlideEditorAppLogicService } from "../slide-editor-app-logic.service";
+import { Slide } from "../classes/slide";
+import { Store } from "@ngrx/store";
+import { ProjectState } from "../state-management/state/projectState";
+import { SlideObject } from "../classes/slideObject";
+import { TextStyle } from "../classes/textStyle";
+import { ImageStyle } from "../classes/imageStyle";
+import { TextObject } from "../classes/textObject";
+import { ToolbarAppLogicService } from "../toolbar-app-logic.service";
+import { HorizontalResizer } from "../classes/horizontalResizer";
 
 @Component({
-  selector: 'slide-editor',
-  templateUrl: './slide-editor.component.html',
-  styleUrls: ['./slide-editor.component.css']
+  selector: "slide-editor",
+  templateUrl: "./slide-editor.component.html",
+  styleUrls: ["./slide-editor.component.css"]
 })
-
 export class SlideEditorComponent implements OnInit {
-
   /*  UI VARIABLES */
-  @ViewChild('resizer') resizer: ElementRef<any>;
-  @ViewChild('workspace') workspace: ElementRef<any>;
-  @ViewChild('controlToolbar') controlToolbar: ElementRef<any>;
-  @ViewChild('slideRender') slideRender: ElementRef<any>;
-  @ViewChild('slideRenderArea') slideRenderArea: ElementRef<any>;
+  @ViewChild("resizer") resizer: ElementRef<any>;
+  @ViewChild("workspace") workspace: ElementRef<any>;
+  @ViewChild("controlToolbar") controlToolbar: ElementRef<any>;
+  @ViewChild("slideRender") slideRender: ElementRef<any>;
+  @ViewChild("slideRenderArea") slideRenderArea: ElementRef<any>;
 
   /* SLIDE RENDER VARIABLES */
   slides: Slide[];
@@ -44,27 +42,45 @@ export class SlideEditorComponent implements OnInit {
   showTextObjectEditor: boolean = false;
   textEditorTextObject: TextObject;
 
-  constructor(private data: DataService, private toolbar: ToolbarAppLogicService, private dialog: DialogService, private slideEditor: SlideEditorAppLogicService, private store: Store<ProjectState>) { }
+  /*  NGRX STORE SUBSCRIPTION  */
+  projectStateSubscription;
+
+  constructor(
+    private data: DataService,
+    private toolbar: ToolbarAppLogicService,
+    private dialog: DialogService,
+    private slideEditor: SlideEditorAppLogicService,
+    private store: Store<ProjectState>
+  ) {}
 
   ngOnInit() {
     this.enableSlideEditorResizer();
     this.data.isSlideRenderLoading = false;
-    // Subscribe to projectState
-    this.store.select('projectReducer')
+    // Get UI variables from dataService
+    this.projectStateSubscription = this.store
+      .select("projectReducer")
       .subscribe(projectState => {
         this.slides = projectState.slides;
         this.currentSlideIndex = projectState.currentSlideIndex;
         this.documentSize = projectState.documentSize;
         this.textStyles = projectState.textStyles;
         this.imageStyles = projectState.imageStyles;
-      })
+      });
+  }
+
+  ngOnDestroy() {
+    this.projectStateSubscription.unsubscribe();
   }
 
   enableSlideEditorResizer() {
     let containerElement = this.workspace.nativeElement;
     let resizerElement = this.resizer.nativeElement;
     let lowerBoundElement = this.controlToolbar.nativeElement;
-    let horizontalResizer = new HorizontalResizer(containerElement, resizerElement, lowerBoundElement);
+    let horizontalResizer = new HorizontalResizer(
+      containerElement,
+      resizerElement,
+      lowerBoundElement
+    );
     horizontalResizer.init();
   }
 
@@ -76,34 +92,38 @@ export class SlideEditorComponent implements OnInit {
 
   getSlideRenderCss() {
     // This function provides css for the slide render.
-    let backgroundColor = this.slides[this.currentSlideIndex].getProperty('backgroundColor');
-    let width = this.documentSize['width'];
-    let height = this.documentSize['height'];
+    let backgroundColor = this.slides[this.currentSlideIndex].getProperty(
+      "backgroundColor"
+    );
+    let width = this.documentSize["width"];
+    let height = this.documentSize["height"];
 
     let render = this.slideRender.nativeElement;
-    let renderHeight = render.offsetHeight * this.slideRenderMagnification / 100;
-    let renderWidth = render.clientWidth * this.slideRenderMagnification / 100;
+    let renderHeight =
+      (render.offsetHeight * this.slideRenderMagnification) / 100;
+    let renderWidth =
+      (render.clientWidth * this.slideRenderMagnification) / 100;
 
     let renderArea = this.slideRenderArea.nativeElement;
     let renderAreaHeight = renderArea.offsetHeight;
     let renderAreaWidth = renderArea.clientWidth;
 
     let css = {
-      'background': backgroundColor,
-      'height': height + 'px',
-      'width': width + 'px',
-      'transform-origin': '0 0',
-      'transform': 'scale(' + this.slideRenderMagnification / 100 + ')',
-      'position': 'absolute',
-      'overflow': this.showRenderOverflow ? 'visible' : 'hidden'
-    }
+      background: backgroundColor,
+      height: height + "px",
+      width: width + "px",
+      "transform-origin": "0 0",
+      transform: "scale(" + this.slideRenderMagnification / 100 + ")",
+      position: "absolute",
+      overflow: this.showRenderOverflow ? "visible" : "hidden"
+    };
 
     if (renderHeight < renderAreaHeight) {
-      css['top'] = (renderAreaHeight - renderHeight) / 2 + 'px';
+      css["top"] = (renderAreaHeight - renderHeight) / 2 + "px";
     }
 
     if (renderWidth < renderAreaWidth) {
-      css['left'] = (renderAreaWidth - renderWidth) / 2 + 'px';
+      css["left"] = (renderAreaWidth - renderWidth) / 2 + "px";
     }
     return css;
   }
@@ -121,7 +141,7 @@ export class SlideEditorComponent implements OnInit {
 
   // Slide editor control panel functions
   selectObject(slideObject: SlideObject) {
-    this.selectedSlideObject = slideObject
+    this.selectedSlideObject = slideObject;
   }
 
   isSlideObjectSelected(slideObject: SlideObject) {
@@ -132,11 +152,13 @@ export class SlideEditorComponent implements OnInit {
   }
 
   renderZoomController() {
-    // This function handles the zooming in/out of the slide render 
+    // This function handles the zooming in/out of the slide render
     // via range input
     let render = this.slideRender.nativeElement;
-    let renderHeight = render.offsetHeight * this.slideRenderMagnification / 100;
-    let renderWidth = render.clientWidth * this.slideRenderMagnification / 100;
+    let renderHeight =
+      (render.offsetHeight * this.slideRenderMagnification) / 100;
+    let renderWidth =
+      (render.clientWidth * this.slideRenderMagnification) / 100;
 
     let renderArea = this.slideRenderArea.nativeElement;
     let renderAreaHeight = renderArea.offsetHeight;
@@ -148,7 +170,7 @@ export class SlideEditorComponent implements OnInit {
     }
 
     if (renderWidth >= renderAreaWidth) {
-      renderArea.scrollLeft = (renderWidth - renderAreaWidth) / 2
+      renderArea.scrollLeft = (renderWidth - renderAreaWidth) / 2;
     }
   }
 
@@ -159,7 +181,7 @@ export class SlideEditorComponent implements OnInit {
     let increment = 5;
 
     switch (direction) {
-      case 'in':
+      case "in":
         if (magnification > 200 - increment) {
           magnification = 200;
         } else {
@@ -167,7 +189,7 @@ export class SlideEditorComponent implements OnInit {
         }
         this.slideRenderMagnification = magnification;
         break;
-      case 'out':
+      case "out":
         if (magnification < increment) {
           magnification = 0;
         } else {
@@ -178,40 +200,51 @@ export class SlideEditorComponent implements OnInit {
     }
   }
 
-  setDimension(slideObject: SlideObject, dimension: 'height' | 'width', value: number) {
+  setDimension(
+    slideObject: SlideObject,
+    dimension: "height" | "width",
+    value: number
+  ) {
     // This function handles changes to the number inputs for slide objects in the layer heirarchy.
     let type = slideObject.constructor.name;
     switch (type) {
-      case 'ImageObject': this.maintainRatio(slideObject, dimension, value); break;
-      case 'TextObject': slideObject[dimension] = value; break;
+      case "ImageObject":
+        this.maintainRatio(slideObject, dimension, value);
+        break;
+      case "TextObject":
+        slideObject[dimension] = value;
+        break;
     }
   }
 
-  maintainRatio(slideObject: SlideObject, dimension: 'height' | 'width', value: number) {
+  maintainRatio(
+    slideObject: SlideObject,
+    dimension: "height" | "width",
+    value: number
+  ) {
     // This function maintains the aspect ratio of imageObjects when they are
     // resized using the number inputs in the layer heirarchy
 
     // Ratio
     let ratio: number;
-    let img = new Image;
-    img.src = slideObject.getProperty('imagePath');
+    let img = new Image();
+    img.src = slideObject.getProperty("imagePath");
     img.onload = () => {
       ratio = img.width / img.height;
 
       switch (dimension) {
-        case 'width':
+        case "width":
           let newHeight = value / ratio;
           slideObject.width = value;
           slideObject.height = newHeight;
           break;
-        case 'height':
+        case "height":
           let newWidth = value * ratio;
           slideObject.height = value;
           slideObject.width = newWidth;
           break;
       }
       img = null;
-    }
+    };
   }
 }
-

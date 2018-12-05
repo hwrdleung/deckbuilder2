@@ -6,7 +6,6 @@ const router = express.Router();
 const path = require('path');
 const mongoose = require('mongoose');
 const user = require('./routes/user')(router); 
-// require('dotenv').config();
 mongoose.connect('mongodb://noodles01:noodles01@ds149593.mlab.com:49593/deckbuilder2');
 
 // Middleware
@@ -17,8 +16,8 @@ mongoose.connect('mongodb://noodles01:noodles01@ds149593.mlab.com:49593/deckbuil
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '10mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(user);
 
 // Routes

@@ -17,7 +17,7 @@ import { DocumentSize } from '../classes/documentSize';
 export class DashboardComponent implements OnInit {
 
   /* DATA VARIABLES */
-  userState: UserState;
+  userState;
   projectsData: any;
   settingsData: object;
   openMobileNav: boolean = false;
@@ -37,7 +37,10 @@ export class DashboardComponent implements OnInit {
   customWidthAlert: string = 'You must specify a width';
   passwordMismatchAlert: string = 'Password do not match';
 
-  constructor(private router: Router, private http: HttpClient, private fb: FormBuilder, private data: DataService, private dialog: DialogService, private store: Store<UserState>) {
+  /*  USERSTATE SUBSCRIPTION */
+  userStateSubscription
+
+  constructor(private router: Router, private http: HttpClient, private fb: FormBuilder, private data: DataService, private dialog: DialogService, private store: Store<any>) {
     this.projectCreatorForm = fb.group({
       'projectName': [null, Validators.required],
       'documentSize': [null, Validators.required],
@@ -107,15 +110,13 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     // Subscribe to projectCreatorForm's value changes to enable conditional validations
-    this.projectCreatorConditionalValidation();
+    this.userStateSubscription = this.store.select('userReducer').subscribe(userState => {
+      this.userState = userState;
+      this.getSettingsData();
+    })
 
-    // Subscribe to userState to get updated user data
-    this.store.select('userReducer')
-      .subscribe((userState: UserState) => {
-        this.userState = userState;
-        this.getSettingsData();
-        this.getProjectsData();
-      });
+    this.projectCreatorConditionalValidation();
+    this.getProjectsData();
   }
 
   /* POPULATE DATA VARIABLES */
@@ -188,7 +189,7 @@ export class DashboardComponent implements OnInit {
     let projectName = project.name;
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('token', this.userState.token);
+    headers = headers.append('token', this.data.userState.token);
     headers = headers.append('project-name', projectName);
 
     this.http.get(this.data.apiEndpoint + '/get-project', { headers: headers })
@@ -197,7 +198,12 @@ export class DashboardComponent implements OnInit {
 
         projectData = this.data.reviveProject(projectData)
         this.store.dispatch({ type: LOAD_PROJECT, payload: { projectData: projectData } });
-        this.router.navigate(['main']);
+                // Subscribe to projectState after it loads, and set it to a variable in dataService
+        // so that it can be used by other components and services
+        this.store.select('projectReducer').subscribe(projectState => {
+          this.data.projectState = projectState;
+          this.router.navigate(['main']);
+        });
       });
   }
 
@@ -207,7 +213,7 @@ export class DashboardComponent implements OnInit {
     let confirmedDelete = () => {
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('token', this.userState.token);
+      headers = headers.append('token', this.data.userState.token);
       headers = headers.append('project-name', projectName);
 
       this.http.delete(this.data.apiEndpoint + '/delete-project', { headers: headers })
@@ -266,5 +272,7 @@ export class DashboardComponent implements OnInit {
     // data.serverMsg is shared with the login and registration components.
     // Clearing it onDestroy prevents the displaying the wrong serverMsg on the wrong form
     this.data.serverMsg = null;
+    this.userStateSubscription.unsubscribe();
+
   }
 }

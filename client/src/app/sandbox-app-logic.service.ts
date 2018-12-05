@@ -5,6 +5,9 @@ import { GalleryImage } from "./classes/galleryImage";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Store } from "@ngrx/store";
 import { ProjectState } from "./state-management/state/projectState";
+import { ImageStyle } from "./classes/imageStyle";
+declare var Caman: any;
+
 import {
   ADD_TEXTOBJECT,
   ADD_IMAGEOBJECT,
@@ -30,31 +33,17 @@ export class SandboxAppLogicService {
   imageSearchResults;
   imageSearchpage: number = 1;
 
-  getProjectState() {
-    // Returns a promise with projectState from store
-    return new Promise((resolve, reject) => {
-      this.store.select("projectReducer").subscribe(projectState => {
-        if (!projectState) reject();
-        resolve(projectState);
-      });
-    }).catch(error => {
-      console.log(error);
-    });
-  }
-
   pixabayToGallery(url: string) {
     // This function creates a galleryImage object with the search result specified
     // in the parameter and adds it to the project
-    this.data.getProjectState().then(projectState => {
-      let galleryImage = new GalleryImage();
-      galleryImage.url = url;
-      galleryImage.id = projectState["images"].length;
-      this.store.dispatch({
-        type: ADD_IMAGE,
-        payload: { galleryImage: galleryImage }
-      });
-      this.dialog.toast("Added to gallery.");
+    let galleryImage = new GalleryImage();
+    galleryImage.url = url;
+    galleryImage.id = this.data.projectState["images"].length;
+    this.store.dispatch({
+      type: ADD_IMAGE,
+      payload: { galleryImage: galleryImage }
     });
+    this.dialog.toast("Added to gallery.");
   }
 
   searchPixabay() {
@@ -88,6 +77,29 @@ export class SandboxAppLogicService {
       });
   }
 
+  toDataUrl = (url: string, imageStyle: ImageStyle) => {
+    return new Promise((resolve, reject) => {
+      var image = new Image();
+      image.crossOrigin = "anonymous";
+      image.src = url;
+
+      image.onload = function() {
+        var div = document.createElement("div");
+        div.appendChild(image);
+        // This function applies the style settings specifed in the selectedImageStyle
+        // to the selectedImage via CamanJS, and returns a promise containing the edited image as base64 string
+        Caman(image, function() {
+          // this.brightness(imageStyle.brightness - 100);
+          this.brightness(-100);
+          this.render(function() {
+            console.log("getDataUrl completed");
+            resolve(this.toBase64());
+          });
+        });
+      };
+    });
+  };
+
   addToSlide(type: "textObject" | "imageObject") {
     // This function adds slideObjects to the project
     switch (type) {
@@ -95,30 +107,111 @@ export class SandboxAppLogicService {
         this.store.dispatch({ type: ADD_TEXTOBJECT });
         break;
       case "imageObject":
-        this.data
-          .getProjectState()
-          .then(data => {
-            let projectState: any = data;
-            if (!projectState.selectedImage) {
-              this.dialog.alert("Select an image from your gallery", "danger");
-              throw Error("selectedImage not found.");
-            } else if (projectState.selectedImage) {
-              return this.data.getUserState();
-            }
-          })
-          .then(data => {
-            // Define image naming convention here
-            /* username-dateString */
-            let userState: any = data;
-            let date = new Date();
-            let fileName = `${userState.username}-${date.getTime().toString()}`;
-            console.log("Filename:", fileName);
-            this.store.dispatch({
-              type: ADD_IMAGEOBJECT,
-              payload: { fileName: fileName }
+        /*
+        1.  Get selectedImage and selectedImageStyle from projectState
+        2.  Use camanJS to generate dataURL of selctedImage with selectedImageStyle applied to it
+        3.  Upload to firebase via backend api, and get firebase image url
+        4.  Invoke ngrx action ADD_IMAGEOBJECT, passing in the fileName and firebase image url in the payload
+      */
+
+        let getProjectState = () => {
+          return new Promise((resolve, reject) => {
+            this.store.select("projectReducer").subscribe(projectState => {
+              resolve(projectState);
             });
+          });
+        };
+
+        getProjectState().then(res => {
+          let projectState: any = res;
+          return this.toDataUrl(
+            projectState.selectedImage.url,
+            projectState.selectedImageStyle
+          );
+        })
+          .then(res => {
+            let date = new Date();
+            let imgDataUrl = res;
+            let body = {
+              token: this.data.userState.token,
+              dataUrl: imgDataUrl,
+              fileName: `${
+                this.data.userState.username
+              }-${date.getTime().toString()}`
+            };
+            return this.http
+              .post(this.data.apiEndpoint + "/upload-image", body)
+              .subscribe(res => {
+                console.log(res);
+                let uploadData:any = res
+                let payload = {
+                fileName: uploadData.body.fileName,
+                url: uploadData.body.url
+              }
+              this.store.dispatch({type: ADD_IMAGEOBJECT, payload: payload});
+              })
           })
-          .catch(error => console.log(error));
+          // .then(res => {
+            /*
+            Set up /upload-image endpoint to return data in the follow format:
+            res = {
+              fileName: fileName,
+              url: firebaseImgUrl
+            }
+          */
+            //  let uploadData = res;
+            //   let payload = {
+            //     fileName: uploadData.body.fileName,
+            //     url: uploadData.body.url
+            //   }
+            //   this.store.dispatch({type: ADD_IMAGEOBJECT, payload: payload});
+          // })
+          .catch(error => {
+            console.log(error);
+          });
+
+        // this.data
+        //   .getProjectState()
+        //   .then(data => {
+        //     let projectState: any = data;
+        //     if (!projectState.selectedImage) {
+        //       this.dialog.alert("Select an image from your gallery", "danger");
+        //       throw Error("selectedImage not found.");
+        //       // End promise chain
+        //     } else if (projectState.selectedImage) {
+        //       return this.toDataUrl(
+        //         projectState.selectedImage.url,
+        //         projectState.selectedImageStyle
+        //       );
+        //     }
+        //   })
+        //   .then(imgDataUrl => {
+        //     // upload to firebase and get firebase image url
+        //     // Create imageObject with image url
+        //     // set imageObject fileName, url, send to reducer
+        //     // Reducer wil add the new imageObject to project state
+        //     let body = {
+        //       dataUrl : imgDataUrl,
+        //       fileName : `${this.data.userState.username}-${date.getTime().toString()}`,
+
+        //     }
+        //     this.http.post(this.data.apiEndpoint + '/upload-image', body).subscribe(res =>{
+        //       console.log(res);
+        //     })
+        //     return this.data.getUserState();
+        //   })
+        //   .then(data => {
+        //     // Define image naming convention here
+        //     /* username-dateString */
+        //     let userState: any = data;
+        //     let fileName = `${userState.username}-${date.getTime().toString()}`;
+        //     console.log("Filename:", fileName);
+        //     this.store.dispatch({
+        //       type: ADD_IMAGEOBJECT,
+        //       payload: { fileName: fileName }
+        //     });
+        //   })
+        //   .catch(error => console.log(error));
         break;
     }
   }
@@ -129,22 +222,18 @@ export class SandboxAppLogicService {
     let galleryImage = new GalleryImage();
     let file = event.srcElement.files[0];
 
-    this.data
-      .getProjectState()
-      .then(projectState => {
-        galleryImage.id = projectState["images"].length;
-        return this.data.getUserState();
-      })
-      .then(data => {
-        let userState: any = data;
-        let date = new Date();
-        let fileName = `${userState.username}-${date.getTime().toString()}`;
-        galleryImage.fileName = fileName;
-        // Upload image to firestore and get the firestore image url
-        this.data.initializeFirebase();
-        let storageRef = firebase.storage().ref();
-        return storageRef.child(`images/${fileName}`).put(file);
-      })
+    let date = new Date();
+    let fileName = `${
+      this.data.userState.username
+    }-${date.getTime().toString()}`;
+    galleryImage.id = this.data.projectState["images"].length;
+    galleryImage.fileName = fileName;
+    // Upload image to firestore and get the firestore image url
+    this.data.initializeFirebase();
+    let storageRef = firebase.storage().ref();
+    storageRef
+      .child(`images/${fileName}`)
+      .put(file)
       .then(data => {
         return data.ref.getDownloadURL();
       })
@@ -166,6 +255,7 @@ export class SandboxAppLogicService {
       type: SELECT_GALLERY_IMAGE,
       payload: { galleryImage: galleryImage }
     });
+    console.log(this.data.projectState.selectedImage);
   }
 
   deleteImage(image: GalleryImage) {

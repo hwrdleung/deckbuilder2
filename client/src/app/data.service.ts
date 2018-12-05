@@ -35,7 +35,8 @@ export class DataService {
   serverMsg: string = '';
 
   /* STATE VARIABLES */
-  userState: object;
+  userState: any;
+  projectState: any;
 
   /*  UI VARIABLES */
   // Had to put this here so that dataService could hide the forms after API calls
@@ -139,6 +140,13 @@ export class DataService {
         sessionStorage.setItem('sessionData', JSON.stringify(payload));
         this.store.dispatch({ type: LOGIN, payload: payload });
         this.router.navigate(['dashboard']);
+
+        // Subscribe to userState and set it to variable in dataService 
+        // so that it can be used in other componenets and services
+        this.store.select('userReducer').subscribe(userState => {
+          this.userState = userState;
+          console.log('Storing userState in dataService:', this.userState);
+        })
       } else if (res['success'] === false) {
         // Display error message to form
         this.displayServerMessage(res['message']);
@@ -157,10 +165,8 @@ export class DataService {
     // This function handles ngSubmit for the 'delete account form' in the dashboard's 'settings' view.
     // Confirmation is handled by form validations in dashboard.ts, requiring the user's password.
     // Make API call to delete user from database and display server message on failure, logout on success
-    this.getUserState().then(userState => {
-
       let headers = new HttpHeaders;
-      headers = headers.append('username', userState['username']);
+      headers = headers.append('username', this.userState['username']);
       headers = headers.append('password', formData.password);
 
       this.http.delete(this.apiEndpoint + '/delete-account', { headers: headers }).subscribe(res => {
@@ -170,17 +176,15 @@ export class DataService {
           this.logout();
         }
       });
-    });
   }
 
   changePassword(formData) {
     // This function handles ngSubmit of the 'change password form' in the dashboard's 'settings' view.
     // Confirmation is handled by form validaions in dashboard.ts, requiring the user to enter their current password.
     // Make API call to back-end to change the user's password.
-    this.getUserState().then(userState => {
 
       let payload = {
-        username: userState['username'],
+        username: this.userState['username'],
         password: formData.oldPassword,
         newPassword: formData.newPassword
       }
@@ -192,27 +196,22 @@ export class DataService {
           this.dialog.alert('Your new password has been saved.', 'success')
         }
       });
-    });
   }
 
   getProjectState = () => {
-    // This function returns a promise containing the store's projectState.
-    return new Promise((resolve, reject) => {
+    // This function subscribes to the store's projectState.
       this.store.select('projectReducer').subscribe(projectState => {
-        if (projectState) resolve(projectState);
-        reject();
+        this.projectState = projectState;
       });
-    });
   }
 
   getUserState = () => {
-    // This function returns a promise containing the store's userState.
-    return new Promise((resolve, reject) => {
+    // This function subscribes to the store's userState.
+    if(!this.userState){
       this.store.select('userReducer').subscribe(userState => {
-        if (userState) resolve(userState);
-        reject();
+        this.userState = userState;
       });
-    });
+    }
   }
 
   reviveProject(projectData) {
@@ -415,33 +414,18 @@ export class DataService {
       if (!sessionData) {
         reject('User is not signed in.');
       } else if (sessionData) {
-        let projectState;
-        let userState;
-        let thumbnail;
-        // create thumbnail here
-
         this.getThumbnail()
           .then(imgData => {
-            thumbnail = imgData;
-            return this.getProjectState();
-          })
-          .then(data => {
-            projectState = data;
-            projectState.lastSaved = new Date();
-            projectState.thumbnail = 'https://cdn.pixabay.com/photo/2014/05/02/21/49/home-office-336373_150.jpg';
-            projectState = JSON.stringify(projectState);
-            return this.getUserState();
-          })
-          .then(data => {
-            userState = data;
-            return userState;
-          })
-          .then((userState) => {
+            let thumbnail = imgData;
+            let projectData = this.projectState;
+            projectData.lastSaved = new Date();
+            projectData.thumbnail = 'https://cdn.pixabay.com/photo/2014/05/02/21/49/home-office-336373_150.jpg';
+            projectData = JSON.stringify(projectData);
+            console.log(projectData);
             let payload = {
-              token: userState.token,
-              project: projectState
+              token: this.userState.token,
+              project: projectData
             }
-            console.log(payload);
 
             this.http.post(this.apiEndpoint + '/save-project', payload).subscribe(res => {
               resolve(res);

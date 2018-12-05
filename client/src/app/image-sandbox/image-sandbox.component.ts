@@ -1,26 +1,25 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
-import { HorizontalResizer } from '../classes/horizontalResizer';
-import { Store } from '@ngrx/store';
-import { ProjectState } from '../state-management/state/projectState';
-import { GalleryImage } from '../classes/galleryImage';
-import { ImageStyle } from '../classes/imageStyle';
-import { SandboxAppLogicService } from '../sandbox-app-logic.service';
+import { Component, OnInit, ElementRef } from "@angular/core";
+import { ViewChild } from "@angular/core";
+import { HorizontalResizer } from "../classes/horizontalResizer";
+import { Store } from "@ngrx/store";
+import { ProjectState } from "../state-management/state/projectState";
+import { GalleryImage } from "../classes/galleryImage";
+import { ImageStyle } from "../classes/imageStyle";
+import { SandboxAppLogicService } from "../sandbox-app-logic.service";
 declare var Caman: any;
 import * as firebase from "firebase";
-import { DataService } from '../data.service';
+import { DataService } from "../data.service";
 
 @Component({
-  selector: 'image-sandbox',
-  templateUrl: './image-sandbox.component.html',
-  styleUrls: ['./image-sandbox.component.css']
+  selector: "image-sandbox",
+  templateUrl: "./image-sandbox.component.html",
+  styleUrls: ["./image-sandbox.component.css"]
 })
 export class ImageSandboxComponent implements OnInit {
-
   /*  UI LAYOUT VARIABLES  */
-  @ViewChild('resizer') resizer: ElementRef<any>;
-  @ViewChild('middlebar') middlebar: ElementRef<any>;
-  @ViewChild('container') container: ElementRef<any>;
+  @ViewChild("resizer") resizer: ElementRef<any>;
+  @ViewChild("middlebar") middlebar: ElementRef<any>;
+  @ViewChild("container") container: ElementRef<any>;
 
   /* TEMPLATE VARIABLES */
   selectedImage: GalleryImage;
@@ -30,33 +29,38 @@ export class ImageSandboxComponent implements OnInit {
   viewSearchResults: boolean = false;
   previewRenderMagnification: number = 100;
 
-  constructor(private store: Store<ProjectState>, private data:DataService, private sandbox: SandboxAppLogicService) { }
+  /*  NGRX STORE SUBSCRIPTION  */
+  projectStateSubscription;
 
+  constructor(
+    private store: Store<ProjectState>,
+    private data: DataService,
+    private sandbox: SandboxAppLogicService
+  ) {}
 
   ngOnInit() {
     this.enableResizer();
     this.data.initializeFirebase();
-
-    // Subscribe to projectState
-    this.store.select('projectReducer')
-      .subscribe(projectState => {
-        this.selectedImage = projectState.selectedImage;
-        this.selectedImageStyle = projectState.selectedImageStyle;
-        this.images = projectState.images;
-      })
+    // Get UI variables from store
+    this.projectStateSubscription = this.store.select("projectReducer").subscribe(projectState => {
+      this.selectedImage = projectState.selectedImage;
+      this.selectedImageStyle = projectState.selectedImageStyle;
+      this.images = projectState.images;
+    })
   }
 
   ngOnDestroy() {
     this.sandbox.imageSearchResults = null;
+    this.projectStateSubscription.unsubscribe();
   }
 
   showContent(view: string) {
     switch (view) {
-      case 'gallery':
+      case "gallery":
         this.viewGallery = true;
         this.viewSearchResults = false;
         break;
-      case 'search':
+      case "search":
         this.viewGallery = false;
         this.viewSearchResults = true;
         break;
@@ -67,16 +71,20 @@ export class ImageSandboxComponent implements OnInit {
     // This function enables the draggable resizable layout
     let containerElement = this.container.nativeElement;
     let resizerElement = this.resizer.nativeElement;
-    let lowerBoundElement = this.middlebar.nativeElement
-    let horizontalResizer = new HorizontalResizer(containerElement, resizerElement, lowerBoundElement);
+    let lowerBoundElement = this.middlebar.nativeElement;
+    let horizontalResizer = new HorizontalResizer(
+      containerElement,
+      resizerElement,
+      lowerBoundElement
+    );
     horizontalResizer.init();
   }
 
   getPreviewRenderCss() {
     // This function allows zooming in and out for the sandbox
     let css = {
-      'transform': `scale(${this.previewRenderMagnification / 100})`
-    }
+      transform: `scale(${this.previewRenderMagnification / 100})`
+    };
     return css;
   }
 
@@ -87,7 +95,7 @@ export class ImageSandboxComponent implements OnInit {
     let maxZoom = 300;
 
     switch (direction) {
-      case 'in':
+      case "in":
         if (magnification > maxZoom - increment) {
           magnification = maxZoom;
         } else {
@@ -95,7 +103,7 @@ export class ImageSandboxComponent implements OnInit {
         }
         this.previewRenderMagnification = magnification;
         break;
-      case 'out':
+      case "out":
         if (magnification < increment) {
           magnification = 0;
         } else {

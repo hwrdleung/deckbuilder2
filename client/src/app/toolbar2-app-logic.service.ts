@@ -1,26 +1,36 @@
-import { Injectable } from '@angular/core';
-import { DataService } from './data.service';
-import { DialogService } from './dialog.service';
-import { Store } from '@ngrx/store';
-import { ProjectState } from './state-management/state/projectState';
-import { ADD_SLIDE, PREV_SLIDE, NEXT_SLIDE, DEL_SLIDE, SET_MODE } from './state-management/actions/projectActions';
-import { Router } from '@angular/router';
+import { Injectable } from "@angular/core";
+import { DataService } from "./data.service";
+import { DialogService } from "./dialog.service";
+import { Store } from "@ngrx/store";
+import { ProjectState } from "./state-management/state/projectState";
+import {
+  ADD_SLIDE,
+  PREV_SLIDE,
+  NEXT_SLIDE,
+  DEL_SLIDE,
+  SET_MODE
+} from "./state-management/actions/projectActions";
+import { Router } from "@angular/router";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class Toolbar2AppLogicService {
-
   projectState;
 
-  constructor(private data: DataService, private dialog: DialogService, private store: Store<ProjectState>, private router: Router) { }
+  constructor(
+    private data: DataService,
+    private dialog: DialogService,
+    private store: Store<ProjectState>,
+    private router: Router
+  ) {}
 
   newTextObject() {
-    this.store.dispatch({ type: SET_MODE, payload: { mode: 'text' } });
+    this.store.dispatch({ type: SET_MODE, payload: { mode: "text" } });
   }
 
   newImageObject() {
-    this.store.dispatch({ type: SET_MODE, payload: { mode: 'image' } });
+    this.store.dispatch({ type: SET_MODE, payload: { mode: "image" } });
   }
 
   newSlide() {
@@ -37,18 +47,15 @@ export class Toolbar2AppLogicService {
 
   deleteSlide() {
     // Prompt user for confirmation before deleting current slide from project.
-    this.data.getProjectState().then(projectState => {
-      if (projectState['slides'].length > 1) {
-        let message = 'Are you sure you want to delete this slide?';
-        this.dialog.alert(message, 'danger', () => {
-          this.store.dispatch({ type: DEL_SLIDE });
-        });
-      }
-    })
+    if (this.data.projectState["slides"].length > 1) {
+      let message = "Are you sure you want to delete this slide?";
+      this.dialog.alert(message, "danger", () => {
+        this.store.dispatch({ type: DEL_SLIDE });
+      });
+    }
   }
 
   preview() {
-    this.router.navigate(['main/preview']);
+    this.router.navigate(["main/preview"]);
   }
-
 }
