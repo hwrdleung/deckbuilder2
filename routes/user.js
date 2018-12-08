@@ -141,7 +141,6 @@ module.exports = router => {
           userData.last = user.last;
           userData.username = user.username;
           userData.email = user.email;
-          console.log(req.body.password, user.password);
           return bcrypt.compareSync(req.body.password, user.password);
         }
       })
@@ -256,7 +255,7 @@ module.exports = router => {
 
   router.get("/get-user-dashboard", (req, res) => {
     let token = req.headers.token;
-    console.log(req.headers);
+    console.log("Client request to get user dashboard");
     verifyToken(token)
       .then(decoded => {
         if (!decoded) return res.json(new Response(false, "Invalid token"));
@@ -271,7 +270,7 @@ module.exports = router => {
         for (let i = 0; i < user.projects.length; i++) {
           let project = {
             name: user.projects[i].name,
-            thumbnail: user.projects[i].thumbnail,
+            thumbnailUrl: user.projects[i].thumbnailUrl,
             created: user.projects[i].created,
             lastSaved: user.projects[i].lastSaved
           };
@@ -285,7 +284,7 @@ module.exports = router => {
           email: user.email,
           projects: projectsMin
         };
-        console.log("Sending dashbard data to client");
+        console.log("Sending dashboard data to client");
         return res.json(
           new Response(true, "Returning dashboard data", userData)
         );
@@ -371,6 +370,7 @@ module.exports = router => {
           res.json(new Response(false, "Invalid token"));
           throw new Error("End promise chain");
         }
+        username = decoded.username;
         return User.findOne({ username: decoded.username });
       })
 
@@ -382,6 +382,33 @@ module.exports = router => {
         // Find and delete project
         for (let i = 0; i < user.projects.length; i++) {
           if (user.projects[i].name === projectName) {
+
+            // Delete all images in firebase storage associated with this project
+            let imageFileNames = [];
+
+            // Get fileNames of gallery Images
+            user.projects[i].images.forEach(image => {
+              if(image.fileName) imageFileNames.push(image.fileName);
+            })
+
+            // Get file names of all imageObjects in project
+            user.projects[i].slides.forEach(slide => {
+              slide.slideObjects.forEach(slideObject => {
+                  if(slideObject.fileName) imageFileNames.push(slideObject.fileName);
+              })
+            })
+
+            // Delete project thumbnail
+            let thumbnail = bucket.file(`images/${user.projects[i].thumbnailFileName}`);
+            thumbnail.delete();
+
+            // Delete all images in imageFileNames
+            imageFileNames.forEach(fileName => {
+              let file = bucket.file(`images/${fileName}`);
+              file.delete();
+            })
+
+            // Delete project from database
             user.projects.splice(i, 1);
             return user.save();
           }
@@ -457,11 +484,34 @@ module.exports = router => {
             let uploadData = {
               fileName: fileName,
               url: signedUrls[0]
-            }
+            };
             res.json(
               new Response(true, "File uploaded to firebase", uploadData)
             );
           });
+      })
+      .catch(error => console.log(error));
+  });
+
+  router.post("/delete-image", (req, res) => {
+    console.log("Client request to delete image from firebase.");
+    let token = req.body.token;
+    let fileNames = req.body.fileNames;
+
+    verifyToken(token)
+      .then(isValid => {
+        if (!isValid) res.json(new Response(false, "Invalid token"));
+        console.log("token isValid:", isValid);
+
+        for (let i = 0; i < fileNames.length; i++) {
+          let file = bucket.file(`images/${fileNames[i]}`);
+          file.delete();
+          if(i + 1 === fileNames.length) return
+        }
+      })
+      .then(() => {
+        console.log("Image successfully deleted from firebase.");
+        res.json(new Response(true, "Image deleted from firebase"));
       })
       .catch(error => console.log(error));
   });

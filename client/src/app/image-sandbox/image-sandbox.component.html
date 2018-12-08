@@ -19,7 +19,7 @@
       <div class="flex-row-center image-input-area" *ngIf="viewGallery">
         <h3>Import an image:</h3>
 
-        <input type="file" (change)="this.sandbox.uploadImage($event)">
+        <input type="file" (change)="this.sandbox.importImage($event)">
       </div>
 
       <div class="flex-row-center image-input-area" *ngIf="viewSearchResults">

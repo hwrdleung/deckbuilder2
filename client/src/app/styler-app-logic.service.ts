@@ -16,8 +16,6 @@ import { ProjectState } from "./state-management/state/projectState";
   providedIn: "root"
 })
 export class StylerAppLogicService {
-  projectState = this.data.projectState;
-
   constructor(
     private data: DataService,
     private dialog: DialogService,
@@ -28,86 +26,103 @@ export class StylerAppLogicService {
     // This function prompts user for confirmation before deleting style from the project.
     // Check if style is being used by any slide objects
     let isStyleInUse = false;
-    this.projectState.slides.forEach(slide => {
-      slide.slideObjects.forEach(slideObject => {
-        if (slideObject.style === style) isStyleInUse = true;
-      });
-    });
+    let type;
 
-    if (!isStyleInUse) {
-      // Delete and toast message
-      this.confirmedDelete(style, false);
-    } else if (isStyleInUse) {
-      // Prompt for confirmation
-      let type: string;
-      if (style.constructor.name === "TextStyle") type = "text";
-      if (style.constructor.name === "ImageStyle") type = "image";
-      let message =
-        style.name +
-        " is currently being used in one or more slides.  Deleting it will cause all " +
-        type +
-        " objects using this style to revert to the default style.  Do you wish to proceed?";
-      this.dialog.alert(message, "danger", () =>
-        this.confirmedDelete(style, isStyleInUse)
-      );
-    }
+    if (style.constructor.name === "TextStyle") type = "text";
+    if (style.constructor.name === "ImageStyle") type = "image";
+
+    this.data
+      .getProjectState()
+      .then(data => {
+        let projectState: any = data;
+        projectState.slides.forEach(slide => {
+          slide.slideObjects.forEach(slideObject => {
+            if (slideObject.style === style) isStyleInUse = true;
+          });
+        });
+      })
+      .then(() => {
+        if (!isStyleInUse || type === "image") {
+          // Prompt user for confirmation
+          let message = `Delete ${style.name}?`;
+          this.dialog.alert(message, "danger", () => {
+            this.confirmedDelete(style, false);
+          });
+        } else if (isStyleInUse && type === "text") {
+          // Prompt for confirmation
+          let message: string = `${
+            style.name
+          } is currently being used in one or more slides.  Deleting it will cause all text objects using this style to revert to the default style.  Do you wish to proceed?`;
+
+          this.dialog.alert(message, "danger", () =>
+            this.confirmedDelete(style, isStyleInUse)
+          );
+        }
+      })
+      .catch(error => console.log(error));
   };
 
   confirmedDelete = (style: TextStyle | ImageStyle, isStyleInUse: boolean) => {
     // If slideObjects are currently using this style and the user confirms deletion,
     // then those slideObjects' styles will revert to the default style.
-    let styleType = style.constructor.name;
+    this.data
+      .getProjectState()
+      .then(data => {
+        let projectState: any = data;
+        let styleType = style.constructor.name;
 
-    if (isStyleInUse) {
-      // Find all slide objects that use this style, and set its style to the default style
-      this.projectState.slides.forEach(slide => {
-        slide.slideObjects.forEach(slideObject => {
-          if (slideObject.style === style) {
-            switch (styleType) {
-              case "TextStyle":
-                slideObject.style = this.projectState.textStyles[0];
-                break;
-              case "ImageStyle":
-                slideObject.style = this.projectState.imageStyles[0];
-                break;
+        if (isStyleInUse) {
+          // Find all slide objects that use this style, and set its style to the default style
+          projectState.slides.forEach(slide => {
+            slide.slideObjects.forEach(slideObject => {
+              if (slideObject.style === style) {
+                switch (styleType) {
+                  case "TextStyle":
+                    slideObject.style = projectState.textStyles[0];
+                    break;
+                  case "ImageStyle":
+                    slideObject.style = projectState.imageStyles[0];
+                    break;
+                }
+              }
+            });
+          });
+        }
+
+        // Delete from project state
+        switch (styleType) {
+          case "TextStyle":
+            // Check selectedTextStyle
+            if (projectState.selectedTextStyle === style) {
+              this.store.dispatch({
+                type: SELECT_TEXTSTYLE,
+                payload: { textStyle: projectState.textStyles[0] }
+              });
             }
-          }
-        });
-      });
-    }
-
-    // Delete from project state
-    switch (styleType) {
-      case "TextStyle":
-        // Check selectedTextStyle
-        if (this.projectState.selectedTextStyle === style) {
-          this.store.dispatch({
-            type: SELECT_TEXTSTYLE,
-            payload: { textStyle: this.projectState.textStyles[0] }
-          });
+            this.store.dispatch({
+              type: DEL_TEXTSTYLE,
+              payload: { textStyle: style }
+            });
+            break;
+          case "ImageStyle":
+            // Check selectedImageStyle
+            if (projectState.selectedImageStyle === style) {
+              this.store.dispatch({
+                type: SELECT_IMAGESTYLE,
+                payload: { imageStyle: projectState.imageStyles[0] }
+              });
+            }
+            this.store.dispatch({
+              type: DEL_IMAGESTYLE,
+              payload: { imageStyle: style }
+            });
+            break;
         }
-        this.store.dispatch({
-          type: DEL_TEXTSTYLE,
-          payload: { textStyle: style }
-        });
-        break;
-      case "ImageStyle":
-        // Check selectedImageStyle
-        if (this.projectState.selectedImageStyle === style) {
-          this.store.dispatch({
-            type: SELECT_IMAGESTYLE,
-            payload: { imageStyle: this.projectState.imageStyles[0] }
-          });
-        }
-        this.store.dispatch({
-          type: DEL_IMAGESTYLE,
-          payload: { imageStyle: style }
-        });
-        break;
-    }
 
-    // Display toast message
-    let message = style.name + " has been deleted.";
-    this.dialog.toast(message);
+        // Display toast message
+        let message = style.name + " has been deleted.";
+        this.dialog.toast(message);
+      })
+      .catch(error => console.log(error));
   };
 }

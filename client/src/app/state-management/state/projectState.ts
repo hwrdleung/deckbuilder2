@@ -9,7 +9,8 @@ export interface ProjectState {
     name: string;
     created: Date;
     lastSaved: Date;
-    thumbnail: string;
+    thumbnailUrl: string;
+    thumbnailFileName: string;
 
     slides: Array<Slide>;
     textStyles: TextStyle[];
@@ -49,7 +50,8 @@ export const initialState: ProjectState = {
     name: 'New Project',
     created: new Date(),
     lastSaved: new Date(),
-    thumbnail: 'https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg',
+    thumbnailUrl: 'https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg',
+    thumbnailFileName: '',
 
     slides: [defaultSlide],
     textStyles: [defaultTextStyle],
@@ -64,7 +66,6 @@ export const initialState: ProjectState = {
 
     sandboxText: 'Lorem Ipsum',
     selectedImage: null,
-
 
     viewTextElements: true,
     viewImageElements: false,

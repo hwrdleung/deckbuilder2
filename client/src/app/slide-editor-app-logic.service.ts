@@ -26,8 +26,9 @@ export class SlideEditorAppLogicService {
   deleteSlideOjbect(slideObject: SlideObject) {
     // This function deletes slideObject from the slide
     if(slideObject.constructor.name === 'ImageObject'){
-      this.data.deleteImageFromFirebase(slideObject['fileName']);
+      this.data.deleteFromFirebase([slideObject['fileName']]);
     }
     this.store.dispatch({type:DEL_SLIDEOBJECT, payload: {slideObject: slideObject}});
+    this.dialog.toast(`Deleted ${slideObject.name}`);
   }
 }

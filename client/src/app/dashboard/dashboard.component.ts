@@ -113,10 +113,10 @@ export class DashboardComponent implements OnInit {
     this.userStateSubscription = this.store.select('userReducer').subscribe(userState => {
       this.userState = userState;
       this.getSettingsData();
+      this.getProjectsData();
     })
 
     this.projectCreatorConditionalValidation();
-    this.getProjectsData();
   }
 
   /* POPULATE DATA VARIABLES */
@@ -127,7 +127,6 @@ export class DashboardComponent implements OnInit {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
     headers = headers.append('token', this.userState.token);
-
     this.http.get(this.data.apiEndpoint + '/get-user-dashboard', { headers: headers })
       .subscribe(res => {
         if (res['success']) this.projectsData = res['body'].projects;
@@ -184,26 +183,16 @@ export class DashboardComponent implements OnInit {
     // When user "opens" a project, this function makes a call to the back-end to fetch 
     // full data for the selected project, loads it into the store, and routes to the main.
     this.dialog.toast(`Opening project: ${project.name}`);
-
-    project.isLoading = true;
-    let projectName = project.name;
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
-    headers = headers.append('token', this.data.userState.token);
-    headers = headers.append('project-name', projectName);
-
+    headers = headers.append('token', this.userState.token);
+    headers = headers.append('project-name', project.name);
     this.http.get(this.data.apiEndpoint + '/get-project', { headers: headers })
       .subscribe(res => {
         let projectData = res['body'];
-
         projectData = this.data.reviveProject(projectData)
         this.store.dispatch({ type: LOAD_PROJECT, payload: { projectData: projectData } });
-                // Subscribe to projectState after it loads, and set it to a variable in dataService
-        // so that it can be used by other components and services
-        this.store.select('projectReducer').subscribe(projectState => {
-          this.data.projectState = projectState;
-          this.router.navigate(['main']);
-        });
+        this.router.navigate(['main']);
       });
   }
 
@@ -213,7 +202,7 @@ export class DashboardComponent implements OnInit {
     let confirmedDelete = () => {
       let headers: HttpHeaders = new HttpHeaders();
       headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('token', this.data.userState.token);
+      headers = headers.append('token', this.userState.token);
       headers = headers.append('project-name', projectName);
 
       this.http.delete(this.data.apiEndpoint + '/delete-project', { headers: headers })

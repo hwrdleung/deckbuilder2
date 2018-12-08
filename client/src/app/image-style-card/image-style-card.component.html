@@ -47,7 +47,7 @@
   <div class="flex-row-between style-card-row">
     <h4>Brightness:</h4>
     <h4>
-      <input type="range" [(ngModel)]="imageStyle.brightness" min="0" max="200">
+      <input type="range" (change)="this.data.renderImagePreview()" [(ngModel)]="imageStyle.brightness" min="0" max="200">
       <input type="number" [(ngModel)]="imageStyle.brightness">%&nbsp;&nbsp;&nbsp;</h4>
   </div>
 
