@@ -19,71 +19,76 @@
     <div class="flex-row-between style-card-row">
       <h4>Padding:</h4>
       <h4>
-        <input type="number" [(ngModel)]="imageStyle.padding">px&nbsp;&nbsp;</h4>
+        <input type="number" [(ngModel)]="imageStyle.padding"></h4>
     </div>
 
-  <div class="flex-row-between style-card-row">
-    <h4>Opacity:</h4>
+    
+    <div class="flex-row-between style-card-row">
+      <h4>Greyscale:</h4>
+      <h4>
+        <input type="checkbox" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.greyscale"></h4>
+    </div>
 
-    <h4>
-      <input type="range" [(ngModel)]="imageStyle.opacity" min="0" max="100">
-      <input type="number" [(ngModel)]="imageStyle.opacity">%&nbsp;&nbsp;&nbsp;</h4>
-  </div>
-
-  <div class="flex-row-between style-card-row">
-    <h4>Grayscale:</h4>
-    <h4>
-      <input type="range" [(ngModel)]="imageStyle.grayscale" min="0" max="100">
-      <input type="number" [(ngModel)]="imageStyle.grayscale">%&nbsp;&nbsp;&nbsp;</h4>
-  </div>
-
-  <div class="flex-row-between style-card-row">
-    <h4>Blur:</h4>
-    <h4>
-      <input type="range" [(ngModel)]="imageStyle.blur" min="0" max="25">
-      <input type="number" [(ngModel)]="imageStyle.blur">px&nbsp;&nbsp;</h4>
-  </div>
+    <div class="flex-row-between style-card-row">
+      <h4>Invert:</h4>
+      <h4>
+        <input type="checkbox" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.invert"></h4>
+    </div>
 
   <div class="flex-row-between style-card-row">
     <h4>Brightness:</h4>
     <h4>
-      <input type="range" (change)="this.data.renderImagePreview()" [(ngModel)]="imageStyle.brightness" min="0" max="200">
-      <input type="number" [(ngModel)]="imageStyle.brightness">%&nbsp;&nbsp;&nbsp;</h4>
+      <input type="range" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.brightness" min="-100" max="100">
+      <input type="number" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.brightness" min="-100" max="100"></h4>
   </div>
 
   <div class="flex-row-between style-card-row">
     <h4>Contrast:</h4>
     <h4>
-      <input type="range" [(ngModel)]="imageStyle.contrast" min="0" max="200">
-      <input type="number" [(ngModel)]="imageStyle.contrast">%&nbsp;&nbsp;&nbsp;</h4>
+      <input type="range" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.contrast" min="-100" max="100">
+      <input type="number" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.contrast" min="-100" max="100"></h4>
   </div>
 
   <div class="flex-row-between style-card-row">
-    <h4>Invert:</h4>
+    <h4>Exposure:</h4>
     <h4>
-      <input type="range" [(ngModel)]="imageStyle.invert" min="0" max="200">
-      <input type="number" [(ngModel)]="imageStyle.invert">%&nbsp;&nbsp;&nbsp;</h4>
+      <input type="range" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.exposure" min="0" max="200">
+      <input type="number" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.exposure" min="0" max="200"></h4>
   </div>
 
   <div class="flex-row-between style-card-row">
-    <h4>Saturate:</h4>
+    <h4>Gamma:</h4>
     <h4>
-      <input type="range" [(ngModel)]="imageStyle.saturate" min="0" max="200">
-      <input type="number" [(ngModel)]="imageStyle.saturate">%&nbsp;&nbsp;&nbsp;</h4>
+      <input type="range" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.gamma" min="1" max="5">
+      <input type="number" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.gamma" min="1" max="5"></h4>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h4>Hue:</h4>
+    <h4>
+      <input type="range" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.hue" min="0" max="100">
+      <input type="number" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.hue" min="0" max="100"></h4>
+  </div>
+
+  <div class="flex-row-between style-card-row">
+    <h4>Saturation:</h4>
+    <h4>
+      <input type="range" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.saturation" min="0" max="200">
+      <input type="number" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.saturation" min="0" max="200"></h4>
   </div>
 
   <div class="flex-row-between style-card-row">
     <h4>Sepia:</h4>
     <h4>
-      <input type="range" [(ngModel)]="imageStyle.sepia" min="0" max="200">
-      <input type="number" [(ngModel)]="imageStyle.sepia">%&nbsp;&nbsp;&nbsp;</h4>
+      <input type="range" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.sepia" min="0" max="100">
+      <input type="number" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.sepia" min="0" max="100"></h4>
   </div>
 
   <div class="flex-row-between style-card-row">
-    <h4>Hue rotate:</h4>
+    <h4>Vibrance:</h4>
     <h4>
-      <input type="range" [(ngModel)]="imageStyle.hueRotate" min="0" max="360">
-      <input type="number" [(ngModel)]="imageStyle.hueRotate">deg</h4>
+      <input type="range" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.vibrance" min="-100" max="100">
+      <input type="number" (change)="refreshImageRender(imageStyle)" [(ngModel)]="imageStyle.vibrance" min="-100" max="100"></h4>
   </div>
 
   <div class="flex-row-evenly style-card-row">

@@ -271,19 +271,15 @@ export class DataService {
               }
             }
             break;
-            /*
-              imageObject imageStyles are not needed because CamanJS creates new images
-              with CSS filters baked in.  TODO:  Allow user to change an imageObject's imageStyle
-              by replacing imageObject with a new one, with new imageStyle settings applied toit
-            */
-          // case "ImageObject":
-            // for (let i = 0; i < projectData.imageStyles.length; i++) {
-            //   if (projectData.imageStyles[i].id === slideObject.style.id) {
-            //     slideObject.style = projectData.imageStyles[i];
-            //     break;
-            //   }
-            // }
-            // break;
+
+          case "ImageObject":
+            for (let i = 0; i < projectData.imageStyles.length; i++) {
+              if (projectData.imageStyles[i].id === slideObject.style.id) {
+                slideObject.style = projectData.imageStyles[i];
+                break;
+              }
+            }
+            break;
         }
       });
     });
@@ -473,7 +469,7 @@ export class DataService {
           })
           // Get create thumbnail of currentSlide and upload to firebase
           .then(data => {
-            let fileName = `${userState.username}-${projectState.name}-thumbnail`;
+            let fileName = `${userState.username}/${projectState.name}-thumbnail`;
             return this.uploadDataUrlToFirebase(userState.token, data, fileName);
           })
           .then(res => {
@@ -481,7 +477,9 @@ export class DataService {
             let uploadData:any = res;
             projectState.thumbnailUrl = uploadData.body.url;
             projectState.thumbnailFileName = uploadData.body.fileName;
-            console.log(projectState);
+            // Clear selectedImagePreview -- it does not need to be saved in the database
+            // and it causes issues with file size being too large when sending payload to backend
+            projectState.selectedImagePreview = '';
             // Create payload for http POST request
             let payload = {
               token: userState.token,

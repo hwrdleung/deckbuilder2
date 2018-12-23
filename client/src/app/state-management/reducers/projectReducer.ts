@@ -19,21 +19,19 @@ import {
   DEL_IMAGE,
   SET_SANDBOXTEXT,
   SET_MODE,
+  SET_SELECTED_IMAGE_PREVIEW,
   SELECT_TEXTSTYLE,
   SELECT_IMAGESTYLE,
   SELECT_GALLERY_IMAGE,
   SELECT_SLIDEOBJECT,
   SLIDEOBJECT_LAYER_UP,
   SLIDEOBJECT_LAYER_DOWN,
-  SET_TEXTVALUE
 } from "../actions/projectActions";
 import { Slide } from "src/app/classes/slide";
 import { ImageObject } from "src/app/classes/imageObject";
 import { TextObject } from "src/app/classes/textObject";
 import { TextStyle } from "src/app/classes/textStyle";
 import { ImageStyle } from "src/app/classes/imageStyle";
-import * as firebase from "firebase";
-import { resetApplicationState } from "@angular/core/src/render3/instructions";
 
 export const projectReducer: ActionReducer<ProjectState> = (
   state = initialState,
@@ -64,6 +62,7 @@ export const projectReducer: ActionReducer<ProjectState> = (
       defaultImageStyle.isDefault = true;
       newState.imageStyles = [defaultImageStyle];
       newState.selectedImageStyle = newState.imageStyles[0];
+      newState.selectedImagePreview = '',
 
       newState.currentSlideIndex = 0;
       newState.images = [];
@@ -111,6 +110,7 @@ export const projectReducer: ActionReducer<ProjectState> = (
         let imageObject = new ImageObject();
         imageObject.imagePath = action.payload.url;
         imageObject.fileName = action.payload.fileName;
+        imageObject.style = newState.selectedImageStyle;
     
               // Scale down images that are larger than doc size
               let img = new Image();
@@ -219,6 +219,11 @@ export const projectReducer: ActionReducer<ProjectState> = (
         newState.viewImageElements = true;
         newState.viewTextElements = false;
       }
+      return newState;
+
+    case SET_SELECTED_IMAGE_PREVIEW:
+      // Set the selectedImagePreview to the dataURL provided in the payload
+      newState.selectedImagePreview = action.payload.selectedImagePreview;
       return newState;
 
     case SELECT_TEXTSTYLE:

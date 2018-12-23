@@ -13,7 +13,8 @@ import {
   ADD_IMAGEOBJECT,
   ADD_IMAGE,
   SELECT_GALLERY_IMAGE,
-  DEL_IMAGE
+  DEL_IMAGE,
+  SET_SELECTED_IMAGE_PREVIEW
 } from "./state-management/actions/projectActions";
 import * as firebase from "firebase";
 
@@ -79,19 +80,44 @@ export class SandboxAppLogicService {
       });
   }
 
-  applyCssFilters = (url: string, imageStyle: ImageStyle) => {
+  applyCssFilters = (url: string, imageStyle: ImageStyle, isPreview?: boolean) => {
     return new Promise((resolve, reject) => {
       var image = new Image();
       image.crossOrigin = "anonymous";
       image.src = url;
 
       image.onload = function() {
+
+        // if(isPreview){
+        //   let imageRatio = image.width / image.height;
+        //   image.width = 600;
+        //   image.height = image.width / imageRatio;
+        // }
+
         var div = document.createElement("div");
         div.appendChild(image);
         // This function applies the style settings specifed in the selectedImageStyle
         // to the selectedImage via CamanJS, and returns a promise containing the edited image as base64 string
         Caman(image, function() {
-          // this.brightness(imageStyle.brightness - 100);
+          if(isPreview){
+            let imageRatio = image.width / image.height;
+            this.resize({
+              width: 500,
+              height: 500 / imageRatio
+            })
+          }
+
+          if(imageStyle.greyscale) this.greyscale();
+          if(imageStyle.invert) this.invert();
+          this.brightness(imageStyle.brightness);
+          this.contrast(imageStyle.contrast);
+          this.exposure(imageStyle.exposure);
+          this.gamma(imageStyle.gamma);
+          this.hue(imageStyle.hue);
+          this.saturation(imageStyle.saturation);
+          this.sepia(imageStyle.sepia);
+          this.vibrance(imageStyle.vibrance);
+
           this.render(function() {
             resolve(this.toBase64());
           });
@@ -134,7 +160,7 @@ export class SandboxAppLogicService {
             token = userState.token;
             fileName = `${
               userState.username
-            }-${new Date().getTime().toString()}`;
+            }/${new Date().getTime().toString()}`;
             // Use CamanJS to create dataUrl with css filters applied
             return this.applyCssFilters(selectedImageUrl, selectedImageStyle);
           })
@@ -192,7 +218,7 @@ export class SandboxAppLogicService {
         let userState: any = data;
         let fileName = `${
           userState.username
-        }-${new Date().getTime().toString()}`;
+        }/${new Date().getTime().toString()}`;
         // Send to backend
         return this.data.uploadDataUrlToFirebase(userState.token, base64, fileName);
       })
@@ -213,12 +239,30 @@ export class SandboxAppLogicService {
       .catch(error => console.log(error));
   }
 
+  renderImagePreview(){
+    // This function uses CamanJS to create a dataURL using the selectedImage and selectedImageStyle
+    // It then updates the projectState with this dataURL
+    this.data.getProjectState().then(data => {
+      let projectState:any = data;
+      return this.applyCssFilters(projectState.selectedImage.url, projectState.selectedImageStyle, true)
+    }).then(dataURL => {
+      let selectedImagePreview = dataURL;
+      this.store.dispatch({
+        type: SET_SELECTED_IMAGE_PREVIEW,
+        payload: {selectedImagePreview: selectedImagePreview}
+      })
+    })
+    .catch(error => console.log(error));
+  }
+
   selectImage(galleryImage: GalleryImage) {
     // This function updates the store with the selected image specified in the parameters
     this.store.dispatch({
       type: SELECT_GALLERY_IMAGE,
       payload: { galleryImage: galleryImage }
     });
+
+    this.renderImagePreview();
   }
 
   deleteImage(image: GalleryImage) {

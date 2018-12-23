@@ -11,12 +11,14 @@ import {
 } from "./state-management/actions/projectActions";
 import { Store } from "@ngrx/store";
 import { ProjectState } from "./state-management/state/projectState";
+import { SandboxAppLogicService } from "./sandbox-app-logic.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class StylerAppLogicService {
   constructor(
+    private sandbox: SandboxAppLogicService,
     private data: DataService,
     private dialog: DialogService,
     private store: Store<ProjectState>
@@ -111,6 +113,8 @@ export class StylerAppLogicService {
                 type: SELECT_IMAGESTYLE,
                 payload: { imageStyle: projectState.imageStyles[0] }
               });
+              // Refresh image preview render
+              this.sandbox.renderImagePreview();
             }
             this.store.dispatch({
               type: DEL_IMAGESTYLE,

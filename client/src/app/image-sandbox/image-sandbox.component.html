@@ -1,7 +1,8 @@
 <div #container class="sandbox-container" id="image-sandbox">
   <div class="preview-area flex-col-center">
     <div id="image-preview-container" *ngIf="selectedImage" [ngStyle]="getPreviewRenderCss()">
-      <img id="image-preview" [src]="selectedImage.url" [ngStyle]="selectedImageStyle.getCss()">
+      <!-- <img id="image-preview" [src]="selectedImagePreview"> -->
+      <img id="image-preview" [src]="selectedImagePreview" [ngStyle]="selectedImageStyle.getCss()">
     </div>
 
     <div class="flex-row-center grayAccent02" id="preview-toolbar">

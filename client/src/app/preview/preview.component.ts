@@ -111,7 +111,7 @@ export class PreviewComponent implements OnInit {
   exitPreviewMode = event => {
     // This function cleans up eventListeners when user exits fullscreen
     if (
-      document.fullscreenElement ||
+      document.fullscreenElement === null ||
       document.webkitFullscreenElement === null
     ) {
       // Disable keyboard and mouse navigation

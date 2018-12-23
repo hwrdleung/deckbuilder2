@@ -13,9 +13,7 @@
 
         <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>
         <img *ngIf="slideObject.constructor.name==='ImageObject'" [src]="slideObject.imagePath"
-          crossOrigin="anonymous">
-
-      </div>
+          crossOrigin="anonymous" [ngStyle]="slideObject.style.getCss()"></div>
     </div>
   </div>
 

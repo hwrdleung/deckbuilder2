@@ -30,6 +30,7 @@ export interface ProjectState {
 
     textNotes: string;
     selectedImage: GalleryImage;
+    selectedImagePreview: String;
 
     documentSize: DocumentSize;
 }
@@ -66,6 +67,7 @@ export const initialState: ProjectState = {
 
     sandboxText: 'Lorem Ipsum',
     selectedImage: null,
+    selectedImagePreview: '',
 
     viewTextElements: true,
     viewImageElements: false,

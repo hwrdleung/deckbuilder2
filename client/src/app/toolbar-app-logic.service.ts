@@ -11,6 +11,7 @@ import { UserState } from './state-management/state/userState';
 import { ProjectState } from './state-management/state/projectState';
 import { ADD_TEXTSTYLE, SET_MODE, ADD_IMAGESTYLE, SELECT_TEXTSTYLE, SELECT_IMAGESTYLE, DEL_SLIDE, PREV_SLIDE, NEXT_SLIDE } from './state-management/actions/projectActions';
 import { Router } from '@angular/router';
+import { SandboxAppLogicService } from './sandbox-app-logic.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ToolbarAppLogicService {
 
   sessionData;
 
-  constructor(private router: Router, private data: DataService, private dialog: DialogService, private store: Store<ProjectState>, private user: Store<UserState>, private http: HttpClient) { }
+  constructor(private router: Router, private sandbox: SandboxAppLogicService, private data: DataService, private dialog: DialogService, private store: Store<ProjectState>, private user: Store<UserState>, private http: HttpClient) { }
 
   dashboard() {
     // Save project before navigating back to the dashboard
@@ -44,8 +45,13 @@ export class ToolbarAppLogicService {
   selectStyle(style: ImageStyle | TextStyle) {
     let styleType = style.constructor.name;
     switch (styleType) {
-      case 'TextStyle': this.store.dispatch({ type: SELECT_TEXTSTYLE, payload: { textStyle: style } }); break;
-      case 'ImageStyle': this.store.dispatch({ type: SELECT_IMAGESTYLE, payload: { imageStyle: style } }); break;
+      case 'TextStyle':
+        this.store.dispatch({ type: SELECT_TEXTSTYLE, payload: { textStyle: style } });
+        break;
+      case 'ImageStyle':
+        this.store.dispatch({ type: SELECT_IMAGESTYLE, payload: { imageStyle: style } });
+        this.sandbox.renderImagePreview();
+        break;
     }
   }
 
@@ -59,7 +65,7 @@ export class ToolbarAppLogicService {
       })
         .catch(error => console.log(error));
     }
-}
+  }
 
   /*  EXPORT TO PDF AND SAVE AS PNG FUNCTIONS */
 

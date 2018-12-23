@@ -25,6 +25,7 @@ export const DEL_IMAGE: string = "DEL_IMAGE";
 
 export const SET_SANDBOXTEXT: string = "SET_SANDBOXTEXT";
 export const SET_MODE: string = "SET_MODE";
+export const SET_SELECTED_IMAGE_PREVIEW: string = 'SET_SELECTED_IMAGE_PREVIEW';
 
 export const SELECT_TEXTSTYLE: string = "SELECT_TEXTSTYLE";
 export const SELECT_IMAGESTYLE: string = "SELECT_IMAGESTYLE";
@@ -94,6 +95,11 @@ export class SetMode implements Action {
     constructor(public payload: any) { }
 }
 
+export class SetSelectedImagePreview implements Action {
+    readonly type = SET_SELECTED_IMAGE_PREVIEW
+    constructor(public payload: any) { }
+}
+
 export class SelectTextStyle implements Action {
     readonly type = SELECT_TEXTSTYLE
     constructor(public payload: any) { }
@@ -119,4 +125,4 @@ export class SlideObjectLayerDown implements Action {
     constructor(public payload: any) { }
 }
 
-export type Actions = LoadProject | AddImageObject | AddTextObject | SetTextValue | DelSlideObject | DelTextStyle | DelImageStyle | AddImage | DelImage | SetMode | SetSandboxText | SelectTextStyle | SelectImageStyle | SelectGalleryImage | SlideObjectLayerUp | SlideObjectLayerDown;
+export type Actions = LoadProject | AddImageObject | AddTextObject | SetTextValue | DelSlideObject | DelTextStyle | DelImageStyle | AddImage | DelImage | SetMode | SetSelectedImagePreview | SetSandboxText | SelectTextStyle | SelectImageStyle | SelectGalleryImage | SlideObjectLayerUp | SlideObjectLayerDown;

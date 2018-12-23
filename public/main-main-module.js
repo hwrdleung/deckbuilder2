@@ -8076,7 +8076,7 @@ module.exports = "/*  Layout  */\r\n.sandbox-container  {\r\n    width: 100%;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div #container class=\"sandbox-container\" id=\"image-sandbox\">\r\n  <div class=\"preview-area flex-col-center\">\r\n    <div id=\"image-preview-container\" *ngIf=\"selectedImage\" [ngStyle]=\"getPreviewRenderCss()\">\r\n      <img id=\"image-preview\" [src]=\"selectedImage.url\" [ngStyle]=\"selectedImageStyle.getCss()\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-center grayAccent02\" id=\"preview-toolbar\">\r\n      <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"zoom('out')\"></fa>\r\n      <input type='range' [(ngModel)]=\"previewRenderMagnification\" min=\"0\" max=\"300\">\r\n      <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"zoom('in')\"></fa>\r\n      <p><input type=\"number\" [(ngModel)]=\"previewRenderMagnification\">%</p>\r\n    </div>\r\n  </div>\r\n\r\n  <div #resizer class=\"resizer\"></div>\r\n\r\n  <div class=\"sandbox-bottom\">\r\n    <div #middlebar class=\"middle-bar\">\r\n      <div class=\"flex-row-center image-input-area\" *ngIf=\"viewGallery\">\r\n        <h3>Import an image:</h3>\r\n\r\n        <input type=\"file\" (change)=\"this.sandbox.uploadImage($event)\">\r\n      </div>\r\n\r\n      <div class=\"flex-row-center image-input-area\" *ngIf=\"viewSearchResults\">\r\n        <h3>Search for an image:</h3>\r\n        <div id=\"search-form\">\r\n          <input id=\"search-bar\" type=\"text\" [(ngModel)]=\"this.sandbox.imageSearchQuery\">\r\n          <button id=\"search-bar-btn\" type=\"submit\" (click)=\"this.sandbox.searchPixabay()\">Search</button></div>\r\n\r\n      </div>\r\n\r\n      <a (click)=\"this.sandbox.addToSlide('imageObject')\" id=\"sandbox-add-btn-group\" class=\"grayAccent02 flex-col-center\">\r\n        <fa name=\"share\"></fa>\r\n        <p>Add image object to slide</p>\r\n      </a>\r\n\r\n      <div id=\"menu-tab-container\" class=\"flex-row-start\">\r\n        <a (click)=\"showContent('gallery')\" [class.tab-selected]=\"viewGallery\">Gallery <fa name=\"th-large\"></fa></a>\r\n\r\n        <img (click)=\"showContent('search')\" id=\"pixabay-logo\" src=\"https://pixabay.com/static/img/logo.svg\"\r\n          [class.tab-selected]=\"viewSearchResults\">\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"gallery\" *ngIf=\"viewGallery\">\r\n\r\n      <h5 class=\"gallery-message\" *ngIf=\"!images.length\">There are no images in your gallery.</h5>\r\n\r\n      <div *ngFor=\"let image of images\" class=\"gallery-img-container\">\r\n        <img src=\"{{image.url}}\" (click)=\"this.sandbox.selectImage(image)\" class=\"gallery-img\">\r\n        <fa name=\"trash\" class=\"delete-icon flex-row-evenly\" (click)=\"this.sandbox.deleteImage(image)\"></fa>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"gallery\" *ngIf=\"viewSearchResults\">\r\n\r\n      <h5 class=\"gallery-message\">Image search powered by: <a href=\"https://pixabay.com/\" target=\"__blank\">Pixabay</a></h5>\r\n\r\n      <div *ngFor=\"let image of this.sandbox.imageSearchResults\" class=\"gallery-img-container\">\r\n        <img src=\"{{image.previewURL}}\" class=\"gallery-img\">\r\n        <fa name=\"plus\" class=\"delete-icon flex-row-evenly\" (click)=\"this.sandbox.pixabayToGallery(image.largeImageURL)\"></fa>\r\n      </div>\r\n\r\n      <div class=\"flex-row-center\">\r\n        <button class=\"grayAccent02\" id=\"load-more-images\" *ngIf=\"this.sandbox.imageSearchResults\" (click)=\"this.sandbox.loadMoreImages()\">\r\n          <fa name=\"angle-double-down\"></fa>Load more images<fa name=\"angle-double-down\"></fa></button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div #container class=\"sandbox-container\" id=\"image-sandbox\">\r\n  <div class=\"preview-area flex-col-center\">\r\n    <div id=\"image-preview-container\" *ngIf=\"selectedImage\" [ngStyle]=\"getPreviewRenderCss()\">\r\n      <!-- <img id=\"image-preview\" [src]=\"selectedImagePreview\"> -->\r\n      <img id=\"image-preview\" [src]=\"selectedImagePreview\" [ngStyle]=\"selectedImageStyle.getCss()\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-center grayAccent02\" id=\"preview-toolbar\">\r\n      <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"zoom('out')\"></fa>\r\n      <input type='range' [(ngModel)]=\"previewRenderMagnification\" min=\"0\" max=\"300\">\r\n      <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"zoom('in')\"></fa>\r\n      <p><input type=\"number\" [(ngModel)]=\"previewRenderMagnification\">%</p>\r\n    </div>\r\n  </div>\r\n\r\n  <div #resizer class=\"resizer\"></div>\r\n\r\n  <div class=\"sandbox-bottom\">\r\n    <div #middlebar class=\"middle-bar\">\r\n      <div class=\"flex-row-center image-input-area\" *ngIf=\"viewGallery\">\r\n        <h3>Import an image:</h3>\r\n\r\n        <input type=\"file\" (change)=\"this.sandbox.importImage($event)\">\r\n      </div>\r\n\r\n      <div class=\"flex-row-center image-input-area\" *ngIf=\"viewSearchResults\">\r\n        <h3>Search for an image:</h3>\r\n        <div id=\"search-form\">\r\n          <input id=\"search-bar\" type=\"text\" [(ngModel)]=\"this.sandbox.imageSearchQuery\">\r\n          <button id=\"search-bar-btn\" type=\"submit\" (click)=\"this.sandbox.searchPixabay()\">Search</button></div>\r\n\r\n      </div>\r\n\r\n      <a (click)=\"this.sandbox.addToSlide('imageObject')\" id=\"sandbox-add-btn-group\" class=\"grayAccent02 flex-col-center\">\r\n        <fa name=\"share\"></fa>\r\n        <p>Add image object to slide</p>\r\n      </a>\r\n\r\n      <div id=\"menu-tab-container\" class=\"flex-row-start\">\r\n        <a (click)=\"showContent('gallery')\" [class.tab-selected]=\"viewGallery\">Gallery <fa name=\"th-large\"></fa></a>\r\n\r\n        <img (click)=\"showContent('search')\" id=\"pixabay-logo\" src=\"https://pixabay.com/static/img/logo.svg\"\r\n          [class.tab-selected]=\"viewSearchResults\">\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"gallery\" *ngIf=\"viewGallery\">\r\n\r\n      <h5 class=\"gallery-message\" *ngIf=\"!images.length\">There are no images in your gallery.</h5>\r\n\r\n      <div *ngFor=\"let image of images\" class=\"gallery-img-container\">\r\n        <img src=\"{{image.url}}\" (click)=\"this.sandbox.selectImage(image)\" class=\"gallery-img\">\r\n        <fa name=\"trash\" class=\"delete-icon flex-row-evenly\" (click)=\"this.sandbox.deleteImage(image)\"></fa>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"gallery\" *ngIf=\"viewSearchResults\">\r\n\r\n      <h5 class=\"gallery-message\">Image search powered by: <a href=\"https://pixabay.com/\" target=\"__blank\">Pixabay</a></h5>\r\n\r\n      <div *ngFor=\"let image of this.sandbox.imageSearchResults\" class=\"gallery-img-container\">\r\n        <img src=\"{{image.previewURL}}\" class=\"gallery-img\">\r\n        <fa name=\"plus\" class=\"delete-icon flex-row-evenly\" (click)=\"this.sandbox.pixabayToGallery(image.largeImageURL)\"></fa>\r\n      </div>\r\n\r\n      <div class=\"flex-row-center\">\r\n        <button class=\"grayAccent02\" id=\"load-more-images\" *ngIf=\"this.sandbox.imageSearchResults\" (click)=\"this.sandbox.loadMoreImages()\">\r\n          <fa name=\"angle-double-down\"></fa>Load more images<fa name=\"angle-double-down\"></fa></button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -8094,6 +8094,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_horizontalResizer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../classes/horizontalResizer */ "./src/app/classes/horizontalResizer.ts");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../sandbox-app-logic.service */ "./src/app/sandbox-app-logic.service.ts");
+/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8109,8 +8110,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var ImageSandboxComponent = /** @class */ (function () {
-    function ImageSandboxComponent(store, sandbox) {
+    function ImageSandboxComponent(store, data, sandbox) {
         this.store = store;
+        this.data = data;
         this.sandbox = sandbox;
         this.viewGallery = true;
         this.viewSearchResults = false;
@@ -8119,24 +8121,26 @@ var ImageSandboxComponent = /** @class */ (function () {
     ImageSandboxComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.enableResizer();
-        // Subscribe to projectState
-        this.store.select('projectReducer')
-            .subscribe(function (projectState) {
+        this.data.initializeFirebase();
+        // Get UI variables from store
+        this.projectStateSubscription = this.store.select("projectReducer").subscribe(function (projectState) {
             _this.selectedImage = projectState.selectedImage;
+            _this.selectedImagePreview = projectState.selectedImagePreview;
             _this.selectedImageStyle = projectState.selectedImageStyle;
             _this.images = projectState.images;
         });
     };
     ImageSandboxComponent.prototype.ngOnDestroy = function () {
         this.sandbox.imageSearchResults = null;
+        this.projectStateSubscription.unsubscribe();
     };
     ImageSandboxComponent.prototype.showContent = function (view) {
         switch (view) {
-            case 'gallery':
+            case "gallery":
                 this.viewGallery = true;
                 this.viewSearchResults = false;
                 break;
-            case 'search':
+            case "search":
                 this.viewGallery = false;
                 this.viewSearchResults = true;
                 break;
@@ -8153,7 +8157,7 @@ var ImageSandboxComponent = /** @class */ (function () {
     ImageSandboxComponent.prototype.getPreviewRenderCss = function () {
         // This function allows zooming in and out for the sandbox
         var css = {
-            'transform': "scale(" + this.previewRenderMagnification / 100 + ")"
+            transform: "scale(" + this.previewRenderMagnification / 100 + ")"
         };
         return css;
     };
@@ -8163,7 +8167,7 @@ var ImageSandboxComponent = /** @class */ (function () {
         var increment = 10;
         var maxZoom = 300;
         switch (direction) {
-            case 'in':
+            case "in":
                 if (magnification > maxZoom - increment) {
                     magnification = maxZoom;
                 }
@@ -8172,7 +8176,7 @@ var ImageSandboxComponent = /** @class */ (function () {
                 }
                 this.previewRenderMagnification = magnification;
                 break;
-            case 'out':
+            case "out":
                 if (magnification < increment) {
                     magnification = 0;
                 }
@@ -8184,24 +8188,26 @@ var ImageSandboxComponent = /** @class */ (function () {
         }
     };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('resizer'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("resizer"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], ImageSandboxComponent.prototype, "resizer", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('middlebar'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("middlebar"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], ImageSandboxComponent.prototype, "middlebar", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('container'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("container"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], ImageSandboxComponent.prototype, "container", void 0);
     ImageSandboxComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'image-sandbox',
+            selector: "image-sandbox",
             template: __webpack_require__(/*! ./image-sandbox.component.html */ "./src/app/image-sandbox/image-sandbox.component.html"),
             styles: [__webpack_require__(/*! ./image-sandbox.component.css */ "./src/app/image-sandbox/image-sandbox.component.css")]
         }),
-        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"], _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["SandboxAppLogicService"]])
+        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
+            _data_service__WEBPACK_IMPORTED_MODULE_4__["DataService"],
+            _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["SandboxAppLogicService"]])
     ], ImageSandboxComponent);
     return ImageSandboxComponent;
 }());
@@ -8228,7 +8234,7 @@ module.exports = "\r\n.style-card-container {\r\n    padding: 8px;\r\n    border
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"style-card-container greenAccent01\">\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <div *ngIf=\"!imageStyle.editNameMode\" class=\"flex-row-between\">\r\n      <h3 *ngIf=\"!imageStyle.editNameMode\">{{imageStyle.name.substring(0, 20)}}</h3>\r\n      <fa *ngIf=\"!imageStyle.isDefault\" (click)=\"imageStyle.toggleProperty('editNameMode')\" name=\"edit\"></fa>\r\n    </div>\r\n\r\n    <div *ngIf=\"imageStyle.editNameMode\" class=\"flex-row-between\">\r\n      <input type=\"text\" [(ngModel)]=\"imageStyle.name\" placeholder=\"imageStyle.name\">\r\n      <fa name=\"save\" (click)=\"imageStyle.toggleProperty('editNameMode')\"></fa>\r\n    </div>\r\n\r\n    <a *ngIf=\"!imageStyle.isDefault\" (click)=\"this.styler.deleteStyle(imageStyle)\">\r\n      <fa name=\"trash\"></fa>\r\n    </a>\r\n  </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Padding:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.padding\">px&nbsp;&nbsp;</h4>\r\n    </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Opacity:</h4>\r\n\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.opacity\" min=\"0\" max=\"100\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.opacity\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Grayscale:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.grayscale\" min=\"0\" max=\"100\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.grayscale\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Blur:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.blur\" min=\"0\" max=\"25\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.blur\">px&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Brightness:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.brightness\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.brightness\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Contrast:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.contrast\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.contrast\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Invert:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.invert\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.invert\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Saturate:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.saturate\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.saturate\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Sepia:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.sepia\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.sepia\">%&nbsp;&nbsp;&nbsp;</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Hue rotate:</h4>\r\n    <h4>\r\n      <input type=\"range\" [(ngModel)]=\"imageStyle.hueRotate\" min=\"0\" max=\"360\">\r\n      <input type=\"number\" [(ngModel)]=\"imageStyle.hueRotate\">deg</h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly style-card-row\">\r\n    <a (click)=\"imageStyle.toggleProperty('showExtraOptions')\" class=\"flex-row-evenly\" *ngIf=\"!imageStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-down\"></fa>\r\n      <a>Show extra options</a>\r\n      <fa name=\"angle-double-down\"></fa>\r\n    </a>\r\n\r\n    <a (click)=\"imageStyle.toggleProperty('showExtraOptions')\" class=\"flex-row-evenly\" *ngIf=\"imageStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-up\"></fa>\r\n      <a>Hide extra options</a>\r\n      <fa name=\"angle-double-up\"></fa>\r\n    </a>\r\n  </div>\r\n\r\n  <div *ngIf=\"imageStyle.showExtraOptions\">\r\n\r\n    <!--Border radius settings -->\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Border radius: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Top left radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.topLeftRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Top right radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.topRightRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Bottom right radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomRightRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Bottom left radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomLeftRadius\">px</h4>\r\n    </div>\r\n\r\n\r\n    <!-- Full border settings -->\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Borders: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <a (click)=\"imageStyle.border.toggleProperty('showFullBorder');\r\n          imageStyle.border.setProperty('showTopBorder', false);\r\n          imageStyle.border.setProperty('showRightBorder', false);\r\n          imageStyle.border.setProperty('showBottomBorder', false);\r\n          imageStyle.border.setProperty('showLeftBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showFullBorder')\">\r\n        <i class=\"material-icons\">border_outer</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleProperty('showLeftBorder');\r\n          imageStyle.border.setProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showLeftBorder')\">\r\n        <i class=\"material-icons\">border_left</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleProperty('showTopBorder');\r\n          imageStyle.border.setProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showTopBorder')\">\r\n        <i class=\"material-icons\">border_top</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleProperty('showRightBorder');\r\n          imageStyle.border.setProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showRightBorder')\">\r\n        <i class=\"material-icons\">border_right</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleProperty('showBottomBorder');\r\n          imageStyle.border.setProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showBottomBorder')\">\r\n        <i class=\"material-icons\">border_bottom</i>\r\n      </a>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Full border settings -->\r\n  <div *ngIf=\"imageStyle.border.showFullBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Full border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.fullBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.fullBorderColor\" [style.background]=\"imageStyle.border.fullBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.fullBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n\r\n\r\n\r\n  <!-- Top border settings -->\r\n  <div *ngIf=\"imageStyle.border.showTopBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Top border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.topBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.topBorderColor\" [style.background]=\"imageStyle.border.topBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.topBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <!-- Right border settings -->\r\n  <div *ngIf=\"imageStyle.border.showRightBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Right border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.rightBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.rightBorderColor\" [style.background]=\"imageStyle.border.rightBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.rightBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Bottom border settings -->\r\n  <div *ngIf=\"imageStyle.border.showBottomBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Bottom border: </h4>\r\n    </div>\r\n\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.bottomBorderColor\" [style.background]=\"imageStyle.border.bottomBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.bottomBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Left border settings -->\r\n  <div *ngIf=\"imageStyle.border.showLeftBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Left border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.leftBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.leftBorderColor\" [style.background]=\"imageStyle.border.leftBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.leftBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"style-card-container greenAccent01\">\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <div *ngIf=\"!imageStyle.editNameMode\" class=\"flex-row-between\">\r\n      <h3 *ngIf=\"!imageStyle.editNameMode\">{{imageStyle.name.substring(0, 20)}}</h3>\r\n      <fa *ngIf=\"!imageStyle.isDefault\" (click)=\"imageStyle.toggleProperty('editNameMode')\" name=\"edit\"></fa>\r\n    </div>\r\n\r\n    <div *ngIf=\"imageStyle.editNameMode\" class=\"flex-row-between\">\r\n      <input type=\"text\" [(ngModel)]=\"imageStyle.name\" placeholder=\"imageStyle.name\">\r\n      <fa name=\"save\" (click)=\"imageStyle.toggleProperty('editNameMode')\"></fa>\r\n    </div>\r\n\r\n    <a *ngIf=\"!imageStyle.isDefault\" (click)=\"this.styler.deleteStyle(imageStyle)\">\r\n      <fa name=\"trash\"></fa>\r\n    </a>\r\n  </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Padding:</h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.padding\"></h4>\r\n    </div>\r\n\r\n    \r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Greyscale:</h4>\r\n      <h4>\r\n        <input type=\"checkbox\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.greyscale\"></h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Invert:</h4>\r\n      <h4>\r\n        <input type=\"checkbox\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.invert\"></h4>\r\n    </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Brightness:</h4>\r\n    <h4>\r\n      <input type=\"range\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.brightness\" min=\"-100\" max=\"100\">\r\n      <input type=\"number\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.brightness\" min=\"-100\" max=\"100\"></h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Contrast:</h4>\r\n    <h4>\r\n      <input type=\"range\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.contrast\" min=\"-100\" max=\"100\">\r\n      <input type=\"number\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.contrast\" min=\"-100\" max=\"100\"></h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Exposure:</h4>\r\n    <h4>\r\n      <input type=\"range\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.exposure\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.exposure\" min=\"0\" max=\"200\"></h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Gamma:</h4>\r\n    <h4>\r\n      <input type=\"range\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.gamma\" min=\"1\" max=\"5\">\r\n      <input type=\"number\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.gamma\" min=\"1\" max=\"5\"></h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Hue:</h4>\r\n    <h4>\r\n      <input type=\"range\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.hue\" min=\"0\" max=\"100\">\r\n      <input type=\"number\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.hue\" min=\"0\" max=\"100\"></h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Saturation:</h4>\r\n    <h4>\r\n      <input type=\"range\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.saturation\" min=\"0\" max=\"200\">\r\n      <input type=\"number\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.saturation\" min=\"0\" max=\"200\"></h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Sepia:</h4>\r\n    <h4>\r\n      <input type=\"range\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.sepia\" min=\"0\" max=\"100\">\r\n      <input type=\"number\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.sepia\" min=\"0\" max=\"100\"></h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-between style-card-row\">\r\n    <h4>Vibrance:</h4>\r\n    <h4>\r\n      <input type=\"range\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.vibrance\" min=\"-100\" max=\"100\">\r\n      <input type=\"number\" (change)=\"refreshImageRender(imageStyle)\" [(ngModel)]=\"imageStyle.vibrance\" min=\"-100\" max=\"100\"></h4>\r\n  </div>\r\n\r\n  <div class=\"flex-row-evenly style-card-row\">\r\n    <a (click)=\"imageStyle.toggleProperty('showExtraOptions')\" class=\"flex-row-evenly\" *ngIf=\"!imageStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-down\"></fa>\r\n      <a>Show extra options</a>\r\n      <fa name=\"angle-double-down\"></fa>\r\n    </a>\r\n\r\n    <a (click)=\"imageStyle.toggleProperty('showExtraOptions')\" class=\"flex-row-evenly\" *ngIf=\"imageStyle.showExtraOptions\">\r\n      <fa name=\"angle-double-up\"></fa>\r\n      <a>Hide extra options</a>\r\n      <fa name=\"angle-double-up\"></fa>\r\n    </a>\r\n  </div>\r\n\r\n  <div *ngIf=\"imageStyle.showExtraOptions\">\r\n\r\n    <!--Border radius settings -->\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Border radius: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Top left radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.topLeftRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Top right radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.topRightRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Bottom right radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomRightRadius\">px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Bottom left radius: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomLeftRadius\">px</h4>\r\n    </div>\r\n\r\n\r\n    <!-- Full border settings -->\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Borders: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <a (click)=\"imageStyle.border.toggleProperty('showFullBorder');\r\n          imageStyle.border.setProperty('showTopBorder', false);\r\n          imageStyle.border.setProperty('showRightBorder', false);\r\n          imageStyle.border.setProperty('showBottomBorder', false);\r\n          imageStyle.border.setProperty('showLeftBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showFullBorder')\">\r\n        <i class=\"material-icons\">border_outer</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleProperty('showLeftBorder');\r\n          imageStyle.border.setProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showLeftBorder')\">\r\n        <i class=\"material-icons\">border_left</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleProperty('showTopBorder');\r\n          imageStyle.border.setProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showTopBorder')\">\r\n        <i class=\"material-icons\">border_top</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleProperty('showRightBorder');\r\n          imageStyle.border.setProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showRightBorder')\">\r\n        <i class=\"material-icons\">border_right</i>\r\n      </a>\r\n\r\n      <a (click)=\"imageStyle.border.toggleProperty('showBottomBorder');\r\n          imageStyle.border.setProperty('showFullBorder', false);\"\r\n        class=\"style-card-btn\" \r\n        [class.selected]=\"imageStyle.border.getProperty('showBottomBorder')\">\r\n        <i class=\"material-icons\">border_bottom</i>\r\n      </a>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Full border settings -->\r\n  <div *ngIf=\"imageStyle.border.showFullBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Full border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.fullBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.fullBorderColor\" [style.background]=\"imageStyle.border.fullBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.fullBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n\r\n\r\n\r\n  <!-- Top border settings -->\r\n  <div *ngIf=\"imageStyle.border.showTopBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Top border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.topBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.topBorderColor\" [style.background]=\"imageStyle.border.topBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.topBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n  <!-- Right border settings -->\r\n  <div *ngIf=\"imageStyle.border.showRightBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Right border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.rightBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.rightBorderColor\" [style.background]=\"imageStyle.border.rightBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.rightBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Bottom border settings -->\r\n  <div *ngIf=\"imageStyle.border.showBottomBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Bottom border: </h4>\r\n    </div>\r\n\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.bottomBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.bottomBorderColor\" [style.background]=\"imageStyle.border.bottomBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.bottomBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- Left border settings -->\r\n  <div *ngIf=\"imageStyle.border.showLeftBorder\">\r\n    <div class=\"flex-row-evenly style-card-row\">\r\n      <h4>Left border: </h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Width: </h4>\r\n      <h4>\r\n        <input type=\"number\" [(ngModel)]=\"imageStyle.border.leftBorderWidth\"> px</h4>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Color: </h4>\r\n      <div style=\"flex: 1\">\r\n        <!--This spacer prevents colorPicker from repositioning the next div-->\r\n      </div>\r\n      <div class=\"md-color-selector\" [(colorPicker)]=\"imageStyle.border.leftBorderColor\" [style.background]=\"imageStyle.border.leftBorderColor\"\r\n        cpOutputFormat=\"rgba\" cpAlphaChannel=\"enabled\"></div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-between style-card-row\">\r\n      <h4>Style: </h4>\r\n      <select [(ngModel)]=\"imageStyle.border.leftBorderStyle\">\r\n        <option *ngFor=\"let borderStyle of imageStyle.border.borderStyles\" [value]=\"borderStyle\">{{borderStyle}}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -8246,6 +8252,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_imageStyle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../classes/imageStyle */ "./src/app/classes/imageStyle.ts");
 /* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
 /* harmony import */ var _styler_app_logic_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../styler-app-logic.service */ "./src/app/styler-app-logic.service.ts");
+/* harmony import */ var _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../sandbox-app-logic.service */ "./src/app/sandbox-app-logic.service.ts");
+/* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8259,12 +8267,25 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var ImageStyleCardComponent = /** @class */ (function () {
-    function ImageStyleCardComponent(data, styler) {
+    function ImageStyleCardComponent(data, styler, sandbox, store) {
         this.data = data;
         this.styler = styler;
+        this.sandbox = sandbox;
+        this.store = store;
     }
     ImageStyleCardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.store.select('projectReducer').subscribe(function (projectState) {
+            _this.projectState = projectState;
+        });
+    };
+    ImageStyleCardComponent.prototype.refreshImageRender = function (imageStyle) {
+        if (imageStyle === this.projectState.selectedImageStyle) {
+            this.sandbox.renderImagePreview();
+        }
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -8276,7 +8297,7 @@ var ImageStyleCardComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./image-style-card.component.html */ "./src/app/image-style-card/image-style-card.component.html"),
             styles: [__webpack_require__(/*! ./image-style-card.component.css */ "./src/app/image-style-card/image-style-card.component.css")]
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _styler_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["StylerAppLogicService"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _styler_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["StylerAppLogicService"], _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_4__["SandboxAppLogicService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"]])
     ], ImageStyleCardComponent);
     return ImageStyleCardComponent;
 }());
@@ -8355,18 +8376,18 @@ var MainComponent = /** @class */ (function () {
         this.enableResizer = function () {
             // This function enables the vertical resizer between the sandbox and slide editor
             var startResize = function (e) {
-                document.addEventListener('mousemove', _this.resizeGrid);
-                document.addEventListener('mouseup', stopResize); // Stop resizer
+                document.addEventListener("mousemove", _this.resizeGrid);
+                document.addEventListener("mouseup", stopResize); // Stop resizer
             };
             var stopResize = function (e) {
-                document.removeEventListener('mousemove', _this.resizeGrid);
-                document.removeEventListener('mouseup', stopResize); // Stop resizer
+                document.removeEventListener("mousemove", _this.resizeGrid);
+                document.removeEventListener("mouseup", stopResize); // Stop resizer
             };
-            _this.resizer.nativeElement.addEventListener('mousedown', startResize); // start resizer
+            _this.resizer.nativeElement.addEventListener("mousedown", startResize); // start resizer
         };
         this.resizeGrid = function (e) {
-            // This function sets the widths of the sandbox and slide editor 
-            // by setting the container element's gridTemplateColumns according to mouse position 
+            // This function sets the widths of the sandbox and slide editor
+            // by setting the container element's gridTemplateColumns according to mouse position
             var appContainer = _this.appContainer.nativeElement;
             var viewportWidth = document.documentElement.clientWidth;
             var styler = _this.styler.nativeElement;
@@ -8381,24 +8402,32 @@ var MainComponent = /** @class */ (function () {
             if (e.pageX >= viewportWidth - resizer.offsetWidth) {
                 slideEditorWidth = 0;
             }
-            appContainer.style.gridTemplateColumns = styler.offsetWidth + "px " + sandboxWidth + "fr " + resizer.offsetWidth + "px " + slideEditorWidth + "fr";
+            appContainer.style.gridTemplateColumns =
+                styler.offsetWidth +
+                    "px " +
+                    sandboxWidth +
+                    "fr " +
+                    resizer.offsetWidth +
+                    "px " +
+                    slideEditorWidth +
+                    "fr";
         };
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Detect screen width and route to preview component for mobile devices
         if (window.innerWidth <= 800)
-            this.router.navigate(['main/preview']);
+            this.router.navigate(["main/preview"]);
         this.enableResizer();
-        // Subscribe to projectState
-        this.store.select('projectReducer')
-            .subscribe(function (projectState) {
+        // Get UI variables from store
+        this.projectStateSubscription = this.store.select("projectReducer").subscribe(function (projectState) {
             _this.viewTextElements = projectState.viewTextElements;
             _this.viewImageElements = projectState.viewImageElements;
         });
-        this.data.saveProject().then(function (res) {
-            if (!res['success'])
-                _this.dialog.alert('There was a problem saving your project.', 'danger');
+        this.data
+            .saveProject().then(function (res) {
+            if (!res["success"])
+                _this.dialog.alert("There was a problem saving your project.", "danger");
         })
             .catch(function (error) { return console.log(error); });
         this.enableAutoSave();
@@ -8407,50 +8436,58 @@ var MainComponent = /** @class */ (function () {
         var _this = this;
         // Save project when user navigates away
         this.data.saveProject().then(function (res) {
-            if (!res['success'])
-                _this.dialog.alert('There was a problem saving your project.', 'danger');
-            if (res['success'])
-                _this.dialog.toast('Your project has been saved');
+            if (!res["success"])
+                _this.dialog.alert("There was a problem saving your project.", "danger");
+            if (res["success"])
+                _this.dialog.toast("Your project has been saved");
         });
+        this.projectStateSubscription.unsubscribe();
     };
     MainComponent.prototype.enableAutoSave = function () {
         var _this = this;
-        if (sessionStorage.getItem('sessionData')) {
+        if (sessionStorage.getItem("sessionData")) {
             setInterval(function () {
                 _this.data.saveProject().then(function (res) {
-                    if (res['success'])
-                        _this.dialog.toast('Auto-saved at ' + _this.datePipe.transform(new Date(), 'shortTime'));
+                    if (res["success"])
+                        _this.dialog.toast("Auto-saved at " +
+                            _this.datePipe.transform(new Date(), "shortTime"));
                 });
             }, this.autoSaveInterval);
         }
     };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('appContainer'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("appContainer"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], MainComponent.prototype, "appContainer", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('styler'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("styler"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], MainComponent.prototype, "styler", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('sandbox'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("sandbox"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], MainComponent.prototype, "sandbox", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('resizer'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("resizer"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], MainComponent.prototype, "resizer", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('slideEditor'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("slideEditor"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], MainComponent.prototype, "slideEditor", void 0);
     MainComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-main',
+            selector: "app-main",
             template: __webpack_require__(/*! ./main.component.html */ "./src/app/main/main.component.html"),
             styles: [__webpack_require__(/*! ./main.component.css */ "./src/app/main/main.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"], _data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"], _dialog_service__WEBPACK_IMPORTED_MODULE_5__["DialogService"], _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_4__["Toolbar2AppLogicService"]])
+        __metadata("design:paramtypes", [_angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"],
+            _data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
+            _dialog_service__WEBPACK_IMPORTED_MODULE_5__["DialogService"],
+            _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_4__["Toolbar2AppLogicService"]])
     ], MainComponent);
     return MainComponent;
 }());
@@ -8590,7 +8627,7 @@ module.exports = "#preview-container {\r\n    width: 100%;\r\n    height: 100vh;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div #previewContainer id=\"preview-container\">\n  <div  id=\"preview-slide-render\" [ngStyle]=\"getPreviewSlideRenderCss()\">\n    <div class=\"slide-object\" *ngFor=\"let slideObject of slides[previewSlideIndex].slideObjects\" [ngStyle]=\"slideObject.getCss()\" ngDraggable [position]=\"slideObject.getTranslation()\">\n      <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\n      <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"slideObject.style.getCss()\" [src]=\"slideObject.imagePath\"\n        crossOrigin=\"anonymous\">\n      </div>\n  </div>\n</div>\n\n<div id=\"preview-container-overlay\"></div>\n"
+module.exports = "<div #previewContainer id=\"preview-container\">\r\n  <div  id=\"preview-slide-render\" [ngStyle]=\"getPreviewSlideRenderCss()\">\r\n    <div class=\"slide-object\" *ngFor=\"let slideObject of slides[previewSlideIndex].slideObjects\" [ngStyle]=\"slideObject.getCss()\" ngDraggable [position]=\"slideObject.getTranslation()\">\r\n      <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\r\n      <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [src]=\"slideObject.imagePath\"\r\n        crossOrigin=\"anonymous\">\r\n      </div>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"preview-container-overlay\"></div>\r\n"
 
 /***/ }),
 
@@ -8608,6 +8645,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../toolbar2-app-logic.service */ "./src/app/toolbar2-app-logic.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8621,20 +8659,23 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var PreviewComponent = /** @class */ (function () {
-    function PreviewComponent(store, toolbar2, router) {
+    function PreviewComponent(data, store, toolbar2, router) {
         var _this = this;
+        this.data = data;
         this.store = store;
         this.toolbar2 = toolbar2;
         this.router = router;
         this.previewSlideIndex = 0;
         this.exitPreviewMode = function (event) {
-            // This function cleans up eventListeners when user exits fullscreen 
-            if (document.fullscreenElement || document.webkitFullscreenElement === null) {
+            // This function cleans up eventListeners when user exits fullscreen
+            if (document.fullscreenElement === null ||
+                document.webkitFullscreenElement === null) {
                 // Disable keyboard and mouse navigation
-                document.removeEventListener('keyup', _this.keyboardControl);
-                document.removeEventListener('click', _this.mouseControl);
-                _this.router.navigate(['main']);
+                document.removeEventListener("keyup", _this.keyboardControl);
+                document.removeEventListener("click", _this.mouseControl);
+                _this.router.navigate(["main"]);
             }
         };
         this.mouseControl = function (event) {
@@ -8651,10 +8692,10 @@ var PreviewComponent = /** @class */ (function () {
         this.keyboardControl = function (event) {
             // This function is used in eventListeners for slideshow navigation
             switch (event.key) {
-                case 'ArrowLeft':
+                case "ArrowLeft":
                     _this.previousSlide();
                     break;
-                case 'ArrowRight':
+                case "ArrowRight":
                     _this.nextSlide();
                     break;
             }
@@ -8663,21 +8704,26 @@ var PreviewComponent = /** @class */ (function () {
     PreviewComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Subscribe to projectState
-        this.store.select('projectReducer').subscribe(function (projectState) {
+        this.projectStateSubscription = this.store
+            .select("projectReducer")
+            .subscribe(function (projectState) {
             _this.slides = projectState.slides;
             _this.documentSize = projectState.documentSize;
         });
         this.launchIntoFullscreen(this.previewContainer.nativeElement);
-        // Putting a setTimeout on the slideshowControls prevents the clicking of the "preview" button
+        // Putting a setTimeout on the slideShowControls prevents the clicking of the "preview" button
         // to cause the slideshow to start at the second slide.
         setTimeout(function () { return _this.enableSlideShowControls(); }, 1000);
+    };
+    PreviewComponent.prototype.ngOnDestroy = function () {
+        this.projectStateSubscription.unsubscribe();
     };
     PreviewComponent.prototype.getPreviewSlideRenderCss = function () {
         // This function sets the css on the template's slide render so that it is centered horizontally and vertically,
         // and takes the full screen while maintaining aspect ratio
-        var backgroundColor = this.slides[this.previewSlideIndex].getProperty('backgroundColor');
-        var width = this.documentSize['width'];
-        var height = this.documentSize['height'];
+        var backgroundColor = this.slides[this.previewSlideIndex].getProperty("backgroundColor");
+        var width = this.documentSize["width"];
+        var height = this.documentSize["height"];
         var top = 0;
         var left = 0;
         // // this.slideRenderMagnification = window.innerHeight / height;
@@ -8685,23 +8731,23 @@ var PreviewComponent = /** @class */ (function () {
         // The larger dimension (W or H) determines the scale factor
         if (width > height) {
             this.slideRenderMagnification = window.innerWidth / width;
-            top = (window.innerHeight - (height * this.slideRenderMagnification)) / 2;
+            top = (window.innerHeight - height * this.slideRenderMagnification) / 2;
         }
         // Checking for '>=' here takes into account the case that the documentSize is a square
         if (height >= width) {
             this.slideRenderMagnification = window.innerHeight / height;
-            left = (window.innerWidth - (width * this.slideRenderMagnification)) / 2;
+            left = (window.innerWidth - width * this.slideRenderMagnification) / 2;
         }
         var css = {
-            'background': backgroundColor,
-            'height': height + 'px',
-            'width': width + 'px',
-            'transform-origin': '0 0',
-            'position': 'fixed',
-            'top': top + 'px',
-            'left': left + 'px',
-            'transform': 'scale(' + this.slideRenderMagnification + ')',
-            'overflow': 'visible'
+            background: backgroundColor,
+            height: height + "px",
+            width: width + "px",
+            "transform-origin": "0 0",
+            position: "fixed",
+            top: top + "px",
+            left: left + "px",
+            transform: "scale(" + this.slideRenderMagnification + ")",
+            overflow: "visible"
         };
         return css;
     };
@@ -8731,8 +8777,8 @@ var PreviewComponent = /** @class */ (function () {
     PreviewComponent.prototype.enableSlideShowControls = function () {
         // This function uses event listeners to handle slideshow navigation
         // with mouse and arrow keys
-        document.addEventListener('keyup', this.keyboardControl);
-        document.addEventListener('click', this.mouseControl);
+        document.addEventListener("keyup", this.keyboardControl);
+        document.addEventListener("click", this.mouseControl);
     };
     PreviewComponent.prototype.previousSlide = function () {
         // Helper function for slideshow navigation
@@ -8745,16 +8791,19 @@ var PreviewComponent = /** @class */ (function () {
             this.previewSlideIndex++;
     };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('previewContainer'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("previewContainer"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], PreviewComponent.prototype, "previewContainer", void 0);
     PreviewComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'preview',
+            selector: "preview",
             template: __webpack_require__(/*! ./preview.component.html */ "./src/app/preview/preview.component.html"),
             styles: [__webpack_require__(/*! ./preview.component.css */ "./src/app/preview/preview.component.css")]
         }),
-        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"], _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_2__["Toolbar2AppLogicService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_4__["DataService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_1__["Store"],
+            _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_2__["Toolbar2AppLogicService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], PreviewComponent);
     return PreviewComponent;
 }());
@@ -8805,20 +8854,59 @@ var SandboxAppLogicService = /** @class */ (function () {
         /* IMAGE SEARCH VARIABLES  */
         this.imageSearchQuery = "";
         this.imageSearchpage = 1;
-    }
-    SandboxAppLogicService.prototype.getProjectState = function () {
-        var _this = this;
-        // Returns a promise with projectState from store
-        return new Promise(function (resolve, reject) {
-            _this.store.select('projectReducer')
-                .subscribe(function (projectState) {
-                if (!projectState)
-                    reject();
-                resolve(projectState);
+        this.applyCssFilters = function (url, imageStyle, isPreview) {
+            return new Promise(function (resolve, reject) {
+                var image = new Image();
+                image.crossOrigin = "anonymous";
+                image.src = url;
+                image.onload = function () {
+                    // if(isPreview){
+                    //   let imageRatio = image.width / image.height;
+                    //   image.width = 600;
+                    //   image.height = image.width / imageRatio;
+                    // }
+                    var div = document.createElement("div");
+                    div.appendChild(image);
+                    // This function applies the style settings specifed in the selectedImageStyle
+                    // to the selectedImage via CamanJS, and returns a promise containing the edited image as base64 string
+                    Caman(image, function () {
+                        if (isPreview) {
+                            var imageRatio = image.width / image.height;
+                            this.resize({
+                                width: 500,
+                                height: 500 / imageRatio
+                            });
+                        }
+                        if (imageStyle.greyscale)
+                            this.greyscale();
+                        if (imageStyle.invert)
+                            this.invert();
+                        this.brightness(imageStyle.brightness);
+                        this.contrast(imageStyle.contrast);
+                        this.exposure(imageStyle.exposure);
+                        this.gamma(imageStyle.gamma);
+                        this.hue(imageStyle.hue);
+                        this.saturation(imageStyle.saturation);
+                        this.sepia(imageStyle.sepia);
+                        this.vibrance(imageStyle.vibrance);
+                        this.render(function () {
+                            resolve(this.toBase64());
+                        });
+                    });
+                };
             });
-        })
-            .catch(function (error) { console.log(error); });
-    };
+        };
+        this.getBase64 = function (file) {
+            // This function takes an image file as a parameter and returns a promise
+            // containing the image's base64 dataUrl
+            return new Promise(function (resolve, reject) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () { return resolve(reader.result); };
+                reader.onerror = function (error) { return reject(error); };
+            });
+        };
+    }
     SandboxAppLogicService.prototype.pixabayToGallery = function (url) {
         var _this = this;
         // This function creates a galleryImage object with the search result specified
@@ -8826,82 +8914,181 @@ var SandboxAppLogicService = /** @class */ (function () {
         this.data.getProjectState().then(function (projectState) {
             var galleryImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_3__["GalleryImage"]();
             galleryImage.url = url;
-            galleryImage.id = projectState['images'].length;
-            _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["ADD_IMAGE"], payload: { galleryImage: galleryImage } });
-            _this.dialog.toast('Added to gallery.');
+            galleryImage.id = projectState["images"].length;
+            _this.store.dispatch({
+                type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["ADD_IMAGE"],
+                payload: { galleryImage: galleryImage }
+            });
+            _this.dialog.toast("Added to gallery.");
         });
     };
     SandboxAppLogicService.prototype.searchPixabay = function () {
         var _this = this;
         // This function makes a call to the back end to perform image search
         this.imageSearchpage = 1;
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"];
-        headers = headers.append('search-query', this.imageSearchQuery);
-        headers = headers.append('page', '1');
-        this.http.get(this.data.apiEndpoint + '/search-pixabay', { headers: headers }).subscribe(function (res) {
-            _this.imageSearchResults = res['hits'];
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]();
+        headers = headers.append("search-query", this.imageSearchQuery);
+        headers = headers.append("page", "1");
+        this.http
+            .get(this.data.apiEndpoint + "/search-pixabay", { headers: headers })
+            .subscribe(function (res) {
+            _this.imageSearchResults = res["hits"];
         });
     };
     SandboxAppLogicService.prototype.loadMoreImages = function () {
         var _this = this;
         // This function handles pagination for image search results.
         this.imageSearchpage++;
-        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"];
-        headers = headers.append('search-query', this.imageSearchQuery);
-        headers = headers.append('page', this.imageSearchpage.toString());
-        this.http.get(this.data.apiEndpoint + '/search-pixabay', { headers: headers }).subscribe(function (res) {
-            var results = res['hits'];
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]();
+        headers = headers.append("search-query", this.imageSearchQuery);
+        headers = headers.append("page", this.imageSearchpage.toString());
+        this.http
+            .get(this.data.apiEndpoint + "/search-pixabay", { headers: headers })
+            .subscribe(function (res) {
+            var results = res["hits"];
             results.forEach(function (result) {
                 _this.imageSearchResults.push(result);
             });
         });
     };
     SandboxAppLogicService.prototype.addToSlide = function (type) {
+        var _this = this;
         // This function adds slideObjects to the project
         switch (type) {
-            case 'textObject':
+            case "textObject":
                 this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["ADD_TEXTOBJECT"] });
                 break;
-            case 'imageObject':
-                this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["ADD_IMAGEOBJECT"] });
+            case "imageObject":
+                /*
+                1.  Get selectedImage and selectedImageStyle from projectState
+                2.  Use camanJS to generate dataURL of selctedImage with selectedImageStyle applied to it
+                3.  Upload to firebase via backend api, and get firebase image url
+                4.  Invoke ngrx action ADD_IMAGEOBJECT, passing in the fileName and firebase image url in the payload
+                */
+                var selectedImageUrl_1;
+                var selectedImageStyle_1;
+                var token_1;
+                var fileName_1;
+                this.data.getProjectState()
+                    .then(function (data) {
+                    // Get data from projectState
+                    var projectState = data;
+                    selectedImageUrl_1 = projectState.selectedImage.url;
+                    selectedImageStyle_1 = projectState.selectedImageStyle;
+                    return _this.data.getUserState();
+                })
+                    .then(function (data) {
+                    // Get token and ceate fileName from userState data
+                    var userState = data;
+                    token_1 = userState.token;
+                    fileName_1 = userState.username + "/" + new Date().getTime().toString();
+                    // Use CamanJS to create dataUrl with css filters applied
+                    return _this.applyCssFilters(selectedImageUrl_1, selectedImageStyle_1);
+                })
+                    .then(function (dataUrl) {
+                    // Send to backend for uploading to firebase
+                    return _this.data.uploadDataUrlToFirebase(token_1, dataUrl, fileName_1);
+                })
+                    .then(function (res) {
+                    // Backend returns the newly uploaded image's firebase URL.  
+                    // Send this data to the projectReducer to create a new imageObject for current slide
+                    var uploadData = res;
+                    var payload = {
+                        fileName: uploadData.body.fileName,
+                        url: uploadData.body.url
+                    };
+                    _this.store.dispatch({
+                        type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["ADD_IMAGEOBJECT"],
+                        payload: payload
+                    });
+                })
+                    .catch(function (error) { return console.log(error); });
                 break;
         }
     };
-    SandboxAppLogicService.prototype.uploadImage = function (event) {
+    SandboxAppLogicService.prototype.importImage = function (event) {
         var _this = this;
-        // This function takes image file from file input, uses it to create a galleryImage, 
-        // and adds it to the project.
+        // This function handles the onChange event for the file input in the imageSandbox.
+        // It takes in an image file, converts it to base64, and sends it to the backend where it is
+        // uploaded to firebase storage.  The server returns the image's firebase image URL, which is
+        // then used to create a new GalleryImage.  
         var file = event.srcElement.files[0];
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function (e) {
-            var url = e.target.result;
-            _this.data.getProjectState().then(function (projectState) {
-                var galleryImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_3__["GalleryImage"]();
-                galleryImage.url = url.toString();
-                galleryImage.id = projectState['images'].length;
-                _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["ADD_IMAGE"], payload: { galleryImage: galleryImage } });
-            })
-                .catch(function (error) { console.log(error); });
-        };
+        var base64;
+        // Convert file to base64
+        this.getBase64(file)
+            .then(function (data) {
+            base64 = data;
+            return _this.data.getUserState();
+        })
+            .then(function (data) {
+            // Get token from userState for backend verification
+            // Use data in userState to generate a fileName for the image
+            // This fileName will be used when saving to firebase storage.
+            var userState = data;
+            var fileName = userState.username + "/" + new Date().getTime().toString();
+            // Send to backend
+            return _this.data.uploadDataUrlToFirebase(userState.token, base64, fileName);
+        })
+            .then(function (res) {
+            // After image is uploaded to firebase, server returns the image URL.
+            // Use it to create a new GalleryImage, and update projectState with it.
+            var uploadData = res;
+            var galleryImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_3__["GalleryImage"]();
+            galleryImage.url = uploadData.body.url;
+            galleryImage.fileName = uploadData.body.fileName;
+            var payload = {
+                galleryImage: galleryImage
+            };
+            _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["ADD_IMAGE"], payload: payload });
+        })
+            .catch(function (error) { return console.log(error); });
+    };
+    SandboxAppLogicService.prototype.renderImagePreview = function () {
+        var _this = this;
+        // This function uses CamanJS to create a dataURL using the selectedImage and selectedImageStyle
+        // It then updates the projectState with this dataURL
+        this.data.getProjectState().then(function (data) {
+            var projectState = data;
+            return _this.applyCssFilters(projectState.selectedImage.url, projectState.selectedImageStyle, true);
+        }).then(function (dataURL) {
+            var selectedImagePreview = dataURL;
+            _this.store.dispatch({
+                type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["SET_SELECTED_IMAGE_PREVIEW"],
+                payload: { selectedImagePreview: selectedImagePreview }
+            });
+        })
+            .catch(function (error) { return console.log(error); });
     };
     SandboxAppLogicService.prototype.selectImage = function (galleryImage) {
         // This function updates the store with the selected image specified in the parameters
-        this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["SELECT_GALLERY_IMAGE"], payload: { galleryImage: galleryImage } });
+        this.store.dispatch({
+            type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["SELECT_GALLERY_IMAGE"],
+            payload: { galleryImage: galleryImage }
+        });
+        this.renderImagePreview();
     };
     SandboxAppLogicService.prototype.deleteImage = function (image) {
         var _this = this;
         // This function prompts user for confirmation before deleting an image from the project gallery.
         var callback = function () {
-            _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["DEL_IMAGE"], payload: { galleryImage: image } });
+            if (image.fileName)
+                _this.data.deleteFromFirebase([image.fileName]);
+            _this.store.dispatch({
+                type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["DEL_IMAGE"],
+                payload: { galleryImage: image }
+            });
+            _this.dialog.toast('Deleted Image from gallery');
         };
-        this.dialog.alert("Are you sure you want to delete this image from your project?", 'danger', callback);
+        this.dialog.alert("Are you sure you want to delete this image from your project?", "danger", callback);
     };
     SandboxAppLogicService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"], _data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"],
+            _data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"],
+            _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"]])
     ], SandboxAppLogicService);
     return SandboxAppLogicService;
 }());
@@ -8955,7 +9142,11 @@ var SlideEditorAppLogicService = /** @class */ (function () {
     };
     SlideEditorAppLogicService.prototype.deleteSlideOjbect = function (slideObject) {
         // This function deletes slideObject from the slide
+        if (slideObject.constructor.name === 'ImageObject') {
+            this.data.deleteFromFirebase([slideObject['fileName']]);
+        }
         this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["DEL_SLIDEOBJECT"], payload: { slideObject: slideObject } });
+        this.dialog.toast("Deleted " + slideObject.name);
     };
     SlideEditorAppLogicService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -8988,7 +9179,7 @@ module.exports = "#slide-editor-workspace {\r\n    width: 100%;\r\n    height: 1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"slide-editor-workspace\" #workspace>\r\n  <div id=\"slide-render-area\" #slideRenderArea>\r\n      <div id=\"slide-render-loader\" class=\"flex-col-center\" *ngIf=\"this.data.isSlideRenderLoading\">\r\n        <fa name=\"cog\" class=\"loader\"></fa>\r\n      </div>\r\n\r\n    <div id=\"slide-render\" #slideRender [ngStyle]=\"getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"selectObject(slideObject)\" ngResizable [rzHandles]=\"'all'\" (rzStart)=\"slideObject.setProperty('isResizing', true)\"\r\n        (rzStop)=\"slideObject.setSize($event); slideObject.setProperty('isResizing', false)\" ngDraggable (started)=\"slideObject.setProperty('isDragging', true)\"\r\n        (stopped)=\"slideObject.setProperty('isDragging', false)\" (endOffset)=\"slideObject.setTranslation($event)\"\r\n        [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [ngStyle]=\"slideObject.style.getCss()\" [src]=\"slideObject.imagePath\"\r\n          crossOrigin=\"anonymous\">\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"slide-editor-resizer\" #resizer>\r\n\r\n  </div>\r\n\r\n\r\n  <div id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" #controlToolbar class=\"grayAccent02 flex-row-center\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <div class=\"md-color-selector\" [(colorPicker)]=\"slides[currentSlideIndex].backgroundColor\" [style.background]=\"slides[currentSlideIndex].backgroundColor\"></div>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"this.zoom('out')\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"slideRenderMagnification\" min=\"0\" max=\"200\" (ngModelChange)=\"this.renderZoomController()\">\r\n\r\n        <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"this.zoom('in')\"></fa>\r\n\r\n        <p><input type=\"number\" [(ngModel)]=\"slideRenderMagnification\">%</p>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <p>{{documentSize.width}}px X {{documentSize.height}}px</p>\r\n\r\n        <fa class=\"flex-row-evenly\" [name]=\"this.showRenderOverflow ? 'object-ungroup' : 'object-group'\" (click)=\"this.toggleRenderOverflow()\"></fa>\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-center grayAccent02\"\r\n        [style.background]=\"isSlideObjectSelected(slideObject) ? 'green' : 'none'\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"editTextObjectText(slideObject)\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editTextMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n          <fa (click)=\"this.slideEditor.layerUp(slideObject)\" name=\"arrow-up\"></fa>\r\n          <fa (click)=\"this.slideEditor.layerDown(slideObject)\" name=\"arrow-down\"></fa>\r\n          <fa (click)=\"slideObject.toggleProperty('display')\" [name]=\"slideObject.display ? 'eye' : 'eye-slash'\"></fa>\r\n          <fa (click)=\"this.slideEditor.deleteSlideOjbect(slideObject)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"setDimension(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"setDimension(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"textObjectEditor\" *ngIf=\"showTextObjectEditor\" class=\"grayAccent02\">\r\n  <p>Edit text for {{textEditorTextObject.name}}</p>\r\n  <textarea [(ngModel)]=\"textEditorTextObject.textValue\"></textarea>\r\n  <div class=\"flex-row-center\">\r\n    <button class=\"success-btn\" (click)=\"saveTextObjectEditor()\">Save</button>\r\n  </div>\r\n</div>"
+module.exports = "<div id=\"slide-editor-workspace\" #workspace>\r\n  <div id=\"slide-render-area\" #slideRenderArea>\r\n      <div id=\"slide-render-loader\" class=\"flex-col-center\" *ngIf=\"this.data.isSlideRenderLoading\">\r\n        <fa name=\"cog\" class=\"loader\"></fa>\r\n      </div>\r\n\r\n    <div id=\"slide-render\" #slideRender [ngStyle]=\"getSlideRenderCss()\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects\" class=\"slide-object\" [ngStyle]=\"slideObject.getCss()\"\r\n        (mousedown)=\"selectObject(slideObject)\" ngResizable [rzHandles]=\"'all'\" (rzStart)=\"slideObject.setProperty('isResizing', true)\"\r\n        (rzStop)=\"slideObject.setSize($event); slideObject.setProperty('isResizing', false)\" ngDraggable (started)=\"slideObject.setProperty('isDragging', true)\"\r\n        (stopped)=\"slideObject.setProperty('isDragging', false)\" (endOffset)=\"slideObject.setTranslation($event)\"\r\n        [position]=\"slideObject.getTranslation()\" [rzAspectRatio]=\"slideObject.constructor.name==='ImageObject'? true: false\">\r\n\r\n        <p *ngIf=\"slideObject.constructor.name==='TextObject'\" [ngStyle]=\"slideObject.style.getCss()\">{{slideObject.textValue}}</p>\r\n        <img *ngIf=\"slideObject.constructor.name==='ImageObject'\" [src]=\"slideObject.imagePath\"\r\n          crossOrigin=\"anonymous\" [ngStyle]=\"slideObject.style.getCss()\"></div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"slide-editor-resizer\" #resizer>\r\n\r\n  </div>\r\n\r\n\r\n  <div id=\"slide-control\" class=\"grayAccent02\">\r\n\r\n    <div id=\"slide-control-toolbar\" #controlToolbar class=\"grayAccent02 flex-row-center\">\r\n      <div class=\"flex-row-evenly\">\r\n        <p>Set background color: </p>\r\n        <div class=\"md-color-selector\" [(colorPicker)]=\"slides[currentSlideIndex].backgroundColor\" [style.background]=\"slides[currentSlideIndex].backgroundColor\"></div>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"this.zoom('out')\"></fa>\r\n\r\n        <input type='range' [(ngModel)]=\"slideRenderMagnification\" min=\"0\" max=\"200\" (ngModelChange)=\"this.renderZoomController()\">\r\n\r\n        <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"this.zoom('in')\"></fa>\r\n\r\n        <p><input type=\"number\" [(ngModel)]=\"slideRenderMagnification\">%</p>\r\n      </div>\r\n\r\n      <div class=\"flex-row-evenly\">\r\n        <p>{{documentSize.width}}px X {{documentSize.height}}px</p>\r\n\r\n        <fa class=\"flex-row-evenly\" [name]=\"this.showRenderOverflow ? 'object-ungroup' : 'object-group'\" (click)=\"this.toggleRenderOverflow()\"></fa>\r\n      </div>\r\n\r\n    </div>\r\n\r\n    <div id=\"heirarchy\">\r\n      <div *ngFor=\"let slideObject of slides[currentSlideIndex].slideObjects.reverse()\" class=\"slide-control-row flex-row-center grayAccent02\"\r\n        [style.background]=\"isSlideObjectSelected(slideObject) ? 'green' : 'none'\">\r\n        <div class=\"flex-row-evenly heirarchy-control-group heirarchy-name\">\r\n          <div *ngIf=\"!slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.name}}</h5>\r\n            <fa name=\"edit\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n          <div *ngIf=\"slideObject.editNameMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.name\" (placeholder)=\"slideObject.name\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editNameMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='TextObject'\" class=\"flex-row-evenly heirarchy-content heirarchy-control-group\">\r\n          <div *ngIf=\"!slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>\r\n            <fa name=\"edit\" (click)=\"editTextObjectText(slideObject)\"></fa>\r\n          </div>\r\n\r\n          <div *ngIf=\"slideObject.editTextMode\" class=\"flex-row-evenly\">\r\n            <input type=\"text\" [(ngModel)]=\"slideObject.textValue\" (placeholder)=\"slideObject.textValue\">\r\n            <fa name=\"save\" (click)=\"slideObject.toggleProperty('editTextMode')\"></fa>\r\n          </div>\r\n        </div>\r\n\r\n        <div *ngIf=\"slideObject.constructor.name==='ImageObject'\" class=\"flex-row-evenly heirarchy-control-group heirarchy-content\">\r\n          <h5>ImageObject</h5>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-content-misc flex-row-evenly\">\r\n          <fa (click)=\"this.slideEditor.layerUp(slideObject)\" name=\"arrow-up\"></fa>\r\n          <fa (click)=\"this.slideEditor.layerDown(slideObject)\" name=\"arrow-down\"></fa>\r\n          <fa (click)=\"slideObject.toggleProperty('display')\" [name]=\"slideObject.display ? 'eye' : 'eye-slash'\"></fa>\r\n          <fa (click)=\"this.slideEditor.deleteSlideOjbect(slideObject)\" name=\"trash\"></fa>\r\n        </div>\r\n\r\n        <div class=\"heirarchy-control-group heirarchy-dim flex-row-evenly\">\r\n          <h5>X:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.xTranslation\">\r\n          <h5>Y:</h5>\r\n          <input type=\"number\" [(ngModel)]=\"slideObject.yTranslation\">\r\n\r\n          <h5>H:</h5>\r\n          <input type=\"number\" #heightInput [ngModel]=\"slideObject.height\" (change)=\"setDimension(slideObject, 'height', heightInput.value)\">\r\n\r\n          <h5>W:</h5>\r\n          <input type=\"number\" #widthInput [ngModel]=\"slideObject.width\" (change)=\"setDimension(slideObject, 'width', widthInput.value)\">\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div id=\"textObjectEditor\" *ngIf=\"showTextObjectEditor\" class=\"grayAccent02\">\r\n  <p>Edit text for {{textEditorTextObject.name}}</p>\r\n  <textarea [(ngModel)]=\"textEditorTextObject.textValue\"></textarea>\r\n  <div class=\"flex-row-center\">\r\n    <button class=\"success-btn\" (click)=\"saveTextObjectEditor()\">Save</button>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -9042,8 +9233,9 @@ var SlideEditorComponent = /** @class */ (function () {
         var _this = this;
         this.enableSlideEditorResizer();
         this.data.isSlideRenderLoading = false;
-        // Subscribe to projectState
-        this.store.select('projectReducer')
+        // Get UI variables from dataService
+        this.projectStateSubscription = this.store
+            .select("projectReducer")
             .subscribe(function (projectState) {
             _this.slides = projectState.slides;
             _this.currentSlideIndex = projectState.currentSlideIndex;
@@ -9051,6 +9243,9 @@ var SlideEditorComponent = /** @class */ (function () {
             _this.textStyles = projectState.textStyles;
             _this.imageStyles = projectState.imageStyles;
         });
+    };
+    SlideEditorComponent.prototype.ngOnDestroy = function () {
+        this.projectStateSubscription.unsubscribe();
     };
     SlideEditorComponent.prototype.enableSlideEditorResizer = function () {
         var containerElement = this.workspace.nativeElement;
@@ -9066,29 +9261,29 @@ var SlideEditorComponent = /** @class */ (function () {
     };
     SlideEditorComponent.prototype.getSlideRenderCss = function () {
         // This function provides css for the slide render.
-        var backgroundColor = this.slides[this.currentSlideIndex].getProperty('backgroundColor');
-        var width = this.documentSize['width'];
-        var height = this.documentSize['height'];
+        var backgroundColor = this.slides[this.currentSlideIndex].getProperty("backgroundColor");
+        var width = this.documentSize["width"];
+        var height = this.documentSize["height"];
         var render = this.slideRender.nativeElement;
-        var renderHeight = render.offsetHeight * this.slideRenderMagnification / 100;
-        var renderWidth = render.clientWidth * this.slideRenderMagnification / 100;
+        var renderHeight = (render.offsetHeight * this.slideRenderMagnification) / 100;
+        var renderWidth = (render.clientWidth * this.slideRenderMagnification) / 100;
         var renderArea = this.slideRenderArea.nativeElement;
         var renderAreaHeight = renderArea.offsetHeight;
         var renderAreaWidth = renderArea.clientWidth;
         var css = {
-            'background': backgroundColor,
-            'height': height + 'px',
-            'width': width + 'px',
-            'transform-origin': '0 0',
-            'transform': 'scale(' + this.slideRenderMagnification / 100 + ')',
-            'position': 'absolute',
-            'overflow': this.showRenderOverflow ? 'visible' : 'hidden'
+            background: backgroundColor,
+            height: height + "px",
+            width: width + "px",
+            "transform-origin": "0 0",
+            transform: "scale(" + this.slideRenderMagnification / 100 + ")",
+            position: "absolute",
+            overflow: this.showRenderOverflow ? "visible" : "hidden"
         };
         if (renderHeight < renderAreaHeight) {
-            css['top'] = (renderAreaHeight - renderHeight) / 2 + 'px';
+            css["top"] = (renderAreaHeight - renderHeight) / 2 + "px";
         }
         if (renderWidth < renderAreaWidth) {
-            css['left'] = (renderAreaWidth - renderWidth) / 2 + 'px';
+            css["left"] = (renderAreaWidth - renderWidth) / 2 + "px";
         }
         return css;
     };
@@ -9113,11 +9308,11 @@ var SlideEditorComponent = /** @class */ (function () {
         return false;
     };
     SlideEditorComponent.prototype.renderZoomController = function () {
-        // This function handles the zooming in/out of the slide render 
+        // This function handles the zooming in/out of the slide render
         // via range input
         var render = this.slideRender.nativeElement;
-        var renderHeight = render.offsetHeight * this.slideRenderMagnification / 100;
-        var renderWidth = render.clientWidth * this.slideRenderMagnification / 100;
+        var renderHeight = (render.offsetHeight * this.slideRenderMagnification) / 100;
+        var renderWidth = (render.clientWidth * this.slideRenderMagnification) / 100;
         var renderArea = this.slideRenderArea.nativeElement;
         var renderAreaHeight = renderArea.offsetHeight;
         var renderAreaWidth = renderArea.clientWidth;
@@ -9135,7 +9330,7 @@ var SlideEditorComponent = /** @class */ (function () {
         var magnification = this.slideRenderMagnification;
         var increment = 5;
         switch (direction) {
-            case 'in':
+            case "in":
                 if (magnification > 200 - increment) {
                     magnification = 200;
                 }
@@ -9144,7 +9339,7 @@ var SlideEditorComponent = /** @class */ (function () {
                 }
                 this.slideRenderMagnification = magnification;
                 break;
-            case 'out':
+            case "out":
                 if (magnification < increment) {
                     magnification = 0;
                 }
@@ -9159,10 +9354,10 @@ var SlideEditorComponent = /** @class */ (function () {
         // This function handles changes to the number inputs for slide objects in the layer heirarchy.
         var type = slideObject.constructor.name;
         switch (type) {
-            case 'ImageObject':
+            case "ImageObject":
                 this.maintainRatio(slideObject, dimension, value);
                 break;
-            case 'TextObject':
+            case "TextObject":
                 slideObject[dimension] = value;
                 break;
         }
@@ -9172,17 +9367,17 @@ var SlideEditorComponent = /** @class */ (function () {
         // resized using the number inputs in the layer heirarchy
         // Ratio
         var ratio;
-        var img = new Image;
-        img.src = slideObject.getProperty('imagePath');
+        var img = new Image();
+        img.src = slideObject.getProperty("imagePath");
         img.onload = function () {
             ratio = img.width / img.height;
             switch (dimension) {
-                case 'width':
+                case "width":
                     var newHeight = value / ratio;
                     slideObject.width = value;
                     slideObject.height = newHeight;
                     break;
-                case 'height':
+                case "height":
                     var newWidth = value * ratio;
                     slideObject.height = value;
                     slideObject.width = newWidth;
@@ -9192,32 +9387,36 @@ var SlideEditorComponent = /** @class */ (function () {
         };
     };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('resizer'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("resizer"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], SlideEditorComponent.prototype, "resizer", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('workspace'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("workspace"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], SlideEditorComponent.prototype, "workspace", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('controlToolbar'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("controlToolbar"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], SlideEditorComponent.prototype, "controlToolbar", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('slideRender'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("slideRender"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], SlideEditorComponent.prototype, "slideRender", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('slideRenderArea'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("slideRenderArea"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], SlideEditorComponent.prototype, "slideRenderArea", void 0);
     SlideEditorComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'slide-editor',
+            selector: "slide-editor",
             template: __webpack_require__(/*! ./slide-editor.component.html */ "./src/app/slide-editor/slide-editor.component.html"),
             styles: [__webpack_require__(/*! ./slide-editor.component.css */ "./src/app/slide-editor/slide-editor.component.css")]
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _toolbar_app_logic_service__WEBPACK_IMPORTED_MODULE_5__["ToolbarAppLogicService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _slide_editor_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["SlideEditorAppLogicService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"],
+            _toolbar_app_logic_service__WEBPACK_IMPORTED_MODULE_5__["ToolbarAppLogicService"],
+            _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"],
+            _slide_editor_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["SlideEditorAppLogicService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"]])
     ], SlideEditorComponent);
     return SlideEditorComponent;
 }());
@@ -9241,6 +9440,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dialog_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dialog.service */ "./src/app/dialog.service.ts");
 /* harmony import */ var _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./state-management/actions/projectActions */ "./src/app/state-management/actions/projectActions.ts");
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
+/* harmony import */ var _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./sandbox-app-logic.service */ "./src/app/sandbox-app-logic.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9255,90 +9455,123 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var StylerAppLogicService = /** @class */ (function () {
-    function StylerAppLogicService(data, dialog, store) {
+    function StylerAppLogicService(sandbox, data, dialog, store) {
         var _this = this;
+        this.sandbox = sandbox;
         this.data = data;
         this.dialog = dialog;
         this.store = store;
         this.deleteStyle = function (style) {
             // This function prompts user for confirmation before deleting style from the project.
-            _this.data.getProjectState()
-                .then(function (projectState) { return _this.projectState = projectState; })
-                .then(function () {
-                // Check if style is being used by any slide objects
-                var isStyleInUse = false;
-                _this.projectState.slides.forEach(function (slide) {
+            // Check if style is being used by any slide objects
+            var isStyleInUse = false;
+            var type;
+            if (style.constructor.name === "TextStyle")
+                type = "text";
+            if (style.constructor.name === "ImageStyle")
+                type = "image";
+            _this.data
+                .getProjectState()
+                .then(function (data) {
+                var projectState = data;
+                projectState.slides.forEach(function (slide) {
                     slide.slideObjects.forEach(function (slideObject) {
                         if (slideObject.style === style)
                             isStyleInUse = true;
                     });
                 });
-                if (!isStyleInUse) {
-                    // Delete and toast message
-                    _this.confirmedDelete(style, false);
+            })
+                .then(function () {
+                if (!isStyleInUse || type === "image") {
+                    // Prompt user for confirmation
+                    var message = "Delete " + style.name + "?";
+                    _this.dialog.alert(message, "danger", function () {
+                        _this.confirmedDelete(style, false);
+                    });
                 }
-                else if (isStyleInUse) {
+                else if (isStyleInUse && type === "text") {
                     // Prompt for confirmation
-                    var type = void 0;
-                    if (style.constructor.name === 'TextStyle')
-                        type = 'text';
-                    if (style.constructor.name === 'ImageStyle')
-                        type = 'image';
-                    var message = style.name + ' is currently being used in one or more slides.  Deleting it will cause all ' + type + ' objects using this style to revert to the default style.  Do you wish to proceed?';
-                    _this.dialog.alert(message, 'danger', function () { return _this.confirmedDelete(style, isStyleInUse); });
+                    var message = style.name + " is currently being used in one or more slides.  Deleting it will cause all text objects using this style to revert to the default style.  Do you wish to proceed?";
+                    _this.dialog.alert(message, "danger", function () {
+                        return _this.confirmedDelete(style, isStyleInUse);
+                    });
                 }
             })
-                .catch(function (error) { console.log(error); });
+                .catch(function (error) { return console.log(error); });
         };
         this.confirmedDelete = function (style, isStyleInUse) {
-            // If slideObjects are currently using this style and the user confirms deletion, 
+            // If slideObjects are currently using this style and the user confirms deletion,
             // then those slideObjects' styles will revert to the default style.
-            var styleType = style.constructor.name;
-            if (isStyleInUse) {
-                // Find all slide objects that use this style, and set its style to the default style
-                _this.projectState.slides.forEach(function (slide) {
-                    slide.slideObjects.forEach(function (slideObject) {
-                        if (slideObject.style === style) {
-                            switch (styleType) {
-                                case 'TextStyle':
-                                    slideObject.style = _this.projectState.textStyles[0];
-                                    break;
-                                case 'ImageStyle':
-                                    slideObject.style = _this.projectState.imageStyles[0];
-                                    break;
+            _this.data
+                .getProjectState()
+                .then(function (data) {
+                var projectState = data;
+                var styleType = style.constructor.name;
+                if (isStyleInUse) {
+                    // Find all slide objects that use this style, and set its style to the default style
+                    projectState.slides.forEach(function (slide) {
+                        slide.slideObjects.forEach(function (slideObject) {
+                            if (slideObject.style === style) {
+                                switch (styleType) {
+                                    case "TextStyle":
+                                        slideObject.style = projectState.textStyles[0];
+                                        break;
+                                    case "ImageStyle":
+                                        slideObject.style = projectState.imageStyles[0];
+                                        break;
+                                }
                             }
-                        }
+                        });
                     });
-                });
-            }
-            // Delete from project state
-            switch (styleType) {
-                case 'TextStyle':
-                    // Check selectedTextStyle
-                    if (_this.projectState.selectedTextStyle === style) {
-                        _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_3__["SELECT_TEXTSTYLE"], payload: { textStyle: _this.projectState.textStyles[0] } });
-                    }
-                    _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_3__["DEL_TEXTSTYLE"], payload: { textStyle: style } });
-                    break;
-                case 'ImageStyle':
-                    // Check selectedImageStyle
-                    if (_this.projectState.selectedImageStyle === style) {
-                        _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_3__["SELECT_IMAGESTYLE"], payload: { imageStyle: _this.projectState.imageStyles[0] } });
-                    }
-                    _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_3__["DEL_IMAGESTYLE"], payload: { imageStyle: style } });
-                    break;
-            }
-            // Display toast message
-            var message = style.name + ' has been deleted.';
-            _this.dialog.toast(message);
+                }
+                // Delete from project state
+                switch (styleType) {
+                    case "TextStyle":
+                        // Check selectedTextStyle
+                        if (projectState.selectedTextStyle === style) {
+                            _this.store.dispatch({
+                                type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_3__["SELECT_TEXTSTYLE"],
+                                payload: { textStyle: projectState.textStyles[0] }
+                            });
+                        }
+                        _this.store.dispatch({
+                            type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_3__["DEL_TEXTSTYLE"],
+                            payload: { textStyle: style }
+                        });
+                        break;
+                    case "ImageStyle":
+                        // Check selectedImageStyle
+                        if (projectState.selectedImageStyle === style) {
+                            _this.store.dispatch({
+                                type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_3__["SELECT_IMAGESTYLE"],
+                                payload: { imageStyle: projectState.imageStyles[0] }
+                            });
+                            // Refresh image preview render
+                            _this.sandbox.renderImagePreview();
+                        }
+                        _this.store.dispatch({
+                            type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_3__["DEL_IMAGESTYLE"],
+                            payload: { imageStyle: style }
+                        });
+                        break;
+                }
+                // Display toast message
+                var message = style.name + " has been deleted.";
+                _this.dialog.toast(message);
+            })
+                .catch(function (error) { return console.log(error); });
         };
     }
     StylerAppLogicService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"]])
+        __metadata("design:paramtypes", [_sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_5__["SandboxAppLogicService"],
+            _data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"],
+            _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"]])
     ], StylerAppLogicService);
     return StylerAppLogicService;
 }());
@@ -9365,7 +9598,7 @@ module.exports = ".style-card-container {\r\n    width: 100%;\r\n    height: 100
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <a (click)=\"test()\">TEST</a> -->\r\n<div class=\"style-card-container accent05\" *ngIf=\"viewTextElements\">\r\n  <text-style-card [textStyle]=\"textStyle\" *ngFor=\"let textStyle of textStyles\"></text-style-card>\r\n</div>\r\n\r\n<div class=\"style-card-container accent05\" *ngIf=\"viewImageElements\">\r\n  <image-style-card [imageStyle]=\"imageStyle\" *ngFor=\"let imageStyle of imageStyles\"></image-style-card>\r\n</div>\r\n\r\n "
+module.exports = "<div class=\"style-card-container accent05\" *ngIf=\"viewTextElements\">\r\n  <text-style-card [textStyle]=\"textStyle\" *ngFor=\"let textStyle of textStyles\"></text-style-card>\r\n</div>\r\n\r\n<div class=\"style-card-container accent05\" *ngIf=\"viewImageElements\">\r\n  <image-style-card [imageStyle]=\"imageStyle\" *ngFor=\"let imageStyle of imageStyles\"></image-style-card>\r\n</div>\r\n\r\n "
 
 /***/ }),
 
@@ -9404,13 +9637,16 @@ var StylerComponent = /** @class */ (function () {
     }
     StylerComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.store.select('projectReducer')
-            .subscribe(function (projectState) {
+        this.projectStateSubscription = this.store.select("projectReducer").subscribe(function (projectState) {
+            // Get UI variables from dataService
             _this.imageStyles = projectState.imageStyles;
             _this.textStyles = projectState.textStyles;
             _this.viewTextElements = projectState.viewTextElements;
             _this.viewImageElements = projectState.viewImageElements;
         });
+    };
+    StylerComponent.prototype.ngOnDestroy = function () {
+        this.projectStateSubscription.unsubscribe();
     };
     StylerComponent.prototype.getCpPosition = function () {
         // Helper function for colorPicker
@@ -9469,6 +9705,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngrx_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngrx/store */ "./node_modules/@ngrx/store/fesm5/store.js");
 /* harmony import */ var _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../sandbox-app-logic.service */ "./src/app/sandbox-app-logic.service.ts");
 /* harmony import */ var _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../state-management/actions/projectActions */ "./src/app/state-management/actions/projectActions.ts");
+/* harmony import */ var _data_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../data.service */ "./src/app/data.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9484,21 +9721,28 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var TextSandboxComponent = /** @class */ (function () {
-    function TextSandboxComponent(store, sandbox) {
+    function TextSandboxComponent(store, sandbox, data) {
         this.store = store;
         this.sandbox = sandbox;
+        this.data = data;
         this.previewRenderMagnification = 100;
     }
     TextSandboxComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.enableResizer();
-        this.store.select('projectReducer')
+        // Get UI variables from dataService
+        this.projectStateSubscription = this.store
+            .select("projectReducer")
             .subscribe(function (projectState) {
             _this.sandboxText = projectState.sandboxText;
             _this.selectedTextStyle = projectState.selectedTextStyle;
             _this.textNotes = projectState.textNotes;
         });
+    };
+    TextSandboxComponent.prototype.ngOnDestroy = function () {
+        this.projectStateSubscription.unsubscribe();
     };
     TextSandboxComponent.prototype.enableResizer = function () {
         // This function enables drag resizing of UI layout
@@ -9512,14 +9756,17 @@ var TextSandboxComponent = /** @class */ (function () {
         // This function provides text preview render with dynamic styling
         // based on range input value
         var css = {
-            'transform': "scale(" + this.previewRenderMagnification / 100 + ")"
+            transform: "scale(" + this.previewRenderMagnification / 100 + ")"
         };
         return css;
     };
     TextSandboxComponent.prototype.textInput = function ($event) {
         // This function updates the projectState when user types into the text input
         var sandboxText = $event;
-        this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SET_SANDBOXTEXT"], payload: { sandboxText: sandboxText } });
+        this.store.dispatch({
+            type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SET_SANDBOXTEXT"],
+            payload: { sandboxText: sandboxText }
+        });
     };
     TextSandboxComponent.prototype.zoom = function (direction) {
         // This function handles zooming in/out of the text preview render
@@ -9528,7 +9775,7 @@ var TextSandboxComponent = /** @class */ (function () {
         var increment = 10;
         var maxZoom = 300;
         switch (direction) {
-            case 'in':
+            case "in":
                 if (magnification > maxZoom - increment) {
                     magnification = maxZoom;
                 }
@@ -9537,7 +9784,7 @@ var TextSandboxComponent = /** @class */ (function () {
                 }
                 this.previewRenderMagnification = magnification;
                 break;
-            case 'out':
+            case "out":
                 if (magnification < increment) {
                     magnification = 0;
                 }
@@ -9549,24 +9796,26 @@ var TextSandboxComponent = /** @class */ (function () {
         }
     };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('resizer'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("resizer"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], TextSandboxComponent.prototype, "resizer", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('middlebar'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("middlebar"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], TextSandboxComponent.prototype, "middlebar", void 0);
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('container'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])("container"),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
     ], TextSandboxComponent.prototype, "container", void 0);
     TextSandboxComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'text-sandbox',
+            selector: "text-sandbox",
             template: __webpack_require__(/*! ./text-sandbox.component.html */ "./src/app/text-sandbox/text-sandbox.component.html"),
             styles: [__webpack_require__(/*! ./text-sandbox.component.css */ "./src/app/text-sandbox/text-sandbox.component.css")]
         }),
-        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"], _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["SandboxAppLogicService"]])
+        __metadata("design:paramtypes", [_ngrx_store__WEBPACK_IMPORTED_MODULE_2__["Store"],
+            _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["SandboxAppLogicService"],
+            _data_service__WEBPACK_IMPORTED_MODULE_5__["DataService"]])
     ], TextSandboxComponent);
     return TextSandboxComponent;
 }());
@@ -9671,6 +9920,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./state-management/actions/projectActions */ "./src/app/state-management/actions/projectActions.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./sandbox-app-logic.service */ "./src/app/sandbox-app-logic.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9689,10 +9939,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ToolbarAppLogicService = /** @class */ (function () {
-    function ToolbarAppLogicService(router, data, dialog, store, user, http) {
+    function ToolbarAppLogicService(router, sandbox, data, dialog, store, user, http) {
         var _this = this;
         this.router = router;
+        this.sandbox = sandbox;
         this.data = data;
         this.dialog = dialog;
         this.store = store;
@@ -9866,6 +10118,7 @@ var ToolbarAppLogicService = /** @class */ (function () {
                 break;
             case 'ImageStyle':
                 this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_7__["SELECT_IMAGESTYLE"], payload: { imageStyle: style } });
+                this.sandbox.renderImagePreview();
                 break;
         }
     };
@@ -9941,7 +10194,7 @@ var ToolbarAppLogicService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"], _data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"], _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"], _sandbox_app_logic_service__WEBPACK_IMPORTED_MODULE_9__["SandboxAppLogicService"], _data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"], _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"]])
     ], ToolbarAppLogicService);
     return ToolbarAppLogicService;
 }());
@@ -10010,19 +10263,26 @@ var ToolbarSecondaryComponent = /** @class */ (function () {
     }
     ToolbarSecondaryComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.store.select('projectReducer')
+        this.projectStateSubscription = this.store
+            .select("projectReducer")
             .subscribe(function (projectState) {
             _this.slides = projectState.slides;
             _this.currentSlideIndex = projectState.currentSlideIndex;
         });
     };
+    ToolbarSecondaryComponent.prototype.ngOnDestroy = function () {
+        this.projectStateSubscription.unsubscribe();
+    };
     ToolbarSecondaryComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'toolbar-secondary',
+            selector: "toolbar-secondary",
             template: __webpack_require__(/*! ./toolbar-secondary.component.html */ "./src/app/toolbar-secondary/toolbar-secondary.component.html"),
             styles: [__webpack_require__(/*! ./toolbar-secondary.component.css */ "./src/app/toolbar-secondary/toolbar-secondary.component.css")]
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["Toolbar2AppLogicService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"],
+            _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"],
+            _toolbar2_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["Toolbar2AppLogicService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"]])
     ], ToolbarSecondaryComponent);
     return ToolbarSecondaryComponent;
 }());
@@ -10038,7 +10298,7 @@ var ToolbarSecondaryComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#toolbar-container {\r\n    width: 100%;\r\n    height: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows:  minmax(50px, 7vh);\r\n        grid-template-rows:  minmax(50px, 7vh);\r\n    -ms-grid-columns: 1fr 50vw 1fr;\r\n        grid-template-columns: 1fr 50vw 1fr;\r\n    justify-content: space-evenly;\r\n    align-items: center;\r\n}\r\n\r\n.toolbar-button-group-container {\r\n    width: 100%;\r\n}\r\n\r\n.toolbar-btn-group {\r\n    height: 100%;\r\n    width: 75px;\r\n    margin: 0 auto;\r\n    padding: 15px;\r\n}\r\n\r\n.toolbar-btn-group:hover {\r\n    background: rgb(80, 80, 80);\r\n}\r\n\r\n.toolbar-btn-group fa {\r\n    font-size: 1.4rem;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    margin: 3px auto 0 auto;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n#toolbar-style-selector {\r\n    box-sizing: border-box;\r\n    height: 90%;\r\n    width: auto;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n    padding: 5px;\r\n    flex-grow: 1;\r\n    margin: 0 5px;\r\n}\r\n\r\n.toolbar-style-btn {\r\n    text-decoration: none;\r\n    width: 125px;\r\n    height: 25px;\r\n    border-radius: 5px;\r\n    margin-right: 7px;\r\n    margin-bottom: 7px;\r\n    text-align: center;\r\n    overflow: hidden;\r\n    font-size: 0.7rem;\r\n    border: 2px transparent solid;\r\n    outline: none;\r\n}\r\n\r\n.toolbar-style-btn:hover {\r\n    background: rgb(156, 172, 149);\r\n}\r\n\r\n.selected {\r\n    background: rgb(156, 172, 149);\r\n    border: 2px white solid;\r\n}\r\n\r\n@media only screen and (max-width: 999px) {\r\n    .toolbar-btn-group p {\r\n        display: none;\r\n    }\r\n}"
+module.exports = "#toolbar-container {\r\n    width: 100%;\r\n    height: 100%;\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-rows:  minmax(50px, 7vh);\r\n        grid-template-rows:  minmax(50px, 7vh);\r\n    -ms-grid-columns: 1fr 50vw 1fr;\r\n        grid-template-columns: 1fr 50vw 1fr;\r\n    justify-content: space-evenly;\r\n    align-items: center;\r\n}\r\n\r\n.toolbar-button-group-container {\r\n    width: 100%;\r\n}\r\n\r\n.toolbar-btn-group {\r\n    height: 100%;\r\n    width: 75px;\r\n    margin: 0 auto;\r\n    padding: 15px;\r\n}\r\n\r\n.toolbar-btn-group:hover {\r\n    background: rgb(80, 80, 80);\r\n}\r\n\r\n.toolbar-btn-group fa {\r\n    font-size: 1.4rem;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.toolbar-btn-group p {\r\n    text-align: center;\r\n    font-size: 0.7rem;\r\n    margin: 3px auto 0 auto;\r\n    padding: 0;\r\n    white-space: nowrap;\r\n}\r\n\r\n#toolbar-style-selector {\r\n    box-sizing: border-box;\r\n    height: 90%;\r\n    width: auto;\r\n    overflow-x: hidden;\r\n    overflow-y: auto;\r\n    padding: 5px;\r\n    flex-grow: 1;\r\n    margin: 0 5px;\r\n}\r\n\r\n.toolbar-style-btn {\r\n    text-decoration: none;\r\n    width: 125px;\r\n    height: 25px;\r\n    border-radius: 5px;\r\n    margin-right: 7px;\r\n    margin-bottom: 7px;\r\n    text-align: center;\r\n    overflow: hidden;\r\n    font-size: 0.7rem;\r\n    border: 2px transparent solid;\r\n    outline: none;\r\n}\r\n\r\n.toolbar-style-btn:hover {\r\n    background: rgb(156, 172, 149);\r\n}\r\n\r\n.selected {\r\n    background: rgb(156, 172, 149);\r\n    border: 2px white solid;\r\n}\r\n\r\n@media only screen and (max-width: 999px) {\r\n    .toolbar-btn-group {\r\n        width: 25px;\r\n    }\r\n\r\n    .toolbar-btn-group p {\r\n        display: none;\r\n    }\r\n}"
 
 /***/ }),
 
@@ -10092,9 +10352,10 @@ var ToolbarComponent = /** @class */ (function () {
     ToolbarComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Detect user session
-        this.sessionData = sessionStorage.getItem('sessionData');
-        // Subscribe to projectState
-        this.store.select('projectReducer')
+        this.sessionData = sessionStorage.getItem("sessionData");
+        // Get UI variables from store
+        this.projectStateSubscription = this.store
+            .select("projectReducer")
             .subscribe(function (projectState) {
             _this.imageStyles = projectState.imageStyles;
             _this.textStyles = projectState.textStyles;
@@ -10106,16 +10367,19 @@ var ToolbarComponent = /** @class */ (function () {
             _this.currentSlideIndex = projectState.currentSlideIndex;
         });
     };
+    ToolbarComponent.prototype.ngOnDestroy = function () {
+        this.projectStateSubscription.unsubscribe();
+    };
     ToolbarComponent.prototype.isSelected = function (style) {
         // This function provides the template with a boolean for the conditional styling
         // of the toolbar's style selector
         var styleType = style.constructor.name;
         switch (styleType) {
-            case 'TextStyle':
+            case "TextStyle":
                 if (style === this.selectedTextStyle)
                     return true;
                 return false;
-            case 'ImageStyle':
+            case "ImageStyle":
                 if (style === this.selectedImageStyle)
                     return true;
                 return false;
@@ -10123,11 +10387,14 @@ var ToolbarComponent = /** @class */ (function () {
     };
     ToolbarComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'toolbar',
+            selector: "toolbar",
             template: __webpack_require__(/*! ./toolbar.component.html */ "./src/app/toolbar/toolbar.component.html"),
             styles: [__webpack_require__(/*! ./toolbar.component.css */ "./src/app/toolbar/toolbar.component.css")]
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _toolbar_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["ToolbarAppLogicService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"],
+            _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"],
+            _toolbar_app_logic_service__WEBPACK_IMPORTED_MODULE_3__["ToolbarAppLogicService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_4__["Store"]])
     ], ToolbarComponent);
     return ToolbarComponent;
 }());
@@ -10175,10 +10442,10 @@ var Toolbar2AppLogicService = /** @class */ (function () {
         this.router = router;
     }
     Toolbar2AppLogicService.prototype.newTextObject = function () {
-        this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SET_MODE"], payload: { mode: 'text' } });
+        this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SET_MODE"], payload: { mode: "text" } });
     };
     Toolbar2AppLogicService.prototype.newImageObject = function () {
-        this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SET_MODE"], payload: { mode: 'image' } });
+        this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["SET_MODE"], payload: { mode: "image" } });
     };
     Toolbar2AppLogicService.prototype.newSlide = function () {
         this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["ADD_SLIDE"] });
@@ -10192,23 +10459,24 @@ var Toolbar2AppLogicService = /** @class */ (function () {
     Toolbar2AppLogicService.prototype.deleteSlide = function () {
         var _this = this;
         // Prompt user for confirmation before deleting current slide from project.
-        this.data.getProjectState().then(function (projectState) {
-            if (projectState['slides'].length > 1) {
-                var message = 'Are you sure you want to delete this slide?';
-                _this.dialog.alert(message, 'danger', function () {
-                    _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["DEL_SLIDE"] });
-                });
-            }
-        });
+        if (this.data.projectState["slides"].length > 1) {
+            var message = "Are you sure you want to delete this slide?";
+            this.dialog.alert(message, "danger", function () {
+                _this.store.dispatch({ type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_4__["DEL_SLIDE"] });
+            });
+        }
     };
     Toolbar2AppLogicService.prototype.preview = function () {
-        this.router.navigate(['main/preview']);
+        this.router.navigate(["main/preview"]);
     };
     Toolbar2AppLogicService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
-        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"], _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+        __metadata("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"],
+            _dialog_service__WEBPACK_IMPORTED_MODULE_2__["DialogService"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_3__["Store"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], Toolbar2AppLogicService);
     return Toolbar2AppLogicService;
 }());

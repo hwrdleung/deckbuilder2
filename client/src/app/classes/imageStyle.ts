@@ -15,15 +15,17 @@ export class ImageStyle {
     border: BorderControl;
 
     // Filters
-    opacity: number;
-    grayscale: number;
-    blur: number; // px
+
     brightness: number;
-    contrast: number; 
-    hueRotate: number; // deg
-    invert: number; // %
-    saturate: number; // %
-    sepia: number; // %
+    contrast: number;
+    exposure: number;
+    gamma: number;
+    greyscale: boolean;
+    hue: number;
+    invert: boolean;
+    saturation: number;
+    sepia: number;
+    vibrance: number;
     padding: number;
 
     constructor () {
@@ -31,15 +33,18 @@ export class ImageStyle {
         this.name = 'ImageStyle' + this.id;
         this.editNameMode = false;
         this.showExtraOptions = false;
-        this.opacity = 100;
-        this.grayscale = 0;
-        this.blur = 0;
-        this.brightness = 100;
-        this.contrast = 100;
-        this.hueRotate = 0;
-        this.invert = 0;
-        this.saturate = 100;
+
+        this.brightness = 0;
+        this.contrast = 0;
+        this.exposure = 0;
+        this.gamma = 1;
+        this.greyscale = false;
+        this.hue = 0;
+        this.invert = false;
+        this.saturation = 0;
         this.sepia = 0;
+        this.vibrance = 0;
+
         this.border = new BorderControl();
         this.padding = 0;
         this.isDefault = false;
@@ -57,8 +62,9 @@ export class ImageStyle {
     getCss(){
         let css = {
             'border-radius': this.border.getBorderRadiusCss(),
-            'filter' : this.getFilters(),
-            'padding' : this.padding + 'px'
+            // 'filter' : this.getFilters(),
+            'padding' : this.padding + 'px',
+            'box-sizing': 'border-box'
         }
 
         if (this.border.getProperty('showFullBorder')) {
@@ -73,61 +79,61 @@ export class ImageStyle {
         return css;
     }
 
-    getFilters(){
-        let cssFilters: string = "";
+    // getFilters(){
+    //     let cssFilters: string = "";
 
-        // Default values:
-        let defaultOpacity = 1;
-        let defaultGrayscale = 0;
-        let defaultBlur = 0;
-        let defaultBrightness = 1;
-        let defaultContrast = 1;
+    //     // Default values:
+    //     let defaultOpacity = 1;
+    //     let defaultGrayscale = 0;
+    //     let defaultBlur = 0;
+    //     let defaultBrightness = 1;
+    //     let defaultContrast = 1;
 
-        let defaultHueRotate = 0;
-        let defaultInvert = 0;
-        let defaultSaturate = 1;
-        let defaultSepia = 0;
+    //     let defaultHueRotate = 0;
+    //     let defaultInvert = 0;
+    //     let defaultSaturate = 1;
+    //     let defaultSepia = 0;
 
-        if(this.opacity !== defaultOpacity){
-            cssFilters += 'opacity(' + this.opacity/100 + ') ';
-        }
+    //     if(this.opacity !== defaultOpacity){
+    //         cssFilters += 'opacity(' + this.opacity/100 + ') ';
+    //     }
 
-        if(this.grayscale !== defaultGrayscale){
-            cssFilters += 'grayscale(' + this.grayscale/100 + ') ';
-        }
+    //     if(this.grayscale !== defaultGrayscale){
+    //         cssFilters += 'grayscale(' + this.grayscale/100 + ') ';
+    //     }
 
-        if(this.blur !== defaultBlur){
-            cssFilters += 'blur(' + this.blur + 'px) ';
-        }
+    //     if(this.blur !== defaultBlur){
+    //         cssFilters += 'blur(' + this.blur + 'px) ';
+    //     }
 
-        if(this.brightness !== defaultBrightness){
-            cssFilters += 'brightness(' + this.brightness/100 + ') ';
-        }
+    //     if(this.brightness !== defaultBrightness){
+    //         cssFilters += 'brightness(' + this.brightness/100 + ') ';
+    //     }
 
-        if(this.contrast !== defaultContrast){
-            cssFilters += 'contrast(' + this.contrast/100 + ') ';
-        }
+    //     if(this.contrast !== defaultContrast){
+    //         cssFilters += 'contrast(' + this.contrast/100 + ') ';
+    //     }
 
-        if(this.hueRotate !== defaultHueRotate){
-            cssFilters += 'hue-rotate(' + this.hueRotate + 'deg) ';
-        }
+    //     if(this.hueRotate !== defaultHueRotate){
+    //         cssFilters += 'hue-rotate(' + this.hueRotate + 'deg) ';
+    //     }
 
-        if(this.invert !== defaultInvert){
-            cssFilters += 'invert(' + this.invert/100 + ') ';
-        }
+    //     if(this.invert !== defaultInvert){
+    //         cssFilters += 'invert(' + this.invert/100 + ') ';
+    //     }
 
-        if(this.saturate !== defaultSaturate){
-            cssFilters += 'saturate(' + this.saturate/100 + ') ';
-        }
+    //     if(this.saturate !== defaultSaturate){
+    //         cssFilters += 'saturate(' + this.saturate/100 + ') ';
+    //     }
 
-        if(this.sepia !== defaultSepia){
-            cssFilters += 'sepia(' + this.sepia/100 + ') ';
-        }
+    //     if(this.sepia !== defaultSepia){
+    //         cssFilters += 'sepia(' + this.sepia/100 + ') ';
+    //     }
 
-        cssFilters = cssFilters.substring(0, cssFilters.length-1);
+    //     cssFilters = cssFilters.substring(0, cssFilters.length-1);
 
-        return cssFilters;
-    }
+    //     return cssFilters;
+    // }
 
     // Setter, getter, toggler
     getProperty(propertyName) {

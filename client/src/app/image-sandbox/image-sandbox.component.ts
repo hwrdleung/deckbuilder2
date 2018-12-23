@@ -1,5 +1,4 @@
-import { Component, OnInit, ElementRef } from "@angular/core";
-import { ViewChild } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { HorizontalResizer } from "../classes/horizontalResizer";
 import { Store } from "@ngrx/store";
 import { ProjectState } from "../state-management/state/projectState";
@@ -7,7 +6,6 @@ import { GalleryImage } from "../classes/galleryImage";
 import { ImageStyle } from "../classes/imageStyle";
 import { SandboxAppLogicService } from "../sandbox-app-logic.service";
 declare var Caman: any;
-import * as firebase from "firebase";
 import { DataService } from "../data.service";
 
 @Component({
@@ -23,6 +21,7 @@ export class ImageSandboxComponent implements OnInit {
 
   /* TEMPLATE VARIABLES */
   selectedImage: GalleryImage;
+  selectedImagePreview: String;
   selectedImageStyle: ImageStyle;
   images: GalleryImage[];
   viewGallery: boolean = true;
@@ -44,6 +43,7 @@ export class ImageSandboxComponent implements OnInit {
     // Get UI variables from store
     this.projectStateSubscription = this.store.select("projectReducer").subscribe(projectState => {
       this.selectedImage = projectState.selectedImage;
+      this.selectedImagePreview = projectState.selectedImagePreview;
       this.selectedImageStyle = projectState.selectedImageStyle;
       this.images = projectState.images;
     })

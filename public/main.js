@@ -42,7 +42,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "router-outlet {\r\n    width: 100vw;\r\n    height: 100vh;\r\n}"
 
 /***/ }),
 
@@ -166,6 +166,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var routes = [
     { path: '', component: _home_home_component__WEBPACK_IMPORTED_MODULE_3__["HomeComponent"] },
     { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_7__["DashboardComponent"] },
+    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_6__["LoginComponent"] },
+    { path: 'registration', component: _registration_registration_component__WEBPACK_IMPORTED_MODULE_5__["RegistrationComponent"] },
     { path: 'main', loadChildren: './main/main.module#MainModule' },
 ];
 var AppModule = /** @class */ (function () {
@@ -341,6 +343,7 @@ var GalleryImage = /** @class */ (function () {
     function GalleryImage() {
         this.url = "";
         this.id = 0;
+        this.fileName = '';
     }
     GalleryImage.prototype.revive = function (obj) {
         for (var key in obj) {
@@ -418,21 +421,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageStyle", function() { return ImageStyle; });
 /* harmony import */ var _borderControl__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./borderControl */ "./src/app/classes/borderControl.ts");
 
+/*   Only include style settings that would be supported by CamanJS   */
 var ImageStyle = /** @class */ (function () {
     function ImageStyle() {
         this.id = ImageStyle.imageStyleCounter++;
         this.name = 'ImageStyle' + this.id;
         this.editNameMode = false;
         this.showExtraOptions = false;
-        this.opacity = 100;
-        this.grayscale = 0;
-        this.blur = 0;
-        this.brightness = 100;
-        this.contrast = 100;
-        this.hueRotate = 0;
-        this.invert = 0;
-        this.saturate = 100;
+        this.brightness = 0;
+        this.contrast = 0;
+        this.exposure = 0;
+        this.gamma = 1;
+        this.greyscale = false;
+        this.hue = 0;
+        this.invert = false;
+        this.saturation = 0;
         this.sepia = 0;
+        this.vibrance = 0;
         this.border = new _borderControl__WEBPACK_IMPORTED_MODULE_0__["BorderControl"]();
         this.padding = 0;
         this.isDefault = false;
@@ -447,8 +452,9 @@ var ImageStyle = /** @class */ (function () {
     ImageStyle.prototype.getCss = function () {
         var css = {
             'border-radius': this.border.getBorderRadiusCss(),
-            'filter': this.getFilters(),
-            'padding': this.padding + 'px'
+            // 'filter' : this.getFilters(),
+            'padding': this.padding + 'px',
+            'box-sizing': 'border-box'
         };
         if (this.border.getProperty('showFullBorder')) {
             css['border'] = this.border.getFullBorderCss();
@@ -461,48 +467,48 @@ var ImageStyle = /** @class */ (function () {
         }
         return css;
     };
-    ImageStyle.prototype.getFilters = function () {
-        var cssFilters = "";
-        // Default values:
-        var defaultOpacity = 1;
-        var defaultGrayscale = 0;
-        var defaultBlur = 0;
-        var defaultBrightness = 1;
-        var defaultContrast = 1;
-        var defaultHueRotate = 0;
-        var defaultInvert = 0;
-        var defaultSaturate = 1;
-        var defaultSepia = 0;
-        if (this.opacity !== defaultOpacity) {
-            cssFilters += 'opacity(' + this.opacity / 100 + ') ';
-        }
-        if (this.grayscale !== defaultGrayscale) {
-            cssFilters += 'grayscale(' + this.grayscale / 100 + ') ';
-        }
-        if (this.blur !== defaultBlur) {
-            cssFilters += 'blur(' + this.blur + 'px) ';
-        }
-        if (this.brightness !== defaultBrightness) {
-            cssFilters += 'brightness(' + this.brightness / 100 + ') ';
-        }
-        if (this.contrast !== defaultContrast) {
-            cssFilters += 'contrast(' + this.contrast / 100 + ') ';
-        }
-        if (this.hueRotate !== defaultHueRotate) {
-            cssFilters += 'hue-rotate(' + this.hueRotate + 'deg) ';
-        }
-        if (this.invert !== defaultInvert) {
-            cssFilters += 'invert(' + this.invert / 100 + ') ';
-        }
-        if (this.saturate !== defaultSaturate) {
-            cssFilters += 'saturate(' + this.saturate / 100 + ') ';
-        }
-        if (this.sepia !== defaultSepia) {
-            cssFilters += 'sepia(' + this.sepia / 100 + ') ';
-        }
-        cssFilters = cssFilters.substring(0, cssFilters.length - 1);
-        return cssFilters;
-    };
+    // getFilters(){
+    //     let cssFilters: string = "";
+    //     // Default values:
+    //     let defaultOpacity = 1;
+    //     let defaultGrayscale = 0;
+    //     let defaultBlur = 0;
+    //     let defaultBrightness = 1;
+    //     let defaultContrast = 1;
+    //     let defaultHueRotate = 0;
+    //     let defaultInvert = 0;
+    //     let defaultSaturate = 1;
+    //     let defaultSepia = 0;
+    //     if(this.opacity !== defaultOpacity){
+    //         cssFilters += 'opacity(' + this.opacity/100 + ') ';
+    //     }
+    //     if(this.grayscale !== defaultGrayscale){
+    //         cssFilters += 'grayscale(' + this.grayscale/100 + ') ';
+    //     }
+    //     if(this.blur !== defaultBlur){
+    //         cssFilters += 'blur(' + this.blur + 'px) ';
+    //     }
+    //     if(this.brightness !== defaultBrightness){
+    //         cssFilters += 'brightness(' + this.brightness/100 + ') ';
+    //     }
+    //     if(this.contrast !== defaultContrast){
+    //         cssFilters += 'contrast(' + this.contrast/100 + ') ';
+    //     }
+    //     if(this.hueRotate !== defaultHueRotate){
+    //         cssFilters += 'hue-rotate(' + this.hueRotate + 'deg) ';
+    //     }
+    //     if(this.invert !== defaultInvert){
+    //         cssFilters += 'invert(' + this.invert/100 + ') ';
+    //     }
+    //     if(this.saturate !== defaultSaturate){
+    //         cssFilters += 'saturate(' + this.saturate/100 + ') ';
+    //     }
+    //     if(this.sepia !== defaultSepia){
+    //         cssFilters += 'sepia(' + this.sepia/100 + ') ';
+    //     }
+    //     cssFilters = cssFilters.substring(0, cssFilters.length-1);
+    //     return cssFilters;
+    // }
     // Setter, getter, toggler
     ImageStyle.prototype.getProperty = function (propertyName) {
         return this[propertyName];
@@ -930,7 +936,7 @@ module.exports = "#dashboard-container {\r\n    display: -ms-grid;\r\n    displa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"component-container\" id=\"dashboard-container\" *ngIf=\"userState.isLoggedIn\">\r\n\r\n  <div id=\"dashboard-nav\" class=\"flex-col-center greenAccent01\">\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('projects')\" [class.selected]=\"showProjects\">Projects</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('settings')\" [class.selected]=\"showSettings\">Settings</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"this.data.logout()\">Sign Out</a>\r\n  </div>\r\n\r\n  <fa name=\"bars\" id=\"mobile-nav-toggle-btn\" (click)=\"toggleMobileNav()\"></fa>\r\n  <div *ngIf=\"openMobileNav\" id=\"dashboard-nav-mobile\" class=\"flex-col-center greenAccent01\">\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('projects'); toggleMobileNav()\" [class.selected]=\"showProjects\">Projects</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('settings'); toggleMobileNav()\" [class.selected]=\"showSettings\">Settings</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"this.data.logout()\">Sign Out</a>\r\n  </div>\r\n\r\n  <div id=\"dashboard-projects\" class=\"dashboard-content flex-col-start\" *ngIf=\"showProjects\">\r\n    <h1>PROJECTS</h1>\r\n    <button id=\"create-project-btn\" class=\"success-btn\" (click)=\"popup('project creator', true)\">Create a new project!</button>\r\n    <p id=\"mobile-message\">** Only preview mode is available for mobile devices.  Please log in on a desktop to create and edit your projects.</p>\r\n\r\n    <fa *ngIf=\"!projectsData\" name=\"cog\" class=\"loader\"></fa>\r\n\r\n    <div id=\"projects-container\" *ngIf=\"projectsData\">\r\n      <h3 *ngIf=\"projectsData.length === 0\" id=\"no-projects\">You don't have any projects yet.</h3>\r\n      <div class=\"project-card flex-col-evenly grayAccent02\" *ngFor=\"let project of projectsData\">\r\n        <h3 class=\"project-card-title\">{{project.name}}</h3>\r\n        <div class=\"project-card-img-container flex-col-center\">\r\n        <img src=\"{{project.thumbnail}}\">\r\n      </div>\r\n\r\n        <p>Created: {{project.created | date: 'short'}}</p>\r\n        <p>Last saved: {{project.lastSaved | date: 'short'}}</p>\r\n\r\n        <div class=\"flex-row-evenly\">\r\n          <button class=\"success-btn\" (click)=\"openProject(project)\">Open</button>\r\n          <button class=\"danger-btn\" (click)=\"deleteProject(project.name)\">Delete</button>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"dashboard-settings\" class=\"dashboard-content flex-col-start\" *ngIf=\"showSettings\">\r\n    <h1>SETTINGS</h1>\r\n\r\n    <fa *ngIf=\"!settingsData\" name=\"cog\" class=\"loader\"></fa>\r\n\r\n    <div *ngIf=\"userState.isLoggedIn\" id=\"settings-container\">\r\n      <hr>\r\n      <div *ngFor=\"let item of settingsData | keyvalue\" class=\"flex-row-between\">\r\n        <h3>{{ item.key }}:</h3>\r\n        <h3>{{ item.value }}</h3>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between\">\r\n        <h3>Password:</h3>\r\n        <button class=\"success-btn\" (click)=\"popup('change password', true)\">Change My Password</button>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between\">\r\n        <div></div>\r\n        <button class=\"danger-btn\" (click)=\"popup('delete account', true)\">Delete My Account</button>\r\n      </div>\r\n      <hr>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"showProjectCreator\">\r\n  <form [formGroup]=\"projectCreatorForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"createProject(projectCreatorForm.value)\">\r\n\r\n    <label class=\"flex-col-evenly\">Choose a name for your project:\r\n      <input type=\"text\" formControlName=\"projectName\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['projectName'].errors?.required && projectCreatorForm.controls['projectName'].touched\">{{\r\n        requiredAlert }}</div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['projectName'].errors?.nameTaken && projectCreatorForm.controls['projectName'].touched\">{{\r\n        nameTakenAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Select a document size:</label>\r\n    <div class=\"flex-row-evenly\" id=\"doc-sizes\">\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">tv</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"1536px x 864px Presentation\">\r\n        <p>Presentation</p>\r\n        <p>1536px x 864px</p>\r\n      </div>\r\n\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">crop_portrait</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"816px x 1056px A4 Document\">\r\n        <p>A4 Document</p>\r\n        <p>816px x 1056px</p>\r\n      </div>\r\n\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">photo_size_select_small</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"custom\">\r\n        <p>Custom size</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"flex-col-center\" *ngIf=\"projectCreatorForm.controls['documentSize'].value==='custom'\">\r\n      <div class=\"flex-row-center\">\r\n        <p>H:</p><input type=\"number\" formControlName=\"customHeight\" min=\"1\" max=\"3000\">\r\n        <p>px</p>\r\n        <p>W:</p><input type=\"number\" formControlName=\"customWidth\" min=\"1\" max=\"3000\">\r\n        <p>px</p>\r\n      </div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['customHeight'].errors?.required && projectCreatorForm.controls['customHeight'].touched\">{{\r\n        customHeightAlert }}</div>\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['customWidth'].errors?.required && projectCreatorForm.controls['customWidth'].touched\">{{customWidthAlert\r\n        }}</div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-center wrap\">\r\n        <button class=\"success-btn\" type=\"submit\" [disabled]=\"!projectCreatorForm.valid\">Get Started!</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('project creator', false)\">Cancel</button>\r\n    </div>\r\n  </form>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"this.data.showChangePasswordForm\">\r\n  <form [formGroup]=\"changePasswordForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"this.data.changePassword(changePasswordForm.value)\">\r\n    <label class=\"flex-col-evenly\">Please enter your current password:\r\n      <input type=\"password\" formControlName=\"oldPassword\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['oldPassword'].errors?.required && changePasswordForm.controls['oldPassword'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Please choose a new password:\r\n      <input type=\"password\" formControlName=\"newPassword\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword'].errors?.required && changePasswordForm.controls['newPassword'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Please re-enter your new password:\r\n      <input type=\"password\" formControlName=\"newPassword2\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword2'].errors?.required && changePasswordForm.controls['newPassword2'].touched\">{{\r\n        requiredAlert }}</div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword2'].errors?.mismatch && changePasswordForm.controls['newPassword2'].touched\">{{\r\n        passwordMismatchAlert }}</div>\r\n    </label>\r\n\r\n    <div class=\"form-alert\" *ngIf=\"this.data.serverMsg\">{{this.data.serverMsg}}</div>\r\n\r\n    <div class=\"flex-row-center wrap\">\r\n      <button class=\"success-btn\" type=\"submit\" [disabled]=\"!changePasswordForm.valid\">Change password</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('change password', false)\">Cancel</button>\r\n    </div>\r\n\r\n  </form>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"this.data.showDeleteAccountForm\">\r\n  <form [formGroup]=\"deleteAccountForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"this.data.deleteAccount(deleteAccountForm.value)\">\r\n    <label class=\"flex-col-evenly\">You are about to delete your account. This is irreversible and you will lose all of\r\n      your projects and data. <br><br>\r\n      If you wish to proceed, please enter your password:\r\n      <input type=\"password\" formControlName=\"password\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"deleteAccountForm.controls['password'].errors?.required && deleteAccountForm.controls['password'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <div class=\"form-alert\" *ngIf=\"this.data.serverMsg\">{{this.data.serverMsg}}</div>\r\n\r\n    <div class=\"flex-row-center wrap\">\r\n      <button class=\"success-btn\" type=\"submit\" [disabled]=\"!deleteAccountForm.valid\">Delete my account</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('delete account', false)\">Cancel</button>\r\n    </div>\r\n  </form>\r\n</div>"
+module.exports = "<div class=\"component-container\" id=\"dashboard-container\" *ngIf=\"userState.isLoggedIn\">\r\n\r\n  <div id=\"dashboard-nav\" class=\"flex-col-center greenAccent01\">\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('projects')\" [class.selected]=\"showProjects\">Projects</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('settings')\" [class.selected]=\"showSettings\">Settings</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"this.data.logout()\">Sign Out</a>\r\n  </div>\r\n\r\n  <fa name=\"bars\" id=\"mobile-nav-toggle-btn\" (click)=\"toggleMobileNav()\"></fa>\r\n  <div *ngIf=\"openMobileNav\" id=\"dashboard-nav-mobile\" class=\"flex-col-center greenAccent01\">\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('projects'); toggleMobileNav()\" [class.selected]=\"showProjects\">Projects</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"showContent('settings'); toggleMobileNav()\" [class.selected]=\"showSettings\">Settings</a>\r\n    <a class=\"dashboard-nav-link\" (click)=\"this.data.logout()\">Sign Out</a>\r\n  </div>\r\n\r\n  <div id=\"dashboard-projects\" class=\"dashboard-content flex-col-start\" *ngIf=\"showProjects\">\r\n    <h1>PROJECTS</h1>\r\n    <button id=\"create-project-btn\" class=\"success-btn\" (click)=\"popup('project creator', true)\">Create a new project!</button>\r\n    <p id=\"mobile-message\">** Only preview mode is available for mobile devices.  Please log in on a desktop to create and edit your projects.</p>\r\n\r\n    <fa *ngIf=\"!projectsData\" name=\"cog\" class=\"loader\"></fa>\r\n\r\n    <div id=\"projects-container\" *ngIf=\"projectsData\">\r\n      <h3 *ngIf=\"projectsData.length === 0\" id=\"no-projects\">You don't have any projects yet.</h3>\r\n      <div class=\"project-card flex-col-evenly grayAccent02\" *ngFor=\"let project of projectsData\">\r\n        <h3 class=\"project-card-title\">{{project.name}}</h3>\r\n        <div class=\"project-card-img-container flex-col-center\">\r\n        <img src=\"{{project.thumbnailUrl}}\">\r\n      </div>\r\n\r\n        <p>Created: {{project.created | date: 'short'}}</p>\r\n        <p>Last saved: {{project.lastSaved | date: 'short'}}</p>\r\n\r\n        <div class=\"flex-row-evenly\">\r\n          <button class=\"success-btn\" (click)=\"openProject(project)\">Open</button>\r\n          <button class=\"danger-btn\" (click)=\"deleteProject(project.name)\">Delete</button>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"dashboard-settings\" class=\"dashboard-content flex-col-start\" *ngIf=\"showSettings\">\r\n    <h1>SETTINGS</h1>\r\n\r\n    <fa *ngIf=\"!settingsData\" name=\"cog\" class=\"loader\"></fa>\r\n\r\n    <div *ngIf=\"userState.isLoggedIn\" id=\"settings-container\">\r\n      <hr>\r\n      <div *ngFor=\"let item of settingsData | keyvalue\" class=\"flex-row-between\">\r\n        <h3>{{ item.key }}:</h3>\r\n        <h3>{{ item.value }}</h3>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between\">\r\n        <h3>Password:</h3>\r\n        <button class=\"success-btn\" (click)=\"popup('change password', true)\">Change My Password</button>\r\n      </div>\r\n\r\n      <div class=\"flex-row-between\">\r\n        <div></div>\r\n        <button class=\"danger-btn\" (click)=\"popup('delete account', true)\">Delete My Account</button>\r\n      </div>\r\n      <hr>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"showProjectCreator\">\r\n  <form [formGroup]=\"projectCreatorForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"createProject(projectCreatorForm.value)\">\r\n\r\n    <label class=\"flex-col-evenly\">Choose a name for your project:\r\n      <input type=\"text\" formControlName=\"projectName\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['projectName'].errors?.required && projectCreatorForm.controls['projectName'].touched\">{{\r\n        requiredAlert }}</div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['projectName'].errors?.nameTaken && projectCreatorForm.controls['projectName'].touched\">{{\r\n        nameTakenAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Select a document size:</label>\r\n    <div class=\"flex-row-evenly\" id=\"doc-sizes\">\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">tv</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"1536px x 864px Presentation\">\r\n        <p>Presentation</p>\r\n        <p>1536px x 864px</p>\r\n      </div>\r\n\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">crop_portrait</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"816px x 1056px A4 Document\">\r\n        <p>A4 Document</p>\r\n        <p>816px x 1056px</p>\r\n      </div>\r\n\r\n      <div class=\"flex-col-center\">\r\n        <i class=\"material-icons\">photo_size_select_small</i>\r\n        <input type=\"radio\" formControlName=\"documentSize\" value=\"custom\">\r\n        <p>Custom size</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"flex-col-center\" *ngIf=\"projectCreatorForm.controls['documentSize'].value==='custom'\">\r\n      <div class=\"flex-row-center\">\r\n        <p>H:</p><input type=\"number\" formControlName=\"customHeight\" min=\"1\" max=\"3000\">\r\n        <p>px</p>\r\n        <p>W:</p><input type=\"number\" formControlName=\"customWidth\" min=\"1\" max=\"3000\">\r\n        <p>px</p>\r\n      </div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['customHeight'].errors?.required && projectCreatorForm.controls['customHeight'].touched\">{{\r\n        customHeightAlert }}</div>\r\n      <div class=\"form-alert\" *ngIf=\"projectCreatorForm.controls['customWidth'].errors?.required && projectCreatorForm.controls['customWidth'].touched\">{{customWidthAlert\r\n        }}</div>\r\n    </div>\r\n\r\n    <div class=\"flex-row-center wrap\">\r\n        <button class=\"success-btn\" type=\"submit\" [disabled]=\"!projectCreatorForm.valid\">Get Started!</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('project creator', false)\">Cancel</button>\r\n    </div>\r\n  </form>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"this.data.showChangePasswordForm\">\r\n  <form [formGroup]=\"changePasswordForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"this.data.changePassword(changePasswordForm.value)\">\r\n    <label class=\"flex-col-evenly\">Please enter your current password:\r\n      <input type=\"password\" formControlName=\"oldPassword\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['oldPassword'].errors?.required && changePasswordForm.controls['oldPassword'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Please choose a new password:\r\n      <input type=\"password\" formControlName=\"newPassword\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword'].errors?.required && changePasswordForm.controls['newPassword'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <label class=\"flex-col-evenly\">Please re-enter your new password:\r\n      <input type=\"password\" formControlName=\"newPassword2\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword2'].errors?.required && changePasswordForm.controls['newPassword2'].touched\">{{\r\n        requiredAlert }}</div>\r\n\r\n      <div class=\"form-alert\" *ngIf=\"changePasswordForm.controls['newPassword2'].errors?.mismatch && changePasswordForm.controls['newPassword2'].touched\">{{\r\n        passwordMismatchAlert }}</div>\r\n    </label>\r\n\r\n    <div class=\"form-alert\" *ngIf=\"this.data.serverMsg\">{{this.data.serverMsg}}</div>\r\n\r\n    <div class=\"flex-row-center wrap\">\r\n      <button class=\"success-btn\" type=\"submit\" [disabled]=\"!changePasswordForm.valid\">Change password</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('change password', false)\">Cancel</button>\r\n    </div>\r\n\r\n  </form>\r\n</div>\r\n\r\n<div class=\"flex-col-evenly popup-form-overlay\" *ngIf=\"this.data.showDeleteAccountForm\">\r\n  <form [formGroup]=\"deleteAccountForm\" class=\"flex-col-evenly popup-form\" (ngSubmit)=\"this.data.deleteAccount(deleteAccountForm.value)\">\r\n    <label class=\"flex-col-evenly\">You are about to delete your account. This is irreversible and you will lose all of\r\n      your projects and data. <br><br>\r\n      If you wish to proceed, please enter your password:\r\n      <input type=\"password\" formControlName=\"password\">\r\n\r\n      <div class=\"form-alert\" *ngIf=\"deleteAccountForm.controls['password'].errors?.required && deleteAccountForm.controls['password'].touched\">{{\r\n        requiredAlert }}</div>\r\n    </label>\r\n\r\n    <div class=\"form-alert\" *ngIf=\"this.data.serverMsg\">{{this.data.serverMsg}}</div>\r\n\r\n    <div class=\"flex-row-center wrap\">\r\n      <button class=\"success-btn\" type=\"submit\" [disabled]=\"!deleteAccountForm.valid\">Delete my account</button>\r\n      <button class=\"danger-btn\" (click)=\"popup('delete account', false)\">Cancel</button>\r\n    </div>\r\n  </form>\r\n</div>"
 
 /***/ }),
 
@@ -1049,14 +1055,12 @@ var DashboardComponent = /** @class */ (function () {
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Subscribe to projectCreatorForm's value changes to enable conditional validations
-        this.projectCreatorConditionalValidation();
-        // Subscribe to userState to get updated user data
-        this.store.select('userReducer')
-            .subscribe(function (userState) {
+        this.userStateSubscription = this.store.select('userReducer').subscribe(function (userState) {
             _this.userState = userState;
             _this.getSettingsData();
             _this.getProjectsData();
         });
+        this.projectCreatorConditionalValidation();
     };
     /* POPULATE DATA VARIABLES */
     DashboardComponent.prototype.getProjectsData = function () {
@@ -1120,12 +1124,10 @@ var DashboardComponent = /** @class */ (function () {
         // When user "opens" a project, this function makes a call to the back-end to fetch 
         // full data for the selected project, loads it into the store, and routes to the main.
         this.dialog.toast("Opening project: " + project.name);
-        project.isLoading = true;
-        var projectName = project.name;
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
         headers = headers.append('Content-Type', 'application/json');
         headers = headers.append('token', this.userState.token);
-        headers = headers.append('project-name', projectName);
+        headers = headers.append('project-name', project.name);
         this.http.get(this.data.apiEndpoint + '/get-project', { headers: headers })
             .subscribe(function (res) {
             var projectData = res['body'];
@@ -1194,6 +1196,7 @@ var DashboardComponent = /** @class */ (function () {
         // data.serverMsg is shared with the login and registration components.
         // Clearing it onDestroy prevents the displaying the wrong serverMsg on the wrong form
         this.data.serverMsg = null;
+        this.userStateSubscription.unsubscribe();
     };
     DashboardComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1234,6 +1237,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_textStyle__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./classes/textStyle */ "./src/app/classes/textStyle.ts");
 /* harmony import */ var _classes_galleryImage__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./classes/galleryImage */ "./src/app/classes/galleryImage.ts");
 /* harmony import */ var _classes_imageStyle__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./classes/imageStyle */ "./src/app/classes/imageStyle.ts");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_13__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1243,6 +1248,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1272,38 +1278,78 @@ var DataService = /** @class */ (function () {
         this.router = router;
         this.store = store;
         /* SERVER VARIABLES */
-        this.apiEndpoint = 'https://deckbuilder2.herokuapp.com';
-        // apiEndpoint: string = 'http://localhost:3000';
-        this.serverMsg = '';
+        // apiEndpoint: string = 'https://deckbuilder2.herokuapp.com';
+        this.apiEndpoint = "http://localhost:3000";
+        this.serverMsg = "";
         /*  UI VARIABLES */
         // Had to put this here so that dataService could hide the forms after API calls
         this.showChangePasswordForm = false;
         this.showDeleteAccountForm = false;
         this.isSlideRenderLoading = false;
-        this.getProjectState = function () {
-            // This function returns a promise containing the store's projectState.
+        this.initializeFirebase = function () {
+            if (!firebase__WEBPACK_IMPORTED_MODULE_13__["apps"].length) {
+                var config = {
+                    apiKey: "AIzaSyBz9UkDgc3Qfw-U31dJU43UoaymI5CtH44",
+                    authDomain: "deckbuilder-1531369409076.firebaseapp.com",
+                    projectId: "deckbuilder-1531369409076",
+                    storageBucket: "gs://deckbuilder-1531369409076.appspot.com"
+                };
+                firebase__WEBPACK_IMPORTED_MODULE_13__["initializeApp"](config);
+                firebase__WEBPACK_IMPORTED_MODULE_13__["auth"]()
+                    .signInAnonymously()
+                    .catch(function (error) {
+                    console.log(error);
+                });
+            }
+        };
+        this.uploadDataUrlToFirebase = function (token, dataUrl, fileName) {
+            // This function makes a call to the backend to upload dataUrl to firebase
+            // and returns a promise containing the server response.
             return new Promise(function (resolve, reject) {
-                _this.store.select('projectReducer').subscribe(function (projectState) {
-                    if (projectState)
-                        resolve(projectState);
-                    reject();
+                var body = {
+                    token: token,
+                    dataUrl: dataUrl,
+                    fileName: fileName
+                };
+                _this.http
+                    .post(_this.apiEndpoint + "/upload-image", body)
+                    .subscribe(function (res) { return resolve(res); });
+            });
+        };
+        this.deleteFromFirebase = function (fileNames) {
+            _this.getUserState().then(function (data) {
+                var userState = data;
+                var body = {
+                    fileNames: fileNames,
+                    token: userState.token
+                };
+                _this.http.post(_this.apiEndpoint + '/delete-image', body).subscribe(function (res) {
+                    if (res['success'] === false)
+                        console.log(res);
+                });
+            })
+                .catch(function (error) { return console.log(error); });
+        };
+        this.getProjectState = function () {
+            // This function subscribes to the store's projectState and returns it in a promise.
+            return new Promise(function (resolve, reject) {
+                _this.store.select("projectReducer").subscribe(function (projectState) {
+                    resolve(projectState);
                 });
             });
         };
         this.getUserState = function () {
-            // This function returns a promise containing the store's userState.
+            // This function subscribes to the store's userState and returns it in a promise.
             return new Promise(function (resolve, reject) {
-                _this.store.select('userReducer').subscribe(function (userState) {
-                    if (userState)
-                        resolve(userState);
-                    reject();
+                _this.store.select("userReducer").subscribe(function (userState) {
+                    resolve(userState);
                 });
             });
         };
         // Storage for canvasPrep()
-        this.SRA_ORIGINAL_OVERFLOW = '';
-        this.SR_ORIGINAL_OVERFLOW = '';
-        this.SR_ORIGINAL_TRANSFORM = '';
+        this.SRA_ORIGINAL_OVERFLOW = "";
+        this.SR_ORIGINAL_OVERFLOW = "";
+        this.SR_ORIGINAL_TRANSFORM = "";
     }
     DataService.prototype.displayServerMessage = function (message) {
         var _this = this;
@@ -1315,35 +1361,38 @@ var DataService = /** @class */ (function () {
     };
     // User registration
     DataService.prototype.register = function (formData) {
-        // This function handles ngSubmit for the reigstration form.
         var _this = this;
+        // This function handles ngSubmit for the reigstration form
         // Capitalize the user's first and last names
         var capitalize = function (str) {
-            var strArr = str.split(' ');
+            var strArr = str.split(" ");
             for (var i = 0; i < strArr.length; i++) {
-                strArr[i] = strArr[i][0].toUpperCase() + strArr[i].substring(1).toLowerCase();
+                strArr[i] =
+                    strArr[i][0].toUpperCase() + strArr[i].substring(1).toLowerCase();
             }
-            return strArr.join(' ');
+            return strArr.join(" ");
         };
         formData.first = capitalize(formData.first);
         formData.last = capitalize(formData.last);
         // Make API call to the back-end for user registration
-        this.http.post(this.apiEndpoint + '/new-account', formData).subscribe(function (res) {
-            if (res['success']) {
-                _this.displayServerMessage(res['message']);
-                var token = res['body'];
-                sessionStorage.setItem('sessionData', token);
+        this.http
+            .post(this.apiEndpoint + "/new-account", formData)
+            .subscribe(function (res) {
+            if (res["success"]) {
+                _this.displayServerMessage(res["message"]);
+                var token = res["body"];
+                sessionStorage.setItem("sessionData", token);
                 var loginData = {
                     username: formData.username,
                     password: formData.password
                 };
                 _this.login(loginData);
                 var welcomeMessage = "Registration was successful.  Welcome!  To get started, click on \"Create a new project!\"";
-                _this.dialog.alert(welcomeMessage, 'success');
+                _this.dialog.alert(welcomeMessage, "success");
             }
-            else if (!res['success']) {
+            else if (!res["success"]) {
                 // Display error message to form
-                _this.displayServerMessage(res['message']);
+                _this.displayServerMessage(res["message"]);
             }
         });
     };
@@ -1351,74 +1400,79 @@ var DataService = /** @class */ (function () {
     DataService.prototype.login = function (formData) {
         var _this = this;
         // This function handles ngSubmit for the login form
-        this.http.post(this.apiEndpoint + '/auth', formData).subscribe(function (res) {
-            if (res['success'] === true) {
-                _this.displayServerMessage(res['message']);
+        this.http.post(this.apiEndpoint + "/auth", formData).subscribe(function (res) {
+            if (res["success"] === true) {
+                _this.displayServerMessage(res["message"]);
                 var payload = {
                     isLoggedIn: true,
-                    first: res['body']['first'],
-                    last: res['body']['last'],
-                    email: res['body']['email'],
-                    username: res['body']['username'],
-                    token: res['body']['token'],
+                    first: res["body"]["first"],
+                    last: res["body"]["last"],
+                    email: res["body"]["email"],
+                    username: res["body"]["username"],
+                    token: res["body"]["token"]
                 };
                 // Store session data to session storage
                 // Update the store's userState
                 // Route to dashboard
-                sessionStorage.setItem('sessionData', JSON.stringify(payload));
+                sessionStorage.setItem("sessionData", JSON.stringify(payload));
                 _this.store.dispatch({ type: _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_6__["LOGIN"], payload: payload });
-                _this.router.navigate(['dashboard']);
+                _this.router.navigate(["dashboard"]);
+                // Subscribe to userState and set it to variable in dataService
+                // so that it can be used in other componenets and services
+                _this.store.select("userReducer").subscribe(function (userState) {
+                    _this.userState = userState;
+                });
             }
-            else if (res['success'] === false) {
+            else if (res["success"] === false) {
                 // Display error message to form
-                _this.displayServerMessage(res['message']);
+                _this.displayServerMessage(res["message"]);
             }
         });
     };
     DataService.prototype.logout = function () {
         // Clear session storage, clear the store's userState, and route to '/'
-        sessionStorage.removeItem('sessionData');
+        sessionStorage.removeItem("sessionData");
         this.store.dispatch({ type: _state_management_actions_userActions__WEBPACK_IMPORTED_MODULE_6__["LOGOUT"] });
-        this.router.navigate(['/']);
+        this.router.navigate(["/"]);
     };
     DataService.prototype.deleteAccount = function (formData) {
         var _this = this;
         // This function handles ngSubmit for the 'delete account form' in the dashboard's 'settings' view.
         // Confirmation is handled by form validations in dashboard.ts, requiring the user's password.
         // Make API call to delete user from database and display server message on failure, logout on success
-        this.getUserState().then(function (userState) {
-            var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"];
-            headers = headers.append('username', userState['username']);
-            headers = headers.append('password', formData.password);
-            _this.http.delete(_this.apiEndpoint + '/delete-account', { headers: headers }).subscribe(function (res) {
-                if (res['success'] === false)
-                    _this.displayServerMessage(res['message']);
-                if (res['success'] === true) {
-                    _this.showDeleteAccountForm = false;
-                    _this.logout();
-                }
-            });
+        var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]();
+        headers = headers.append("username", this.userState["username"]);
+        headers = headers.append("password", formData.password);
+        this.http
+            .delete(this.apiEndpoint + "/delete-account", { headers: headers })
+            .subscribe(function (res) {
+            if (res["success"] === false)
+                _this.displayServerMessage(res["message"]);
+            if (res["success"] === true) {
+                _this.showDeleteAccountForm = false;
+                _this.logout();
+            }
         });
     };
     DataService.prototype.changePassword = function (formData) {
-        var _this = this;
         // This function handles ngSubmit of the 'change password form' in the dashboard's 'settings' view.
         // Confirmation is handled by form validaions in dashboard.ts, requiring the user to enter their current password.
         // Make API call to back-end to change the user's password.
-        this.getUserState().then(function (userState) {
-            var payload = {
-                username: userState['username'],
-                password: formData.oldPassword,
-                newPassword: formData.newPassword
-            };
-            _this.http.post(_this.apiEndpoint + '/change-password', payload).subscribe(function (res) {
-                if (res['success'] === false)
-                    _this.displayServerMessage(res['message']);
-                if (res['success'] === true) {
-                    _this.showChangePasswordForm = false;
-                    _this.dialog.alert('Your new password has been saved.', 'success');
-                }
-            });
+        var _this = this;
+        var payload = {
+            username: this.userState["username"],
+            password: formData.oldPassword,
+            newPassword: formData.newPassword
+        };
+        this.http
+            .post(this.apiEndpoint + "/change-password", payload)
+            .subscribe(function (res) {
+            if (res["success"] === false)
+                _this.displayServerMessage(res["message"]);
+            if (res["success"] === true) {
+                _this.showChangePasswordForm = false;
+                _this.dialog.alert("Your new password has been saved.", "success");
+            }
         });
     };
     DataService.prototype.reviveProject = function (projectData) {
@@ -1437,7 +1491,7 @@ var DataService = /** @class */ (function () {
             slide.slideObjects.forEach(function (slideObject) {
                 var type = slideObject.constructor.name;
                 switch (type) {
-                    case 'TextObject':
+                    case "TextObject":
                         for (var i = 0; i < projectData.textStyles.length; i++) {
                             if (projectData.textStyles[i].id === slideObject.style.id) {
                                 slideObject.style = projectData.textStyles[i];
@@ -1445,7 +1499,7 @@ var DataService = /** @class */ (function () {
                             }
                         }
                         break;
-                    case 'ImageObject':
+                    case "ImageObject":
                         for (var i = 0; i < projectData.imageStyles.length; i++) {
                             if (projectData.imageStyles[i].id === slideObject.style.id) {
                                 slideObject.style = projectData.imageStyles[i];
@@ -1464,18 +1518,18 @@ var DataService = /** @class */ (function () {
             var newSlide = new _classes_slide__WEBPACK_IMPORTED_MODULE_7__["Slide"]();
             newSlide.revive(slide);
             for (var i = 0; i < slide.slideObjects.length; i++) {
-                var type = '';
-                if (slide.slideObjects[i].hasOwnProperty('textValue'))
-                    type = 'TextObject';
-                if (slide.slideObjects[i].hasOwnProperty('imagePath'))
-                    type = 'ImageObject';
+                var type = "";
+                if (slide.slideObjects[i].hasOwnProperty("textValue"))
+                    type = "TextObject";
+                if (slide.slideObjects[i].hasOwnProperty("imagePath"))
+                    type = "ImageObject";
                 switch (type) {
-                    case 'TextObject':
+                    case "TextObject":
                         var textObject = new _classes_textObject__WEBPACK_IMPORTED_MODULE_8__["TextObject"]();
                         textObject.revive(slide.slideObjects[i]);
                         newSlide.slideObjects[i] = textObject;
                         break;
-                    case 'ImageObject':
+                    case "ImageObject":
                         var imageObject = new _classes_imageObject__WEBPACK_IMPORTED_MODULE_9__["ImageObject"]();
                         imageObject.revive(slide.slideObjects[i]);
                         newSlide.slideObjects[i] = imageObject;
@@ -1493,7 +1547,7 @@ var DataService = /** @class */ (function () {
         var textStyles = [];
         for (var i = 0; i < projectData.textStyles.length; i++) {
             var thisTextStyle = projectData.textStyles[i];
-            var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_10__["TextStyle"];
+            var textStyle = new _classes_textStyle__WEBPACK_IMPORTED_MODULE_10__["TextStyle"]();
             textStyle.revive(thisTextStyle);
             textStyles.push(textStyle);
         }
@@ -1503,14 +1557,14 @@ var DataService = /** @class */ (function () {
     DataService.prototype.reviveGalleryImages = function (projectData) {
         // Helper function for reviveProject()
         // Revive selectedImage
-        var selectedImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_11__["GalleryImage"];
+        var selectedImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_11__["GalleryImage"]();
         selectedImage.revive(projectData.selectedImage);
         projectData.selectedImage = selectedImage;
         // Revive images
         var images = [];
         for (var i = 0; i < projectData.images.length; i++) {
             var thisImage = projectData.images[i];
-            var galleryImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_11__["GalleryImage"];
+            var galleryImage = new _classes_galleryImage__WEBPACK_IMPORTED_MODULE_11__["GalleryImage"]();
             galleryImage.revive(thisImage);
             images.push(galleryImage);
         }
@@ -1520,14 +1574,14 @@ var DataService = /** @class */ (function () {
     DataService.prototype.reviveImageStyles = function (projectData) {
         // Helper function for reviveProject()
         // Revive selectedImageStyle
-        var selectedImageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_12__["ImageStyle"];
+        var selectedImageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_12__["ImageStyle"]();
         selectedImageStyle.revive(projectData.selectedImageStyle);
         projectData.selectedImageStyle = selectedImageStyle;
         // Revive imageStyles
         var imageStyles = [];
         for (var i = 0; i < projectData.imageStyles.length; i++) {
             var thisImageStyle = projectData.imageStyles[i];
-            var imageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_12__["ImageStyle"];
+            var imageStyle = new _classes_imageStyle__WEBPACK_IMPORTED_MODULE_12__["ImageStyle"]();
             imageStyle.revive(thisImageStyle);
             imageStyles.push(imageStyle);
         }
@@ -1537,20 +1591,20 @@ var DataService = /** @class */ (function () {
     DataService.prototype.canvasPrep = function (task) {
         // This function makes changes to DOM style values necessary for HTML2CANVAS to work properly.
         // This funcion is shared between dataService and toolbarAppLogicService
-        var slideRender = document.getElementById('slide-render');
-        var slideRenderArea = document.getElementById('slide-render-area');
+        var slideRender = document.getElementById("slide-render");
+        var slideRenderArea = document.getElementById("slide-render-area");
         switch (task) {
-            case 'start':
+            case "start":
                 // Save original style values before changing them
                 this.SRA_ORIGINAL_OVERFLOW = slideRenderArea.style.overflow;
                 this.SR_ORIGINAL_OVERFLOW = slideRender.style.overflow;
                 this.SR_ORIGINAL_TRANSFORM = slideRender.style.transform;
                 // Set required css style values for HTML2CANVAS to work properly
-                slideRender.style.transform = 'scale(1)';
-                slideRender.style.overflow = 'visible';
-                slideRenderArea.style.overflow = 'visible';
+                slideRender.style.transform = "scale(1)";
+                slideRender.style.overflow = "visible";
+                slideRenderArea.style.overflow = "visible";
                 break;
-            case 'complete':
+            case "complete":
                 slideRender.style.transform = this.SR_ORIGINAL_TRANSFORM;
                 slideRender.style.overflow = this.SR_ORIGINAL_OVERFLOW;
                 slideRenderArea.style.overflow = this.SRA_ORIGINAL_OVERFLOW;
@@ -1564,11 +1618,13 @@ var DataService = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             // Show loader screen
             var slideRender = document.getElementById("slide-render");
-            _this.canvasPrep('start');
+            _this.canvasPrep("start");
             _this.isSlideRenderLoading = true;
             // Get project state for doc height and width
             var projectState;
-            var getProjectState = _this.store.select('projectReducer').subscribe(function (data) {
+            var getProjectState = _this.store
+                .select("projectReducer")
+                .subscribe(function (data) {
                 projectState = data;
             });
             html2canvas__WEBPACK_IMPORTED_MODULE_3__(slideRender, {
@@ -1577,9 +1633,10 @@ var DataService = /** @class */ (function () {
                 scale: 200 / projectState.documentSize.height,
                 allowTaint: false,
                 useCORS: true
-            }).then(function (canvas) {
+            })
+                .then(function (canvas) {
                 var imgData = canvas.toDataURL("image/png");
-                _this.canvasPrep('complete');
+                _this.canvasPrep("complete");
                 getProjectState.unsubscribe();
                 _this.isSlideRenderLoading = false;
                 resolve(imgData);
@@ -1598,41 +1655,51 @@ var DataService = /** @class */ (function () {
                 5.  Make API call to save this project's changes to the database.
                 6.  Display dialog message
             */
-            var sessionData = sessionStorage.getItem('sessionData');
+            var sessionData = sessionStorage.getItem("sessionData");
             if (!sessionData) {
-                reject('User is not signed in.');
+                reject("User is not signed in.");
             }
             else if (sessionData) {
                 var projectState_1;
                 var userState_1;
-                var thumbnail_1;
-                // create thumbnail here
-                _this.getThumbnail()
-                    .then(function (imgData) {
-                    thumbnail_1 = imgData;
-                    return _this.getProjectState();
-                })
+                _this.getProjectState()
                     .then(function (data) {
                     projectState_1 = data;
+                    // Update projectState values
                     projectState_1.lastSaved = new Date();
-                    projectState_1.thumbnail = thumbnail_1;
-                    projectState_1 = JSON.stringify(projectState_1);
                     return _this.getUserState();
                 })
                     .then(function (data) {
                     userState_1 = data;
-                    return userState_1;
+                    return _this.getThumbnail();
                 })
-                    .then(function (userState) {
+                    .then(function (data) {
+                    var fileName = userState_1.username + "/" + projectState_1.name + "-thumbnail";
+                    return _this.uploadDataUrlToFirebase(userState_1.token, data, fileName);
+                })
+                    .then(function (res) {
+                    // Set project thumbnail
+                    var uploadData = res;
+                    projectState_1.thumbnailUrl = uploadData.body.url;
+                    projectState_1.thumbnailFileName = uploadData.body.fileName;
+                    // Clear selectedImagePreview -- it does not need to be saved in the database
+                    // and it causes issues with file size being too large when sending payload to backend
+                    projectState_1.selectedImagePreview = '';
+                    // Create payload for http POST request
                     var payload = {
-                        token: userState.token,
-                        project: projectState_1
+                        token: userState_1.token,
+                        project: JSON.stringify(projectState_1)
                     };
-                    _this.http.post(_this.apiEndpoint + '/save-project', payload).subscribe(function (res) {
+                    // Send projectState to backend to be saved to DB
+                    _this.http
+                        .post(_this.apiEndpoint + "/save-project", payload)
+                        .subscribe(function (res) {
                         resolve(res);
                     });
                 })
-                    .catch(function (error) { console.log(error); });
+                    .catch(function (error) {
+                    console.log(error);
+                });
             }
         });
     };
@@ -1640,7 +1707,10 @@ var DataService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: "root"
         }),
-        __metadata("design:paramtypes", [_dialog_service__WEBPACK_IMPORTED_MODULE_1__["DialogService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"]])
+        __metadata("design:paramtypes", [_dialog_service__WEBPACK_IMPORTED_MODULE_1__["DialogService"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _ngrx_store__WEBPACK_IMPORTED_MODULE_5__["Store"]])
     ], DataService);
     return DataService;
 }());
@@ -1795,7 +1865,7 @@ var DialogComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n\r\n@import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');\n/* * {\r\n    border: 1px yellow solid;\r\n    box-sizing: border-box;\r\n} */\n#home-content-container {\r\n    width: 80%;\r\n    padding: 75px 0;\r\n    box-sizing: border-box;\r\n    display: -ms-grid;\r\n    display: grid;\r\n        -ms-grid-columns: 70% 30%;\r\n        grid-template-columns: 70% 30%;\r\n        grid-template-areas: \"left right\";\r\n}\n#home-left-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 1;\r\n    grid-area: left;\r\n}\n#home-left-content > * {\r\n    max-width: 90%;\r\n    margin: 15px auto;\r\n}\n#app-brand {\r\n    font-family: 'Oleo Script Swash Caps', cursive;\r\n    font-size: 4rem;\r\n}\n#splash {\r\n    box-shadow: 0px 0px 10px rgba(59, 59, 59, 0.4);\r\n    border: 1px rgba(54, 54, 54, 0.5) solid;\r\n}\n#description-list li {\r\n    text-decoration: none;\r\n    list-style-type: none;\r\n    line-height: 30px;\r\n}\n#description-list li fa {\r\n    margin: 0 15px;\r\n    color: rgb(0, 155, 0);\r\n}\n#home-right-content > * {\r\n    max-width: 90%;\r\n}\n#home-right-content {\r\n    -ms-grid-row: 1;\r\n    -ms-grid-column: 2;\r\n    grid-area: right;\r\n    padding-top: 35px;\r\n}\n.cta-btn {\r\n    padding: 10px 25px;\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n    background: rgb(72, 72, 252);\r\n    border: 0;\r\n    border-radius: 5px;\r\n    color: #FFF;\r\n}\n.cta-btn:hover {\r\n    background: rgb(90, 192, 255);\r\n}\n#forms-container {\r\n    width: 100%;\r\n    overflow: hidden;\r\n    box-shadow: 2px 2px 5px black;\r\n}\n#forms-container-nav {\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 1fr 1fr;\r\n        grid-template-columns: 1fr 1fr;\r\n    grid-gap: 1px;\r\n    background: silver;\r\n    border-bottom: 1px silver inset;\r\n}\n#forms-container-nav button {\r\n    display: inline-block;\r\n    width: 100%;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    margin: 0 auto;\r\n    padding: 12px 0;\r\n    font-size: 1rem;\r\n    background: white;\r\n    border: 0;\r\n    color: rgb(49, 49, 49);\r\n    transition: background 0.25s;\r\n    outline: none;\r\n}\n#forms-container-nav button:hover {\r\n    background: silver;\r\n    transition: background 0.25s;\r\n}\n.app-theme {\r\n    border: 0;\r\n    background: #FFF;\r\n    color: rgb(37, 44, 38);\r\n    border-radius: 10px;\r\n}\r\n\r\n"
+module.exports = "\r\n\r\n.component-container {\r\n    padding: 75px 0;\r\n    overflow: auto;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.app-theme {\r\n    border: 0;\r\n    background: #FFF;\r\n    color: rgb(37, 44, 38);\r\n    border-radius: 10px;\r\n}\r\n\r\n#app-brand {\r\n    font-family: 'Oleo Script Swash Caps', cursive;\r\n    font-size: 4rem;\r\n}\r\n\r\n#app-desc {\r\n    max-width: 90vw;\r\n    margin: 25px auto;\r\n}\r\n\r\n#desc-container {\r\n    align-self: flex-start;\r\n}\r\n\r\n#decription-list {\r\n    width: 500px;\r\n    max-width: 85vw;\r\n}\r\n\r\n#description-list li {\r\n    text-decoration: none;\r\n    list-style-type: none;\r\n    line-height: 30px;\r\n    display: -ms-grid;\r\n    display: grid; \r\n    -ms-grid-columns: 35px 1fr; \r\n        grid-template-columns: 35px 1fr;\r\n}\r\n\r\n#description-list li fa {\r\n    margin: 0 15px;\r\n    color: rgb(0, 155, 0);\r\n}\r\n\r\n#description-list li p {\r\n    margin: auto 15px;\r\n}\r\n\r\n.cta-btn {\r\n    padding: 10px 25px;\r\n    font-size: 1rem;\r\n    font-weight: normal;\r\n    background: rgb(72, 72, 252);\r\n    border: 0;\r\n    border-radius: 5px;\r\n    color: #FFF;\r\n    margin: 25px auto;\r\n}\r\n\r\n.cta-btn:hover {\r\n    background: rgb(90, 192, 255);\r\n}\r\n\r\n#forms-container {\r\n    width: 300px;\r\n    margin: 0 25px;\r\n    overflow: hidden;\r\n    box-shadow: 2px 2px 5px black;\r\n    align-self: flex-start;\r\n}\r\n\r\n#forms-container-nav {\r\n    display: -ms-grid;\r\n    display: grid;\r\n    -ms-grid-columns: 1fr 1fr;\r\n        grid-template-columns: 1fr 1fr;\r\n    grid-gap: 1px;\r\n    background: silver;\r\n    border-bottom: 1px silver inset;\r\n}\r\n\r\n#forms-container-nav button {\r\n    display: inline-block;\r\n    width: 100%;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    margin: 0 auto;\r\n    padding: 12px 0;\r\n    font-size: 1rem;\r\n    background: white;\r\n    border: 0;\r\n    color: rgb(49, 49, 49);\r\n    transition: background 0.25s;\r\n    outline: none;\r\n}\r\n\r\n#forms-container-nav button:hover {\r\n    background: silver;\r\n    transition: background 0.25s;\r\n}\r\n\r\n#splash {\r\n    box-shadow: 0px 0px 10px rgba(59, 59, 59, 0.4);\r\n    border: 1px rgba(54, 54, 54, 0.5) solid;\r\n    width: 600px;\r\n    height: auto;\r\n    max-width: 90vw;\r\n    margin: 20px auto;\r\n    position: relative;\r\n}\r\n\r\n#mobile-links-container {\r\n    display: none;\r\n}\r\n\r\n#mobile-links-container a {\r\n    color: rgb(202, 202, 202);\r\n    text-decoration: none;\r\n    margin: 0 15px;\r\n    font-size: 1rem;\r\n}\r\n\r\n@media only screen and (max-width: 975px){\r\n    #forms-container {\r\n        display: none;\r\n    }\r\n\r\n    #mobile-links-container {\r\n        display: flex;\r\n    }\r\n}\r\n\r\n@media only screen and (max-width: 800px){\r\n    .cta-btn {\r\n        display: none;\r\n    }\r\n}\r\n\r\n@media only screen and (max-width: 450px){\r\n    #app-brand {\r\n        font-size: 14.25vw;\r\n    }\r\n\r\n    p {\r\n        font-size: 0.9rem;\r\n    }\r\n\r\n    #forms-container {\r\n        display: none;\r\n    }\r\n}\r\n"
 
 /***/ }),
 
@@ -1806,7 +1876,7 @@ module.exports = "\r\n\r\n@import url('https://fonts.googleapis.com/css?family=O
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"flex-row-evenly component-container\">\r\n\r\n  <div id=\"home-content-container\">\r\n    <div id=\"home-left-content\" class=\"flex-col-start\">\r\n\r\n      <h1 id=\"app-brand\">Name Here</h1>\r\n      <p>Produce beautiful creative content right in your web browser.  No installations required!</p>\r\n      <ul id=\"description-list\">\r\n        <li><fa name=\"check\"></fa>Create presentation slideshows</li>\r\n        <li><fa name=\"check\"></fa>Draft web design templates</li>\r\n        <li><fa name=\"check\"></fa>Generate PDF Documents</li>\r\n        <li><fa name=\"check\"></fa>Image editing</li>\r\n        <li><fa name=\"check\"></fa>Google Fonts library and Pixabay image search, all in one place.</li>\r\n      </ul>\r\n\r\n      <button routerLink=\"main\" class=\"cta-btn\">Use as guest</button>\r\n\r\n      <img id=\"splash\" src=\"../../assets/splash.jpg\">\r\n    </div>\r\n\r\n    \r\n\r\n    <div id=\"home-right-content\" class=\"flex-col-start\">\r\n      <div class=\"app-theme\" id=\"forms-container\">\r\n        <div id=\"forms-container-nav\" class=\"flex-row-evenly\">\r\n          <button (click)=\"showForm('login')\">Login</button>\r\n          <button (click)=\"showForm('registration')\">Register</button>\r\n        </div>\r\n        <login *ngIf=\"showLogin\"></login>\r\n        <registration *ngIf=\"showRegistration\"></registration>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n\r\n</div>"
+module.exports = "<div class=\"component-container\">\r\n\r\n  <div class=\"flex-row-center wrap\">\r\n    <div id=\"desc-container\" class=\"flex-col-start\">\r\n      <h1 id=\"app-brand\">CreativeStudio</h1>\r\n\r\n      <div id=\"mobile-links-container\" class=\"flex-row-center\">\r\n          <a [routerLink]=\"['login']\">Login</a>|\r\n          <a [routerLink]=\"['registration']\">Register</a>\r\n        </div>\r\n      \r\n\r\n      <p id=\"app-desc\">Produce beautiful creative content right in your web browser. No installations required!</p>\r\n      <ul id=\"description-list\">\r\n        <li>\r\n          <fa name=\"check\"></fa><p>Create presentation slideshows</p>\r\n        </li>\r\n        <li>\r\n          <fa name=\"check\"></fa><p>Draft web design templates</p>\r\n        </li>\r\n        <li>\r\n          <fa name=\"check\"></fa><p>Generate PDF Documents</p>\r\n        </li>\r\n        <li>\r\n          <fa name=\"check\"></fa><p>Image editing</p>\r\n        </li>\r\n        <li>\r\n          <fa name=\"check\"></fa><p>Google Fonts library and Pixabay image search, all in one place.</p>\r\n        </li>\r\n      </ul>\r\n\r\n      <button routerLink=\"main\" class=\"cta-btn\">Use as guest</button>\r\n\r\n      <img id=\"splash\" src=\"../../assets/splash.jpg\">\r\n\r\n    </div>\r\n\r\n    <div class=\"app-theme\" id=\"forms-container\">\r\n      <div id=\"forms-container-nav\" class=\"flex-row-evenly\">\r\n        <button (click)=\"showForm('login')\">Login</button>\r\n        <button (click)=\"showForm('registration')\">Register</button>\r\n      </div>\r\n      <login embedded=\"true\" *ngIf=\"showLogin\"></login>\r\n      <registration embedded=\"true\" *ngIf=\"showRegistration\"></registration>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- <div class=\"flex-row-center\">\r\n  </div> -->\r\n\r\n</div>"
 
 /***/ }),
 
@@ -1880,7 +1950,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "form > * {\r\n    width: 85%;\r\n}\r\n\r\nlabel {\r\n    margin-top: 20px;\r\n    margin-bottom: 3px;\r\n    font-size: 0.8rem;\r\n}\r\n\r\ninput[type=\"password\"],\r\ninput[type=\"text\"] {\r\n    height: 35px;\r\n    border: 1px silver solid;\r\n    border-radius: 5px;\r\n    line-height: 25px;\r\n    font-size: 1.2rem;\r\n    padding: 0 10px;\r\n    font-weight: normal;\r\n}\r\n\r\nbutton {\r\n    height: 50px;\r\n    background: rgb(101, 168, 101);\r\n    border: 0;\r\n    margin: 20px;\r\n    border-radius: 5px;\r\n    font-size: 1rem;\r\n    font-weight: bold;\r\n    color: #FFF;\r\n}\r\n\r\nbutton:hover {\r\n    background: rgb(125, 209, 125);\r\n}\r\n\r\n.server-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    text-align: center;\r\n    margin-top: 15px;\r\n}\r\n\r\n\r\n\r\n"
+module.exports = "#app-brand {\r\n    font-family: 'Oleo Script Swash Caps', cursive;\r\n    font-size: 4rem;\r\n    margin: 50px auto 25px auto;\r\n}\r\n\r\n#form{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\nform > * {\r\n    width: 85%;\r\n}\r\n\r\nlabel {\r\n    margin-top: 20px;\r\n    margin-bottom: 3px;\r\n    font-size: 0.8rem;\r\n}\r\n\r\ninput[type=\"password\"],\r\ninput[type=\"text\"] {\r\n    height: 35px;\r\n    border: 1px silver solid;\r\n    border-radius: 5px;\r\n    line-height: 25px;\r\n    font-size: 1.2rem;\r\n    padding: 0 10px;\r\n    font-weight: normal;\r\n}\r\n\r\nbutton {\r\n    height: 50px;\r\n    background: rgb(101, 168, 101);\r\n    border: 0;\r\n    margin: 20px;\r\n    border-radius: 5px;\r\n    font-size: 1rem;\r\n    font-weight: bold;\r\n    color: #FFF;\r\n}\r\n\r\nbutton:hover {\r\n    background: rgb(125, 209, 125);\r\n}\r\n\r\n.server-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    text-align: center;\r\n    margin-top: 15px;\r\n}\r\n\r\n@media only screen and (max-width: 450px){\r\n    #app-brand {\r\n        font-size: 14.25vw;\r\n    }\r\n}\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1891,7 +1961,7 @@ module.exports = "form > * {\r\n    width: 85%;\r\n}\r\n\r\nlabel {\r\n    margi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form class=\"flex-col-start\" [formGroup]=\"loginForm\" (ngSubmit)=\"this.data.login(loginForm.value)\">\r\n\r\n  <label>\r\n    Username:\r\n  </label>\r\n  <input type=\"text\" formControlName=\"username\">\r\n\r\n  <label>\r\n    Password:\r\n  </label>\r\n  <input type=\"password\" formControlName=\"password\">\r\n\r\n  <div class=\"server-alert\" *ngIf=\"this.data.serverMsg\">{{\r\n      this.data.serverMsg }}</div>\r\n\r\n  <button type=\"submit\" [disabled]=\"!loginForm.valid\">Login</button>\r\n\r\n</form>"
+module.exports = "  <div *ngIf=\"!embedded\" class=\"flex-col-center\">\r\n      <h1 id=\"app-brand\">CreativeStudio</h1>\r\n  </div>\r\n  \r\n  <form class=\"flex-col-center\" [formGroup]=\"loginForm\" (ngSubmit)=\"this.data.login(loginForm.value)\">\r\n    <label>\r\n      Username:\r\n    </label>\r\n    <input type=\"text\" formControlName=\"username\">\r\n\r\n    <label>\r\n      Password:\r\n    </label>\r\n    <input type=\"password\" formControlName=\"password\">\r\n\r\n    <div class=\"server-alert\" *ngIf=\"this.data.serverMsg\">{{\r\n      this.data.serverMsg }}</div>\r\n\r\n    <button type=\"submit\" [disabled]=\"!loginForm.valid\">Login</button>\r\n  </form>\r\n"
 
 /***/ }),
 
@@ -1930,6 +2000,7 @@ var LoginComponent = /** @class */ (function () {
         this.http = http;
         this.router = router;
         this.data = data;
+        this.embedded = false;
         this.loginForm = fb.group({
             'username': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             'password': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
@@ -1942,6 +2013,10 @@ var LoginComponent = /** @class */ (function () {
         // Clearing it prevents the wrong serverMsg from being displayed on dashboard forms after user signs in.
         this.data.serverMsg = null;
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], LoginComponent.prototype, "embedded", void 0);
     LoginComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'login',
@@ -1964,7 +2039,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "form > * {\r\n    width: 85%;\r\n}\r\n\r\n\r\nlabel {\r\n    margin-top: 20px;\r\n    margin-bottom: 3px;\r\n    font-size: 0.8rem;\r\n}\r\n\r\n\r\ninput[type=\"password\"],\r\ninput[type=\"text\"] {\r\n    height: 35px;\r\n    border: 1px silver solid;\r\n    border-radius: 5px;\r\n    line-height: 25px;\r\n    font-size: 1.2rem;\r\n    padding: 0 10px;\r\n    font-weight: normal;\r\n}\r\n\r\n\r\nbutton {\r\n    height: 50px;\r\n    background: rgb(101, 168, 101);\r\n    border: 0;\r\n    margin: 20px;\r\n    border-radius: 5px;\r\n    font-size: 1rem;\r\n    font-weight: bold;\r\n    color: #FFF;\r\n}\r\n\r\n\r\nbutton:hover {\r\n    background: rgb(125, 209, 125);\r\n}\r\n\r\n\r\n/*  Reactive forms */\r\n\r\n\r\n.form-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    margin-top: 2px;\r\n}\r\n\r\n\r\n.server-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    text-align: center;\r\n    margin-top: 15px;\r\n}\r\n\r\n\r\n\r\n\r\n"
+module.exports = "#app-brand {\r\n    font-family: 'Oleo Script Swash Caps', cursive;\r\n    font-size: 4rem;\r\n    margin: 50px auto 25px auto;\r\n}\r\n\r\nform > * {\r\n    width: 85%;\r\n}\r\n\r\nlabel {\r\n    margin-top: 20px;\r\n    margin-bottom: 3px;\r\n    font-size: 0.8rem;\r\n}\r\n\r\ninput[type=\"password\"],\r\ninput[type=\"text\"] {\r\n    height: 35px;\r\n    border: 1px silver solid;\r\n    border-radius: 5px;\r\n    line-height: 25px;\r\n    font-size: 1.2rem;\r\n    padding: 0 10px;\r\n    font-weight: normal;\r\n}\r\n\r\nbutton {\r\n    height: 50px;\r\n    background: rgb(101, 168, 101);\r\n    border: 0;\r\n    margin: 20px;\r\n    border-radius: 5px;\r\n    font-size: 1rem;\r\n    font-weight: bold;\r\n    color: #FFF;\r\n}\r\n\r\nbutton:hover {\r\n    background: rgb(125, 209, 125);\r\n}\r\n\r\n/*  Reactive forms */\r\n\r\n.form-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    margin-top: 2px;\r\n}\r\n\r\n.server-alert {\r\n    font-size: 0.7rem;\r\n    color: red;\r\n    text-align: center;\r\n    margin-top: 15px;\r\n}\r\n\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1975,7 +2050,7 @@ module.exports = "form > * {\r\n    width: 85%;\r\n}\r\n\r\n\r\nlabel {\r\n    m
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form class=\"flex-col-evenly\" [formGroup]=\"rForm\" (ngSubmit)=\"this.data.register(rForm.value)\">\r\n   \r\n  <label>\r\n    First name:\r\n  </label>\r\n  <input type=\"text\" formControlName=\"first\">\r\n  <div class=\"form-alert\" *ngIf=\"rForm.controls['first'].errors?.required && rForm.controls['first'].touched\">{{\r\n    requiredAlert }}</div>\r\n\r\n  <label>\r\n    Last name:\r\n  </label>\r\n  <input type=\"text\" formControlName=\"last\">\r\n  <div class=\"form-alert\" *ngIf=\"rForm.controls['last'].errors?.required && rForm.controls['last'].touched\">{{\r\n    requiredAlert }}</div>\r\n\r\n  <label>\r\n    Email address:\r\n  </label>\r\n  <input type=\"text\" formControlName=\"email\">\r\n  <div *ngIf=\"rForm.controls['email'].touched\">\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['email'].errors?.required\">{{ requiredAlert }}</div>\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['email'].errors?.email\">{{ emailAlert }}</div>\r\n  </div>\r\n\r\n  <label>\r\n    Choose a username:\r\n  </label>\r\n  <input type=\"text\" formControlName=\"username\">\r\n  <div *ngIf=\"rForm.controls['username'].touched\">\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['username'].errors?.required\">{{ requiredAlert }}</div>\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['username'].errors?.minlength\">{{ requiredLengthAlert +\r\n      rForm.controls['username'].errors.minlength.requiredLength }}</div>\r\n  </div>\r\n\r\n  <label>\r\n    Choose a password:\r\n  </label>\r\n  <input type=\"password\" formControlName=\"password\">\r\n  <div *ngIf=\"rForm.controls['password'].touched\">\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['password'].errors?.required\">{{ requiredAlert }}</div>\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['password'].errors?.minlength\">{{ requiredLengthAlert +\r\n      rForm.controls['password'].errors.minlength.requiredLength }}</div>\r\n  </div>\r\n\r\n  <label>\r\n    Re-type your password:\r\n  </label>\r\n  <input type=\"password\" formControlName=\"password2\">\r\n  <div *ngIf=\"rForm.controls['password2'].touched\">\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['password2'].errors?.required\">{{ requiredAlert }}</div>\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['password2'].errors?.passwordMismatch\">{{ passwordMismatchAlert }}</div>\r\n  </div>\r\n\r\n  <div class=\"server-alert\" *ngIf=\"this.data.serverMsg\">{{\r\n      this.data.serverMsg }}</div>\r\n\r\n  <button type=\"submit\" [disabled]=\"!rForm.valid\">Register</button>\r\n</form>"
+module.exports = "<div *ngIf=\"!embedded\" class=\"flex-col-center\">\r\n    <h1 id=\"app-brand\">CreativeStudio</h1>\r\n</div>\r\n\r\n<form class=\"flex-col-center\" [formGroup]=\"rForm\" (ngSubmit)=\"this.data.register(rForm.value)\">\r\n  <label>\r\n    First name:\r\n  </label>\r\n  <input type=\"text\" formControlName=\"first\">\r\n  <div class=\"form-alert\" *ngIf=\"rForm.controls['first'].errors?.required && rForm.controls['first'].touched\">{{\r\n    requiredAlert }}</div>\r\n\r\n  <label>\r\n    Last name:\r\n  </label>\r\n  <input type=\"text\" formControlName=\"last\">\r\n  <div class=\"form-alert\" *ngIf=\"rForm.controls['last'].errors?.required && rForm.controls['last'].touched\">{{\r\n    requiredAlert }}</div>\r\n\r\n  <label>\r\n    Email address:\r\n  </label>\r\n  <input type=\"text\" formControlName=\"email\">\r\n  <div *ngIf=\"rForm.controls['email'].touched\">\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['email'].errors?.required\">{{ requiredAlert }}</div>\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['email'].errors?.email\">{{ emailAlert }}</div>\r\n  </div>\r\n\r\n  <label>\r\n    Choose a username:\r\n  </label>\r\n  <input type=\"text\" formControlName=\"username\">\r\n  <div *ngIf=\"rForm.controls['username'].touched\">\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['username'].errors?.required\">{{ requiredAlert }}</div>\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['username'].errors?.minlength\">{{ requiredLengthAlert +\r\n      rForm.controls['username'].errors.minlength.requiredLength }}</div>\r\n  </div>\r\n\r\n  <label>\r\n    Choose a password:\r\n  </label>\r\n  <input type=\"password\" formControlName=\"password\">\r\n  <div *ngIf=\"rForm.controls['password'].touched\">\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['password'].errors?.required\">{{ requiredAlert }}</div>\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['password'].errors?.minlength\">{{ requiredLengthAlert +\r\n      rForm.controls['password'].errors.minlength.requiredLength }}</div>\r\n  </div>\r\n\r\n  <label>\r\n    Re-type your password:\r\n  </label>\r\n  <input type=\"password\" formControlName=\"password2\">\r\n  <div *ngIf=\"rForm.controls['password2'].touched\">\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['password2'].errors?.required\">{{ requiredAlert }}</div>\r\n    <div class=\"form-alert\" *ngIf=\"rForm.controls['password2'].errors?.passwordMismatch\">{{ passwordMismatchAlert }}</div>\r\n  </div>\r\n\r\n  <div class=\"server-alert\" *ngIf=\"this.data.serverMsg\">{{\r\n      this.data.serverMsg }}</div>\r\n\r\n  <button type=\"submit\" [disabled]=\"!rForm.valid\">Register</button>\r\n</form>"
 
 /***/ }),
 
@@ -2014,6 +2089,7 @@ var RegistrationComponent = /** @class */ (function () {
         this.fb = fb;
         this.http = http;
         this.router = router;
+        this.embedded = false;
         this.requiredAlert = 'Required';
         this.passwordMismatchAlert = 'Passwords do not match';
         this.emailAlert = 'Invalid email address';
@@ -2038,6 +2114,10 @@ var RegistrationComponent = /** @class */ (function () {
         // Clearing it prevents the wrong serverMsg from being displayed in the dashboard.
         this.data.serverMsg = null;
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], RegistrationComponent.prototype, "embedded", void 0);
     RegistrationComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'registration',
@@ -2057,7 +2137,7 @@ var RegistrationComponent = /** @class */ (function () {
 /*!************************************************************!*\
   !*** ./src/app/state-management/actions/projectActions.ts ***!
   \************************************************************/
-/*! exports provided: NEW_PROJECT, LOAD_PROJECT, ADD_SLIDE, DEL_SLIDE, NEXT_SLIDE, PREV_SLIDE, ADD_IMAGEOBJECT, ADD_TEXTOBJECT, DEL_SLIDEOBJECT, SET_TEXTVALUE, ADD_TEXTSTYLE, DEL_TEXTSTYLE, ADD_IMAGESTYLE, DEL_IMAGESTYLE, ADD_IMAGE, DEL_IMAGE, SET_SANDBOXTEXT, SET_MODE, SELECT_TEXTSTYLE, SELECT_IMAGESTYLE, SELECT_GALLERY_IMAGE, SELECT_SLIDEOBJECT, SLIDEOBJECT_LAYER_UP, SLIDEOBJECT_LAYER_DOWN, NewProject, LoadProject, AddTextObject, SetTextValue, AddImageObject, DelSlideObject, DelTextStyle, DelImageStyle, AddImage, DelImage, SetSandboxText, SetMode, SelectTextStyle, SelectImageStyle, SelectGalleryImage, SlideObjectLayerUp, SlideObjectLayerDown */
+/*! exports provided: NEW_PROJECT, LOAD_PROJECT, ADD_SLIDE, DEL_SLIDE, NEXT_SLIDE, PREV_SLIDE, ADD_IMAGEOBJECT, ADD_TEXTOBJECT, DEL_SLIDEOBJECT, SET_TEXTVALUE, ADD_TEXTSTYLE, DEL_TEXTSTYLE, ADD_IMAGESTYLE, DEL_IMAGESTYLE, ADD_IMAGE, DEL_IMAGE, SET_SANDBOXTEXT, SET_MODE, SET_SELECTED_IMAGE_PREVIEW, SELECT_TEXTSTYLE, SELECT_IMAGESTYLE, SELECT_GALLERY_IMAGE, SELECT_SLIDEOBJECT, SLIDEOBJECT_LAYER_UP, SLIDEOBJECT_LAYER_DOWN, NewProject, LoadProject, AddTextObject, SetTextValue, AddImageObject, DelSlideObject, DelTextStyle, DelImageStyle, AddImage, DelImage, SetSandboxText, SetMode, SetSelectedImagePreview, SelectTextStyle, SelectImageStyle, SelectGalleryImage, SlideObjectLayerUp, SlideObjectLayerDown */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2080,6 +2160,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DEL_IMAGE", function() { return DEL_IMAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_SANDBOXTEXT", function() { return SET_SANDBOXTEXT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_MODE", function() { return SET_MODE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_SELECTED_IMAGE_PREVIEW", function() { return SET_SELECTED_IMAGE_PREVIEW; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SELECT_TEXTSTYLE", function() { return SELECT_TEXTSTYLE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SELECT_IMAGESTYLE", function() { return SELECT_IMAGESTYLE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SELECT_GALLERY_IMAGE", function() { return SELECT_GALLERY_IMAGE; });
@@ -2098,6 +2179,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DelImage", function() { return DelImage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetSandboxText", function() { return SetSandboxText; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetMode", function() { return SetMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetSelectedImagePreview", function() { return SetSelectedImagePreview; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectTextStyle", function() { return SelectTextStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectImageStyle", function() { return SelectImageStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectGalleryImage", function() { return SelectGalleryImage; });
@@ -2122,6 +2204,7 @@ var ADD_IMAGE = "ADD_IMAGE";
 var DEL_IMAGE = "DEL_IMAGE";
 var SET_SANDBOXTEXT = "SET_SANDBOXTEXT";
 var SET_MODE = "SET_MODE";
+var SET_SELECTED_IMAGE_PREVIEW = 'SET_SELECTED_IMAGE_PREVIEW';
 var SELECT_TEXTSTYLE = "SELECT_TEXTSTYLE";
 var SELECT_IMAGESTYLE = "SELECT_IMAGESTYLE";
 var SELECT_GALLERY_IMAGE = "SELECT_GALLERY_IMAGE";
@@ -2222,6 +2305,14 @@ var SetMode = /** @class */ (function () {
         this.type = SET_MODE;
     }
     return SetMode;
+}());
+
+var SetSelectedImagePreview = /** @class */ (function () {
+    function SetSelectedImagePreview(payload) {
+        this.payload = payload;
+        this.type = SET_SELECTED_IMAGE_PREVIEW;
+    }
+    return SetSelectedImagePreview;
 }());
 
 var SelectTextStyle = /** @class */ (function () {
@@ -2339,31 +2430,32 @@ var projectReducer = function (state, action) {
             newState.documentSize = action.payload.documentSize;
             newState.created = new Date();
             newState.lastSaved = new Date();
-            var defaultSlide = new src_app_classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"];
+            var defaultSlide = new src_app_classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]();
             defaultSlide.isDefault = true;
             newState.slides = [defaultSlide];
-            var defaultTextStyle = new src_app_classes_textStyle__WEBPACK_IMPORTED_MODULE_5__["TextStyle"];
+            var defaultTextStyle = new src_app_classes_textStyle__WEBPACK_IMPORTED_MODULE_5__["TextStyle"]();
             defaultTextStyle.isDefault = true;
             newState.textStyles = [defaultTextStyle];
             newState.selectedTextStyle = newState.textStyles[0];
-            var defaultImageStyle = new src_app_classes_imageStyle__WEBPACK_IMPORTED_MODULE_6__["ImageStyle"];
+            var defaultImageStyle = new src_app_classes_imageStyle__WEBPACK_IMPORTED_MODULE_6__["ImageStyle"]();
             defaultImageStyle.isDefault = true;
             newState.imageStyles = [defaultImageStyle];
             newState.selectedImageStyle = newState.imageStyles[0];
-            newState.currentSlideIndex = 0;
+            newState.selectedImagePreview = '',
+                newState.currentSlideIndex = 0;
             newState.images = [];
             newState.selectedImage = null;
             newState.viewTextElements = true;
             newState.viewImageElements = false;
-            newState.sandboxText = 'Lorem Ipsum';
-            newState.textNotes = 'Notes...';
+            newState.sandboxText = "Lorem Ipsum";
+            newState.textNotes = "Notes...";
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["LOAD_PROJECT"]:
             // Populate state variables with data from payload
             return action.payload.projectData;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_SLIDE"]:
             // Add a new slide to the project
-            newState.slides.push(new src_app_classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]);
+            newState.slides.push(new src_app_classes_slide__WEBPACK_IMPORTED_MODULE_2__["Slide"]());
             newState.currentSlideIndex = newState.slides.length - 1;
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["DEL_SLIDE"]:
@@ -2388,41 +2480,39 @@ var projectReducer = function (state, action) {
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_IMAGEOBJECT"]:
             // Create a new ImageObject with selected image selected image style
             // and add it to the current slide.
-            if (newState.selectedImage) {
-                var imageObject_1 = new src_app_classes_imageObject__WEBPACK_IMPORTED_MODULE_3__["ImageObject"];
-                // Use camanJS to create a base64 image with the css filters specified in imageObject.style
-                // Send base64 to server to save to cloudinary OR send straight to cloudinary 
-                // Set imageObject.imagePath to cloundinary image URL
-                // Save to store
-                imageObject_1.style = newState.selectedImageStyle;
-                imageObject_1.imagePath = newState.selectedImage.url;
+            var imageObject_1 = new src_app_classes_imageObject__WEBPACK_IMPORTED_MODULE_3__["ImageObject"]();
+            imageObject_1.imagePath = action.payload.url;
+            imageObject_1.fileName = action.payload.fileName;
+            imageObject_1.style = newState.selectedImageStyle;
+            // Scale down images that are larger than doc size
+            var img_1 = new Image();
+            img_1.src = imageObject_1.imagePath;
+            img_1.onload = function () {
                 // Set imageObject height and width
-                var img_1 = new Image;
-                img_1.src = imageObject_1.imagePath;
-                img_1.onload = function () {
-                    if (img_1.width <= newState.documentSize['width']) {
-                        imageObject_1.height = img_1.height;
-                        imageObject_1.width = img_1.width;
-                    }
-                    else if (img_1.width > newState.documentSize['width']) {
-                        var ratio = img_1.width / img_1.height;
-                        imageObject_1.width = newState.documentSize['width'];
-                        imageObject_1.height = newState.documentSize['width'] / ratio;
-                    }
-                    img_1 = null;
-                    newState.slides[newState.currentSlideIndex].slideObjects.push(imageObject_1);
-                };
-            }
+                if (img_1.width <= newState.documentSize["width"]) {
+                    imageObject_1.height = img_1.height;
+                    imageObject_1.width = img_1.width;
+                }
+                else if (img_1.width > newState.documentSize["width"]) {
+                    var ratio = img_1.width / img_1.height;
+                    imageObject_1.width = newState.documentSize["width"];
+                    imageObject_1.height = newState.documentSize["width"] / ratio;
+                }
+                img_1 = null;
+                // Add imageObject to slide
+                newState.slides[newState.currentSlideIndex].slideObjects.push(imageObject_1);
+            };
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_TEXTOBJECT"]:
             // Create a new textObject with sandboxText and selectedTextStyle
             // and add it to the current slide.
-            var textObject = new src_app_classes_textObject__WEBPACK_IMPORTED_MODULE_4__["TextObject"];
+            var textObject = new src_app_classes_textObject__WEBPACK_IMPORTED_MODULE_4__["TextObject"]();
             textObject.style = newState.selectedTextStyle;
             textObject.textValue = newState.sandboxText;
             newState.slides[newState.currentSlideIndex].slideObjects.push(textObject);
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["DEL_SLIDEOBJECT"]:
+            // If imageOjbect, delete image from firestorage
             newState.slides.forEach(function (slide) {
                 for (var i = 0; i < slide.slideObjects.length; i++) {
                     if (slide.slideObjects[i] === action.payload.slideObject)
@@ -2432,7 +2522,7 @@ var projectReducer = function (state, action) {
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_TEXTSTYLE"]:
             // Add a new textStyle to the project.
-            newState.textStyles.push(new src_app_classes_textStyle__WEBPACK_IMPORTED_MODULE_5__["TextStyle"]);
+            newState.textStyles.push(new src_app_classes_textStyle__WEBPACK_IMPORTED_MODULE_5__["TextStyle"]());
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["DEL_TEXTSTYLE"]:
             // Confirmation has been handled by the component.
@@ -2446,7 +2536,7 @@ var projectReducer = function (state, action) {
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["ADD_IMAGESTYLE"]:
             // Add a new imageStyle to the project.
-            newState.imageStyles.push(new src_app_classes_imageStyle__WEBPACK_IMPORTED_MODULE_6__["ImageStyle"]);
+            newState.imageStyles.push(new src_app_classes_imageStyle__WEBPACK_IMPORTED_MODULE_6__["ImageStyle"]());
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["DEL_IMAGESTYLE"]:
             // Confirmation has been handled by the component.
@@ -2465,8 +2555,11 @@ var projectReducer = function (state, action) {
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["DEL_IMAGE"]:
             // Confirmation has been handled by the component.
             // Delete the image specified in the payload.
+            // Remove image from firestorage
             for (var i = 0; i < newState.images.length; i++) {
                 if (newState.images[i] === action.payload.galleryImage) {
+                    if (newState.selectedImage === action.payload.galleryImage)
+                        newState.selectedImage = null;
                     newState.images.splice(i, 1);
                     break;
                 }
@@ -2479,14 +2572,18 @@ var projectReducer = function (state, action) {
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SET_MODE"]:
             // Switch between 'text' mode and 'image' mode for styler, toolbar, and sandbox components
-            if (action.payload.mode === 'text') {
+            if (action.payload.mode === "text") {
                 newState.viewImageElements = false;
                 newState.viewTextElements = true;
             }
-            if (action.payload.mode === 'image') {
+            if (action.payload.mode === "image") {
                 newState.viewImageElements = true;
                 newState.viewTextElements = false;
             }
+            return newState;
+        case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SET_SELECTED_IMAGE_PREVIEW"]:
+            // Set the selectedImagePreview to the dataURL provided in the payload
+            newState.selectedImagePreview = action.payload.selectedImagePreview;
             return newState;
         case _actions_projectActions__WEBPACK_IMPORTED_MODULE_1__["SELECT_TEXTSTYLE"]:
             // Set the project's selected textStyle to the one that is specified in the payload
@@ -2628,7 +2725,8 @@ var initialState = {
     name: 'New Project',
     created: new Date(),
     lastSaved: new Date(),
-    thumbnail: 'https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg',
+    thumbnailUrl: 'https://images.pexels.com/photos/33688/delicate-arch-night-stars-landscape.jpg',
+    thumbnailFileName: '',
     slides: [defaultSlide],
     textStyles: [defaultTextStyle],
     imageStyles: [defaultImageStyle],
@@ -2639,6 +2737,7 @@ var initialState = {
     images: [],
     sandboxText: 'Lorem Ipsum',
     selectedImage: null,
+    selectedImagePreview: '',
     viewTextElements: true,
     viewImageElements: false,
     textNotes: 'Notes...',
