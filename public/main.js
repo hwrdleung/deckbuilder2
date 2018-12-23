@@ -1278,8 +1278,8 @@ var DataService = /** @class */ (function () {
         this.router = router;
         this.store = store;
         /* SERVER VARIABLES */
-        // apiEndpoint: string = 'https://deckbuilder2.herokuapp.com';
-        this.apiEndpoint = "http://localhost:3000";
+        this.apiEndpoint = 'https://deckbuilder2.herokuapp.com';
+        // apiEndpoint: string = "http://localhost:3000";
         this.serverMsg = "";
         /*  UI VARIABLES */
         // Had to put this here so that dataService could hide the forms after API calls
