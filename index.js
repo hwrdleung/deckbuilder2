@@ -8,12 +8,6 @@ const mongoose = require('mongoose');
 const user = require('./routes/user')(router); 
 mongoose.connect('mongodb://noodles01:noodles01@ds149593.mlab.com:49593/deckbuilder2');
 
-// Middleware
-// router.use(function timeLog(req, res, next) {
-//     console.log('Time: ', Date.now());
-//     next();
-// });
-
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({limit: '10mb', extended: true}));
@@ -21,7 +15,7 @@ app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(user);
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
