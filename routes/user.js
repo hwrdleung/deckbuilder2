@@ -1,19 +1,13 @@
-const express = require("express");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const request = require("request");
 const saltRounds = 10;
 require("dotenv").config();
-const firebase = require("firebase");
 const { Storage } = require("@google-cloud/storage");
 
 const secret = process.env.AUTH_SECRET;
-const FIREBASE_API_KEY = process.env.FIREBASE_API_KEY;
-const FIREBASE_AUTH_DOMAIN = process.env.FIREBASE_AUTH_DOMAIN;
 const FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID;
-const FIREBASE_STORAGE_BUCKET = process.env.FIREBASE_STORAGE_BUCKET;
-const SERVICE_ACCOUNT_PRIVATE_KEY = process.env.SERVICE_ACCOUNT_PRIVATE_KEY;
 
 const storage = new Storage({
   projectId: FIREBASE_PROJECT_ID,
@@ -189,6 +183,7 @@ module.exports = router => {
       })
       // Success: delete account and respond with success message
       .then(() => {
+        // TODO: Remove all images from firebase storage associated with this user
         res.json(new Response(true, "Account has been deleted."));
       })
       .catch(error => {

@@ -32,7 +32,8 @@
       </div>
 
       <a (click)="this.sandbox.addToSlide('imageObject')" id="sandbox-add-btn-group" class="grayAccent02 flex-col-center">
-        <fa name="share"></fa>
+        <fa name="share" *ngIf="!this.sandbox.isUploadingImage"></fa>
+        <fa name="cog" class="loader" *ngIf="this.sandbox.isUploadingImage"></fa>
         <p>Add image object to slide</p>
       </a>
 

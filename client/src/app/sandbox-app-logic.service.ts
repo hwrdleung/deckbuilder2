@@ -16,7 +16,6 @@ import {
   DEL_IMAGE,
   SET_SELECTED_IMAGE_PREVIEW
 } from "./state-management/actions/projectActions";
-import * as firebase from "firebase";
 
 @Injectable({
   providedIn: "root"
@@ -28,6 +27,9 @@ export class SandboxAppLogicService {
     private dialog: DialogService,
     private store: Store<ProjectState>
   ) {}
+
+  /* UI Loader  */
+  isUploadingImage: boolean = false;
 
   /* IMAGE SEARCH VARIABLES  */
   imageSearchQuery: string = "";
@@ -134,16 +136,20 @@ export class SandboxAppLogicService {
         break;
       case "imageObject":
         /*
-        1.  Get selectedImage and selectedImageStyle from projectState
-        2.  Use camanJS to generate dataURL of selctedImage with selectedImageStyle applied to it
-        3.  Upload to firebase via backend api, and get firebase image url
-        4.  Invoke ngrx action ADD_IMAGEOBJECT, passing in the fileName and firebase image url in the payload
+        1.  Display UI loader icon
+        2.  Get selectedImage and selectedImageStyle from projectState
+        3.  Use camanJS to generate dataURL of selctedImage with selectedImageStyle applied to it
+        4.  Upload to firebase via backend api, and get firebase image url
+        5.  Invoke ngrx action ADD_IMAGEOBJECT, passing in the fileName and firebase image url in the payload
+        6.  Hide UI loader icon
         */
 
         let selectedImageUrl;
         let selectedImageStyle;
         let token;
         let fileName;
+
+        this.isUploadingImage = true;
 
         this.data.getProjectState()
           .then(data => {
@@ -180,6 +186,8 @@ export class SandboxAppLogicService {
               type: ADD_IMAGEOBJECT,
               payload: payload
             });
+
+            this.isUploadingImage = false;
           })
           .catch(error => console.log(error));
         break;

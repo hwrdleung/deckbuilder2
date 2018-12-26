@@ -38,6 +38,7 @@ export class ImageSandboxComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.sandbox.isUploadingImage = false;
     this.enableResizer();
     this.data.initializeFirebase();
     // Get UI variables from store

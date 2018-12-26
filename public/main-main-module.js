@@ -8076,7 +8076,7 @@ module.exports = "/*  Layout  */\r\n.sandbox-container  {\r\n    width: 100%;\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div #container class=\"sandbox-container\" id=\"image-sandbox\">\r\n  <div class=\"preview-area flex-col-center\">\r\n    <div id=\"image-preview-container\" *ngIf=\"selectedImage\" [ngStyle]=\"getPreviewRenderCss()\">\r\n      <!-- <img id=\"image-preview\" [src]=\"selectedImagePreview\"> -->\r\n      <img id=\"image-preview\" [src]=\"selectedImagePreview\" [ngStyle]=\"selectedImageStyle.getCss()\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-center grayAccent02\" id=\"preview-toolbar\">\r\n      <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"zoom('out')\"></fa>\r\n      <input type='range' [(ngModel)]=\"previewRenderMagnification\" min=\"0\" max=\"300\">\r\n      <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"zoom('in')\"></fa>\r\n      <p><input type=\"number\" [(ngModel)]=\"previewRenderMagnification\">%</p>\r\n    </div>\r\n  </div>\r\n\r\n  <div #resizer class=\"resizer\"></div>\r\n\r\n  <div class=\"sandbox-bottom\">\r\n    <div #middlebar class=\"middle-bar\">\r\n      <div class=\"flex-row-center image-input-area\" *ngIf=\"viewGallery\">\r\n        <h3>Import an image:</h3>\r\n\r\n        <input type=\"file\" (change)=\"this.sandbox.importImage($event)\">\r\n      </div>\r\n\r\n      <div class=\"flex-row-center image-input-area\" *ngIf=\"viewSearchResults\">\r\n        <h3>Search for an image:</h3>\r\n        <div id=\"search-form\">\r\n          <input id=\"search-bar\" type=\"text\" [(ngModel)]=\"this.sandbox.imageSearchQuery\">\r\n          <button id=\"search-bar-btn\" type=\"submit\" (click)=\"this.sandbox.searchPixabay()\">Search</button></div>\r\n\r\n      </div>\r\n\r\n      <a (click)=\"this.sandbox.addToSlide('imageObject')\" id=\"sandbox-add-btn-group\" class=\"grayAccent02 flex-col-center\">\r\n        <fa name=\"share\"></fa>\r\n        <p>Add image object to slide</p>\r\n      </a>\r\n\r\n      <div id=\"menu-tab-container\" class=\"flex-row-start\">\r\n        <a (click)=\"showContent('gallery')\" [class.tab-selected]=\"viewGallery\">Gallery <fa name=\"th-large\"></fa></a>\r\n\r\n        <img (click)=\"showContent('search')\" id=\"pixabay-logo\" src=\"https://pixabay.com/static/img/logo.svg\"\r\n          [class.tab-selected]=\"viewSearchResults\">\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"gallery\" *ngIf=\"viewGallery\">\r\n\r\n      <h5 class=\"gallery-message\" *ngIf=\"!images.length\">There are no images in your gallery.</h5>\r\n\r\n      <div *ngFor=\"let image of images\" class=\"gallery-img-container\">\r\n        <img src=\"{{image.url}}\" (click)=\"this.sandbox.selectImage(image)\" class=\"gallery-img\">\r\n        <fa name=\"trash\" class=\"delete-icon flex-row-evenly\" (click)=\"this.sandbox.deleteImage(image)\"></fa>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"gallery\" *ngIf=\"viewSearchResults\">\r\n\r\n      <h5 class=\"gallery-message\">Image search powered by: <a href=\"https://pixabay.com/\" target=\"__blank\">Pixabay</a></h5>\r\n\r\n      <div *ngFor=\"let image of this.sandbox.imageSearchResults\" class=\"gallery-img-container\">\r\n        <img src=\"{{image.previewURL}}\" class=\"gallery-img\">\r\n        <fa name=\"plus\" class=\"delete-icon flex-row-evenly\" (click)=\"this.sandbox.pixabayToGallery(image.largeImageURL)\"></fa>\r\n      </div>\r\n\r\n      <div class=\"flex-row-center\">\r\n        <button class=\"grayAccent02\" id=\"load-more-images\" *ngIf=\"this.sandbox.imageSearchResults\" (click)=\"this.sandbox.loadMoreImages()\">\r\n          <fa name=\"angle-double-down\"></fa>Load more images<fa name=\"angle-double-down\"></fa></button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div #container class=\"sandbox-container\" id=\"image-sandbox\">\r\n  <div class=\"preview-area flex-col-center\">\r\n    <div id=\"image-preview-container\" *ngIf=\"selectedImage\" [ngStyle]=\"getPreviewRenderCss()\">\r\n      <!-- <img id=\"image-preview\" [src]=\"selectedImagePreview\"> -->\r\n      <img id=\"image-preview\" [src]=\"selectedImagePreview\" [ngStyle]=\"selectedImageStyle.getCss()\">\r\n    </div>\r\n\r\n    <div class=\"flex-row-center grayAccent02\" id=\"preview-toolbar\">\r\n      <fa name=\"search-minus\" class=\"flex-row-evenly\" (click)=\"zoom('out')\"></fa>\r\n      <input type='range' [(ngModel)]=\"previewRenderMagnification\" min=\"0\" max=\"300\">\r\n      <fa name=\"search-plus\" class=\"flex-row-evenly\" (click)=\"zoom('in')\"></fa>\r\n      <p><input type=\"number\" [(ngModel)]=\"previewRenderMagnification\">%</p>\r\n    </div>\r\n  </div>\r\n\r\n  <div #resizer class=\"resizer\"></div>\r\n\r\n  <div class=\"sandbox-bottom\">\r\n    <div #middlebar class=\"middle-bar\">\r\n      <div class=\"flex-row-center image-input-area\" *ngIf=\"viewGallery\">\r\n        <h3>Import an image:</h3>\r\n\r\n        <input type=\"file\" (change)=\"this.sandbox.importImage($event)\">\r\n      </div>\r\n\r\n      <div class=\"flex-row-center image-input-area\" *ngIf=\"viewSearchResults\">\r\n        <h3>Search for an image:</h3>\r\n        <div id=\"search-form\">\r\n          <input id=\"search-bar\" type=\"text\" [(ngModel)]=\"this.sandbox.imageSearchQuery\">\r\n          <button id=\"search-bar-btn\" type=\"submit\" (click)=\"this.sandbox.searchPixabay()\">Search</button></div>\r\n\r\n      </div>\r\n\r\n      <a (click)=\"this.sandbox.addToSlide('imageObject')\" id=\"sandbox-add-btn-group\" class=\"grayAccent02 flex-col-center\">\r\n        <fa name=\"share\" *ngIf=\"!this.sandbox.isUploadingImage\"></fa>\r\n        <fa name=\"cog\" class=\"loader\" *ngIf=\"this.sandbox.isUploadingImage\"></fa>\r\n        <p>Add image object to slide</p>\r\n      </a>\r\n\r\n      <div id=\"menu-tab-container\" class=\"flex-row-start\">\r\n        <a (click)=\"showContent('gallery')\" [class.tab-selected]=\"viewGallery\">Gallery <fa name=\"th-large\"></fa></a>\r\n\r\n        <img (click)=\"showContent('search')\" id=\"pixabay-logo\" src=\"https://pixabay.com/static/img/logo.svg\"\r\n          [class.tab-selected]=\"viewSearchResults\">\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"gallery\" *ngIf=\"viewGallery\">\r\n\r\n      <h5 class=\"gallery-message\" *ngIf=\"!images.length\">There are no images in your gallery.</h5>\r\n\r\n      <div *ngFor=\"let image of images\" class=\"gallery-img-container\">\r\n        <img src=\"{{image.url}}\" (click)=\"this.sandbox.selectImage(image)\" class=\"gallery-img\">\r\n        <fa name=\"trash\" class=\"delete-icon flex-row-evenly\" (click)=\"this.sandbox.deleteImage(image)\"></fa>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"gallery\" *ngIf=\"viewSearchResults\">\r\n\r\n      <h5 class=\"gallery-message\">Image search powered by: <a href=\"https://pixabay.com/\" target=\"__blank\">Pixabay</a></h5>\r\n\r\n      <div *ngFor=\"let image of this.sandbox.imageSearchResults\" class=\"gallery-img-container\">\r\n        <img src=\"{{image.previewURL}}\" class=\"gallery-img\">\r\n        <fa name=\"plus\" class=\"delete-icon flex-row-evenly\" (click)=\"this.sandbox.pixabayToGallery(image.largeImageURL)\"></fa>\r\n      </div>\r\n\r\n      <div class=\"flex-row-center\">\r\n        <button class=\"grayAccent02\" id=\"load-more-images\" *ngIf=\"this.sandbox.imageSearchResults\" (click)=\"this.sandbox.loadMoreImages()\">\r\n          <fa name=\"angle-double-down\"></fa>Load more images<fa name=\"angle-double-down\"></fa></button>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -8120,6 +8120,7 @@ var ImageSandboxComponent = /** @class */ (function () {
     }
     ImageSandboxComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.sandbox.isUploadingImage = false;
         this.enableResizer();
         this.data.initializeFirebase();
         // Get UI variables from store
@@ -8851,6 +8852,8 @@ var SandboxAppLogicService = /** @class */ (function () {
         this.data = data;
         this.dialog = dialog;
         this.store = store;
+        /* UI Loader  */
+        this.isUploadingImage = false;
         /* IMAGE SEARCH VARIABLES  */
         this.imageSearchQuery = "";
         this.imageSearchpage = 1;
@@ -8960,15 +8963,18 @@ var SandboxAppLogicService = /** @class */ (function () {
                 break;
             case "imageObject":
                 /*
-                1.  Get selectedImage and selectedImageStyle from projectState
-                2.  Use camanJS to generate dataURL of selctedImage with selectedImageStyle applied to it
-                3.  Upload to firebase via backend api, and get firebase image url
-                4.  Invoke ngrx action ADD_IMAGEOBJECT, passing in the fileName and firebase image url in the payload
+                1.  Display UI loader icon
+                2.  Get selectedImage and selectedImageStyle from projectState
+                3.  Use camanJS to generate dataURL of selctedImage with selectedImageStyle applied to it
+                4.  Upload to firebase via backend api, and get firebase image url
+                5.  Invoke ngrx action ADD_IMAGEOBJECT, passing in the fileName and firebase image url in the payload
+                6.  Hide UI loader icon
                 */
                 var selectedImageUrl_1;
                 var selectedImageStyle_1;
                 var token_1;
                 var fileName_1;
+                this.isUploadingImage = true;
                 this.data.getProjectState()
                     .then(function (data) {
                     // Get data from projectState
@@ -9001,6 +9007,7 @@ var SandboxAppLogicService = /** @class */ (function () {
                         type: _state_management_actions_projectActions__WEBPACK_IMPORTED_MODULE_6__["ADD_IMAGEOBJECT"],
                         payload: payload
                     });
+                    _this.isUploadingImage = false;
                 })
                     .catch(function (error) { return console.log(error); });
                 break;

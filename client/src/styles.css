@@ -163,12 +163,12 @@ button:hover
 
 .loader {
     animation: rotate linear 1s infinite;
-    width: 25px;
-    height: 25px;
-    margin: 0;
-    padding: 15px;
-    font-size: 25px;
-    transform-origin: 50% 50%;
+    width: 25px !important; 
+    height: 25px !important; 
+    margin: 0 !important; 
+    padding: 15px !important; 
+    font-size: 25px !important; 
+    transform-origin: 50% 50% !important; 
 }
 
 @keyframes rotate {
