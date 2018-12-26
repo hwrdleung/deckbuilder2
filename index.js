@@ -10,8 +10,8 @@ mongoose.connect('mongodb://noodles01:noodles01@ds149593.mlab.com:49593/deckbuil
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json({limit: '10mb', extended: true}));
-app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
+app.use(bodyParser.json({limit: '20mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '20mb', extended: true}));
 app.use(user);
 
 // Routes
