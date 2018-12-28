@@ -30,8 +30,8 @@ export class StylerAppLogicService {
     let isStyleInUse = false;
     let type;
 
-    if (style.constructor.name === "TextStyle") type = "text";
-    if (style.constructor.name === "ImageStyle") type = "image";
+    if (style.type === "TextStyle") type = "text";
+    if (style.type === "ImageStyle") type = "image";
 
     this.data
       .getProjectState()
@@ -71,14 +71,13 @@ export class StylerAppLogicService {
       .getProjectState()
       .then(data => {
         let projectState: any = data;
-        let styleType = style.constructor.name;
 
         if (isStyleInUse) {
           // Find all slide objects that use this style, and set its style to the default style
           projectState.slides.forEach(slide => {
             slide.slideObjects.forEach(slideObject => {
               if (slideObject.style === style) {
-                switch (styleType) {
+                switch (style.type) {
                   case "TextStyle":
                     slideObject.style = projectState.textStyles[0];
                     break;
@@ -92,7 +91,7 @@ export class StylerAppLogicService {
         }
 
         // Delete from project state
-        switch (styleType) {
+        switch (style.type) {
           case "TextStyle":
             // Check selectedTextStyle
             if (projectState.selectedTextStyle === style) {

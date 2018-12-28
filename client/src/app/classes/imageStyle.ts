@@ -10,6 +10,7 @@ export class ImageStyle {
     editNameMode: boolean;
     showExtraOptions: boolean;
     isDefault : Boolean;
+    type: 'ImageStyle';
 
     // Borders
     border: BorderControl;
@@ -33,6 +34,7 @@ export class ImageStyle {
         this.name = 'ImageStyle' + this.id;
         this.editNameMode = false;
         this.showExtraOptions = false;
+        this.type = 'ImageStyle';
 
         this.brightness = 0;
         this.contrast = 0;

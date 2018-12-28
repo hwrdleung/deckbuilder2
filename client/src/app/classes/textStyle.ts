@@ -6,6 +6,7 @@ export class TextStyle {
     static textStyleCounter: number = 0;
     name: string;
     id: number;
+    type: 'TextStyle';
     editNameMode: boolean;
     showExtraOptions: boolean;
     fontPickerData: object; // Google font picker defines this format.  It includes family, size, and style
@@ -30,6 +31,7 @@ export class TextStyle {
     constructor() {
         this.id = TextStyle.textStyleCounter++;
         this.name = 'TextStyle' + this.id;
+        this.type = 'TextStyle';
         this.editNameMode = false;
         this.showExtraOptions = false;
         this.color = '#000';

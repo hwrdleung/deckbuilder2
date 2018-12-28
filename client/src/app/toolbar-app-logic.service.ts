@@ -43,8 +43,7 @@ export class ToolbarAppLogicService {
   }
 
   selectStyle(style: ImageStyle | TextStyle) {
-    let styleType = style.constructor.name;
-    switch (styleType) {
+    switch (style.type) {
       case 'TextStyle':
         this.store.dispatch({ type: SELECT_TEXTSTYLE, payload: { textStyle: style } });
         break;

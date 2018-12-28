@@ -60,8 +60,7 @@ export class ToolbarComponent implements OnInit {
   isSelected(style: ImageStyle | TextStyle) {
     // This function provides the template with a boolean for the conditional styling
     // of the toolbar's style selector
-    let styleType = style.constructor.name;
-    switch (styleType) {
+    switch (style.type) {
       case "TextStyle":
         if (style === this.selectedTextStyle) return true;
         return false;
