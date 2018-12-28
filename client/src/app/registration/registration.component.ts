@@ -21,7 +21,7 @@ export class RegistrationComponent implements OnInit {
   emailAlert: string = 'Invalid email address'
   requiredLengthAlert: string = 'Minimum length: ';
 
-  constructor(private data: DataService, private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(public data: DataService, public fb: FormBuilder, public http: HttpClient, public router: Router) {
     this.rForm = fb.group({
       'first': [null, Validators.required],
       'last': [null, Validators.required],

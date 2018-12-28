@@ -20,10 +20,10 @@ export class ToolbarSecondaryComponent implements OnInit {
   projectStateSubscription;
 
   constructor(
-    private data: DataService,
-    private dialog: DialogService,
-    private toolbar2: Toolbar2AppLogicService,
-    private store: Store<ProjectState>
+    public data: DataService,
+    public dialog: DialogService,
+    public toolbar2: Toolbar2AppLogicService,
+    public store: Store<ProjectState>
   ) {}
 
   ngOnInit() {

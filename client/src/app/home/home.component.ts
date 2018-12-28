@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   showLogin: boolean = true;
   showRegistration: boolean = false;
 
-  constructor(private router: Router, private store: Store<UserState>) { }
+  constructor(public router: Router, public store: Store<UserState>) { }
 
   ngOnInit() {
   }

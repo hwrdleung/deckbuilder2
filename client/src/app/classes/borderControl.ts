@@ -1,41 +1,41 @@
 export class BorderControl{
-    private showFullBorder: boolean;
-    private showTopBorder: boolean;
-    private showRightBorder: boolean;
-    private showBottomBorder: boolean;
-    private showLeftBorder: boolean;
-    private borderStyles: Array<string>;
+    public showFullBorder: boolean;
+    public showTopBorder: boolean;
+    public showRightBorder: boolean;
+    public showBottomBorder: boolean;
+    public showLeftBorder: boolean;
+    public borderStyles: Array<string>;
 
     // Full border settings
-    private fullBorderWidth: number;
-    private fullBorderColor: string;
-    private fullBorderStyle: string;
+    public fullBorderWidth: number;
+    public fullBorderColor: string;
+    public fullBorderStyle: string;
 
     // Top border settings
-    private topBorderWidth: number;
-    private topBorderColor: string;
-    private topBorderStyle: string;
+    public topBorderWidth: number;
+    public topBorderColor: string;
+    public topBorderStyle: string;
 
     // Bottom border settings
-    private bottomBorderWidth: number;
-    private bottomBorderColor: string;
-    private bottomBorderStyle: string;
+    public bottomBorderWidth: number;
+    public bottomBorderColor: string;
+    public bottomBorderStyle: string;
 
     // Right border settings
-    private rightBorderWidth: number;
-    private rightBorderColor: string;
-    private rightBorderStyle: string;
+    public rightBorderWidth: number;
+    public rightBorderColor: string;
+    public rightBorderStyle: string;
 
     // Left border settings
-    private leftBorderWidth: number;
-    private leftBorderColor: string;
-    private leftBorderStyle: string;
+    public leftBorderWidth: number;
+    public leftBorderColor: string;
+    public leftBorderStyle: string;
 
     // Radius settings
-    private topLeftRadius: number;
-    private topRightRadius: number;
-    private bottomLeftRadius: number;
-    private bottomRightRadius: number;
+    public topLeftRadius: number;
+    public topRightRadius: number;
+    public bottomLeftRadius: number;
+    public bottomRightRadius: number;
 
     constructor() {
         this.showFullBorder = false;

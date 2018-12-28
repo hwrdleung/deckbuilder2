@@ -32,9 +32,9 @@ export class ImageSandboxComponent implements OnInit {
   projectStateSubscription;
 
   constructor(
-    private store: Store<ProjectState>,
-    private data: DataService,
-    private sandbox: SandboxAppLogicService
+    public store: Store<ProjectState>,
+    public data: DataService,
+    public sandbox: SandboxAppLogicService
   ) {}
 
   ngOnInit() {

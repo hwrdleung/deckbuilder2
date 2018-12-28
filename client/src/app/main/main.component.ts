@@ -30,13 +30,13 @@ export class MainComponent implements OnInit {
     projectStateSubscription;
 
   constructor(
-    private datePipe: DatePipe,
-    private router: Router,
-    private elementRef: ElementRef,
-    private data: DataService,
-    private store: Store<ProjectState>,
-    private dialog: DialogService,
-    private toolbar2: Toolbar2AppLogicService
+    public datePipe: DatePipe,
+    public router: Router,
+    public elementRef: ElementRef,
+    public data: DataService,
+    public store: Store<ProjectState>,
+    public dialog: DialogService,
+    public toolbar2: Toolbar2AppLogicService
   ) {}
 
   ngOnInit() {

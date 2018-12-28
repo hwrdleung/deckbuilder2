@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
   /*  USERSTATE SUBSCRIPTION */
   userStateSubscription
 
-  constructor(private router: Router, private http: HttpClient, private fb: FormBuilder, private data: DataService, private dialog: DialogService, private store: Store<any>) {
+  constructor(public router: Router, public http: HttpClient, public fb: FormBuilder, public data: DataService, public dialog: DialogService, public store: Store<any>) {
     this.projectCreatorForm = fb.group({
       'projectName': [null, Validators.required],
       'documentSize': [null, Validators.required],

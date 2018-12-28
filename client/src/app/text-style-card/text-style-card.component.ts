@@ -13,7 +13,7 @@ export class TextStyleCardComponent implements OnInit {
   @Input()
   textStyle: TextStyle;
 
-  constructor(private data: DataService, private styler: StylerAppLogicService) {
+  constructor(public data: DataService, public styler: StylerAppLogicService) {
   }
 
   ngOnInit() {

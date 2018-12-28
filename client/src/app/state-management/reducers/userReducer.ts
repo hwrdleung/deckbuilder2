@@ -2,8 +2,7 @@ import { ActionReducer } from "@ngrx/store";
 import { UserState, initialState } from '../state/userState';
 import { LOGIN, LOGOUT, Actions } from "../actions/userActions";
 
-export const userReducer: ActionReducer<UserState> =
-  (state = initialState, action: Actions) => {
+export function userReducer (state = initialState, action: Actions) {
     switch (action.type) {
 
       case LOGIN:

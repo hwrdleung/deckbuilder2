@@ -22,7 +22,7 @@ export class StylerComponent implements OnInit {
     /*  NGRX STORE SUBSCRIPTION  */
     projectStateSubscription;
 
-  constructor(private data: DataService, private styler: StylerAppLogicService, private store: Store<ProjectState>) { }
+  constructor(public data: DataService, public styler: StylerAppLogicService, public store: Store<ProjectState>) { }
 
   ngOnInit() {
     this.projectStateSubscription = this.store.select("projectReducer").subscribe(projectState => {

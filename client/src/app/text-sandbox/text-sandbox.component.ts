@@ -27,9 +27,9 @@ export class TextSandboxComponent implements OnInit {
   projectStateSubscription;
 
   constructor(
-    private store: Store<ProjectState>,
-    private sandbox: SandboxAppLogicService,
-    private data: DataService
+    public store: Store<ProjectState>,
+    public sandbox: SandboxAppLogicService,
+    public data: DataService
   ) {}
 
   ngOnInit() {

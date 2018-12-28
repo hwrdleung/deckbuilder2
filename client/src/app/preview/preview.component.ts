@@ -23,10 +23,10 @@ export class PreviewComponent implements OnInit {
   projectStateSubscription;
 
   constructor(
-    private data: DataService,
-    private store: Store<ProjectState>,
-    private toolbar2: Toolbar2AppLogicService,
-    private router: Router
+    public data: DataService,
+    public store: Store<ProjectState>,
+    public toolbar2: Toolbar2AppLogicService,
+    public router: Router
   ) {}
 
   ngOnInit() {

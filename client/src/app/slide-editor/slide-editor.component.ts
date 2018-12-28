@@ -30,7 +30,7 @@ export class SlideEditorComponent implements OnInit {
   slides: Slide[];
   currentSlideIndex: number;
   slideRenderMagnification: number = 50;
-  documentSize: object;
+  documentSize: any;
   textStyles: TextStyle[];
   imageStyles: ImageStyle[];
 
@@ -46,11 +46,11 @@ export class SlideEditorComponent implements OnInit {
   projectStateSubscription;
 
   constructor(
-    private data: DataService,
-    private toolbar: ToolbarAppLogicService,
-    private dialog: DialogService,
-    private slideEditor: SlideEditorAppLogicService,
-    private store: Store<ProjectState>
+    public data: DataService,
+    public toolbar: ToolbarAppLogicService,
+    public dialog: DialogService,
+    public slideEditor: SlideEditorAppLogicService,
+    public store: Store<ProjectState>
   ) {}
 
   ngOnInit() {

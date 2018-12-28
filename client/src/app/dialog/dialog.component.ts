@@ -8,7 +8,7 @@ import { DialogService } from '../dialog.service';
 })
 export class DialogComponent implements OnInit {
 
-  constructor(private dialog:DialogService) { }
+  constructor(public dialog:DialogService) { }
 
   ngOnInit() {
   }

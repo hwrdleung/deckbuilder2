@@ -33,10 +33,10 @@ import { TextObject } from "src/app/classes/textObject";
 import { TextStyle } from "src/app/classes/textStyle";
 import { ImageStyle } from "src/app/classes/imageStyle";
 
-export const projectReducer: ActionReducer<ProjectState> = (
+export function projectReducer (
   state = initialState,
   action: Actions
-) => {
+) {
   /* PROJECT REDUCER HANDLES A LARGE BULK OF APP LOGIC */
   let newState = { ...state };
 

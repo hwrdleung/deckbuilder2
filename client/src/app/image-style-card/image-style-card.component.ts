@@ -18,7 +18,7 @@ export class ImageStyleCardComponent implements OnInit {
   @Input()
   imageStyle: ImageStyle;
 
-  constructor(private data: DataService, private styler: StylerAppLogicService, private sandbox: SandboxAppLogicService, private store:Store<any>) {
+  constructor(public data: DataService, public styler: StylerAppLogicService, public sandbox: SandboxAppLogicService, public store:Store<any>) {
 
   }
 
