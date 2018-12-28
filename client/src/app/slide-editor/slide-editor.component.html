@@ -49,7 +49,7 @@
     </div>
 
     <div id="heirarchy">
-      <div *ngFor="let slideObject of slides[currentSlideIndex].slideObjects.reverse()" class="slide-control-row flex-row-center grayAccent02"
+      <div *ngFor="let slideObject of slides[currentSlideIndex].slideObjects.slice().reverse()" class="slide-control-row flex-row-center grayAccent02"
         [style.background]="isSlideObjectSelected(slideObject) ? 'green' : 'none'">
         <div class="flex-row-evenly heirarchy-control-group heirarchy-name">
           <div *ngIf="!slideObject.editNameMode" class="flex-row-evenly">
