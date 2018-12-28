@@ -206,8 +206,7 @@ export class SlideEditorComponent implements OnInit {
     value: number
   ) {
     // This function handles changes to the number inputs for slide objects in the layer heirarchy.
-    let type = slideObject.constructor.name;
-    switch (type) {
+    switch (slideObject.type) {
       case "ImageObject":
         this.maintainRatio(slideObject, dimension, value);
         break;

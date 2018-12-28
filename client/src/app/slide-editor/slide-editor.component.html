@@ -9,10 +9,10 @@
         (mousedown)="selectObject(slideObject)" ngResizable [rzHandles]="'all'" (rzStart)="slideObject.setProperty('isResizing', true)"
         (rzStop)="slideObject.setSize($event); slideObject.setProperty('isResizing', false)" ngDraggable (started)="slideObject.setProperty('isDragging', true)"
         (stopped)="slideObject.setProperty('isDragging', false)" (endOffset)="slideObject.setTranslation($event)"
-        [position]="slideObject.getTranslation()" [rzAspectRatio]="slideObject.constructor.name==='ImageObject'? true: false">
+        [position]="slideObject.getTranslation()" [rzAspectRatio]="slideObject.type==='ImageObject'? true: false">
 
-        <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>
-        <img *ngIf="slideObject.constructor.name==='ImageObject'" [src]="slideObject.imagePath"
+        <p *ngIf="slideObject.type==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>
+        <img *ngIf="slideObject.type==='ImageObject'" [src]="slideObject.imagePath"
           crossOrigin="anonymous" [ngStyle]="slideObject.style.getCss()"></div>
     </div>
   </div>
@@ -62,7 +62,7 @@
           </div>
         </div>
 
-        <div *ngIf="slideObject.constructor.name==='TextObject'" class="flex-row-evenly heirarchy-content heirarchy-control-group">
+        <div *ngIf="slideObject.type==='TextObject'" class="flex-row-evenly heirarchy-content heirarchy-control-group">
           <div *ngIf="!slideObject.editTextMode" class="flex-row-evenly">
             <h5>{{slideObject.textValue.substring(0, 15) + '...'}}</h5>
             <fa name="edit" (click)="editTextObjectText(slideObject)"></fa>
@@ -74,7 +74,7 @@
           </div>
         </div>
 
-        <div *ngIf="slideObject.constructor.name==='ImageObject'" class="flex-row-evenly heirarchy-control-group heirarchy-content">
+        <div *ngIf="slideObject.type==='ImageObject'" class="flex-row-evenly heirarchy-control-group heirarchy-content">
           <h5>ImageObject</h5>
         </div>
 

@@ -261,8 +261,7 @@ export class DataService {
     // Helper function for reviveProject()
     projectData.slides.forEach(slide => {
       slide.slideObjects.forEach(slideObject => {
-        let type = slideObject.constructor.name;
-        switch (type) {
+        switch (slideObject.type) {
           case "TextObject":
             for (let i = 0; i < projectData.textStyles.length; i++) {
               if (projectData.textStyles[i].id === slideObject.style.id) {

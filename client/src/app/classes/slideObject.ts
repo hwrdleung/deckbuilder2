@@ -3,6 +3,7 @@ export class SlideObject{
     static slideObjectCounter:number = 0;
     id: number;
     name: string;
+    type: 'ImageObject' | 'TextObject';
     editNameMode: boolean;
     top: number; // Save as percentage
     left: number; // Save as percentage

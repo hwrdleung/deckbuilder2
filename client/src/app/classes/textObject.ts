@@ -11,6 +11,7 @@ export class TextObject extends SlideObject {
         super();
         this.editTextMode = false;
         this.textValue = "Lorem Ipsum";
+        this.type = 'TextObject';
     }
 
     revive(obj){

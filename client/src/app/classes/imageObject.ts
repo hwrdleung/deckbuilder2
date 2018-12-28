@@ -9,6 +9,7 @@ export class ImageObject extends SlideObject {
 
     constructor () {
         super();
+        this.type = 'ImageObject';
     }
 
     revive(obj){

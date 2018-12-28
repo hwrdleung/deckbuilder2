@@ -1,8 +1,8 @@
 <div #previewContainer id="preview-container">
   <div  id="preview-slide-render" [ngStyle]="getPreviewSlideRenderCss()">
     <div class="slide-object" *ngFor="let slideObject of slides[previewSlideIndex].slideObjects" [ngStyle]="slideObject.getCss()" ngDraggable [position]="slideObject.getTranslation()">
-      <p *ngIf="slideObject.constructor.name==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>
-      <img *ngIf="slideObject.constructor.name==='ImageObject'" [src]="slideObject.imagePath"
+      <p *ngIf="slideObject.type==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>
+      <img *ngIf="slideObject.type==='ImageObject'" [src]="slideObject.imagePath"
         crossOrigin="anonymous">
       </div>
   </div>
