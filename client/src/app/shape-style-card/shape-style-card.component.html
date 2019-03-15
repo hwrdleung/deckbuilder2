@@ -1,0 +1,21 @@
+<div class="style-card-container greenAccent01">
+
+  <div class="flex-row-between style-card-row">
+    <div *ngIf="!shapeStyle.editNameMode" class="flex-row-between">
+      <h3 *ngIf="!shapeStyle.editNameMode">{{shapeStyle.name.substring(0, 20)}}</h3>
+      <fa *ngIf="!shapeStyle.isDefault" (click)="shapeStyle.toggleProperty('editNameMode')" name="edit"></fa>
+    </div>
+
+    <div *ngIf="shapeStyle.editNameMode" class="flex-row-between">
+      <input type="text" [(ngModel)]="shapeStyle.name" placeholder="shapeStyle.name">
+      <fa name="save" (click)="shapeStyle.toggleProperty('editNameMode')"></fa>
+    </div>
+
+    <a *ngIf="!shapeStyle.isDefault" (click)="this.styler.deleteStyle(shapeStyle)">
+      <fa name="trash"></fa>
+    </a>
+  </div>
+
+  <h1>SHAPE STYLE CARD</h1>
+
+</div>
