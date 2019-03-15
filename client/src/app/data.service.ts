@@ -14,15 +14,6 @@ import { ImageStyle } from "./classes/imageStyle";
 import * as firebase from "firebase";
 declare var Caman: any;
 
-/*
-  HOME
-    -Think of a good name for the app
-
-  SANDBOX
-    -Find a solution for image storage
-    -Get camanJS to work
-*/
-
 @Injectable({
   providedIn: "root"
 })
@@ -47,7 +38,7 @@ export class DataService {
     private http: HttpClient,
     private router: Router,
     private store: Store<any>
-  ) {}
+  ) { }
 
   displayServerMessage(message: string) {
     // This function sets serverMsg = message and clears it after 5 seconds.
@@ -70,7 +61,7 @@ export class DataService {
       firebase
         .auth()
         .signInAnonymously()
-        .catch(function(error) {
+        .catch(function (error) {
           console.log(error);
         });
     }
@@ -92,17 +83,17 @@ export class DataService {
   };
 
   deleteFromFirebase = (fileNames: string[]) => {
-      this.getUserState().then(data => {
-        let userState:any = data;
-        let body = {
-          fileNames: fileNames,
-          token: userState.token
-        }
+    this.getUserState().then(data => {
+      let userState: any = data;
+      let body = {
+        fileNames: fileNames,
+        token: userState.token
+      }
 
-        this.http.post(this.apiEndpoint + '/delete-image', body).subscribe(res => {
-          if(res['success'] === false) console.log(res);
-        })
+      this.http.post(this.apiEndpoint + '/delete-image', body).subscribe(res => {
+        if (res['success'] === false) console.log(res);
       })
+    })
       .catch(error => console.log(error))
   };
 
@@ -110,7 +101,7 @@ export class DataService {
   register(formData) {
     // This function handles ngSubmit for the reigstration form
     // Capitalize the user's first and last names
-    let capitalize = function(str: string) {
+    let capitalize = function (str: string) {
       let strArr = str.split(" ");
       for (let i = 0; i < strArr.length; i++) {
         strArr[i] =
@@ -191,18 +182,24 @@ export class DataService {
     // This function handles ngSubmit for the 'delete account form' in the dashboard's 'settings' view.
     // Confirmation is handled by form validations in dashboard.ts, requiring the user's password.
     // Make API call to delete user from database and display server message on failure, logout on success
+
     let headers = new HttpHeaders();
-    headers = headers.append("username", this.userState["username"]);
     headers = headers.append("password", formData.password);
 
-    this.http
-      .delete(this.apiEndpoint + "/delete-account", { headers: headers })
-      .subscribe(res => {
-        if (res["success"] === false) this.displayServerMessage(res["message"]);
-        if (res["success"] === true) {
-          this.showDeleteAccountForm = false;
-          this.logout();
-        }
+    this.getUserState().then(data => {
+      let userState = data;
+      headers = headers.append("username", userState['username']);
+    })
+      .then(() => {
+        this.http
+          .delete(this.apiEndpoint + "/delete-account", { headers: headers })
+          .subscribe(res => {
+            if (res["success"] === false) this.displayServerMessage(res["message"]);
+            if (res["success"] === true) {
+              this.showDeleteAccountForm = false;
+              this.logout();
+            }
+          });
       });
   }
 
@@ -451,8 +448,8 @@ export class DataService {
       if (!sessionData) {
         reject("User is not signed in.");
       } else if (sessionData) {
-        let projectState:any;
-        let userState:any;
+        let projectState: any;
+        let userState: any;
 
         this.getProjectState()
           .then(data => {
@@ -468,12 +465,12 @@ export class DataService {
           })
           // Get create thumbnail of currentSlide and upload to firebase
           .then(data => {
-            let fileName = `${userState.username}/${projectState.name}-thumbnail`;
+            let fileName = `${userState.username}/${projectState.name}/thumbnail`;
             return this.uploadDataUrlToFirebase(userState.token, data, fileName);
           })
           .then(res => {
             // Set project thumbnail
-            let uploadData:any = res;
+            let uploadData: any = res;
             projectState.thumbnailUrl = uploadData.body.url;
             projectState.thumbnailFileName = uploadData.body.fileName;
             // Clear selectedImagePreview -- it does not need to be saved in the database

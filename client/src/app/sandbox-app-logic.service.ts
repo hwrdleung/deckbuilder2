@@ -34,7 +34,7 @@ export class SandboxAppLogicService {
   /* IMAGE SEARCH VARIABLES  */
   imageSearchQuery: string = "";
   imageSearchResults;
-  imageSearchpage: number = 1;
+  imageSearchPage: number = 1;
 
   pixabayToGallery(url: string) {
     // This function creates a galleryImage object with the search result specified
@@ -53,7 +53,7 @@ export class SandboxAppLogicService {
 
   searchPixabay() {
     // This function makes a call to the back end to perform image search
-    this.imageSearchpage = 1;
+    this.imageSearchPage = 1;
     let headers = new HttpHeaders();
     headers = headers.append("search-query", this.imageSearchQuery);
     headers = headers.append("page", "1");
@@ -66,11 +66,11 @@ export class SandboxAppLogicService {
   }
 
   loadMoreImages() {
-    // This function handles pagination for image search results.
-    this.imageSearchpage++;
+    // This function handles pagination for pixabay image search results.
+    this.imageSearchPage++;
     let headers = new HttpHeaders();
     headers = headers.append("search-query", this.imageSearchQuery);
-    headers = headers.append("page", this.imageSearchpage.toString());
+    headers = headers.append("page", this.imageSearchPage.toString());
 
     this.http
       .get(this.data.apiEndpoint + "/search-pixabay", { headers: headers })
@@ -89,12 +89,6 @@ export class SandboxAppLogicService {
       image.src = url;
 
       image.onload = function() {
-
-        // if(isPreview){
-        //   let imageRatio = image.width / image.height;
-        //   image.width = 600;
-        //   image.height = image.width / imageRatio;
-        // }
 
         var div = document.createElement("div");
         div.appendChild(image);
@@ -148,13 +142,15 @@ export class SandboxAppLogicService {
         let selectedImageStyle;
         let token;
         let fileName;
+        let userState:any;
+        let projectState: any;
 
         this.isUploadingImage = true;
 
         this.data.getProjectState()
           .then(data => {
             // Get data from projectState
-            let projectState: any = data;
+            projectState = data;
             selectedImageUrl = projectState.selectedImage.url;
             selectedImageStyle = projectState.selectedImageStyle;
 
@@ -162,11 +158,9 @@ export class SandboxAppLogicService {
           })
           .then(data => {
             // Get token and ceate fileName from userState data
-            let userState: any = data;
+            userState = data;
             token = userState.token;
-            fileName = `${
-              userState.username
-            }/${new Date().getTime().toString()}`;
+            fileName = `${userState.username}/${projectState.name}/slide${projectState.currentSlideIndex}-${new Date().getTime().toString()}`;
             // Use CamanJS to create dataUrl with css filters applied
             return this.applyCssFilters(selectedImageUrl, selectedImageStyle);
           })
@@ -212,6 +206,8 @@ export class SandboxAppLogicService {
     // then used to create a new GalleryImage.  
     let file = event.srcElement.files[0];
     let base64;
+    let userState: any;
+    let projectState: any;
 
     // Convert file to base64
     this.getBase64(file)
@@ -223,10 +219,12 @@ export class SandboxAppLogicService {
         // Get token from userState for backend verification
         // Use data in userState to generate a fileName for the image
         // This fileName will be used when saving to firebase storage.
-        let userState: any = data;
-        let fileName = `${
-          userState.username
-        }/${new Date().getTime().toString()}`;
+        userState = data;
+        return this.data.getProjectState();
+      })
+      .then(data => {
+        projectState = data;
+        let fileName = `${userState.username}/${projectState.name}/imported-gallery-img-${new Date().getTime().toString()}`;
         // Send to backend
         return this.data.uploadDataUrlToFirebase(userState.token, base64, fileName);
       })

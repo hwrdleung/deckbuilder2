@@ -26,6 +26,7 @@ import {
   SELECT_SLIDEOBJECT,
   SLIDEOBJECT_LAYER_UP,
   SLIDEOBJECT_LAYER_DOWN,
+  SAVE_NOTES,
 } from "../actions/projectActions";
 import { Slide } from "src/app/classes/slide";
 import { ImageObject } from "src/app/classes/imageObject";
@@ -155,7 +156,9 @@ export function projectReducer (
 
     case ADD_TEXTSTYLE:
       // Add a new textStyle to the project.
-      newState.textStyles.push(new TextStyle());
+      let textStyle = new TextStyle();
+      newState.textStyles.push(textStyle);
+      newState.selectedTextStyle = textStyle;
       return newState;
 
     case DEL_TEXTSTYLE:
@@ -171,7 +174,9 @@ export function projectReducer (
 
     case ADD_IMAGESTYLE:
       // Add a new imageStyle to the project.
-      newState.imageStyles.push(new ImageStyle());
+      let imageStyle = new ImageStyle();
+      newState.imageStyles.push(imageStyle);
+      newState.selectedImageStyle = imageStyle;
       return newState;
 
     case DEL_IMAGESTYLE:
@@ -284,6 +289,10 @@ export function projectReducer (
           }
         }
       });
+      return newState;
+
+    case SAVE_NOTES:
+      newState.textNotes = action.payload.textNotes;
       return newState;
 
     default: {

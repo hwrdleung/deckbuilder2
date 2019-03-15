@@ -168,17 +168,37 @@ module.exports = router => {
   router.delete("/delete-account", (req, res) => {
     // Client requests to delete account
     let username = req.headers.username;
-    console.log(req.headers.password);
+    let projects;
+
     // Parse data and auth
     User.findOne({ username: username })
       .exec()
       .then(user => {
         if (!user) return res.json(new Response(false, "User not found."));
+        projects = user.projects;
         return bcrypt.compareSync(req.headers.password, user.password);
       })
       // Check password
       .then(isValid => {
         if (!isValid) return res.json(new Response(false, "Invalid password."));
+
+        // Delete all project images from firebase storage
+        let imageFileNames = [];
+        projects.forEach(project => {
+          imageFileNames.push(project.thumbnailFileName);
+
+          project.slides.forEach(slide => {
+            slide.slideObjects.forEach(slideObject => {
+              imageFileNames.push(slideObject.fileName);
+            })
+          })
+        })
+
+        imageFileNames.forEach(filename => {
+          let file = bucket.file(`images/${filename}`);
+          file.delete();
+        })
+
         return User.findOneAndRemove({ username: username });
       })
       // Success: delete account and respond with success message
@@ -358,6 +378,7 @@ module.exports = router => {
   router.delete("/delete-project", (req, res) => {
     let token = req.headers.token;
     let projectName = req.headers["project-name"];
+    let project;
 
     verifyToken(token)
       .then(decoded => {
@@ -377,31 +398,8 @@ module.exports = router => {
         // Find and delete project
         for (let i = 0; i < user.projects.length; i++) {
           if (user.projects[i].name === projectName) {
-
-            // Delete all images in firebase storage associated with this project
-            let imageFileNames = [];
-
-            // Get fileNames of gallery Images
-            user.projects[i].images.forEach(image => {
-              if(image.fileName) imageFileNames.push(image.fileName);
-            })
-
-            // Get file names of all imageObjects in project
-            user.projects[i].slides.forEach(slide => {
-              slide.slideObjects.forEach(slideObject => {
-                  if(slideObject.fileName) imageFileNames.push(slideObject.fileName);
-              })
-            })
-
-            // Delete project thumbnail
-            let thumbnail = bucket.file(`images/${user.projects[i].thumbnailFileName}`);
-            thumbnail.delete();
-
-            // Delete all images in imageFileNames
-            imageFileNames.forEach(fileName => {
-              let file = bucket.file(`images/${fileName}`);
-              file.delete();
-            })
+            // Store project data in a variable for next promise chain (deleting images from firebase storage)
+            project = user.projects[i];
 
             // Delete project from database
             user.projects.splice(i, 1);
@@ -410,7 +408,25 @@ module.exports = router => {
         }
         return res.json(new Response(false, projectName + " not found"));
       })
+      .then(()=>{
+        // Firebase api doesn't allow deleting of entire directories.
+        // Get a list of all image file names and delete each one manually.
 
+        let imageFileNames = [project.thumbnailFileName];
+
+        // Iterate through all slides and add each imageObject to imageFileNames
+        project.slides.forEach(slide =>{
+          slide.slideObjects.forEach(slideObject => {
+            imageFileNames.push(slideObject.fileName)
+          })
+        })
+
+        // Iterate through all filenames and delete from firebase storage
+        imageFileNames.forEach(filename => {
+          let file = bucket.file(`images/${filename}`);
+          file.delete();
+        })
+      })
       .then(() => {
         return res.json(new Response(true, projectName + " has been Deleted."));
       })

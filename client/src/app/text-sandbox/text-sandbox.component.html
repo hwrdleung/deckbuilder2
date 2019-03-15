@@ -23,7 +23,7 @@
           </a>
       </div>
       
-      <textarea id="notes-textarea" [(ngModel)]="textNotes"></textarea>
+      <textarea id="notes-textarea" [(ngModel)]="textNotes" (ngModelChange)="saveNotes(textNotes)"></textarea>
       
     </div>
   </div>

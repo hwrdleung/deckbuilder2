@@ -35,6 +35,8 @@ export const SELECT_SLIDEOBJECT: string = "SELECT_SLIDEOBJECT";
 export const SLIDEOBJECT_LAYER_UP: string = 'SLIDEOBJECT_LAYER_UP';
 export const SLIDEOBJECT_LAYER_DOWN: string = 'SLIDEOBJECT_LAYER_DOWN';
 
+export const SAVE_NOTES: string = "SAVE_NOTES";
+
 export class NewProject implements Action {
     readonly type = NEW_PROJECT
     constructor(public payload: any) { }
@@ -125,4 +127,9 @@ export class SlideObjectLayerDown implements Action {
     constructor(public payload: any) { }
 }
 
-export type Actions = LoadProject | AddImageObject | AddTextObject | SetTextValue | DelSlideObject | DelTextStyle | DelImageStyle | AddImage | DelImage | SetMode | SetSelectedImagePreview | SetSandboxText | SelectTextStyle | SelectImageStyle | SelectGalleryImage | SlideObjectLayerUp | SlideObjectLayerDown;
+export class SaveNotes implements Action {
+    readonly type = SAVE_NOTES
+    constructor(public payload: any) { }
+}
+
+export type Actions = SaveNotes | LoadProject | AddImageObject | AddTextObject | SetTextValue | DelSlideObject | DelTextStyle | DelImageStyle | AddImage | DelImage | SetMode | SetSelectedImagePreview | SetSandboxText | SelectTextStyle | SelectImageStyle | SelectGalleryImage | SlideObjectLayerUp | SlideObjectLayerDown;

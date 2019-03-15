@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 import { ProjectState } from "../state-management/state/projectState";
 import { TextStyle } from "../classes/textStyle";
 import { SandboxAppLogicService } from "../sandbox-app-logic.service";
-import { SET_SANDBOXTEXT } from "../state-management/actions/projectActions";
+import { SET_SANDBOXTEXT, SAVE_NOTES } from "../state-management/actions/projectActions";
 import { DataService } from "../data.service";
 
 @Component({
@@ -46,6 +46,14 @@ export class TextSandboxComponent implements OnInit {
 
   ngOnDestroy() {
     this.projectStateSubscription.unsubscribe();
+  }
+
+  saveNotes(textNotes){
+    console.log('Saving notes');
+    this.store.dispatch({
+      type: SAVE_NOTES,
+      payload: { textNotes: textNotes}
+    });
   }
 
   enableResizer() {

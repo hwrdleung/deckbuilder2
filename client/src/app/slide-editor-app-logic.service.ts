@@ -25,10 +25,19 @@ export class SlideEditorAppLogicService {
 
   deleteSlideOjbect(slideObject: SlideObject) {
     // This function deletes slideObject from the slide
-    if(slideObject.type === 'ImageObject'){
-      this.data.deleteFromFirebase([slideObject['fileName']]);
-    }
-    this.store.dispatch({type:DEL_SLIDEOBJECT, payload: {slideObject: slideObject}});
-    this.dialog.toast(`Deleted ${slideObject.name}`);
+
+    // Prompt user for confirmation with dialog
+    let prompt = `Are you sure you want to delete ${slideObject.name}?`;
+
+    this.dialog.alert(prompt, 'danger', () => {
+      if(slideObject.type === 'ImageObject'){
+        this.data.deleteFromFirebase([slideObject['fileName']]);
+      }
+      this.store.dispatch({type:DEL_SLIDEOBJECT, payload: {slideObject: slideObject}});
+      this.dialog.toast(`Deleted ${slideObject.name}`);
+    })
+
+
+
   }
 }
