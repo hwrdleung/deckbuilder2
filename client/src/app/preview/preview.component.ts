@@ -14,6 +14,8 @@ import { DataService } from "../data.service";
 export class PreviewComponent implements OnInit {
   /*  UI VARIABLES */
   @ViewChild("previewContainer") previewContainer: ElementRef<any>;
+  @ViewChild("previewSlideRender") previewSlideRender: ElementRef<any>;
+
   slides: Slide[];
   documentSize;
   previewSlideIndex: number = 0;
@@ -27,9 +29,19 @@ export class PreviewComponent implements OnInit {
     public store: Store<ProjectState>,
     public toolbar2: Toolbar2Controller,
     public router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
+    window.addEventListener("orientationchange", () => {
+      // Announce the new orientation number
+      console.log('Screen rotated')
+      setTimeout(() => {
+        // This forces a re-render with new values for window height and width
+        this.previewSlideIndex++;
+        this.previewSlideIndex--;
+      }, 25);
+    }, false);
+
     // Subscribe to projectState
     this.projectStateSubscription = this.store
       .select("projectReducer")
@@ -41,7 +53,9 @@ export class PreviewComponent implements OnInit {
     this.launchIntoFullscreen(this.previewContainer.nativeElement);
     // Putting a setTimeout on the slideShowControls prevents the clicking of the "preview" button
     // to cause the slideshow to start at the second slide.
-    setTimeout(() => this.enableSlideShowControls(), 1000);
+    if(window.innerWidth > 799){
+      setTimeout(() => this.enableSlideShowControls(), 1000);
+    }
   }
 
   ngOnDestroy() {
@@ -108,7 +122,7 @@ export class PreviewComponent implements OnInit {
     document.addEventListener("msfullscreenchange", this.exitPreviewMode);
   }
 
-  exitPreviewMode = event => {
+  exitPreviewMode = () => {
     // This function cleans up eventListeners when user exits fullscreen
     if (
       document.fullscreenElement === null ||
@@ -161,5 +175,10 @@ export class PreviewComponent implements OnInit {
     // Helper function for slideshow navigation
     if (this.previewSlideIndex < this.slides.length - 1)
       this.previewSlideIndex++;
+  }
+
+  close(){
+    this.exitPreviewMode();
+    this.router.navigate(['dashboard']);
   }
 }

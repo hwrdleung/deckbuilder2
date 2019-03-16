@@ -1,5 +1,5 @@
 <div #previewContainer id="preview-container">
-  <div  id="preview-slide-render" [ngStyle]="getPreviewSlideRenderCss()">
+  <div #previewSlideRender id="preview-slide-render" [ngStyle]="getPreviewSlideRenderCss()">
     <div class="slide-object" *ngFor="let slideObject of slides[previewSlideIndex].slideObjects" [ngStyle]="slideObject.getCss()" ngDraggable [position]="slideObject.getTranslation()">
       <p *ngIf="slideObject.type==='TextObject'" [ngStyle]="slideObject.style.getCss()">{{slideObject.textValue}}</p>
       <img *ngIf="slideObject.type==='ImageObject'" [src]="slideObject.imagePath"
@@ -9,3 +9,18 @@
 </div>
 
 <div id="preview-container-overlay"></div>
+
+<!-- Mobile Nav Btns-->
+<div id="prev-slide-btn" (click)="previousSlide()">
+  <fa name="angle-left" class="mobile-nav-btn"></fa>
+</div>
+
+<div id="next-slide-btn" (click)="nextSlide()">
+  <fa name="angle-right" class="mobile-nav-btn"></fa>
+</div>
+
+<div id="close-btn" (click)="close()">
+  <fa name="times-circle" class="mobile-nav-btn"></fa>
+</div>
+
+
