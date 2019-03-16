@@ -29,9 +29,7 @@ export class DialogService {
   }
 
   ok(){
-    if (this.callback) {
-      this.callback();
-    }
+    if (this.callback) this.callback();
     this.close();
   }
 
@@ -46,4 +44,5 @@ export class DialogService {
       this.showToast = false;
     }, 1250)
   }
+  
 }

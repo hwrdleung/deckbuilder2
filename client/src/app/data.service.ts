@@ -11,12 +11,12 @@ import { ImageObject } from "./classes/imageObject";
 import { TextStyle } from "./classes/textStyle";
 import { GalleryImage } from "./classes/galleryImage";
 import { ImageStyle } from "./classes/imageStyle";
-import * as firebase from "firebase";
-declare var Caman: any;
+import { NEW_PROJECT } from "./state-management/actions/projectActions";
 
 @Injectable({
   providedIn: "root"
 })
+
 export class DataService {
   /* SERVER VARIABLES */
   // apiEndpoint: string = 'https://deckbuilder2.herokuapp.com';
@@ -28,7 +28,6 @@ export class DataService {
   projectState: any;
 
   /*  UI VARIABLES */
-  // Had to put this here so that dataService could hide the forms after API calls
   showChangePasswordForm: boolean = false;
   showDeleteAccountForm: boolean = false;
   isSlideRenderLoading: boolean = false;
@@ -41,108 +40,87 @@ export class DataService {
   ) { }
 
   displayServerMessage(message: string) {
-    // This function sets serverMsg = message and clears it after 5 seconds.
+    // this.serverMsg is used in all forms (login, registration, change PW, del account, etc.)
     this.serverMsg = message;
     setTimeout(() => {
       this.serverMsg = null;
     }, 5000);
   }
 
-  initializeFirebase = () => {
-    if (!firebase.apps.length) {
-      var config = {
-        apiKey: "AIzaSyBz9UkDgc3Qfw-U31dJU43UoaymI5CtH44",
-        authDomain: "deckbuilder-1531369409076.firebaseapp.com",
-        projectId: "deckbuilder-1531369409076",
-        storageBucket: "gs://deckbuilder-1531369409076.appspot.com"
-      };
-
-      firebase.initializeApp(config);
-      firebase
-        .auth()
-        .signInAnonymously()
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  };
-
   uploadDataUrlToFirebase = (token, dataUrl, fileName) => {
     // This function makes a call to the backend to upload dataUrl to firebase
     // and returns a promise containing the server response.
     return new Promise((resolve, reject) => {
+
       let body = {
         token: token,
         dataUrl: dataUrl,
         fileName: fileName
       };
-      this.http
-        .post(this.apiEndpoint + "/upload-image", body)
+
+      this.http.post(this.apiEndpoint + "/upload-image", body)
         .subscribe(res => resolve(res));
     });
   };
 
   deleteFromFirebase = (fileNames: string[]) => {
-    this.getUserState().then(data => {
-      let userState: any = data;
+    this.getUserState().then(userState => {
+
       let body = {
         fileNames: fileNames,
-        token: userState.token
+        token: userState['token']
       }
 
       this.http.post(this.apiEndpoint + '/delete-image', body).subscribe(res => {
-        if (res['success'] === false) console.log(res);
+        if (!res['success']) console.log(res);
       })
-    })
-      .catch(error => console.log(error))
+    }).catch(error => console.log(error))
   };
 
   // User registration
   register(formData) {
     // This function handles ngSubmit for the reigstration form
-    // Capitalize the user's first and last names
-    let capitalize = function (str: string) {
-      let strArr = str.split(" ");
-      for (let i = 0; i < strArr.length; i++) {
-        strArr[i] =
-          strArr[i][0].toUpperCase() + strArr[i].substring(1).toLowerCase();
-      }
-      return strArr.join(" ");
-    };
-
-    formData.first = capitalize(formData.first);
-    formData.last = capitalize(formData.last);
+    formData.first = this.capitalize(formData.first);
+    formData.last = this.capitalize(formData.last);
 
     // Make API call to the back-end for user registration
     this.http
       .post(this.apiEndpoint + "/new-account", formData)
       .subscribe(res => {
-        if (res["success"]) {
-          this.displayServerMessage(res["message"]);
-          let token = res["body"];
-          sessionStorage.setItem("sessionData", token);
+        this.displayServerMessage(res["message"]);
 
-          let loginData = {
+        if (res["success"]) {
+          // Login to the app
+          this.login({
             username: formData.username,
             password: formData.password
-          };
+          });
 
-          this.login(loginData);
           let welcomeMessage = `Registration was successful.  Welcome!  To get started, click on "Create a new project!"`;
           this.dialog.alert(welcomeMessage, "success");
-        } else if (!res["success"]) {
-          // Display error message to form
-          this.displayServerMessage(res["message"]);
+
         }
       });
   }
+
+  capitalize(str: string) {
+    //This is a helper function for formatting strings from the registration form data
+    let strArr = str.split(" ");
+    for (let i = 0; i < strArr.length; i++) {
+      strArr[i] =
+        strArr[i][0].toUpperCase() + strArr[i].substring(1).toLowerCase();
+    }
+    return strArr.join(" ");
+  };
 
   // User login
   login(formData) {
     // This function handles ngSubmit for the login form
     this.http.post(this.apiEndpoint + "/auth", formData).subscribe(res => {
-      if (res["success"] === true) {
-        this.displayServerMessage(res["message"]);
+
+      this.displayServerMessage(res["message"]);
+
+      if (res["success"]) {
 
         let payload = {
           isLoggedIn: true,
@@ -152,6 +130,7 @@ export class DataService {
           username: res["body"]["username"],
           token: res["body"]["token"]
         };
+
         // Store session data to session storage
         // Update the store's userState
         // Route to dashboard
@@ -159,14 +138,10 @@ export class DataService {
         this.store.dispatch({ type: LOGIN, payload: payload });
         this.router.navigate(["dashboard"]);
 
-        // Subscribe to userState and set it to variable in dataService
-        // so that it can be used in other componenets and services
+        // Subscribe to userState
         this.store.select("userReducer").subscribe(userState => {
           this.userState = userState;
         });
-      } else if (res["success"] === false) {
-        // Display error message to form
-        this.displayServerMessage(res["message"]);
       }
     });
   }
@@ -185,21 +160,17 @@ export class DataService {
 
     let headers = new HttpHeaders();
     headers = headers.append("password", formData.password);
+    headers = headers.append("username", this.userState['username']);
 
-    this.getUserState().then(data => {
-      let userState = data;
-      headers = headers.append("username", userState['username']);
-    })
-      .then(() => {
-        this.http
-          .delete(this.apiEndpoint + "/delete-account", { headers: headers })
-          .subscribe(res => {
-            if (res["success"] === false) this.displayServerMessage(res["message"]);
-            if (res["success"] === true) {
-              this.showDeleteAccountForm = false;
-              this.logout();
-            }
-          });
+    this.http.delete(this.apiEndpoint + "/delete-account", { headers: headers })
+      .subscribe(res => {
+
+        this.displayServerMessage(res["message"])
+
+        if (res["success"]) {
+          this.showDeleteAccountForm = false;
+          this.logout();
+        }
       });
   }
 
@@ -207,22 +178,28 @@ export class DataService {
     // This function handles ngSubmit of the 'change password form' in the dashboard's 'settings' view.
     // Confirmation is handled by form validaions in dashboard.ts, requiring the user to enter their current password.
     // Make API call to back-end to change the user's password.
-
     let payload = {
       username: this.userState["username"],
       password: formData.oldPassword,
       newPassword: formData.newPassword
     };
 
-    this.http
-      .post(this.apiEndpoint + "/change-password", payload)
+    this.http.post(this.apiEndpoint + "/change-password", payload)
       .subscribe(res => {
-        if (res["success"] === false) this.displayServerMessage(res["message"]);
-        if (res["success"] === true) {
+
+        this.displayServerMessage(res["message"])
+
+        if (res["success"]) {
           this.showChangePasswordForm = false;
           this.dialog.alert("Your new password has been saved.", "success");
         }
       });
+  }
+
+  useAsGuest = () => {
+    // Reset projectState and route to main
+    this.store.dispatch({type: NEW_PROJECT});
+    this.router.navigate(['main']);
   }
 
   getProjectState = () => {
@@ -244,8 +221,7 @@ export class DataService {
   };
 
   reviveProject(projectData) {
-    // This function takes in a projectState in JSON format, and "revives" its data.
-    // The purpose of the "revive" functions is to restore prototype functions to projectData.
+    // This function takes in a projectState object in JSON format and restores its prototypes
     this.reviveGalleryImages(projectData);
     this.reviveTextStyles(projectData);
     this.reviveImageStyles(projectData);
@@ -284,28 +260,25 @@ export class DataService {
   reviveSlides(projectData) {
     // Helper function for reviveProject()
     let slides = [];
+
     projectData.slides.forEach(slide => {
+
       let newSlide = new Slide();
       newSlide.revive(slide);
 
       for (let i = 0; i < slide.slideObjects.length; i++) {
-        let type: string = "";
-        if (slide.slideObjects[i].hasOwnProperty("textValue"))
-          type = "TextObject";
-        if (slide.slideObjects[i].hasOwnProperty("imagePath"))
-          type = "ImageObject";
+        // textObjects
+        if (slide.slideObjects[i].hasOwnProperty("textValue")) {
+          let textObject = new TextObject();
+          textObject.revive(slide.slideObjects[i]);
+          newSlide.slideObjects[i] = textObject;
+        }
 
-        switch (type) {
-          case "TextObject":
-            let textObject = new TextObject();
-            textObject.revive(slide.slideObjects[i]);
-            newSlide.slideObjects[i] = textObject;
-            break;
-          case "ImageObject":
-            let imageObject = new ImageObject();
-            imageObject.revive(slide.slideObjects[i]);
-            newSlide.slideObjects[i] = imageObject;
-            break;
+        // imagObjects
+        if (slide.slideObjects[i].hasOwnProperty("imagePath")) {
+          let imageObject = new ImageObject();
+          imageObject.revive(slide.slideObjects[i]);
+          newSlide.slideObjects[i] = imageObject;
         }
       }
       slides.push(newSlide);
@@ -315,15 +288,16 @@ export class DataService {
 
   reviveTextStyles(projectData) {
     // Helper function for reviveProject()
-    // Revive selectedTextStyle
-    // Revive text styles
+    // Revive selectedTextStyle and textStyles
     let textStyles = [];
+
     for (let i = 0; i < projectData.textStyles.length; i++) {
       let thisTextStyle = projectData.textStyles[i];
       let textStyle = new TextStyle();
       textStyle.revive(thisTextStyle);
       textStyles.push(textStyle);
     }
+
     projectData.textStyles = textStyles;
     projectData.selectedTextStyle = projectData.textStyles[0];
   }
@@ -339,9 +313,8 @@ export class DataService {
     let images = [];
 
     for (let i = 0; i < projectData.images.length; i++) {
-      let thisImage = projectData.images[i];
       let galleryImage = new GalleryImage();
-      galleryImage.revive(thisImage);
+      galleryImage.revive(projectData.images[i]);
       images.push(galleryImage);
     }
     projectData.images = images;
@@ -363,6 +336,7 @@ export class DataService {
       imageStyle.revive(thisImageStyle);
       imageStyles.push(imageStyle);
     }
+
     projectData.imageStyles = imageStyles;
     projectData.selectedImageStyle = projectData.imageStyles[0];
   }
@@ -374,7 +348,7 @@ export class DataService {
 
   canvasPrep(task: "start" | "complete") {
     // This function makes changes to DOM style values necessary for HTML2CANVAS to work properly.
-    // This funcion is shared between dataService and toolbarAppLogicService
+    // This funcion is shared between dataService and ToolbarController
     let slideRender = document.getElementById("slide-render");
     let slideRenderArea = document.getElementById("slide-render-area");
 
@@ -399,7 +373,7 @@ export class DataService {
   }
 
   getThumbnail() {
-    // This function returns a promise containing a small snapshot of the slide render
+    // This function returns a promise containing a downsized snapshot of the slide render
     // at the time this function is called.  (when saving project)
     return new Promise((resolve, reject) => {
       // Show loader screen
@@ -438,9 +412,9 @@ export class DataService {
       /*
           1.  Detect user session.  This feature is only available to registered users.
           2.  Get thumbnail
-          3.  Get project state, and update 'lastSaved' and 'thumbnail'.  Convert to JSON.
-          4.  Get user state for the token.  Create payload with token and project state.
-          5.  Make API call to save this project's changes to the database.
+          3.  Get projectState, and update 'lastSaved' and 'thumbnail'.  Convert to JSON.
+          4.  Get token from userState.  Create payload with token and project state.
+          5.  Make API call to backend to save this project's changes to the database.
           6.  Display dialog message
       */
       let sessionData = sessionStorage.getItem("sessionData");
@@ -449,48 +423,39 @@ export class DataService {
         reject("User is not signed in.");
       } else if (sessionData) {
         let projectState: any;
-        let userState: any;
 
-        this.getProjectState()
-          .then(data => {
+        this.getProjectState().then(data => {
             projectState = data;
             // Update projectState values
             projectState.lastSaved = new Date();
-            return this.getUserState();
-          })
-          // Get userState
-          .then(data => {
-            userState = data;
+
             return this.getThumbnail()
           })
+
           // Get create thumbnail of currentSlide and upload to firebase
           .then(data => {
-            let fileName = `${userState.username}/${projectState.name}/thumbnail`;
-            return this.uploadDataUrlToFirebase(userState.token, data, fileName);
+            let fileName = `${this.userState['username']}/${projectState.name}/thumbnail`;
+            return this.uploadDataUrlToFirebase(this.userState['token'], data, fileName);
           })
+
+          // Set project thumbnail
           .then(res => {
-            // Set project thumbnail
             let uploadData: any = res;
             projectState.thumbnailUrl = uploadData.body.url;
             projectState.thumbnailFileName = uploadData.body.fileName;
             // Clear selectedImagePreview -- it does not need to be saved in the database
             // and it causes issues with file size being too large when sending payload to backend
             projectState.selectedImagePreview = '';
+
             // Create payload for http POST request
             let payload = {
-              token: userState.token,
+              token: this.userState['token'],
               project: JSON.stringify(projectState)
             };
+
             // Send projectState to backend to be saved to DB
-            this.http
-              .post(this.apiEndpoint + "/save-project", payload)
-              .subscribe(res => {
-                resolve(res);
-              });
-          })
-          .catch(error => {
-            console.log(error);
-          });
+            this.http.post(this.apiEndpoint + "/save-project", payload).subscribe(res => resolve(res));
+          }).catch(error => console.log(error));
       }
     });
   }

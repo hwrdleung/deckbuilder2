@@ -20,7 +20,7 @@ import {
 @Injectable({
   providedIn: "root"
 })
-export class SandboxAppLogicService {
+export class SandboxController {
   constructor(
     private http: HttpClient,
     private data: DataService,
@@ -40,13 +40,16 @@ export class SandboxAppLogicService {
     // This function creates a galleryImage object with the search result specified
     // in the parameter and adds it to the project
     this.data.getProjectState().then(projectState => {
+
       let galleryImage = new GalleryImage();
       galleryImage.url = url;
       galleryImage.id = projectState["images"].length;
+
       this.store.dispatch({
         type: ADD_IMAGE,
         payload: { galleryImage: galleryImage }
       });
+
       this.dialog.toast("Added to gallery.");
     });
   }
@@ -58,8 +61,7 @@ export class SandboxAppLogicService {
     headers = headers.append("search-query", this.imageSearchQuery);
     headers = headers.append("page", "1");
 
-    this.http
-      .get(this.data.apiEndpoint + "/search-pixabay", { headers: headers })
+    this.http.get(this.data.apiEndpoint + "/search-pixabay", { headers: headers })
       .subscribe(res => {
         this.imageSearchResults = res["hits"];
       });
@@ -72,10 +74,10 @@ export class SandboxAppLogicService {
     headers = headers.append("search-query", this.imageSearchQuery);
     headers = headers.append("page", this.imageSearchPage.toString());
 
-    this.http
-      .get(this.data.apiEndpoint + "/search-pixabay", { headers: headers })
+    this.http.get(this.data.apiEndpoint + "/search-pixabay", { headers: headers })
       .subscribe(res => {
         let results = res["hits"];
+
         results.forEach(result => {
           this.imageSearchResults.push(result);
         });
@@ -147,8 +149,7 @@ export class SandboxAppLogicService {
 
         this.isUploadingImage = true;
 
-        this.data.getProjectState()
-          .then(data => {
+        this.data.getProjectState().then(data => {
             // Get data from projectState
             projectState = data;
             selectedImageUrl = projectState.selectedImage.url;
@@ -165,6 +166,27 @@ export class SandboxAppLogicService {
             return this.applyCssFilters(selectedImageUrl, selectedImageStyle);
           })
           .then(dataUrl => {
+
+            if(!token){
+              // If !token, then user is not signed in and is using as guest.  In this case, no need to upload to firebase.
+              // Save dataURL directly in the imageObject as the url.  
+              // This is okay because this dataURL does not need to persist beyond the browser session.
+              let payload = {
+                fileName: `guest-img-${new Date().getTime().toString()}`,
+                url: dataUrl
+              }
+
+              this.store.dispatch({
+                type: ADD_IMAGEOBJECT,
+                payload: payload
+              })
+
+              this.isUploadingImage = false;
+
+              // End promise chain
+              throw new Error('End promise chain');
+            }
+
             // Send to backend for uploading to firebase
             return this.data.uploadDataUrlToFirebase(token, dataUrl, fileName);
           })
@@ -257,8 +279,7 @@ export class SandboxAppLogicService {
         type: SET_SELECTED_IMAGE_PREVIEW,
         payload: {selectedImagePreview: selectedImagePreview}
       })
-    })
-    .catch(error => console.log(error));
+    }).catch(error => console.log(error));
   }
 
   selectImage(galleryImage: GalleryImage) {
@@ -275,6 +296,7 @@ export class SandboxAppLogicService {
     // This function prompts user for confirmation before deleting an image from the project gallery.
     let callback = () => {
       if(image.fileName) this.data.deleteFromFirebase([image.fileName]);
+      
       this.store.dispatch({
         type: DEL_IMAGE,
         payload: { galleryImage: image }
@@ -283,10 +305,7 @@ export class SandboxAppLogicService {
       this.dialog.toast('Deleted Image from gallery');
     };
 
-    this.dialog.alert(
-      "Are you sure you want to delete this image from your project?",
-      "danger",
-      callback
-    );
+    let msg = "Are you sure you want to delete this image from your project?";
+    this.dialog.alert(msg, "danger", callback);
   }
 }

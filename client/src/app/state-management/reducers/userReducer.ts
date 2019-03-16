@@ -1,5 +1,4 @@
-import { ActionReducer } from "@ngrx/store";
-import { UserState, initialState } from '../state/userState';
+import { initialState } from '../state/userState';
 import { LOGIN, LOGOUT, Actions } from "../actions/userActions";
 
 export function userReducer (state = initialState, action: Actions) {

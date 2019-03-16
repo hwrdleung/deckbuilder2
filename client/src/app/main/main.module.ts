@@ -12,11 +12,11 @@ import { TextStyleCardComponent } from '../text-style-card/text-style-card.compo
 import { ImageStyleCardComponent } from '../image-style-card/image-style-card.component';
 import { ImageSandboxComponent } from '../image-sandbox/image-sandbox.component'
 import { TextSandboxComponent } from '../text-sandbox/text-sandbox.component'
-import { ToolbarAppLogicService } from '../toolbar-app-logic.service'
-import { Toolbar2AppLogicService } from '../toolbar2-app-logic.service'
-import { StylerAppLogicService } from '../styler-app-logic.service'
-import { SandboxAppLogicService } from '../sandbox-app-logic.service'
-import { SlideEditorAppLogicService } from '../slide-editor-app-logic.service'
+import { ToolbarController } from '../toolbar-controller.service'
+import { Toolbar2Controller } from '../toolbar2-controller.service'
+import { StylerController } from '../styler-controller.service'
+import { SandboxController } from '../sandbox-controller.service'
+import { SlideEditorController } from '../slide-editor-controller.service'
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ToolbarSecondaryComponent } from '../toolbar-secondary/toolbar-secondary.component';
@@ -60,7 +60,7 @@ const routes: Routes = [
 
   ],
 
-  providers: [DatePipe, ToolbarAppLogicService, Toolbar2AppLogicService, StylerAppLogicService, SandboxAppLogicService, SlideEditorAppLogicService, {
+  providers: [DatePipe, ToolbarController, Toolbar2Controller, StylerController, SandboxController, SlideEditorController, {
     provide: FONT_PICKER_CONFIG,
     useValue: DEFAULT_FONT_PICKER_CONFIG
   }],

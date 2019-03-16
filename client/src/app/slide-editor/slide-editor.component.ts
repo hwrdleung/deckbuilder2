@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from "@angular/core";
 import { DataService } from "../data.service";
 import { DialogService } from "../dialog.service";
 import { ViewChild } from "@angular/core";
-import { SlideEditorAppLogicService } from "../slide-editor-app-logic.service";
+import { SlideEditorController } from "../slide-editor-controller.service";
 import { Slide } from "../classes/slide";
 import { Store } from "@ngrx/store";
 import { ProjectState } from "../state-management/state/projectState";
@@ -10,7 +10,7 @@ import { SlideObject } from "../classes/slideObject";
 import { TextStyle } from "../classes/textStyle";
 import { ImageStyle } from "../classes/imageStyle";
 import { TextObject } from "../classes/textObject";
-import { ToolbarAppLogicService } from "../toolbar-app-logic.service";
+import { ToolbarController } from "../toolbar-controller.service";
 import { HorizontalResizer } from "../classes/horizontalResizer";
 
 @Component({
@@ -47,9 +47,9 @@ export class SlideEditorComponent implements OnInit {
 
   constructor(
     public data: DataService,
-    public toolbar: ToolbarAppLogicService,
+    public toolbar: ToolbarController,
     public dialog: DialogService,
-    public slideEditor: SlideEditorAppLogicService,
+    public slideEditor: SlideEditorController,
     public store: Store<ProjectState>
   ) {}
 

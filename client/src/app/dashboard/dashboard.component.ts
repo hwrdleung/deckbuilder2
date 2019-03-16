@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { DataService } from '../data.service';
 import { DialogService } from '../dialog.service';
-import { UserState } from '../state-management/state/userState';
 import { Store } from '@ngrx/store';
 import { NEW_PROJECT, LOAD_PROJECT } from '../state-management/actions/projectActions';
 import { DocumentSize } from '../classes/documentSize';

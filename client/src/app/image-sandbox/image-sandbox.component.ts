@@ -4,8 +4,7 @@ import { Store } from "@ngrx/store";
 import { ProjectState } from "../state-management/state/projectState";
 import { GalleryImage } from "../classes/galleryImage";
 import { ImageStyle } from "../classes/imageStyle";
-import { SandboxAppLogicService } from "../sandbox-app-logic.service";
-declare var Caman: any;
+import { SandboxController } from "../sandbox-controller.service";
 import { DataService } from "../data.service";
 
 @Component({
@@ -34,13 +33,12 @@ export class ImageSandboxComponent implements OnInit {
   constructor(
     public store: Store<ProjectState>,
     public data: DataService,
-    public sandbox: SandboxAppLogicService
+    public sandbox: SandboxController
   ) {}
 
   ngOnInit() {
     this.sandbox.isUploadingImage = false;
     this.enableResizer();
-    this.data.initializeFirebase();
     // Get UI variables from store
     this.projectStateSubscription = this.store.select("projectReducer").subscribe(projectState => {
       this.selectedImage = projectState.selectedImage;

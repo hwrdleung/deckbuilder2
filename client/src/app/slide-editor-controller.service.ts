@@ -9,7 +9,7 @@ import { SLIDEOBJECT_LAYER_UP, SLIDEOBJECT_LAYER_DOWN, DEL_SLIDEOBJECT } from '.
 @Injectable({
   providedIn: 'root'
 })
-export class SlideEditorAppLogicService {
+export class SlideEditorController {
   
   constructor(private data: DataService, private dialog: DialogService, private store: Store<ProjectState>) { }
 
@@ -25,19 +25,18 @@ export class SlideEditorAppLogicService {
 
   deleteSlideOjbect(slideObject: SlideObject) {
     // This function deletes slideObject from the slide
-
     // Prompt user for confirmation with dialog
     let prompt = `Are you sure you want to delete ${slideObject.name}?`;
 
     this.dialog.alert(prompt, 'danger', () => {
+
       if(slideObject.type === 'ImageObject'){
         this.data.deleteFromFirebase([slideObject['fileName']]);
       }
+
       this.store.dispatch({type:DEL_SLIDEOBJECT, payload: {slideObject: slideObject}});
       this.dialog.toast(`Deleted ${slideObject.name}`);
     })
-
-
 
   }
 }

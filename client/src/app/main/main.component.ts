@@ -3,9 +3,8 @@ import { ViewChild } from "@angular/core";
 import { DatePipe } from "@angular/common";
 import { DataService } from "../data.service";
 import { Store } from "@ngrx/store";
-import { UserState } from "../state-management/state/userState";
 import { ProjectState } from "../state-management/state/projectState";
-import { Toolbar2AppLogicService } from "../toolbar2-app-logic.service";
+import { Toolbar2Controller } from "../toolbar2-controller.service";
 import { DialogService } from "../dialog.service";
 import { Router } from "@angular/router";
 
@@ -36,7 +35,7 @@ export class MainComponent implements OnInit {
     public data: DataService,
     public store: Store<ProjectState>,
     public dialog: DialogService,
-    public toolbar2: Toolbar2AppLogicService
+    public toolbar2: Toolbar2Controller
   ) {}
 
   ngOnInit() {

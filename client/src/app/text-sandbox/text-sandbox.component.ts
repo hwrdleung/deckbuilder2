@@ -4,7 +4,7 @@ import { HorizontalResizer } from "../classes/horizontalResizer";
 import { Store } from "@ngrx/store";
 import { ProjectState } from "../state-management/state/projectState";
 import { TextStyle } from "../classes/textStyle";
-import { SandboxAppLogicService } from "../sandbox-app-logic.service";
+import { SandboxController } from "../sandbox-controller.service";
 import { SET_SANDBOXTEXT, SAVE_NOTES } from "../state-management/actions/projectActions";
 import { DataService } from "../data.service";
 
@@ -28,7 +28,7 @@ export class TextSandboxComponent implements OnInit {
 
   constructor(
     public store: Store<ProjectState>,
-    public sandbox: SandboxAppLogicService,
+    public sandbox: SandboxController,
     public data: DataService
   ) {}
 

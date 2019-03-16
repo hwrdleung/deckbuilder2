@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ImageStyle } from '../classes/imageStyle';
 import { DataService } from '../data.service';
-import { StylerAppLogicService } from '../styler-app-logic.service';
-import { SandboxAppLogicService } from '../sandbox-app-logic.service';
+import { StylerController } from '../styler-controller.service';
+import { SandboxController } from '../sandbox-controller.service';
 import { Store } from '@ngrx/store';
 import { ProjectState } from '../state-management/state/projectState';
 
@@ -18,7 +18,7 @@ export class ImageStyleCardComponent implements OnInit {
   @Input()
   imageStyle: ImageStyle;
 
-  constructor(public data: DataService, public styler: StylerAppLogicService, public sandbox: SandboxAppLogicService, public store:Store<any>) {
+  constructor(public data: DataService, public styler: StylerController, public sandbox: SandboxController, public store:Store<any>) {
 
   }
 

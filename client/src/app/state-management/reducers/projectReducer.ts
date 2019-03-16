@@ -1,5 +1,10 @@
-import { ActionReducer } from "@ngrx/store";
-import { ProjectState, initialState } from "../state/projectState";
+import { initialState } from "../state/projectState";
+import { Slide } from "src/app/classes/slide";
+import { ImageObject } from "src/app/classes/imageObject";
+import { TextObject } from "src/app/classes/textObject";
+import { TextStyle } from "src/app/classes/textStyle";
+import { ImageStyle } from "src/app/classes/imageStyle";
+import { DocumentSize } from "src/app/classes/documentSize";
 import {
   Actions,
   NEW_PROJECT,
@@ -28,11 +33,6 @@ import {
   SLIDEOBJECT_LAYER_DOWN,
   SAVE_NOTES,
 } from "../actions/projectActions";
-import { Slide } from "src/app/classes/slide";
-import { ImageObject } from "src/app/classes/imageObject";
-import { TextObject } from "src/app/classes/textObject";
-import { TextStyle } from "src/app/classes/textStyle";
-import { ImageStyle } from "src/app/classes/imageStyle";
 
 export function projectReducer (
   state = initialState,
@@ -40,13 +40,19 @@ export function projectReducer (
 ) {
   /* PROJECT REDUCER HANDLES A LARGE BULK OF APP LOGIC */
   let newState = { ...state };
+  let defaultDocSize = new DocumentSize({
+    height: 864,
+    width: 1536,
+    isCustom: false,
+    jsPdfOrientation: 'landscape' 
+  });
 
   switch (action.type) {
     case NEW_PROJECT:
       // Return all state variables to initial states for new project
       // (Had issues cloning an instance of intial state)
-      newState.name = action.payload.name;
-      newState.documentSize = action.payload.documentSize;
+      newState.name = action.payload ? action.payload.name : 'New Project';
+      newState.documentSize = action.payload ? action.payload.documentSize : defaultDocSize;
       newState.created = new Date();
       newState.lastSaved = new Date();
 

@@ -11,14 +11,14 @@ import {
 } from "./state-management/actions/projectActions";
 import { Store } from "@ngrx/store";
 import { ProjectState } from "./state-management/state/projectState";
-import { SandboxAppLogicService } from "./sandbox-app-logic.service";
+import { SandboxController } from "./sandbox-controller.service";
 
 @Injectable({
   providedIn: "root"
 })
-export class StylerAppLogicService {
+export class StylerController {
   constructor(
-    private sandbox: SandboxAppLogicService,
+    private sandbox: SandboxController,
     private data: DataService,
     private dialog: DialogService,
     private store: Store<ProjectState>
@@ -33,17 +33,15 @@ export class StylerAppLogicService {
     if (style.type === "TextStyle") type = "text";
     if (style.type === "ImageStyle") type = "image";
 
-    this.data
-      .getProjectState()
-      .then(data => {
+    this.data.getProjectState().then(data => {
         let projectState: any = data;
+
         projectState.slides.forEach(slide => {
           slide.slideObjects.forEach(slideObject => {
             if (slideObject.style === style) isStyleInUse = true;
           });
         });
-      })
-      .then(() => {
+      }).then(() => {
         if (!isStyleInUse || type === "image") {
           // Prompt user for confirmation
           let message = `Delete ${style.name}?`;
@@ -67,9 +65,7 @@ export class StylerAppLogicService {
   confirmedDelete = (style: TextStyle | ImageStyle, isStyleInUse: boolean) => {
     // If slideObjects are currently using this style and the user confirms deletion,
     // then those slideObjects' styles will revert to the default style.
-    this.data
-      .getProjectState()
-      .then(data => {
+    this.data.getProjectState().then(data => {
         let projectState: any = data;
 
         if (isStyleInUse) {

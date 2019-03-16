@@ -11,16 +11,16 @@ import { UserState } from './state-management/state/userState';
 import { ProjectState } from './state-management/state/projectState';
 import { ADD_TEXTSTYLE, SET_MODE, ADD_IMAGESTYLE, SELECT_TEXTSTYLE, SELECT_IMAGESTYLE, DEL_SLIDE, PREV_SLIDE, NEXT_SLIDE } from './state-management/actions/projectActions';
 import { Router } from '@angular/router';
-import { SandboxAppLogicService } from './sandbox-app-logic.service';
+import { SandboxController } from './sandbox-controller.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ToolbarAppLogicService {
+export class ToolbarController {
 
   sessionData;
 
-  constructor(private router: Router, private sandbox: SandboxAppLogicService, private data: DataService, private dialog: DialogService, private store: Store<ProjectState>, private user: Store<UserState>, private http: HttpClient) { }
+  constructor(private router: Router, private sandbox: SandboxController, private data: DataService, private dialog: DialogService, private store: Store<ProjectState>, private user: Store<UserState>, private http: HttpClient) { }
 
   dashboard() {
     // Save project before navigating back to the dashboard
@@ -94,7 +94,7 @@ export class ToolbarAppLogicService {
 
       // Get project state
       let projectState;
-      const getProjectState = this.store.select('projectReducer').subscribe(data => {
+      let getProjectState = this.store.select('projectReducer').subscribe(data => {
         projectState = data;
       });
 

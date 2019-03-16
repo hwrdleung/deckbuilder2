@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { DataService } from "../data.service";
 import { DialogService } from "../dialog.service";
-import { ToolbarAppLogicService } from "../toolbar-app-logic.service";
+import { ToolbarController } from "../toolbar-controller.service";
 import { Store } from "@ngrx/store";
 import { ProjectState } from "../state-management/state/projectState";
 import { ImageStyle } from "../classes/imageStyle";
@@ -31,7 +31,7 @@ export class ToolbarComponent implements OnInit {
   constructor(
     public data: DataService,
     public dialog: DialogService,
-    public toolbar: ToolbarAppLogicService,
+    public toolbar: ToolbarController,
     public store: Store<ProjectState>
   ) {}
 

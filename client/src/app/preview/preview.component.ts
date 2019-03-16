@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { ProjectState } from "../state-management/state/projectState";
 import { Slide } from "../classes/slide";
-import { Toolbar2AppLogicService } from "../toolbar2-app-logic.service";
+import { Toolbar2Controller } from "../toolbar2-controller.service";
 import { Router } from "@angular/router";
 import { DataService } from "../data.service";
 
@@ -25,7 +25,7 @@ export class PreviewComponent implements OnInit {
   constructor(
     public data: DataService,
     public store: Store<ProjectState>,
-    public toolbar2: Toolbar2AppLogicService,
+    public toolbar2: Toolbar2Controller,
     public router: Router
   ) {}
 

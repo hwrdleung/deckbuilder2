@@ -15,7 +15,7 @@ import { Router } from "@angular/router";
 @Injectable({
   providedIn: "root"
 })
-export class Toolbar2AppLogicService {
+export class Toolbar2Controller {
   projectState;
 
   constructor(
