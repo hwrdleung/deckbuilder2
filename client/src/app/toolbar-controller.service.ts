@@ -42,6 +42,10 @@ export class ToolbarController {
     });
   }
 
+  home(){
+    this.router.navigate(['/']);
+  }
+
   createTextStyle() {
     this.store.dispatch({ type: ADD_TEXTSTYLE });
     this.store.dispatch({ type: SET_MODE, payload: { mode: 'text' } });
