@@ -165,10 +165,14 @@ button:hover
     animation: rotate linear 1s infinite;
     width: 25px !important; 
     height: 25px !important; 
+    box-sizing: border-box;
     margin: 0 !important; 
-    padding: 15px !important; 
+    padding: 0 !important; 
     font-size: 25px !important; 
     transform-origin: 50% 50% !important; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ng-resizable-handle.ng-resizable-se {

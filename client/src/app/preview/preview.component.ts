@@ -48,11 +48,11 @@ export class PreviewComponent implements OnInit {
         this.slides = projectState.slides;
         this.documentSize = projectState.documentSize;
       });
-
-    this.launchIntoFullscreen(this.previewContainer.nativeElement);
+      
     // Putting a setTimeout on the slideShowControls prevents the clicking of the "preview" button
     // to cause the slideshow to start at the second slide.
     if(window.innerWidth > 799){
+      this.launchIntoFullscreen(this.previewContainer.nativeElement);
       setTimeout(() => this.enableSlideShowControls(), 1000);
     }
   }
@@ -94,7 +94,7 @@ export class PreviewComponent implements OnInit {
       top: top + "px",
       left: left + "px",
       transform: "scale(" + this.slideRenderMagnification + ")",
-      overflow: "visible"
+      overflow: "hidden"
     };
     return css;
   }
