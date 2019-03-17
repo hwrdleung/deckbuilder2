@@ -34,7 +34,6 @@ export class PreviewComponent implements OnInit {
   ngOnInit() {
     window.addEventListener("orientationchange", () => {
       // Announce the new orientation number
-      console.log('Screen rotated')
       setTimeout(() => {
         // This forces a re-render with new values for window height and width
         this.previewSlideIndex++;

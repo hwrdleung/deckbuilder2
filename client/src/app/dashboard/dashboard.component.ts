@@ -238,8 +238,8 @@ export class DashboardComponent implements OnInit {
         options.height = formData.customHeight;
         options.width = formData.customWidth;
         options.isCustom = true;
-        options.jsPdfOrientation = 'portrait'
-        options.jsPdfFormat = [8.5, 11];
+        options.jsPdfOrientation = options.height > options.width ? 'portrait' : 'landscape';
+        options.jsPdfFormat = options.jsPdfOrientation === 'portrait' ? [8.5, 11] : [16, 9];
         break;
     }
 

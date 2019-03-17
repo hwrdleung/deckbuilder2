@@ -22,7 +22,7 @@ h2:hover,
 h3:hover,
 h4:hover,
 h5:hover,
-h6:hover,
+h6:hover
  {
     cursor: default;
 }
@@ -169,6 +169,10 @@ button:hover
     padding: 15px !important; 
     font-size: 25px !important; 
     transform-origin: 50% 50% !important; 
+}
+
+.ng-resizable-handle.ng-resizable-se {
+    display: none !important;
 }
 
 @keyframes rotate {

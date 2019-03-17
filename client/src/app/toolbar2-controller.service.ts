@@ -47,12 +47,23 @@ export class Toolbar2Controller {
 
   deleteSlide() {
     // Prompt user for confirmation before deleting current slide from project.
-    if (this.data.projectState["slides"].length > 1) {
-      let message = "Are you sure you want to delete this slide?";
-      this.dialog.alert(message, "danger", () => {
-        this.store.dispatch({ type: DEL_SLIDE });
-      });
-    }
+    this.data.getProjectState().then(projectState => {
+      if (projectState["slides"].length > 1) {
+        let message = "Are you sure you want to delete this slide?";
+        this.dialog.alert(message, "danger", () => {
+
+          let fileNames = [];
+          let currentSlide = projectState['slides'][projectState['currentSlideIndex']];
+
+          currentSlide.slideObjects.forEach(slideObject => {
+            if(slideObject.fileName) fileNames.push(slideObject.fileName);
+          })
+
+          this.data.deleteFromFirebase(fileNames);
+          this.store.dispatch({ type: DEL_SLIDE });
+        });
+      }
+    })
   }
 
   preview() {

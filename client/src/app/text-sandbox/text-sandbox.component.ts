@@ -49,7 +49,6 @@ export class TextSandboxComponent implements OnInit {
   }
 
   saveNotes(textNotes){
-    console.log('Saving notes');
     this.store.dispatch({
       type: SAVE_NOTES,
       payload: { textNotes: textNotes}

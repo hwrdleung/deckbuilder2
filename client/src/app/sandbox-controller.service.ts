@@ -26,7 +26,7 @@ export class SandboxController {
     private data: DataService,
     private dialog: DialogService,
     private store: Store<ProjectState>
-  ) {}
+  ) { }
 
   /* UI Loader  */
   isUploadingImage: boolean = false;
@@ -35,24 +35,6 @@ export class SandboxController {
   imageSearchQuery: string = "";
   imageSearchResults;
   imageSearchPage: number = 1;
-
-  pixabayToGallery(url: string) {
-    // This function creates a galleryImage object with the search result specified
-    // in the parameter and adds it to the project
-    this.data.getProjectState().then(projectState => {
-
-      let galleryImage = new GalleryImage();
-      galleryImage.url = url;
-      galleryImage.id = projectState["images"].length;
-
-      this.store.dispatch({
-        type: ADD_IMAGE,
-        payload: { galleryImage: galleryImage }
-      });
-
-      this.dialog.toast("Added to gallery.");
-    });
-  }
 
   searchPixabay() {
     // This function makes a call to the back end to perform image search
@@ -84,20 +66,20 @@ export class SandboxController {
       });
   }
 
-  applyCssFilters = (url: string, imageStyle: ImageStyle, isPreview?: boolean) => {
+  applyImageStyle = (url: string, imageStyle: ImageStyle, isPreview?: boolean) => {
     return new Promise((resolve, reject) => {
       var image = new Image();
       image.crossOrigin = "anonymous";
       image.src = url;
 
-      image.onload = function() {
+      image.onload = function () {
 
         var div = document.createElement("div");
         div.appendChild(image);
         // This function applies the style settings specifed in the selectedImageStyle
         // to the selectedImage via CamanJS, and returns a promise containing the edited image as base64 string
-        Caman(image, function() {
-          if(isPreview){
+        Caman(image, function () {
+          if (isPreview) {
             let imageRatio = image.width / image.height;
             this.resize({
               width: 500,
@@ -105,8 +87,8 @@ export class SandboxController {
             })
           }
 
-          if(imageStyle.greyscale) this.greyscale();
-          if(imageStyle.invert) this.invert();
+          if (imageStyle.greyscale) this.greyscale();
+          if (imageStyle.invert) this.invert();
           this.brightness(imageStyle.brightness);
           this.contrast(imageStyle.contrast);
           this.exposure(imageStyle.exposure);
@@ -116,7 +98,7 @@ export class SandboxController {
           this.sepia(imageStyle.sepia);
           this.vibrance(imageStyle.vibrance);
 
-          this.render(function() {
+          this.render(function () {
             resolve(this.toBase64());
           });
         });
@@ -144,30 +126,30 @@ export class SandboxController {
         let selectedImageStyle;
         let token;
         let fileName;
-        let userState:any;
+        let userState: any;
         let projectState: any;
 
         this.isUploadingImage = true;
 
         this.data.getProjectState().then(data => {
-            // Get data from projectState
-            projectState = data;
-            selectedImageUrl = projectState.selectedImage.url;
-            selectedImageStyle = projectState.selectedImageStyle;
+          // Get data from projectState
+          projectState = data;
+          selectedImageUrl = projectState.selectedImage.url;
+          selectedImageStyle = projectState.selectedImageStyle;
 
-            return this.data.getUserState();
-          })
+          return this.data.getUserState();
+        })
           .then(data => {
             // Get token and ceate fileName from userState data
             userState = data;
             token = userState.token;
             fileName = `${userState.username}/${projectState.name}/slide${projectState.currentSlideIndex}-${new Date().getTime().toString()}`;
             // Use CamanJS to create dataUrl with css filters applied
-            return this.applyCssFilters(selectedImageUrl, selectedImageStyle);
+            return this.applyImageStyle(selectedImageUrl, selectedImageStyle);
           })
           .then(dataUrl => {
 
-            if(!token){
+            if (!token) {
               // If !token, then user is not signed in and is using as guest.  In this case, no need to upload to firebase.
               // Save dataURL directly in the imageObject as the url.  
               // This is okay because this dataURL does not need to persist beyond the browser session.
@@ -267,27 +249,38 @@ export class SandboxController {
       .catch(error => console.log(error));
   }
 
-  renderImagePreview(){
+  renderImagePreview() {
     // This function uses CamanJS to create a dataURL using the selectedImage and selectedImageStyle
     // It then updates the projectState with this dataURL
     this.data.getProjectState().then(data => {
-      let projectState:any = data;
-      return this.applyCssFilters(projectState.selectedImage.url, projectState.selectedImageStyle, true)
+      let projectState: any = data;
+      return this.applyImageStyle(projectState.selectedImage.url, projectState.selectedImageStyle, true)
     }).then(dataURL => {
       let selectedImagePreview = dataURL;
       this.store.dispatch({
         type: SET_SELECTED_IMAGE_PREVIEW,
-        payload: {selectedImagePreview: selectedImagePreview}
+        payload: { selectedImagePreview: selectedImagePreview }
       })
     }).catch(error => console.log(error));
   }
 
-  selectImage(galleryImage: GalleryImage) {
-    // This function updates the store with the selected image specified in the parameters
-    this.store.dispatch({
-      type: SELECT_GALLERY_IMAGE,
-      payload: { galleryImage: galleryImage }
-    });
+  selectImage(galleryImage: GalleryImage | String) {
+    // If galleryImage is a string, then the image is from pixabay.  Use the passed in url to create a galleryImage object.
+    if (typeof galleryImage === 'string') {
+      let pixabayImage = new GalleryImage();
+      pixabayImage.url = galleryImage;
+
+      this.store.dispatch({
+        type: SELECT_GALLERY_IMAGE,
+        payload: { galleryImage: pixabayImage }
+      });
+    } else {
+      // Otherwise, it is an import, so it is already a galleryImage object
+      this.store.dispatch({
+        type: SELECT_GALLERY_IMAGE,
+        payload: { galleryImage: galleryImage }
+      });
+    }
 
     this.renderImagePreview();
   }
@@ -295,8 +288,8 @@ export class SandboxController {
   deleteImage(image: GalleryImage) {
     // This function prompts user for confirmation before deleting an image from the project gallery.
     let callback = () => {
-      if(image.fileName) this.data.deleteFromFirebase([image.fileName]);
-      
+      if (image.fileName) this.data.deleteFromFirebase([image.fileName]);
+
       this.store.dispatch({
         type: DEL_IMAGE,
         payload: { galleryImage: image }

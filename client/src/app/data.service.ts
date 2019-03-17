@@ -96,7 +96,7 @@ export class DataService {
             password: formData.password
           });
 
-          let welcomeMessage = `Registration was successful.  Welcome!  To get started, click on "Create a new project!"`;
+          let welcomeMessage = `Registration successful.  Welcome!  To get started, click on "Create a new project!"`;
           this.dialog.alert(welcomeMessage, "success");
 
         }
@@ -157,43 +157,45 @@ export class DataService {
     // This function handles ngSubmit for the 'delete account form' in the dashboard's 'settings' view.
     // Confirmation is handled by form validations in dashboard.ts, requiring the user's password.
     // Make API call to delete user from database and display server message on failure, logout on success
-
     let headers = new HttpHeaders();
-    headers = headers.append("password", formData.password);
-    headers = headers.append("username", this.userState['username']);
 
-    this.http.delete(this.apiEndpoint + "/delete-account", { headers: headers })
-      .subscribe(res => {
-
+    this.getUserState().then(userState => {
+      headers = headers.append("password", formData.password);
+      headers = headers.append("username", userState['username']);
+      return this.http.delete(this.apiEndpoint + "/delete-account", { headers: headers }).subscribe(res => {
         this.displayServerMessage(res["message"])
-
+  
         if (res["success"]) {
           this.showDeleteAccountForm = false;
           this.logout();
         }
-      });
-  }
+    })
+  });
+}
 
   changePassword(formData) {
     // This function handles ngSubmit of the 'change password form' in the dashboard's 'settings' view.
     // Confirmation is handled by form validaions in dashboard.ts, requiring the user to enter their current password.
     // Make API call to back-end to change the user's password.
-    let payload = {
-      username: this.userState["username"],
-      password: formData.oldPassword,
-      newPassword: formData.newPassword
-    };
+    this.getUserState().then(userState => {
+      let payload = {
+        username: userState["username"],
+        password: formData.oldPassword,
+        newPassword: formData.newPassword
+      };
+  
+      return this.http.post(this.apiEndpoint + "/change-password", payload)
+        .subscribe(res => {
+  
+          this.displayServerMessage(res["message"])
+  
+          if (res["success"]) {
+            this.showChangePasswordForm = false;
+            this.dialog.alert("Your new password has been saved.", "success");
+          }
+        });
+    })
 
-    this.http.post(this.apiEndpoint + "/change-password", payload)
-      .subscribe(res => {
-
-        this.displayServerMessage(res["message"])
-
-        if (res["success"]) {
-          this.showChangePasswordForm = false;
-          this.dialog.alert("Your new password has been saved.", "success");
-        }
-      });
   }
 
   useAsGuest = () => {
@@ -394,7 +396,8 @@ export class DataService {
         width: projectState.documentSize.width,
         scale: 200 / projectState.documentSize.height,
         allowTaint: false,
-        useCORS: true
+        useCORS: true,
+        logging: false
       })
         .then(canvas => {
           let imgData = canvas.toDataURL("image/png");
@@ -423,19 +426,24 @@ export class DataService {
         reject("User is not signed in.");
       } else if (sessionData) {
         let projectState: any;
+        let userState: any;
 
         this.getProjectState().then(data => {
             projectState = data;
             // Update projectState values
             projectState.lastSaved = new Date();
+            return this.getUserState()
+        })
 
+        .then(data => {
+            userState = data;
             return this.getThumbnail()
           })
 
           // Get create thumbnail of currentSlide and upload to firebase
           .then(data => {
-            let fileName = `${this.userState['username']}/${projectState.name}/thumbnail`;
-            return this.uploadDataUrlToFirebase(this.userState['token'], data, fileName);
+            let fileName = `${userState['username']}/${projectState.name}/thumbnail`;
+            return this.uploadDataUrlToFirebase(userState['token'], data, fileName);
           })
 
           // Set project thumbnail
@@ -449,7 +457,7 @@ export class DataService {
 
             // Create payload for http POST request
             let payload = {
-              token: this.userState['token'],
+              token: userState['token'],
               project: JSON.stringify(projectState)
             };
 

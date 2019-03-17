@@ -40,7 +40,7 @@
       </a>
 
       <div id="menu-tab-container" class="flex-row-start">
-        <a (click)="showContent('gallery')" [class.tab-selected]="viewGallery">Gallery <fa name="th-large"></fa></a>
+        <a (click)="showContent('gallery')" [class.tab-selected]="viewGallery">Imports <fa name="th-large"></fa></a>
 
         <img (click)="showContent('search')" id="pixabay-logo" src="https://pixabay.com/static/img/logo.svg"
           [class.tab-selected]="viewSearchResults">
@@ -62,8 +62,7 @@
       <h5 class="gallery-message">Image search powered by: <a href="https://pixabay.com/" target="__blank">Pixabay</a></h5>
 
       <div *ngFor="let image of this.sandbox.imageSearchResults" class="gallery-img-container">
-        <img src="{{image.webformatURL}}" class="gallery-img">
-        <fa name="plus" class="delete-icon flex-row-evenly" (click)="this.sandbox.pixabayToGallery(image.largeImageURL)"></fa>
+        <img src="{{image.webformatURL}}" class="gallery-img" (click)="this.sandbox.selectImage(image.largeImageURL)">
       </div>
 
       <div class="flex-row-center">

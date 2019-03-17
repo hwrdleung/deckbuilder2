@@ -187,6 +187,8 @@ module.exports = router => {
         projects.forEach(project => {
           imageFileNames.push(project.thumbnailFileName);
 
+          project.images.forEach(image => imageFileNames.push(image.fileName))
+
           project.slides.forEach(slide => {
             slide.slideObjects.forEach(slideObject => {
               imageFileNames.push(slideObject.fileName);
@@ -414,7 +416,12 @@ module.exports = router => {
 
         let imageFileNames = [project.thumbnailFileName];
 
-        // Iterate through all slides and add each imageObject to imageFileNames
+        // Add all urls of imported images to imageFileNames for deletion
+        project.images.forEach(image => {
+          imageFileNames.push(image.fileName);
+        })
+
+        // Iterate through all slides and add each imageObject to imageFileNames for deletion
         project.slides.forEach(slide =>{
           slide.slideObjects.forEach(slideObject => {
             imageFileNames.push(slideObject.fileName)
