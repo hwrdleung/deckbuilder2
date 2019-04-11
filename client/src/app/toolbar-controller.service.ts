@@ -205,22 +205,17 @@ export class ToolbarController {
 
   saveAsPng() {
     /*
-        1.  Detect user session.  This feature is only available for registered users.
-        2.  Prep DOM for HTML2CANVAS
-        4.  Get projectState documentSize for use in HTML2CANVAS
-        5.  Convert slide render to canvas
-        6.  Convert canvas to data URL
-        7.  Convert data URL to blob 
-        8.  Convert blob to object URL
-        9.  Download PNG for user
-        10. Revert DOM changes from (2) back to their original values
-        11. Hide loader screen
+        1.  Prep DOM for HTML2CANVAS
+        2.  Get projectState documentSize for use in HTML2CANVAS
+        3.  Convert slide render to canvas
+        4.  Convert canvas to data URL
+        5.  Convert data URL to blob 
+        6.  Convert blob to object URL
+        7.  Download PNG for user
+        8. Revert DOM changes from (2) back to their original values
+        9. Hide loader screen
     */
-    this.sessionData = sessionStorage.getItem('sessionData');
-    // Check if user is logged in
-    if (!this.sessionData) {
-      this.dialog.toast('Register to unlock this feature!');
-    } else if (this.sessionData) {
+
       // Show loader screen
       this.data.isSlideRenderLoading = true;
       let slideRender = document.getElementById("slide-render");
@@ -254,6 +249,5 @@ export class ToolbarController {
         getProjectState.unsubscribe();
         this.data.isSlideRenderLoading = false;
       });
-    }
   }
 }

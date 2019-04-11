@@ -23,7 +23,8 @@ export class MainComponent implements OnInit {
   viewTextElements: boolean;
   viewImageElements: boolean;
 
-  autoSaveInterval: number = 5 * 60 * 1000;
+  autoSaveTimer;
+  autoSaveInterval: number = 15 * 60 * 1000;
 
     /*  NGRX STORE SUBSCRIPTION  */
     projectStateSubscription;
@@ -69,11 +70,13 @@ export class MainComponent implements OnInit {
       if (res["success"]) this.dialog.toast("Your project has been saved");
     });
     this.projectStateSubscription.unsubscribe();
+
+    clearInterval(this.autoSaveTimer);
   }
 
   enableAutoSave() {
     if (sessionStorage.getItem("sessionData")) {
-      setInterval(() => {
+      this.autoSaveTimer = setInterval(() => {
         this.data.saveProject().then(res => {
           if (res["success"])
             this.dialog.toast(

@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');
 
+* {
+    outline: none;
+}
+
 /* Document Defaults */
 body, html{
     margin: 0;
